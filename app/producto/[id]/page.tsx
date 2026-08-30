@@ -16,8 +16,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <p className="mt-5 text-lg leading-8 text-white/60">{product.description}</p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Duración</p><p className="mt-1 font-bold">{product.duration}</p></div>
+            <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Garantía</p><p className="mt-1 font-bold">{product.guarantee ?? "Consultar"}</p></div>
             <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Entrega</p><p className="mt-1 font-bold">Digital</p></div>
-            <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Estado</p><p className="mt-1 font-bold">Disponible</p></div>
           </div>
           <p className="mt-8 text-xs leading-5 text-white/35">La información comercial y las condiciones de activación deben verificarse antes de publicar cada producto real.</p>
         </section>
