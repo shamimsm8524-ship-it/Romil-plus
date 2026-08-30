@@ -5,6 +5,7 @@ export type Product = {
   description: string;
   price: number;
   duration: string;
+  guarantee?: string;
   badge?: string;
   image?: string;
 };
@@ -21,11 +22,12 @@ export const products: Product[] = [
   },
   {
     id: "canva-pro",
-    name: "Canva Pro — Cuenta Student",
+    name: "Canva Edu",
     category: "Diseño",
-    description: "Canva Edu",
+    description: "Canva Edu — suscripción por 12 meses.",
     price: 8,
     duration: "12 meses",
+    guarantee: "12 meses",
     badge: "Promoción",
     image: "/canva-pro-45-dias.jpg",
   },
