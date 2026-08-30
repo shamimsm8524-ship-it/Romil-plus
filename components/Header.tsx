@@ -6,10 +6,30 @@ import { useCart } from "./CartProvider";
 
 function RomilLogo() {
   return (
-    <span className="relative inline-flex h-12 w-[66px] shrink-0 items-center" aria-label="ROMIL PLUS">
-      <span className="absolute left-0 top-[1px] text-[48px] font-black italic leading-none tracking-[-0.12em] text-transparent bg-clip-text bg-gradient-to-b from-cyan-400 via-blue-500 to-violet-600">R</span>
-      <span className="absolute left-[32px] top-[8px] text-[34px] font-black italic leading-none tracking-[-0.12em] text-transparent bg-clip-text bg-gradient-to-br from-violet-500 to-fuchsia-500">P</span>
-    </span>
+    <svg
+      viewBox="0 0 68 48"
+      className="h-12 w-[68px] shrink-0"
+      role="img"
+      aria-label="ROMIL PLUS"
+    >
+      <defs>
+        <linearGradient id="romil-rp-gradient" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#22d3ee" />
+          <stop offset="42%" stopColor="#3b82f6" />
+          <stop offset="72%" stopColor="#8b5cf6" />
+          <stop offset="100%" stopColor="#d946ef" />
+        </linearGradient>
+      </defs>
+
+      <path
+        fill="url(#romil-rp-gradient)"
+        d="M4 44 12 4h20c11.5 0 17.8 5.6 15.7 15.2-1.5 6.8-6.3 10.8-13.2 12.1L44 44H32.8L22.5 31.7h-5L15 44H4Zm15-31-2.2 10.6h13.6c4.9 0 7.4-1.8 8.1-5.3.8-3.7-1.7-5.3-6.5-5.3H19Z"
+      />
+      <path
+        fill="url(#romil-rp-gradient)"
+        d="M31.5 44 38 12h14.7c10.6 0 16 5.1 14.1 13.7-1.8 8-7.6 12.1-17.6 12.1h-7.4L40.5 44h-9Zm12.2-23.7-1.9 9.5h8.1c4.7 0 7.4-1.6 8.1-4.8.7-3.1-1.5-4.7-6.2-4.7h-8.1Z"
+      />
+    </svg>
   );
 }
 
