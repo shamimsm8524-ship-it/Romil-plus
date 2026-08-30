@@ -6,6 +6,7 @@ export type Product = {
   price: number;
   duration: string;
   badge?: string;
+  image?: string;
 };
 
 export const products: Product[] = [
@@ -20,12 +21,13 @@ export const products: Product[] = [
   },
   {
     id: "canva-pro",
-    name: "Canva Pro",
+    name: "Canva Pro — Cuenta Student",
     category: "Diseño",
-    description: "Herramientas premium para crear diseños, presentaciones y contenido visual.",
-    price: 29.9,
-    duration: "1 mes",
-    badge: "Recomendado",
+    description: "Cuenta Student con acceso a funciones premium de Canva Pro durante 18 meses.",
+    price: 8,
+    duration: "18 meses",
+    badge: "Promoción",
+    image: "/canva-pro-45-dias.jpg",
   },
   {
     id: "productividad-plus",
