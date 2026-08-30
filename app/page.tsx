@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bolt, ClipboardList, Headphones, ShieldCheck, ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { ArrowRight, Bolt, ClipboardList, Headphones, ShieldCheck, ShoppingBag, ShoppingCart, User } from "lucide-react";
 
 const benefits = [
   { icon: ShieldCheck, title: "100% Seguras", text: "Licencias originales y verificadas" },
@@ -7,34 +7,60 @@ const benefits = [
   { icon: Headphones, title: "Soporte Dedicado", text: "Estamos aquí para ayudarte" },
 ];
 
+function RPMark() {
+  return (
+    <div className="relative h-[52px] w-[70px] shrink-0" aria-label="RP">
+      <span className="absolute left-0 top-0 text-[49px] font-black italic leading-none tracking-[-.14em] text-[#e8bd55]">R</span>
+      <span className="absolute left-[28px] top-0 text-[49px] font-black italic leading-none tracking-[-.14em] text-[#c9932f]">P</span>
+      <span className="absolute bottom-[3px] left-[5px] h-[3px] w-[54px] -skew-x-[35deg] bg-[#e0ad43]" />
+    </div>
+  );
+}
+
 export default function Home() {
   return (
     <>
-      <style>{`header,footer{display:none!important}`}</style>
-      <main className="min-h-screen overflow-hidden bg-black text-white">
-        <header className="!flex border-b border-[#b88624]/30 bg-black">
-          <div className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-7 py-6">
-            <div className="flex items-center gap-5"><div className="text-[54px] font-black italic tracking-[-.18em] text-[#e7b943]">RP</div><div className="text-[18px] font-extrabold tracking-wide">ROMIL PLUS</div></div>
-            <div className="flex gap-3"><Link href="/login" className="grid h-14 w-14 place-items-center rounded-2xl border border-[#d5a536]/60"><User/></Link><Link href="/carrito" className="grid h-14 w-14 place-items-center rounded-2xl border border-[#d5a536]/60"><ShoppingCart/></Link></div>
+      <style>{`body>div>header,body>div>footer{display:none!important}`}</style>
+      <main className="min-h-screen overflow-hidden bg-[#020202] text-white">
+        <header className="border-b border-[#8f6927]/35 bg-[#020202]">
+          <div className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-5 py-4 sm:px-7 sm:py-6">
+            <div className="flex min-w-0 items-center gap-3 sm:gap-5">
+              <RPMark />
+              <div className="h-9 w-px bg-[#b78b37]/45" />
+              <div className="whitespace-nowrap text-[14px] font-extrabold tracking-[.08em] sm:text-[18px]">ROMIL <span className="text-[#e1b04a]">PLUS</span></div>
+            </div>
+            <div className="ml-2 flex gap-2 sm:gap-3">
+              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 sm:h-14 sm:w-14 sm:rounded-2xl"><User size={21}/></Link>
+              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 sm:h-14 sm:w-14 sm:rounded-2xl"><ShoppingCart size={21}/></Link>
+            </div>
           </div>
         </header>
 
-        <section className="relative mx-auto max-w-[1024px] px-7 pb-10 pt-12">
-          <div className="pointer-events-none absolute -right-[47%] top-[13%] h-[760px] w-[760px] rounded-full border-[2px] border-[#f0b83e] shadow-[-12px_0_28px_rgba(255,187,54,.8),-30px_0_80px_rgba(218,150,27,.22)]" />
-          <div className="relative z-10 max-w-[700px]">
-            <div className="inline-flex rounded-full border border-[#e2ad37] px-7 py-3 text-xs font-black tracking-[.32em] text-[#efc25a]">ROMIL PLUS</div>
-            <h1 className="mt-10 text-[47px] font-black leading-[1.03] tracking-[-.045em] sm:text-7xl">Todas tus<br/>herramientas<br/>digitales <span className="text-[#e0ad43]">en un<br/>solo lugar.</span></h1>
-            <p className="mt-8 max-w-[590px] text-[17px] leading-8 text-[#c2bdb5]">Una tienda digital elegante para descubrir,<br className="hidden sm:block"/> comprar y administrar suscripciones y<br className="hidden sm:block"/> licencias autorizadas.</p>
-            <div className="mt-9 grid grid-cols-2 gap-4 sm:max-w-[700px]">
-              <Link href="/catalogo" className="flex min-h-[68px] items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-[#ffe58d] to-[#d39b2d] px-4 font-black text-black"><ShoppingBag/>Explorar catálogo</Link>
-              <Link href="/mis-compras" className="flex min-h-[68px] items-center justify-center gap-3 rounded-2xl border border-[#d5a536] bg-black px-4 font-bold"><ClipboardList/>Mis compras</Link>
+        <section className="relative mx-auto max-w-[1024px] px-5 pb-9 pt-9 sm:px-7 sm:pb-12 sm:pt-14">
+          <div className="pointer-events-none absolute -right-[360px] top-[170px] h-[650px] w-[650px] rounded-full border-[2px] border-[#eab13c] shadow-[-7px_0_18px_rgba(255,190,60,.72),-24px_0_65px_rgba(215,145,25,.22)] sm:-right-[390px] sm:top-[120px] sm:h-[780px] sm:w-[780px]" />
+          <div className="relative z-10 max-w-[690px]">
+            <div className="inline-flex items-center gap-3">
+              <span className="h-px w-5 bg-[#d8a53a]" />
+              <div className="rounded-full border border-[#dba83b] px-6 py-2.5 text-[10px] font-black tracking-[.30em] text-[#edc35f] sm:text-xs">ROMIL PLUS</div>
+              <span className="h-px w-5 bg-[#d8a53a]" />
+            </div>
+
+            <h1 className="mt-8 text-[45px] font-black leading-[1.01] tracking-[-.045em] sm:mt-10 sm:text-7xl">
+              Todas tus<br/>herramientas<br/>digitales <span className="bg-gradient-to-r from-[#f2cf70] via-[#dfa93e] to-[#b77922] bg-clip-text text-transparent">en un<br/>solo lugar.</span>
+            </h1>
+
+            <p className="mt-7 max-w-[610px] text-[16px] leading-7 text-[#b9b3aa] sm:mt-8 sm:text-[18px] sm:leading-8">Una experiencia digital elegante para descubrir, comprar y administrar suscripciones y licencias autorizadas.</p>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-9 sm:max-w-[700px] sm:gap-4">
+              <Link href="/catalogo" className="flex min-h-[62px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f7dc80] via-[#e2b64f] to-[#bd8128] px-3 text-[14px] font-black text-black shadow-[0_10px_30px_rgba(204,151,47,.18)] sm:min-h-[68px] sm:rounded-2xl sm:text-base"><ShoppingBag size={19}/>Explorar catálogo<ArrowRight size={18}/></Link>
+              <Link href="/mis-compras" className="flex min-h-[62px] items-center justify-center gap-2 rounded-xl border border-[#d5a536]/75 bg-[#050505] px-3 text-[14px] font-bold sm:min-h-[68px] sm:rounded-2xl sm:text-base"><ClipboardList size={19} className="text-[#dfb14b]"/>Mis compras</Link>
             </div>
           </div>
         </section>
 
-        <section className="relative z-10 mx-auto max-w-[1024px] px-7 pb-16">
-          <div className="grid grid-cols-3 rounded-[28px] border border-[#a97b22]/60 bg-[#080808] px-2 py-8">
-            {benefits.map(({icon:Icon,title,text},i)=><div key={title} className={`flex flex-col items-center px-2 text-center ${i<2?'border-r border-[#6d572c]/50':''}`}><Icon size={42} className="text-[#e8b84a]"/><div className="mt-4 text-[14px] font-extrabold sm:text-lg">{title}</div><div className="mt-2 text-[12px] leading-5 text-[#aaa49c] sm:text-base">{text}</div></div>)}
+        <section className="relative z-10 mx-auto max-w-[1024px] px-5 pb-14 sm:px-7 sm:pb-16">
+          <div className="grid grid-cols-3 overflow-hidden rounded-[22px] border border-[#9f772b]/55 bg-[#080807]/95 sm:rounded-[28px]">
+            {benefits.map(({icon:Icon,title,text},i)=><div key={title} className={`flex min-h-[160px] flex-col items-center justify-center px-2 py-5 text-center sm:min-h-[190px] sm:px-5 ${i<2?'border-r border-[#6d572c]/45':''}`}><Icon size={34} strokeWidth={1.7} className="text-[#e4b54b] sm:h-[42px] sm:w-[42px]"/><div className="mt-3 text-[12px] font-extrabold leading-4 sm:mt-4 sm:text-lg">{title}</div><div className="mt-2 text-[10px] leading-4 text-[#99938b] sm:text-sm sm:leading-5">{text}</div></div>)}
           </div>
         </section>
       </main>
