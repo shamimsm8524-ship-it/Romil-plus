@@ -7,27 +7,30 @@ import { useCart } from "./CartProvider";
 function RomilLogo() {
   return (
     <svg
-      viewBox="0 0 68 48"
-      className="h-12 w-[68px] shrink-0"
+      viewBox="0 0 78 56"
+      className="h-12 w-[67px] shrink-0 sm:h-14 sm:w-[78px]"
       role="img"
       aria-label="ROMIL PLUS"
     >
       <defs>
-        <linearGradient id="romil-rp-gradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#22d3ee" />
-          <stop offset="42%" stopColor="#3b82f6" />
-          <stop offset="72%" stopColor="#8b5cf6" />
+        <linearGradient id="romil-rp-gradient" x1="0" y1="0" x2="1" y2="0.9">
+          <stop offset="0%" stopColor="#11c5ff" />
+          <stop offset="38%" stopColor="#2563eb" />
+          <stop offset="68%" stopColor="#7c3aed" />
           <stop offset="100%" stopColor="#d946ef" />
         </linearGradient>
       </defs>
 
+      {/* Monograma RP compacto: ambas letras comparten el centro para verse como una sola marca. */}
       <path
         fill="url(#romil-rp-gradient)"
-        d="M4 44 12 4h20c11.5 0 17.8 5.6 15.7 15.2-1.5 6.8-6.3 10.8-13.2 12.1L44 44H32.8L22.5 31.7h-5L15 44H4Zm15-31-2.2 10.6h13.6c4.9 0 7.4-1.8 8.1-5.3.8-3.7-1.7-5.3-6.5-5.3H19Z"
+        fillRule="evenodd"
+        d="M10 4h31.5C54 4 60.7 10.1 58.6 20.3c-1.2 5.8-4.6 9.8-9.8 12.1L59.5 52H45.2L34.7 34.8H24.1L20.5 52H4L14.2 4H10Zm17 10.7-2.1 10h13.4c3.9 0 6.3-1.8 7-5.1.7-3.3-1.2-4.9-5.3-4.9H27Z"
       />
       <path
         fill="url(#romil-rp-gradient)"
-        d="M31.5 44 38 12h14.7c10.6 0 16 5.1 14.1 13.7-1.8 8-7.6 12.1-17.6 12.1h-7.4L40.5 44h-9Zm12.2-23.7-1.9 9.5h8.1c4.7 0 7.4-1.6 8.1-4.8.7-3.1-1.5-4.7-6.2-4.7h-8.1Z"
+        fillRule="evenodd"
+        d="M42.2 4H60c11.2 0 17 6.3 14.8 16.8-2.3 10.9-10.2 16.5-23 16.5h-8.1L40.6 52H27.2L37.4 4h4.8Zm7.1 10.7-2.5 11.8h7.7c4.6 0 7.3-2 8.1-5.9.8-3.9-1.1-5.9-5.8-5.9h-7.5Z"
       />
     </svg>
   );
