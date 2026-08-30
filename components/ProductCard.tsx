@@ -1,0 +1,30 @@
+"use client";
+
+import Link from "next/link";
+import { ShoppingBag } from "lucide-react";
+import type { Product } from "@/lib/products";
+import { useCart } from "./CartProvider";
+
+export function ProductCard({ product }: { product: Product }) {
+  const { add } = useCart();
+  return (
+    <article className="group rounded-3xl border border-white/10 bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:border-violet-400/40 hover:bg-white/[0.065]">
+      <div className="mb-5 flex h-36 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500/10 via-violet-500/15 to-fuchsia-500/10">
+        <span className="text-4xl font-black text-white/85">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>
+      </div>
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-cyan-300">{product.category}</p>
+          <h3 className="mt-1 text-xl font-bold">{product.name}</h3>
+        </div>
+        {product.badge && <span className="rounded-full bg-violet-500/15 px-3 py-1 text-xs text-violet-200">{product.badge}</span>}
+      </div>
+      <p className="min-h-12 text-sm leading-6 text-white/60">{product.description}</p>
+      <div className="mt-5 flex items-end justify-between">
+        <div><span className="text-2xl font-black">S/ {product.price.toFixed(2)}</span><p className="text-xs text-white/45">{product.duration}</p></div>
+        <button onClick={() => add(product)} className="rounded-xl bg-white px-3 py-2 text-sm font-bold text-slate-950 transition hover:bg-cyan-100"><ShoppingBag className="inline" size={16} /> Añadir</button>
+      </div>
+      <Link href={`/producto/${product.id}`} className="mt-4 block text-center text-sm text-white/50 hover:text-white">Ver detalles</Link>
+    </article>
+  );
+}
