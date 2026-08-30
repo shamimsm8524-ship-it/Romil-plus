@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingCart, User } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useCart } from "./CartProvider";
 
 function RomilLogo() {
@@ -14,7 +15,11 @@ function RomilLogo() {
 }
 
 export function Header() {
+  const pathname = usePathname();
   const { items } = useCart();
+
+  if (pathname === "/") return null;
+
   return (
     <header className="sticky top-0 z-50 border-b border-[#d4a63b]/20 bg-black/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
