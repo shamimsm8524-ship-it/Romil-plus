@@ -8,6 +8,13 @@ import { supabase } from "@/lib/supabase";
 
 type PaymentMethod = "yape" | "plin" | "bcp" | "interbank" | "paypal";
 
+type SupabaseLikeError = {
+  message?: string;
+  code?: string;
+  details?: string;
+  hint?: string;
+};
+
 const holder = "Milagros Olinda Quispe Venegas";
 const whatsappNumber = "51970825741";
 
@@ -86,7 +93,10 @@ export default function CheckoutPage() {
       setPaymentReported(true);
     } catch (err) {
       console.error(err);
-      setSaveError("No pudimos guardar el pedido en el historial, pero sí puedes enviar tu comprobante por WhatsApp.");
+      const problem = err as SupabaseLikeError;
+      const code = problem.code ? ` (${problem.code})` : "";
+      const message = problem.message || "Error desconocido al guardar el pedido";
+      setSaveError(`Error${code}: ${message}`);
     } finally {
       setSavingOrder(false);
     }
