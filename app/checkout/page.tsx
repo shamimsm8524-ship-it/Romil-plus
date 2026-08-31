@@ -25,6 +25,9 @@ export default function CheckoutPage() {
   const [copied, setCopied] = useState("");
   const [paymentReported, setPaymentReported] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [savingOrder, setSavingOrder] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [orderId, setOrderId] = useState("");
   const selected = paymentData[method];
 
   useEffect(() => {
@@ -53,15 +56,64 @@ export default function CheckoutPage() {
 
   const whatsappUrl = useMemo(() => {
     const products = items.map((item) => `• ${item.name} — S/ ${item.price.toFixed(2)}`).join("\n");
-    const message = encodeURIComponent(`Hola, realicé un pedido en Romil Plus.\n\nProductos:\n${products || "Sin productos"}\n\nTotal: S/ ${total.toFixed(2)}\nMétodo de pago: ${selected.label}\nEstado: Pendiente de verificación\n\nAdjunto mi comprobante de pago para que puedan verificarlo.`);
+    const orderLine = orderId ? `\nPedido: ${orderId.slice(0, 8).toUpperCase()}` : "";
+    const message = encodeURIComponent(`Hola, realicé un pedido en Romil Plus.${orderLine}\n\nProductos:\n${products || "Sin productos"}\n\nTotal: S/ ${total.toFixed(2)}\nMétodo de pago: ${selected.label}\nEstado: Pendiente de verificación\n\nAdjunto mi comprobante de pago para que puedan verificarlo.`);
     return `https://wa.me/${whatsappNumber}?text=${message}`;
-  }, [items, total, selected.label]);
+  }, [items, total, selected.label, orderId]);
 
   const copyValue = async (value: string, key: string) => {
     try { await navigator.clipboard.writeText(value); setCopied(key); window.setTimeout(() => setCopied(""), 1500); } catch { setCopied(""); }
   };
 
-  const reportPayment = () => setPaymentReported(true);
+  const reportPayment = async () => {
+    if (!supabase || items.length === 0 || paymentReported || savingOrder) return;
+    setSavingOrder(true);
+    setSaveError("");
+
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData.session?.user;
+      if (!user) {
+        window.location.replace("/login?next=%2Fcheckout");
+        return;
+      }
+
+      const { data: order, error: orderError } = await supabase
+        .from("orders")
+        .insert({
+          user_id: user.id,
+          status: "pending",
+          subtotal: total,
+          discount: 0,
+          total,
+          payment_method: method,
+        })
+        .select("id")
+        .single();
+
+      if (orderError || !order) throw orderError ?? new Error("No se pudo crear el pedido.");
+
+      const orderItems = items.map((item) => ({
+        order_id: order.id,
+        product_id: null,
+        product_name: item.name,
+        unit_price: item.price,
+        quantity: 1,
+        delivery_status: "pending",
+      }));
+
+      const { error: itemsError } = await supabase.from("order_items").insert(orderItems);
+      if (itemsError) throw itemsError;
+
+      setOrderId(order.id);
+      setPaymentReported(true);
+    } catch (err) {
+      console.error(err);
+      setSaveError("No pudimos guardar el pedido. Inténtalo otra vez antes de enviar el comprobante.");
+    } finally {
+      setSavingOrder(false);
+    }
+  };
 
   if (checkingAuth) {
     return (
@@ -85,7 +137,7 @@ export default function CheckoutPage() {
           <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
             {(Object.keys(paymentData) as PaymentMethod[]).map((key) => {
               const item = paymentData[key]; const active = method === key;
-              return <button key={key} type="button" onClick={() => { setMethod(key); setPaymentReported(false); }} className={`rounded-2xl border px-3 py-4 text-center transition ${active ? "border-[#e3b64f] bg-[#e3b64f]/15 text-[#f5d98e]" : "border-white/10 bg-black/20 text-white/65 hover:border-white/25"}`}><span className="block font-black">{item.label}</span></button>;
+              return <button key={key} type="button" onClick={() => { setMethod(key); setSaveError(""); }} disabled={paymentReported || savingOrder} className={`rounded-2xl border px-3 py-4 text-center transition ${active ? "border-[#e3b64f] bg-[#e3b64f]/15 text-[#f5d98e]" : "border-white/10 bg-black/20 text-white/65 hover:border-white/25"}`}><span className="block font-black">{item.label}</span></button>;
             })}
           </div>
           <div className="mt-6 rounded-3xl border border-white/10 bg-black/25 p-5 sm:p-7">
@@ -106,9 +158,11 @@ export default function CheckoutPage() {
           <div className="mt-5 space-y-3">{items.length === 0 ? <p className="text-sm text-white/45">Tu carrito está vacío.</p> : items.map((item, index) => <div key={`${item.id}-${index}`} className="flex justify-between gap-4 text-sm"><span className="text-white/60">{item.name}</span><span className="shrink-0">S/ {item.price.toFixed(2)}</span></div>)}</div>
           <div className="mt-6 border-t border-white/10 pt-5"><div className="flex justify-between"><span className="font-bold">Total</span><span className="text-2xl font-black">S/ {total.toFixed(2)}</span></div></div>
 
-          {!paymentReported ? <button type="button" onClick={reportPayment} disabled={items.length === 0} className={`mt-6 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-black transition ${items.length > 0 ? "bg-[#e3b64f] text-black hover:brightness-110" : "cursor-not-allowed bg-white/10 text-white/35"}`}><Check size={19}/> Ya realicé el pago</button> : <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.07] p-4 text-center"><Clock3 className="mx-auto text-amber-300" size={25}/><p className="mt-2 font-black text-amber-100">Pago pendiente de verificación</p><p className="mt-1 text-xs leading-5 text-white/50">No se enviará ningún producto hasta confirmar el ingreso.</p></div>}
+          {!paymentReported ? <button type="button" onClick={reportPayment} disabled={items.length === 0 || savingOrder} className={`mt-6 flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 font-black transition ${items.length > 0 && !savingOrder ? "bg-[#e3b64f] text-black hover:brightness-110" : "cursor-not-allowed bg-white/10 text-white/35"}`}><Check size={19}/> {savingOrder ? "Guardando pedido..." : "Ya realicé el pago"}</button> : <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.07] p-4 text-center"><Clock3 className="mx-auto text-amber-300" size={25}/><p className="mt-2 font-black text-amber-100">Pago pendiente de verificación</p><p className="mt-1 text-xs leading-5 text-white/50">Pedido {orderId.slice(0, 8).toUpperCase()} guardado en tu historial.</p></div>}
 
+          {saveError && <p className="mt-4 rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-center text-sm text-red-200">{saveError}</p>}
           {paymentReported && <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 px-4 py-3 text-center font-black text-white transition hover:bg-emerald-400"><MessageCircle size={19}/> Enviar comprobante por WhatsApp</a>}
+          {paymentReported && <a href="/mis-compras" className="mt-3 block text-center text-sm font-bold text-[#e3b64f] hover:underline">Ver mi historial de compras</a>}
           <p className="mt-3 text-center text-xs text-white/35">Método elegido: {selected.label}</p>
         </aside>
       </div>
