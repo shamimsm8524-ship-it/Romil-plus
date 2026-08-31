@@ -5,6 +5,7 @@ import { supabase } from "@/lib/supabase";
 
 type OrderItem = {
   id: string;
+  order_id: string;
   product_name: string;
   unit_price: number;
   quantity: number;
@@ -50,14 +51,40 @@ export default function MisComprasPage() {
         return;
       }
 
-      const { data, error: ordersError } = await supabase
+      const { data: orderRows, error: ordersError } = await supabase
         .from("orders")
-        .select("id,status,total,payment_method,created_at,order_items(id,product_name,unit_price,quantity,delivery_status,expires_at)")
+        .select("id,status,total,payment_method,created_at")
         .order("created_at", { ascending: false });
 
       if (!active) return;
-      if (ordersError) setError("No se pudo cargar tu historial de compras.");
-      else setOrders((data ?? []) as Order[]);
+
+      if (ordersError) {
+        setError("No se pudo cargar tu historial de compras.");
+        setLoading(false);
+        return;
+      }
+
+      if (!orderRows || orderRows.length === 0) {
+        setOrders([]);
+        setError("");
+        setLoading(false);
+        return;
+      }
+
+      const orderIds = orderRows.map((order) => order.id);
+      const { data: itemRows } = await supabase
+        .from("order_items")
+        .select("id,order_id,product_name,unit_price,quantity,delivery_status,expires_at")
+        .in("order_id", orderIds);
+
+      const items = (itemRows ?? []) as OrderItem[];
+      const hydratedOrders = orderRows.map((order) => ({
+        ...order,
+        order_items: items.filter((item) => item.order_id === order.id),
+      })) as Order[];
+
+      setOrders(hydratedOrders);
+      setError("");
       setLoading(false);
     };
 
