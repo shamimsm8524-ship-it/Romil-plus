@@ -12,13 +12,13 @@ export type Product = {
 
 export const products: Product[] = [
   {
-    id: "gemini-advanced",
-    name: "Gemini Advanced",
+    id: "gemini-pro",
+    name: "Gemini Pro",
     category: "Inteligencia Artificial",
-    description: "Acceso digital autorizado para potenciar investigación, escritura y productividad.",
-    price: 39.9,
-    duration: "1 mes",
-    badge: "Popular",
+    description: "Gemini Pro — suscripción por 18 meses.",
+    price: 20,
+    duration: "18 meses",
+    badge: "Promoción",
   },
   {
     id: "canva-pro",
