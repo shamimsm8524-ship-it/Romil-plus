@@ -11,23 +11,50 @@ export function ProductCard({ product }: { product: Product }) {
   const isCapCut = product.id === "capcut-pro";
   const isYouTube = product.id === "youtube-promocion";
   const [selectedVariantId, setSelectedVariantId] = useState(product.variants?.[0]?.id ?? "");
+  const [justAdded, setJustAdded] = useState(false);
   const selectedVariant = product.variants?.find((variant) => variant.id === selectedVariantId) ?? product.variants?.[0];
   const displayedPrice = selectedVariant?.price ?? product.price;
+
+  const playAddSound = () => {
+    try {
+      const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+      if (!AudioContextClass) return;
+      const audioContext = new AudioContextClass();
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.12, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.18);
+
+      oscillator.connect(gain);
+      gain.connect(audioContext.destination);
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 0.18);
+    } catch {
+      // Si el navegador bloquea el audio, el producto igual se añade al carrito.
+    }
+  };
 
   const addToCart = () => {
     if (!selectedVariant) {
       add(product);
-      return;
+    } else {
+      add({
+        ...product,
+        id: `${product.id}-${selectedVariant.id}`,
+        name: `${product.name} — ${selectedVariant.label}`,
+        price: selectedVariant.price,
+        duration: selectedVariant.label,
+        variants: undefined,
+      });
     }
 
-    add({
-      ...product,
-      id: `${product.id}-${selectedVariant.id}`,
-      name: `${product.name} — ${selectedVariant.label}`,
-      price: selectedVariant.price,
-      duration: selectedVariant.label,
-      variants: undefined,
-    });
+    playAddSound();
+    setJustAdded(true);
+    window.setTimeout(() => setJustAdded(false), 700);
   };
 
   return (
@@ -75,7 +102,12 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="text-xs text-white/45">{selectedVariant ? selectedVariant.label : `Suscripción: ${product.duration}`}</p>
           {product.guarantee && <p className="mt-1 text-xs font-semibold text-[#f0cd78]">Garantía: {product.guarantee}</p>}
         </div>
-        <button onClick={addToCart} className="rounded-xl bg-white px-3 py-2 text-sm font-bold text-slate-950 transition hover:bg-[#f5df9b]"><ShoppingBag className="inline" size={16} /> Añadir</button>
+        <button
+          onClick={addToCart}
+          className={`rounded-xl px-3 py-2 text-sm font-bold transition duration-200 ${justAdded ? "bg-black text-white shadow-lg shadow-black/60 scale-95" : "bg-white text-slate-950 hover:bg-[#f5df9b]"}`}
+        >
+          <ShoppingBag className="inline" size={16} /> {justAdded ? "Añadido" : "Añadir"}
+        </button>
       </div>
       <Link href={`/producto/${product.id}`} className="mt-4 block text-center text-sm text-white/50 hover:text-white">Ver detalles</Link>
     </article>
