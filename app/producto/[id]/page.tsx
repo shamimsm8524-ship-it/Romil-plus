@@ -3,7 +3,7 @@ import { MessageCircle } from "lucide-react";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 
-const whatsappNumber = "51919757869";
+const whatsappNumber = "51970825741";
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
