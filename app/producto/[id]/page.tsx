@@ -1,17 +1,17 @@
 import { notFound } from "next/navigation";
+import { MessageCircle } from "lucide-react";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
+
+const whatsappNumber = "51919757869";
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const product = products.find((item) => item.id === id);
   if (!product) notFound();
 
-  const delivery = product.id === "gemini-pro" || product.id === "canva-pro"
-    ? "Se envía invitación por correo"
-    : product.id === "capcut-pro"
-      ? "Se envía correo y contraseña"
-      : "Digital";
+  const whatsappMessage = encodeURIComponent(`Hola, quiero consultar por ${product.name}.`);
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
   return (
     <main className="mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
@@ -23,9 +23,20 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Duración</p><p className="mt-1 font-bold">{product.duration}</p></div>
             <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Garantía</p><p className="mt-1 font-bold">{product.guarantee ?? "Consultar"}</p></div>
-            <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Entrega</p><p className="mt-1 font-bold">{delivery}</p></div>
+            <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Entrega</p><p className="mt-1 font-bold">Por WhatsApp</p></div>
           </div>
-          <p className="mt-8 text-xs leading-5 text-white/35">La información comercial y las condiciones de activación deben verificarse antes de publicar cada producto real.</p>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 font-bold text-white transition hover:bg-emerald-400"
+          >
+            <MessageCircle size={20} />
+            Contactar por WhatsApp
+          </a>
+
+          <p className="mt-8 text-xs leading-5 text-white/35">La entrega y coordinación del producto se realiza directamente por WhatsApp.</p>
         </section>
         <ProductCard product={product} />
       </div>
