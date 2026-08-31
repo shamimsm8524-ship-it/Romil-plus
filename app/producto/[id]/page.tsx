@@ -9,7 +9,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   const delivery = product.id === "gemini-pro" || product.id === "canva-pro"
     ? "Se envía invitación por correo"
-    : "Digital";
+    : product.id === "capcut-pro"
+      ? "Se envía correo y contraseña"
+      : "Digital";
 
   return (
     <main className="mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
