@@ -1,3 +1,9 @@
+export type ProductVariant = {
+  id: string;
+  label: string;
+  price: number;
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -8,6 +14,7 @@ export type Product = {
   guarantee?: string;
   badge?: string;
   image?: string;
+  variants?: ProductVariant[];
 };
 
 export const products: Product[] = [
@@ -43,49 +50,21 @@ export const products: Product[] = [
     image: "/capcut-pro.png",
   },
   {
-    id: "youtube-promocion-20",
-    name: "YOUTUBE - PROMOCIÓN — Básico",
+    id: "youtube-promocion",
+    name: "YOUTUBE - PROMOCIÓN",
     category: "Promoción YouTube",
-    description: "Paquete de promoción para YouTube.",
+    description: "Elige el paquete de promoción para YouTube que prefieras.",
     price: 20,
-    duration: "Paquete básico",
+    duration: "Paquete de promoción",
+    badge: "Promoción",
     image: "/youtube-promocion.png",
-  },
-  {
-    id: "youtube-promocion-35",
-    name: "YOUTUBE - PROMOCIÓN — Inicial",
-    category: "Promoción YouTube",
-    description: "Paquete de promoción para YouTube.",
-    price: 35,
-    duration: "Paquete inicial",
-    image: "/youtube-promocion.png",
-  },
-  {
-    id: "youtube-promocion-52",
-    name: "YOUTUBE - PROMOCIÓN — Crecimiento",
-    category: "Promoción YouTube",
-    description: "Paquete de promoción para YouTube.",
-    price: 52,
-    duration: "Paquete crecimiento",
-    image: "/youtube-promocion.png",
-  },
-  {
-    id: "youtube-promocion-80",
-    name: "YOUTUBE - PROMOCIÓN — Avanzado",
-    category: "Promoción YouTube",
-    description: "Paquete de promoción para YouTube.",
-    price: 80,
-    duration: "Paquete avanzado",
-    image: "/youtube-promocion.png",
-  },
-  {
-    id: "youtube-promocion-125",
-    name: "YOUTUBE - PROMOCIÓN — Premium",
-    category: "Promoción YouTube",
-    description: "Paquete de promoción para YouTube.",
-    price: 125,
-    duration: "Paquete premium",
-    image: "/youtube-promocion.png",
+    variants: [
+      { id: "100", label: "Paquete 100", price: 20 },
+      { id: "200", label: "Paquete 200", price: 35 },
+      { id: "300", label: "Paquete 300", price: 52 },
+      { id: "500", label: "Paquete 500", price: 80 },
+      { id: "1000", label: "Paquete 1000", price: 125 },
+    ],
   },
   {
     id: "productividad-plus",
