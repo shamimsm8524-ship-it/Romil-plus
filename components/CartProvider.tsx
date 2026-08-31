@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { Product } from "@/lib/products";
+import { supabase } from "@/lib/supabase";
 
 type CartContextValue = {
   items: Product[];
@@ -12,6 +13,7 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
+const CART_KEY = "romil-plus-cart";
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<Product[]>([]);
@@ -19,7 +21,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("romil-plus-cart");
+      const saved = localStorage.getItem(CART_KEY);
       if (saved) setItems(JSON.parse(saved));
     } catch {
       // Si el almacenamiento falla, el carrito sigue funcionando en memoria.
@@ -31,11 +33,37 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!loaded) return;
     try {
-      localStorage.setItem("romil-plus-cart", JSON.stringify(items));
+      localStorage.setItem(CART_KEY, JSON.stringify(items));
     } catch {
       // El carrito sigue funcionando aunque el navegador bloquee localStorage.
     }
   }, [items, loaded]);
+
+  useEffect(() => {
+    if (!supabase) return;
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_OUT") {
+        setItems([]);
+        try {
+          localStorage.removeItem(CART_KEY);
+        } catch {
+          // Si localStorage falla, al menos vaciamos el carrito en memoria.
+        }
+      }
+    });
+
+    return () => authListener.subscription.unsubscribe();
+  }, []);
+
+  const clear = () => {
+    setItems([]);
+    try {
+      localStorage.removeItem(CART_KEY);
+    } catch {
+      // El carrito igualmente queda vacío en memoria.
+    }
+  };
 
   const value = useMemo(() => ({
     items,
@@ -47,7 +75,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       },
     ]),
     remove: (id: string) => setItems((current) => current.filter((item) => item.id !== id)),
-    clear: () => setItems([]),
+    clear,
     total: items.reduce((sum, item) => sum + item.price, 0),
   }), [items]);
 
