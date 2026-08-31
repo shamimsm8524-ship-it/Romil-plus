@@ -1,12 +1,98 @@
+"use client";
+
+import { FormEvent, useState } from "react";
+import { Mail, LockKeyhole } from "lucide-react";
+import { supabase } from "@/lib/supabase";
+
+type Mode = "login" | "register";
+
 export default function LoginPage() {
+  const [mode, setMode] = useState<Mode>("login");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const ensureSupabase = () => {
+    if (!supabase) {
+      setError("Falta conectar Supabase para activar el acceso.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setMessage("");
+    setError("");
+    if (!ensureSupabase()) return;
+
+    setLoading(true);
+    try {
+      if (mode === "register") {
+        const { error: signUpError } = await supabase!.auth.signUp({
+          email,
+          password,
+          options: { emailRedirectTo: `${window.location.origin}/catalogo` },
+        });
+        if (signUpError) throw signUpError;
+        setMessage("Cuenta creada. Revisa tu correo si se solicita confirmación.");
+      } else {
+        const { error: signInError } = await supabase!.auth.signInWithPassword({ email, password });
+        if (signInError) throw signInError;
+        window.location.href = "/catalogo";
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "No se pudo completar el acceso.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogle = async () => {
+    setMessage("");
+    setError("");
+    if (!ensureSupabase()) return;
+
+    setLoading(true);
+    const { error: googleError } = await supabase!.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/catalogo` },
+    });
+    if (googleError) {
+      setError(googleError.message);
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="mx-auto grid min-h-[75vh] max-w-md place-items-center px-4 py-14">
-      <section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7">
+      <section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 shadow-2xl shadow-black/30">
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-xl font-black">R+</div>
-        <h1 className="mt-5 text-center text-3xl font-black">Inicia sesión</h1>
-        <p className="mt-2 text-center text-sm text-white/50">La autenticación quedará conectada a Supabase Auth.</p>
-        <form className="mt-7 space-y-3"><input type="email" placeholder="Correo" className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 outline-none focus:border-violet-400"/><input type="password" placeholder="Contraseña" className="w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 outline-none focus:border-violet-400"/><button type="button" className="w-full rounded-xl bg-white px-4 py-3 font-black text-slate-950">Entrar</button></form>
-        <p className="mt-5 text-center text-xs text-white/40">Pantalla lista; falta enlazar el proyecto Supabase y activar el flujo real de registro/inicio de sesión.</p>
+        <h1 className="mt-5 text-center text-3xl font-black">{mode === "login" ? "Inicia sesión" : "Crea tu cuenta"}</h1>
+        <p className="mt-2 text-center text-sm text-white/50">Accede a tus compras y pedidos de Romil Plus.</p>
+
+        <button type="button" onClick={handleGoogle} disabled={loading} className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-white/15 bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50">
+          <span className="grid h-6 w-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-[#4285F4]">G</span>
+          Continuar con Google
+        </button>
+
+        <div className="my-5 flex items-center gap-3"><span className="h-px flex-1 bg-white/10"/><span className="text-xs uppercase tracking-wider text-white/35">o con correo</span><span className="h-px flex-1 bg-white/10"/></div>
+
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 focus-within:border-violet-400"><Mail size={18} className="text-white/35"/><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required placeholder="Correo" className="w-full bg-transparent py-3 outline-none"/></label>
+          <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 focus-within:border-violet-400"><LockKeyhole size={18} className="text-white/35"/><input value={password} onChange={(e) => setPassword(e.target.value)} type="password" minLength={6} required placeholder="Contraseña" className="w-full bg-transparent py-3 outline-none"/></label>
+          <button type="submit" disabled={loading} className="w-full rounded-xl bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50">{loading ? "Procesando..." : mode === "login" ? "Entrar" : "Crear cuenta"}</button>
+        </form>
+
+        {error && <p className="mt-4 rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-center text-sm text-red-200">{error}</p>}
+        {message && <p className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/10 p-3 text-center text-sm text-emerald-200">{message}</p>}
+
+        <button type="button" onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); setMessage(""); }} className="mt-5 w-full text-center text-sm font-bold text-[#e3b64f] hover:underline">
+          {mode === "login" ? "¿No tienes cuenta? Crear cuenta" : "¿Ya tienes cuenta? Iniciar sesión"}
+        </button>
+        <p className="mt-5 text-center text-xs leading-5 text-white/35">El acceso con Google y correo se activa cuando las credenciales de Supabase están configuradas en la tienda.</p>
       </section>
     </main>
   );
