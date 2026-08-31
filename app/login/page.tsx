@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Mail, LockKeyhole } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
@@ -19,6 +20,21 @@ export default function LoginPage() {
     const next = new URLSearchParams(window.location.search).get("next");
     return next && next.startsWith("/") && !next.startsWith("//") ? next : "/catalogo";
   };
+
+  useEffect(() => {
+    if (!supabase) {
+      setCheckingSession(false);
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        window.location.replace(getNextPath());
+        return;
+      }
+      setCheckingSession(false);
+    });
+  }, []);
 
   const ensureSupabase = () => {
     if (!supabase) {
@@ -80,6 +96,10 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
+  if (checkingSession) {
+    return <main className="grid min-h-[75vh] place-items-center px-4"><p className="text-sm text-white/50">Comprobando sesión...</p></main>;
+  }
 
   return (
     <main className="mx-auto grid min-h-[75vh] max-w-md place-items-center px-4 py-14">
