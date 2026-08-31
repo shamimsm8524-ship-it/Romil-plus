@@ -15,26 +15,28 @@ export function ProductCard({ product }: { product: Product }) {
   const selectedVariant = product.variants?.find((variant) => variant.id === selectedVariantId) ?? product.variants?.[0];
   const displayedPrice = selectedVariant?.price ?? product.price;
 
-  const playAddSound = () => {
+  const playAddSound = async () => {
     try {
       const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!AudioContextClass) return;
       const audioContext = new AudioContextClass();
+      if (audioContext.state === "suspended") await audioContext.resume();
+
       const oscillator = audioContext.createOscillator();
       const gain = audioContext.createGain();
 
       oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(660, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.12);
-      gain.gain.setValueAtTime(0.12, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.18);
+      oscillator.frequency.setValueAtTime(520, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(920, audioContext.currentTime + 0.16);
+      gain.gain.setValueAtTime(0.2, audioContext.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.24);
 
       oscillator.connect(gain);
       gain.connect(audioContext.destination);
       oscillator.start();
-      oscillator.stop(audioContext.currentTime + 0.18);
+      oscillator.stop(audioContext.currentTime + 0.24);
     } catch {
-      // Si el navegador bloquea el audio, el producto igual se añade al carrito.
+      // El producto se añade aunque el navegador bloquee el audio.
     }
   };
 
@@ -52,13 +54,13 @@ export function ProductCard({ product }: { product: Product }) {
       });
     }
 
-    playAddSound();
+    void playAddSound();
     setJustAdded(true);
-    window.setTimeout(() => setJustAdded(false), 700);
+    window.setTimeout(() => setJustAdded(false), 1100);
   };
 
   return (
-    <article className="group rounded-3xl border border-white/10 bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:border-[#d6a83f]/40 hover:bg-white/[0.065]">
+    <article className={`group rounded-3xl border p-5 transition duration-200 ${justAdded ? "border-black bg-black shadow-2xl shadow-black/80 scale-[0.99]" : "border-white/10 bg-white/[0.045] hover:-translate-y-1 hover:border-[#d6a83f]/40 hover:bg-white/[0.065]"}`}>
       <div className={`mb-5 flex items-center justify-center overflow-hidden rounded-2xl ${isCapCut || isYouTube ? "h-52 bg-white p-2" : "h-44 bg-gradient-to-br from-cyan-500/10 via-violet-500/15 to-fuchsia-500/10"}`}>
         {product.image ? (
           <img
@@ -104,7 +106,7 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <button
           onClick={addToCart}
-          className={`rounded-xl px-3 py-2 text-sm font-bold transition duration-200 ${justAdded ? "bg-black text-white shadow-lg shadow-black/60 scale-95" : "bg-white text-slate-950 hover:bg-[#f5df9b]"}`}
+          className={`rounded-xl px-3 py-2 text-sm font-bold transition duration-200 ${justAdded ? "bg-black text-white ring-2 ring-white/30" : "bg-white text-slate-950 hover:bg-[#f5df9b]"}`}
         >
           <ShoppingBag className="inline" size={16} /> {justAdded ? "Añadido" : "Añadir"}
         </button>
