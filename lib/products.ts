@@ -33,6 +33,16 @@ export const products: Product[] = [
     image: "/canva-pro-45-dias.jpg",
   },
   {
+    id: "capcut-pro",
+    name: "CapCut Pro",
+    category: "Video",
+    description: "CapCut Pro — suscripción por 1 mes.",
+    price: 18,
+    duration: "1 mes",
+    badge: "Promoción",
+    image: "/capcut-pro.png",
+  },
+  {
     id: "productividad-plus",
     name: "Productividad Plus",
     category: "Productividad",
