@@ -49,6 +49,7 @@ export const products: Product[] = [
     description: "Paquete de promoción para YouTube.",
     price: 20,
     duration: "Paquete básico",
+    image: "/youtube-promocion.png",
   },
   {
     id: "youtube-promocion-35",
@@ -57,6 +58,7 @@ export const products: Product[] = [
     description: "Paquete de promoción para YouTube.",
     price: 35,
     duration: "Paquete inicial",
+    image: "/youtube-promocion.png",
   },
   {
     id: "youtube-promocion-52",
@@ -65,6 +67,7 @@ export const products: Product[] = [
     description: "Paquete de promoción para YouTube.",
     price: 52,
     duration: "Paquete crecimiento",
+    image: "/youtube-promocion.png",
   },
   {
     id: "youtube-promocion-80",
@@ -73,6 +76,7 @@ export const products: Product[] = [
     description: "Paquete de promoción para YouTube.",
     price: 80,
     duration: "Paquete avanzado",
+    image: "/youtube-promocion.png",
   },
   {
     id: "youtube-promocion-125",
@@ -81,6 +85,7 @@ export const products: Product[] = [
     description: "Paquete de promoción para YouTube.",
     price: 125,
     duration: "Paquete premium",
+    image: "/youtube-promocion.png",
   },
   {
     id: "productividad-plus",
