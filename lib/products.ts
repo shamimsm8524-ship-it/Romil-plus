@@ -44,7 +44,7 @@ export const products: Product[] = [
   },
   {
     id: "youtube-promocion-20",
-    name: "Promoción YouTube — Básico",
+    name: "YOUTUBE - PROMOCIÓN — Básico",
     category: "Promoción YouTube",
     description: "Paquete de promoción para YouTube.",
     price: 20,
@@ -53,7 +53,7 @@ export const products: Product[] = [
   },
   {
     id: "youtube-promocion-35",
-    name: "Promoción YouTube — Inicial",
+    name: "YOUTUBE - PROMOCIÓN — Inicial",
     category: "Promoción YouTube",
     description: "Paquete de promoción para YouTube.",
     price: 35,
@@ -62,7 +62,7 @@ export const products: Product[] = [
   },
   {
     id: "youtube-promocion-52",
-    name: "Promoción YouTube — Crecimiento",
+    name: "YOUTUBE - PROMOCIÓN — Crecimiento",
     category: "Promoción YouTube",
     description: "Paquete de promoción para YouTube.",
     price: 52,
@@ -71,7 +71,7 @@ export const products: Product[] = [
   },
   {
     id: "youtube-promocion-80",
-    name: "Promoción YouTube — Avanzado",
+    name: "YOUTUBE - PROMOCIÓN — Avanzado",
     category: "Promoción YouTube",
     description: "Paquete de promoción para YouTube.",
     price: 80,
@@ -80,7 +80,7 @@ export const products: Product[] = [
   },
   {
     id: "youtube-promocion-125",
-    name: "Promoción YouTube — Premium",
+    name: "YOUTUBE - PROMOCIÓN — Premium",
     category: "Promoción YouTube",
     description: "Paquete de promoción para YouTube.",
     price: 125,
