@@ -35,7 +35,7 @@ export const products: Product[] = [
   {
     id: "capcut-pro",
     name: "CapCut Pro",
-    category: "Video",
+    category: "Edición de Videos",
     description: "CapCut Pro — suscripción por 1 mes.",
     price: 18,
     duration: "1 mes",
@@ -56,7 +56,7 @@ export const categories = [
   "Inteligencia Artificial",
   "Diseño",
   "Productividad",
-  "Video",
+  "Edición de Videos",
   "Educación",
   "Otros",
 ];
