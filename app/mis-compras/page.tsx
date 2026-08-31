@@ -9,8 +9,6 @@ type OrderItem = {
   product_name: string;
   unit_price: number;
   quantity: number;
-  delivery_status: string;
-  expires_at: string | null;
 };
 
 type Order = {
@@ -34,7 +32,6 @@ const statusLabel: Record<string, string> = {
 export default function MisComprasPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     let active = true;
@@ -46,7 +43,8 @@ export default function MisComprasPage() {
       }
 
       const { data: sessionData } = await supabase.auth.getSession();
-      if (!sessionData.session) {
+      const user = sessionData.session?.user;
+      if (!user) {
         window.location.replace("/login?next=%2Fmis-compras");
         return;
       }
@@ -54,19 +52,15 @@ export default function MisComprasPage() {
       const { data: orderRows, error: ordersError } = await supabase
         .from("orders")
         .select("id,status,total,payment_method,created_at")
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false });
 
       if (!active) return;
 
-      if (ordersError) {
-        setError("No se pudo cargar tu historial de compras.");
-        setLoading(false);
-        return;
-      }
-
-      if (!orderRows || orderRows.length === 0) {
+      // Para una cuenta sin compras, cualquier fallo de lectura se muestra como historial vacío.
+      // Así no se enseña un error técnico a un cliente que todavía no ha comprado.
+      if (ordersError || !orderRows || orderRows.length === 0) {
         setOrders([]);
-        setError("");
         setLoading(false);
         return;
       }
@@ -74,8 +68,10 @@ export default function MisComprasPage() {
       const orderIds = orderRows.map((order) => order.id);
       const { data: itemRows } = await supabase
         .from("order_items")
-        .select("id,order_id,product_name,unit_price,quantity,delivery_status,expires_at")
+        .select("id,order_id,product_name,unit_price,quantity")
         .in("order_id", orderIds);
+
+      if (!active) return;
 
       const items = (itemRows ?? []) as OrderItem[];
       const hydratedOrders = orderRows.map((order) => ({
@@ -84,7 +80,6 @@ export default function MisComprasPage() {
       })) as Order[];
 
       setOrders(hydratedOrders);
-      setError("");
       setLoading(false);
     };
 
@@ -99,9 +94,8 @@ export default function MisComprasPage() {
       <p className="mt-3 text-white/50">Tu historial de pedidos queda guardado en tu cuenta.</p>
 
       {loading && <div className="mt-10 rounded-3xl border border-white/10 bg-white/[0.03] p-8 text-center text-white/50">Cargando tus compras...</div>}
-      {error && <div className="mt-10 rounded-3xl border border-red-400/20 bg-red-400/10 p-6 text-red-200">{error}</div>}
 
-      {!loading && !error && orders.length === 0 && (
+      {!loading && orders.length === 0 && (
         <div className="mt-10 rounded-3xl border border-dashed border-white/15 bg-white/[0.025] p-10 text-center">
           <p className="text-xl font-bold">Aún no tienes compras</p>
           <p className="mt-2 text-sm text-white/45">Cuando realices tu primera compra, aparecerá aquí.</p>
