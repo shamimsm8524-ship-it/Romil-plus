@@ -77,8 +77,12 @@ create policy "public can read categories" on categories for select using (true)
 create policy "users read own profile" on profiles for select using (auth.uid() = id);
 create policy "users update own profile" on profiles for update using (auth.uid() = id);
 create policy "users read own orders" on orders for select using (auth.uid() = user_id);
+create policy "users create own orders" on orders for insert with check (auth.uid() = user_id);
 create policy "users read own order items" on order_items for select using (
   exists (select 1 from orders where orders.id = order_items.order_id and orders.user_id = auth.uid())
 );
+create policy "users create own order items" on order_items for insert with check (
+  exists (select 1 from orders where orders.id = order_items.order_id and orders.user_id = auth.uid())
+);
 
--- Las políticas de escritura administrativas deben añadirse cuando se defina el flujo de roles y el backend seguro.
+-- Las políticas administrativas deben añadirse cuando se defina el flujo seguro del panel de administración.
