@@ -19,6 +19,7 @@ export const products: Product[] = [
     price: 20,
     duration: "18 meses",
     badge: "Promoción",
+    image: "/gemini-pro.png",
   },
   {
     id: "canva-pro",
