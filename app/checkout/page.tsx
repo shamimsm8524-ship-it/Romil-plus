@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Check, Copy, MessageCircle, ShieldCheck, Clock3 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { useCart } from "@/components/CartProvider";
+import { supabase } from "@/lib/supabase";
 
 type PaymentMethod = "yape" | "plin" | "bcp" | "interbank" | "paypal";
 
@@ -23,7 +24,32 @@ export default function CheckoutPage() {
   const [method, setMethod] = useState<PaymentMethod>("yape");
   const [copied, setCopied] = useState("");
   const [paymentReported, setPaymentReported] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const selected = paymentData[method];
+
+  useEffect(() => {
+    let active = true;
+
+    const requireAccount = async () => {
+      if (!supabase) {
+        window.location.replace("/login?next=%2Fcheckout");
+        return;
+      }
+
+      const { data } = await supabase.auth.getSession();
+      if (!active) return;
+
+      if (!data.session) {
+        window.location.replace("/login?next=%2Fcheckout");
+        return;
+      }
+
+      setCheckingAuth(false);
+    };
+
+    requireAccount();
+    return () => { active = false; };
+  }, []);
 
   const whatsappUrl = useMemo(() => {
     const products = items.map((item) => `• ${item.name} — S/ ${item.price.toFixed(2)}`).join("\n");
@@ -36,6 +62,18 @@ export default function CheckoutPage() {
   };
 
   const reportPayment = () => setPaymentReported(true);
+
+  if (checkingAuth) {
+    return (
+      <main className="mx-auto grid min-h-[75vh] max-w-md place-items-center px-4 py-14">
+        <section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 text-center">
+          <div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-white/20 border-t-[#e3b64f]" />
+          <h1 className="mt-5 text-xl font-black">Verificando tu cuenta</h1>
+          <p className="mt-2 text-sm text-white/50">Para comprar debes registrarte o iniciar sesión.</p>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="mx-auto min-h-[75vh] max-w-6xl px-4 py-14">
