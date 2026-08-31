@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { ShoppingBag } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { useCart } from "./CartProvider";
@@ -8,6 +9,25 @@ import { useCart } from "./CartProvider";
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
   const isCapCut = product.id === "capcut-pro";
+  const [selectedVariantId, setSelectedVariantId] = useState(product.variants?.[0]?.id ?? "");
+  const selectedVariant = product.variants?.find((variant) => variant.id === selectedVariantId) ?? product.variants?.[0];
+  const displayedPrice = selectedVariant?.price ?? product.price;
+
+  const addToCart = () => {
+    if (!selectedVariant) {
+      add(product);
+      return;
+    }
+
+    add({
+      ...product,
+      id: `${product.id}-${selectedVariant.id}`,
+      name: `${product.name} — ${selectedVariant.label}`,
+      price: selectedVariant.price,
+      duration: selectedVariant.label,
+      variants: undefined,
+    });
+  };
 
   return (
     <article className="group rounded-3xl border border-white/10 bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:border-[#d6a83f]/40 hover:bg-white/[0.065]">
@@ -30,13 +50,31 @@ export function ProductCard({ product }: { product: Product }) {
         {product.badge && <span className="rounded-full bg-[#d8aa42]/15 px-3 py-1 text-xs text-[#f0cd78]">{product.badge}</span>}
       </div>
       <p className="min-h-12 text-sm leading-6 text-white/60">{product.description}</p>
+
+      {product.variants && product.variants.length > 0 && (
+        <div className="mt-4">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-white/50">Elige un paquete</label>
+          <select
+            value={selectedVariantId}
+            onChange={(event) => setSelectedVariantId(event.target.value)}
+            className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-3 text-sm font-semibold text-white outline-none focus:border-[#d6a83f]/60"
+          >
+            {product.variants.map((variant) => (
+              <option key={variant.id} value={variant.id}>
+                {variant.label} — S/ {variant.price.toFixed(2)}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
       <div className="mt-5 flex items-end justify-between gap-4">
         <div>
-          <span className="text-2xl font-black">S/ {product.price.toFixed(2)}</span>
-          <p className="text-xs text-white/45">Suscripción: {product.duration}</p>
+          <span className="text-2xl font-black">S/ {displayedPrice.toFixed(2)}</span>
+          <p className="text-xs text-white/45">{selectedVariant ? selectedVariant.label : `Suscripción: ${product.duration}`}</p>
           {product.guarantee && <p className="mt-1 text-xs font-semibold text-[#f0cd78]">Garantía: {product.guarantee}</p>}
         </div>
-        <button onClick={() => add(product)} className="rounded-xl bg-white px-3 py-2 text-sm font-bold text-slate-950 transition hover:bg-[#f5df9b]"><ShoppingBag className="inline" size={16} /> Añadir</button>
+        <button onClick={addToCart} className="rounded-xl bg-white px-3 py-2 text-sm font-bold text-slate-950 transition hover:bg-[#f5df9b]"><ShoppingBag className="inline" size={16} /> Añadir</button>
       </div>
       <Link href={`/producto/${product.id}`} className="mt-4 block text-center text-sm text-white/50 hover:text-white">Ver detalles</Link>
     </article>
