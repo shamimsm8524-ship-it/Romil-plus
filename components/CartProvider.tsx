@@ -15,19 +15,37 @@ const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<Product[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("romil-plus-cart");
-    if (saved) setItems(JSON.parse(saved));
+    try {
+      const saved = localStorage.getItem("romil-plus-cart");
+      if (saved) setItems(JSON.parse(saved));
+    } catch {
+      // Si el almacenamiento falla, el carrito sigue funcionando en memoria.
+    } finally {
+      setLoaded(true);
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("romil-plus-cart", JSON.stringify(items));
-  }, [items]);
+    if (!loaded) return;
+    try {
+      localStorage.setItem("romil-plus-cart", JSON.stringify(items));
+    } catch {
+      // El carrito sigue funcionando aunque el navegador bloquee localStorage.
+    }
+  }, [items, loaded]);
 
   const value = useMemo(() => ({
     items,
-    add: (product: Product) => setItems((current) => current.some((item) => item.id === product.id) ? current : [...current, product]),
+    add: (product: Product) => setItems((current) => [
+      ...current,
+      {
+        ...product,
+        id: `${product.id}-cart-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      },
+    ]),
     remove: (id: string) => setItems((current) => current.filter((item) => item.id !== id)),
     clear: () => setItems([]),
     total: items.reduce((sum, item) => sum + item.price, 0),
