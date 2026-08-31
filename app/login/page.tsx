@@ -22,113 +22,55 @@ export default function LoginPage() {
   };
 
   useEffect(() => {
-    if (!supabase) {
-      setCheckingSession(false);
-      return;
-    }
-
+    if (!supabase) { setCheckingSession(false); return; }
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) {
-        window.location.replace(getNextPath());
-        return;
-      }
+      if (data.session) { window.location.replace(getNextPath()); return; }
       setCheckingSession(false);
     });
   }, []);
 
   const ensureSupabase = () => {
-    if (!supabase) {
-      setError("Falta conectar Supabase para activar el acceso.");
-      return false;
-    }
+    if (!supabase) { setError("Falta conectar Supabase para activar el acceso."); return false; }
     return true;
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setMessage("");
-    setError("");
-    if (!ensureSupabase()) return;
-
+    event.preventDefault(); setMessage(""); setError(""); if (!ensureSupabase()) return;
     setLoading(true);
     try {
       const nextPath = getNextPath();
-
       if (mode === "register") {
-        const { data, error: signUpError } = await supabase!.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}${nextPath}` },
-        });
+        const { data, error: signUpError } = await supabase!.auth.signUp({ email, password, options: { emailRedirectTo: `${window.location.origin}${nextPath}` } });
         if (signUpError) throw signUpError;
-
-        if (data.session) {
-          window.location.href = nextPath;
-          return;
-        }
-
+        if (data.session) { window.location.href = nextPath; return; }
         setMessage("Cuenta creada. Revisa tu correo para confirmar tu cuenta y luego podrás continuar con la compra.");
       } else {
         const { error: signInError } = await supabase!.auth.signInWithPassword({ email, password });
         if (signInError) throw signInError;
         window.location.href = nextPath;
       }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo completar el acceso.");
-    } finally {
-      setLoading(false);
-    }
+    } catch (err) { setError(err instanceof Error ? err.message : "No se pudo completar el acceso."); }
+    finally { setLoading(false); }
   };
 
   const handleGoogle = async () => {
-    setMessage("");
-    setError("");
-    if (!ensureSupabase()) return;
-
-    setLoading(true);
-    const nextPath = getNextPath();
-    const { error: googleError } = await supabase!.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}${nextPath}` },
-    });
-    if (googleError) {
-      setError(googleError.message);
-      setLoading(false);
-    }
+    setMessage(""); setError(""); if (!ensureSupabase()) return;
+    setLoading(true); const nextPath = getNextPath();
+    const { error: googleError } = await supabase!.auth.signInWithOAuth({ provider: "google", options: { redirectTo: `${window.location.origin}${nextPath}` } });
+    if (googleError) { setError(googleError.message); setLoading(false); }
   };
 
-  if (checkingSession) {
-    return <main className="grid min-h-[75vh] place-items-center px-4"><p className="text-sm text-white/50">Comprobando sesión...</p></main>;
-  }
+  if (checkingSession) return <main className="grid min-h-[75vh] place-items-center px-4"><p className="text-sm text-white/50">Comprobando sesión...</p></main>;
 
-  return (
-    <main className="mx-auto grid min-h-[75vh] max-w-md place-items-center px-4 py-14">
-      <section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 shadow-2xl shadow-black/30">
-        <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-xl font-black">R+</div>
-        <h1 className="mt-5 text-center text-3xl font-black">{mode === "login" ? "Inicia sesión" : "Crea tu cuenta"}</h1>
-        <p className="mt-2 text-center text-sm text-white/50">Debes tener una cuenta para realizar compras y acceder a tus pedidos de Romil Plus.</p>
-
-        <button type="button" onClick={handleGoogle} disabled={loading} className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-white/15 bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50">
-          <span className="grid h-6 w-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-[#4285F4]">G</span>
-          Continuar con Google
-        </button>
-
-        <div className="my-5 flex items-center gap-3"><span className="h-px flex-1 bg-white/10"/><span className="text-xs uppercase tracking-wider text-white/35">o con correo</span><span className="h-px flex-1 bg-white/10"/></div>
-
-        <form onSubmit={handleSubmit} className="space-y-3">
-          <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 focus-within:border-violet-400"><Mail size={18} className="text-white/35"/><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required placeholder="Correo" className="w-full bg-transparent py-3 outline-none"/></label>
-          <label className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 focus-within:border-violet-400"><LockKeyhole size={18} className="text-white/35"/><input value={password} onChange={(e) => setPassword(e.target.value)} type="password" minLength={6} required placeholder="Contraseña" className="w-full bg-transparent py-3 outline-none"/></label>
-          <button type="submit" disabled={loading} className="w-full rounded-xl bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50">{loading ? "Procesando..." : mode === "login" ? "Entrar" : "Crear cuenta"}</button>
-        </form>
-
-        {error && <p className="mt-4 rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-center text-sm text-red-200">{error}</p>}
-        {message && <p className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/10 p-3 text-center text-sm text-emerald-200">{message}</p>}
-
-        <button type="button" onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); setMessage(""); }} className="mt-5 w-full text-center text-sm font-bold text-[#e3b64f] hover:underline">
-          {mode === "login" ? "¿No tienes cuenta? Crear cuenta" : "¿Ya tienes cuenta? Iniciar sesión"}
-        </button>
-        <p className="mt-5 text-center text-xs leading-5 text-white/35">El acceso con Google y correo se activa cuando las credenciales de Supabase están configuradas en la tienda.</p>
-      </section>
-    </main>
-  );
+  return <main className="mx-auto grid min-h-[75vh] max-w-md place-items-center px-4 py-14"><section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 shadow-2xl shadow-black/30">
+    <img src="/romil-logo.svg" alt="Romil Plus" className="mx-auto h-24 w-24 rounded-2xl object-cover shadow-lg shadow-[#d5a536]/10"/>
+    <h1 className="mt-5 text-center text-3xl font-black">{mode === "login" ? "Inicia sesión" : "Crea tu cuenta"}</h1>
+    <p className="mt-2 text-center text-sm text-white/50">Debes tener una cuenta para realizar compras y acceder a tus pedidos de Romil Plus.</p>
+    <button type="button" onClick={handleGoogle} disabled={loading} className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-white/15 bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50"><span className="grid h-6 w-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-[#4285F4]">G</span>Continuar con Google</button>
+    <div className="my-5 flex items-center gap-3"><span className="h-px flex-1 bg-white/10"/><span className="text-xs uppercase tracking-wider text-white/35">o con correo</span><span className="h-px flex-1 bg-white/10"/></div>
+    <form onSubmit={handleSubmit} className="space-y-3"><label className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 focus-within:border-violet-400"><Mail size={18} className="text-white/35"/><input value={email} onChange={(e) => setEmail(e.target.value)} type="email" required placeholder="Correo" className="w-full bg-transparent py-3 outline-none"/></label><label className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/20 px-4 focus-within:border-violet-400"><LockKeyhole size={18} className="text-white/35"/><input value={password} onChange={(e) => setPassword(e.target.value)} type="password" minLength={6} required placeholder="Contraseña" className="w-full bg-transparent py-3 outline-none"/></label><button type="submit" disabled={loading} className="w-full rounded-xl bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50">{loading ? "Procesando..." : mode === "login" ? "Entrar" : "Crear cuenta"}</button></form>
+    {error && <p className="mt-4 rounded-xl border border-red-400/20 bg-red-400/10 p-3 text-center text-sm text-red-200">{error}</p>}{message && <p className="mt-4 rounded-xl border border-emerald-400/20 bg-emerald-400/10 p-3 text-center text-sm text-emerald-200">{message}</p>}
+    <button type="button" onClick={() => { setMode(mode === "login" ? "register" : "login"); setError(""); setMessage(""); }} className="mt-5 w-full text-center text-sm font-bold text-[#e3b64f] hover:underline">{mode === "login" ? "¿No tienes cuenta? Crear cuenta" : "¿Ya tienes cuenta? Iniciar sesión"}</button>
+    <p className="mt-5 text-center text-xs leading-5 text-white/35">El acceso con Google y correo se activa cuando las credenciales de Supabase están configuradas en la tienda.</p>
+  </section></main>;
 }
