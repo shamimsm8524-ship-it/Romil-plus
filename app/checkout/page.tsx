@@ -58,21 +58,38 @@ export default function CheckoutPage() {
     if (!supabase || items.length === 0 || paymentReported || savingOrder) return;
     setSavingOrder(true);
     setSaveError("");
+
     try {
       const { data: sessionData } = await supabase.auth.getSession();
       const user = sessionData.session?.user;
       if (!user) { window.location.replace("/login?next=%2Fcheckout"); return; }
-      const { data: order, error: orderError } = await supabase.from("orders").insert({ user_id: user.id, status: "pending", subtotal: total, discount: 0, total, payment_method: method }).select("id").single();
-      if (orderError || !order) throw orderError ?? new Error("No se pudo crear el pedido.");
-      const orderItems = items.map((item) => ({ order_id: order.id, product_id: null, product_name: item.name, unit_price: item.price, quantity: 1, delivery_status: "pending" }));
+
+      const newOrderId = crypto.randomUUID();
+      const { error: orderError } = await supabase.from("orders").insert({
+        id: newOrderId,
+        user_id: user.id,
+        total,
+        payment_method: method,
+      });
+      if (orderError) throw orderError;
+
+      const orderItems = items.map((item) => ({
+        order_id: newOrderId,
+        product_name: item.name,
+        unit_price: item.price,
+        quantity: 1,
+      }));
       const { error: itemsError } = await supabase.from("order_items").insert(orderItems);
       if (itemsError) throw itemsError;
-      setOrderId(order.id);
+
+      setOrderId(newOrderId);
       setPaymentReported(true);
     } catch (err) {
       console.error(err);
       setSaveError("No pudimos guardar el pedido en el historial, pero sí puedes enviar tu comprobante por WhatsApp.");
-    } finally { setSavingOrder(false); }
+    } finally {
+      setSavingOrder(false);
+    }
   };
 
   if (checkingAuth) return <main className="mx-auto grid min-h-[75vh] max-w-md place-items-center px-4 py-14"><section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 text-center"><div className="mx-auto h-9 w-9 animate-spin rounded-full border-2 border-white/20 border-t-[#e3b64f]"/><h1 className="mt-5 text-xl font-black">Verificando tu cuenta</h1><p className="mt-2 text-sm text-white/50">Para comprar debes registrarte o iniciar sesión.</p></section></main>;
