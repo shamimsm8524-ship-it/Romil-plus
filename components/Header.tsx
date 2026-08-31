@@ -20,6 +20,8 @@ export function Header() {
   const { items } = useCart();
   if (pathname === "/") return null;
 
+  const hasItems = items.length > 0;
+
   return (
     <header className="sticky top-0 z-50 border-b border-[#8f6927]/35 bg-[#020202]/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
@@ -31,7 +33,14 @@ export function Header() {
         <nav className="hidden gap-7 text-sm text-[#bbb4a7] md:flex"><Link href="/catalogo">Catálogo</Link><Link href="/mis-compras">Mis compras</Link><Link href="/admin">Admin</Link></nav>
         <div className="ml-2 flex gap-2 sm:gap-3">
           <Link href="/login" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 text-white sm:h-14 sm:w-14 sm:rounded-2xl" aria-label="Cuenta"><User size={21} strokeWidth={1.8}/></Link>
-          <Link href="/carrito" className="relative grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 text-white sm:h-14 sm:w-14 sm:rounded-2xl" aria-label="Carrito"><ShoppingCart size={21} strokeWidth={1.8}/>{items.length > 0 && <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-[#d7b257] px-1 text-[11px] font-black text-black">{items.length}</span>}</Link>
+          <Link
+            href="/carrito"
+            className={`relative grid h-12 w-12 place-items-center rounded-xl border transition-all duration-200 sm:h-14 sm:w-14 sm:rounded-2xl ${hasItems ? "border-black bg-black text-white shadow-lg shadow-black/60 scale-105" : "border-[#d5a536]/55 text-white"}`}
+            aria-label="Carrito"
+          >
+            <ShoppingCart size={21} strokeWidth={1.8}/>
+            {hasItems && <span className="absolute -right-1.5 -top-1.5 grid h-5 min-w-5 place-items-center rounded-full bg-[#d7b257] px-1 text-[11px] font-black text-black">{items.length}</span>}
+          </Link>
         </div>
       </div>
     </header>
