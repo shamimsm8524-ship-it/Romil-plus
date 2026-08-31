@@ -13,53 +13,74 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
-const CART_KEY = "romil-plus-cart";
+const GUEST_CART_KEY = "romil-plus-cart-guest";
+const cartKeyForUser = (userId: string) => `romil-plus-cart-user-${userId}`;
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<Product[]>([]);
+  const [storageKey, setStorageKey] = useState(GUEST_CART_KEY);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
+  const loadCart = (key: string) => {
     try {
-      const saved = localStorage.getItem(CART_KEY);
-      if (saved) setItems(JSON.parse(saved));
+      const saved = localStorage.getItem(key);
+      setItems(saved ? JSON.parse(saved) : []);
     } catch {
-      // Si el almacenamiento falla, el carrito sigue funcionando en memoria.
-    } finally {
-      setLoaded(true);
+      setItems([]);
     }
+  };
+
+  useEffect(() => {
+    let active = true;
+
+    const initialize = async () => {
+      let key = GUEST_CART_KEY;
+      if (supabase) {
+        const { data } = await supabase.auth.getSession();
+        if (data.session?.user.id) key = cartKeyForUser(data.session.user.id);
+      }
+
+      if (!active) return;
+      setStorageKey(key);
+      loadCart(key);
+      setLoaded(true);
+    };
+
+    initialize();
+
+    if (!supabase) return () => { active = false; };
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!active) return;
+
+      const nextKey = session?.user.id
+        ? cartKeyForUser(session.user.id)
+        : GUEST_CART_KEY;
+
+      setStorageKey(nextKey);
+      loadCart(nextKey);
+      setLoaded(true);
+    });
+
+    return () => {
+      active = false;
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
     if (!loaded) return;
     try {
-      localStorage.setItem(CART_KEY, JSON.stringify(items));
+      localStorage.setItem(storageKey, JSON.stringify(items));
     } catch {
       // El carrito sigue funcionando aunque el navegador bloquee localStorage.
     }
-  }, [items, loaded]);
-
-  useEffect(() => {
-    if (!supabase) return;
-
-    const { data: authListener } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "SIGNED_OUT") {
-        setItems([]);
-        try {
-          localStorage.removeItem(CART_KEY);
-        } catch {
-          // Si localStorage falla, al menos vaciamos el carrito en memoria.
-        }
-      }
-    });
-
-    return () => authListener.subscription.unsubscribe();
-  }, []);
+  }, [items, loaded, storageKey]);
 
   const clear = () => {
     setItems([]);
     try {
-      localStorage.removeItem(CART_KEY);
+      localStorage.removeItem(storageKey);
     } catch {
       // El carrito igualmente queda vacío en memoria.
     }
@@ -77,7 +98,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     remove: (id: string) => setItems((current) => current.filter((item) => item.id !== id)),
     clear,
     total: items.reduce((sum, item) => sum + item.price, 0),
-  }), [items]);
+  }), [items, storageKey]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
