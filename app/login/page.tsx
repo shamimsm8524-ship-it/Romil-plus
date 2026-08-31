@@ -14,6 +14,12 @@ export default function LoginPage() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
+  const getNextPath = () => {
+    if (typeof window === "undefined") return "/catalogo";
+    const next = new URLSearchParams(window.location.search).get("next");
+    return next && next.startsWith("/") && !next.startsWith("//") ? next : "/catalogo";
+  };
+
   const ensureSupabase = () => {
     if (!supabase) {
       setError("Falta conectar Supabase para activar el acceso.");
@@ -30,18 +36,26 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
+      const nextPath = getNextPath();
+
       if (mode === "register") {
-        const { error: signUpError } = await supabase!.auth.signUp({
+        const { data, error: signUpError } = await supabase!.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: `${window.location.origin}/catalogo` },
+          options: { emailRedirectTo: `${window.location.origin}${nextPath}` },
         });
         if (signUpError) throw signUpError;
-        setMessage("Cuenta creada. Revisa tu correo si se solicita confirmación.");
+
+        if (data.session) {
+          window.location.href = nextPath;
+          return;
+        }
+
+        setMessage("Cuenta creada. Revisa tu correo para confirmar tu cuenta y luego podrás continuar con la compra.");
       } else {
         const { error: signInError } = await supabase!.auth.signInWithPassword({ email, password });
         if (signInError) throw signInError;
-        window.location.href = "/catalogo";
+        window.location.href = nextPath;
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "No se pudo completar el acceso.");
@@ -56,9 +70,10 @@ export default function LoginPage() {
     if (!ensureSupabase()) return;
 
     setLoading(true);
+    const nextPath = getNextPath();
     const { error: googleError } = await supabase!.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/catalogo` },
+      options: { redirectTo: `${window.location.origin}${nextPath}` },
     });
     if (googleError) {
       setError(googleError.message);
@@ -71,7 +86,7 @@ export default function LoginPage() {
       <section className="w-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 shadow-2xl shadow-black/30">
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-cyan-400 via-violet-500 to-fuchsia-500 text-xl font-black">R+</div>
         <h1 className="mt-5 text-center text-3xl font-black">{mode === "login" ? "Inicia sesión" : "Crea tu cuenta"}</h1>
-        <p className="mt-2 text-center text-sm text-white/50">Accede a tus compras y pedidos de Romil Plus.</p>
+        <p className="mt-2 text-center text-sm text-white/50">Debes tener una cuenta para realizar compras y acceder a tus pedidos de Romil Plus.</p>
 
         <button type="button" onClick={handleGoogle} disabled={loading} className="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-white/15 bg-white px-4 py-3 font-black text-slate-950 transition hover:bg-white/90 disabled:opacity-50">
           <span className="grid h-6 w-6 place-items-center rounded-full border border-slate-200 text-sm font-black text-[#4285F4]">G</span>
