@@ -11,12 +11,12 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className="group rounded-3xl border border-white/10 bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:border-[#d6a83f]/40 hover:bg-white/[0.065]">
-      <div className={`mb-5 flex h-44 items-center justify-center overflow-hidden rounded-2xl ${isCapCut ? "bg-white p-3" : "bg-gradient-to-br from-cyan-500/10 via-violet-500/15 to-fuchsia-500/10"}`}>
+      <div className={`mb-5 flex items-center justify-center overflow-hidden rounded-2xl ${isCapCut ? "h-52 bg-white p-2" : "h-44 bg-gradient-to-br from-cyan-500/10 via-violet-500/15 to-fuchsia-500/10"}`}>
         {product.image ? (
           <img
             src={product.image}
             alt={product.name}
-            className={isCapCut ? "h-full w-full object-contain" : "h-full w-full object-cover"}
+            className={isCapCut ? "h-full w-full object-contain object-center" : "h-full w-full object-cover"}
           />
         ) : (
           <span className="text-4xl font-black text-white/85">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>
