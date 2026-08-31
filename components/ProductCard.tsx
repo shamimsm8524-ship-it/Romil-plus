@@ -15,48 +15,48 @@ export function ProductCard({ product }: { product: Product }) {
   const selectedVariant = product.variants?.find((variant) => variant.id === selectedVariantId) ?? product.variants?.[0];
   const displayedPrice = selectedVariant?.price ?? product.price;
 
-  const playAddSound = async () => {
+  const playAddSound = () => {
     try {
       const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (!AudioContextClass) return;
-      const audioContext = new AudioContextClass();
-      if (audioContext.state === "suspended") await audioContext.resume();
 
+      const audioContext = new AudioContextClass();
       const oscillator = audioContext.createOscillator();
       const gain = audioContext.createGain();
 
       oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(520, audioContext.currentTime);
-      oscillator.frequency.exponentialRampToValueAtTime(920, audioContext.currentTime + 0.16);
-      gain.gain.setValueAtTime(0.2, audioContext.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.24);
+      oscillator.frequency.setValueAtTime(620, audioContext.currentTime);
+      oscillator.frequency.linearRampToValueAtTime(900, audioContext.currentTime + 0.13);
+      gain.gain.setValueAtTime(0.28, audioContext.currentTime);
+      gain.gain.linearRampToValueAtTime(0.001, audioContext.currentTime + 0.22);
 
       oscillator.connect(gain);
       gain.connect(audioContext.destination);
       oscillator.start();
-      oscillator.stop(audioContext.currentTime + 0.24);
+      oscillator.stop(audioContext.currentTime + 0.22);
+
+      window.setTimeout(() => void audioContext.close(), 300);
     } catch {
-      // El producto se añade aunque el navegador bloquee el audio.
+      // El producto se añade aunque el navegador bloquee el sonido.
     }
   };
 
   const addToCart = () => {
-    if (!selectedVariant) {
-      add(product);
-    } else {
-      add({
-        ...product,
-        id: `${product.id}-${selectedVariant.id}`,
-        name: `${product.name} — ${selectedVariant.label}`,
-        price: selectedVariant.price,
-        duration: selectedVariant.label,
-        variants: undefined,
-      });
-    }
+    const itemToAdd = selectedVariant
+      ? {
+          ...product,
+          id: `${product.id}-${selectedVariant.id}`,
+          name: `${product.name} — ${selectedVariant.label}`,
+          price: selectedVariant.price,
+          duration: selectedVariant.label,
+          variants: undefined,
+        }
+      : product;
 
-    void playAddSound();
+    add(itemToAdd);
+    playAddSound();
     setJustAdded(true);
-    window.setTimeout(() => setJustAdded(false), 1100);
+    window.setTimeout(() => setJustAdded(false), 900);
   };
 
   return (
@@ -105,6 +105,7 @@ export function ProductCard({ product }: { product: Product }) {
           {product.guarantee && <p className="mt-1 text-xs font-semibold text-[#f0cd78]">Garantía: {product.guarantee}</p>}
         </div>
         <button
+          type="button"
           onClick={addToCart}
           className={`rounded-xl px-3 py-2 text-sm font-bold transition duration-200 ${justAdded ? "bg-black text-white ring-2 ring-white/30" : "bg-white text-slate-950 hover:bg-[#f5df9b]"}`}
         >
