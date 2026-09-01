@@ -7,13 +7,13 @@ const benefits = [
   { icon: Headphones, title: "Soporte Dedicado", text: "Estamos aquí para ayudarte" },
 ];
 
-function RPMark() {
+function RomilLogo() {
   return (
-    <div className="relative h-[52px] w-[70px] shrink-0" aria-label="RP">
-      <span className="absolute left-0 top-0 text-[49px] font-black italic leading-none tracking-[-.14em] text-[#e8bd55]">R</span>
-      <span className="absolute left-[28px] top-0 text-[49px] font-black italic leading-none tracking-[-.14em] text-[#c9932f]">P</span>
-      <span className="absolute bottom-[3px] left-[5px] h-[3px] w-[54px] -skew-x-[35deg] bg-[#e0ad43]" />
-    </div>
+    <img
+      src="/logo-romil-plus.png"
+      alt="ROMIL PLUS"
+      className="h-[74px] w-[92px] shrink-0 rounded-xl object-contain sm:h-[88px] sm:w-[110px]"
+    />
   );
 }
 
@@ -23,12 +23,10 @@ export default function Home() {
       <style>{`body>div>header,body>div>footer{display:none!important}`}</style>
       <main className="min-h-screen overflow-hidden bg-[#020202] text-white">
         <header className="border-b border-[#8f6927]/35 bg-[#020202]">
-          <div className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-5 py-4 sm:px-7 sm:py-6">
-            <div className="flex min-w-0 items-center gap-3 sm:gap-5">
-              <RPMark />
-              <div className="h-9 w-px bg-[#b78b37]/45" />
-              <div className="whitespace-nowrap text-[14px] font-extrabold tracking-[.08em] sm:text-[18px]">ROMIL <span className="text-[#e1b04a]">PLUS</span></div>
-            </div>
+          <div className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-5 py-3 sm:px-7 sm:py-4">
+            <Link href="/" aria-label="ROMIL PLUS" className="flex min-w-0 items-center">
+              <RomilLogo />
+            </Link>
             <div className="ml-2 flex gap-2 sm:gap-3">
               <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 sm:h-14 sm:w-14 sm:rounded-2xl"><User size={21}/></Link>
               <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 sm:h-14 sm:w-14 sm:rounded-2xl"><ShoppingCart size={21}/></Link>
