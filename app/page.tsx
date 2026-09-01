@@ -12,7 +12,9 @@ export default function Home() {
         <header className="border-b border-[#8f6927]/30 bg-black">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6 min-[700px]:max-w-[1500px] min-[700px]:px-8 min-[700px]:py-5 lg:px-10">
             <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="ROMIL PLUS">
-              <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-[78px] w-[92px] shrink-0 object-contain sm:h-[92px] sm:w-[110px] min-[700px]:h-[230px] min-[700px]:w-[290px] lg:h-[260px] lg:w-[330px] xl:h-[285px] xl:w-[360px]" />
+              <div className="h-[78px] w-[92px] shrink-0 overflow-visible sm:h-[92px] sm:w-[110px] min-[700px]:h-[150px] min-[700px]:w-[260px] lg:h-[170px] lg:w-[300px] xl:h-[185px] xl:w-[330px]">
+                <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-full w-full object-contain min-[700px]:scale-[1.55] lg:scale-[1.7] xl:scale-[1.8]" />
+              </div>
             </Link>
             <div className="flex gap-2 sm:gap-3 min-[700px]:gap-4">
               <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[700px]:h-16 min-[700px]:w-16 lg:h-[72px] lg:w-[72px]"><MessageCircle className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={23}/></Link>
