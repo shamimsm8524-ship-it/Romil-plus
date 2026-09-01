@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CalendarDays, KeyRound, Mail, Save, UserCircle2 } from "lucide-react";
+import { CalendarDays, KeyRound, LogOut, Mail, Save, UserCircle2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 export default function PerfilPage(){
@@ -14,6 +14,7 @@ export default function PerfilPage(){
   const [password,setPassword]=useState("");
   const [savingName,setSavingName]=useState(false);
   const [savingPassword,setSavingPassword]=useState(false);
+  const [signingOut,setSigningOut]=useState(false);
   const [message,setMessage]=useState("");
 
   useEffect(()=>{
@@ -45,6 +46,14 @@ export default function PerfilPage(){
     setSavingPassword(false);
   };
 
+  const handleLogout=async()=>{
+    if(!supabase)return;
+    setSigningOut(true);setMessage("");
+    const {error}=await supabase.auth.signOut();
+    if(error){setMessage(`No se pudo cerrar sesión: ${error.message}`);setSigningOut(false);return;}
+    router.push("/login");router.refresh();
+  };
+
   if(loading)return <main className="min-h-screen bg-[#030303] px-4 py-8 text-white sm:py-12"><div className="mx-auto max-w-3xl text-center text-sm text-white/60 sm:text-base">Cargando perfil...</div></main>;
 
   const dateLabel=createdAt?new Date(createdAt).toLocaleDateString("es-PE",{year:"numeric",month:"long",day:"numeric"}):"—";
@@ -71,6 +80,7 @@ export default function PerfilPage(){
           <h2 className="text-lg font-black sm:text-xl">Seguridad</h2>
           <div className="mt-4 rounded-2xl border border-white/10 bg-black/40 p-3.5 sm:mt-5 sm:p-4"><div className="flex items-center gap-2.5 text-white/55"><KeyRound size={18} className="text-[#e3b64f]"/><span className="text-xs font-bold sm:text-sm">Cambiar contraseña</span></div><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Nueva contraseña" autoComplete="new-password" className="mt-3 h-11 w-full rounded-xl border border-white/10 bg-black px-3.5 text-sm outline-none transition focus:border-[#d5a536]/65 sm:mt-4 sm:h-12 sm:rounded-2xl sm:px-4 sm:text-base"/><p className="mt-2 text-[11px] text-white/45 sm:text-xs">Mínimo 6 caracteres.</p><button onClick={savePassword} disabled={savingPassword} className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#d5a536]/55 bg-[#d5a536]/10 text-sm font-black text-[#efc75f] transition hover:bg-[#d5a536]/15 disabled:opacity-50 sm:mt-4 sm:h-12 sm:rounded-2xl sm:text-base"><KeyRound size={17}/>{savingPassword?"Actualizando...":"Cambiar contraseña"}</button></div>
           <p className="mt-3 text-xs leading-5 text-white/50 sm:mt-4 sm:text-sm sm:leading-6">Tu correo identifica la cuenta con la que estás conectado. Las compras y entregas siguen estando disponibles en “Mis compras”.</p>
+          <button onClick={handleLogout} disabled={signingOut} className="mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-red-400/40 bg-red-400/10 text-sm font-black text-red-300 transition hover:border-red-400/60 hover:bg-red-400/15 disabled:opacity-50 sm:h-12 sm:rounded-2xl sm:text-base"><LogOut size={18}/>{signingOut?"Cerrando sesión...":"Cerrar sesión"}</button>
         </section>
       </div>
 
