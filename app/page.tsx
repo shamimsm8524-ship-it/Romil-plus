@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Headphones, LogIn, MessageCircle, ShieldCheck, ShoppingBag, ShoppingCart, User, Zap } from "lucide-react";
+import { Headphones, MessageCircle, ShieldCheck, ShoppingBag, ShoppingCart, User, Zap } from "lucide-react";
 import { products } from "@/lib/products";
 
 const featured = products.filter(p => ["canva-pro","capcut-pro","gemini-pro"].includes(p.id));
@@ -19,7 +19,6 @@ export default function Home() {
             <div className="flex gap-2 sm:gap-3 min-[700px]:gap-2.5 lg:gap-3">
               <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[700px]:h-[52px] min-[700px]:w-[52px] lg:h-14 lg:w-14"><MessageCircle className="min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" size={23}/></Link>
               <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[52px] min-[700px]:w-[52px] lg:h-14 lg:w-14"><User className="min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" size={22}/></Link>
-              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[52px] min-[700px]:w-[52px] lg:h-14 lg:w-14"><LogIn className="min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" size={22}/></Link>
               <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[52px] min-[700px]:w-[52px] lg:h-14 lg:w-14"><ShoppingCart className="min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" size={22}/></Link>
             </div>
           </div>
