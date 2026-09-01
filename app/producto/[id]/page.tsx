@@ -23,7 +23,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
             <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Duración</p><p className="mt-1 font-bold">{product.duration}</p></div>
             <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Garantía</p><p className="mt-1 font-bold">{product.guarantee ?? "Consultar"}</p></div>
-            <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Entrega</p><p className="mt-1 font-bold">Por WhatsApp</p></div>
+            <div className="rounded-2xl border border-white/10 p-4"><p className="text-xs text-white/40">Entrega</p><p className="mt-1 font-bold">Inmediata tras confirmar el pago</p></div>
           </div>
 
           <a
@@ -36,7 +36,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             Contactar por WhatsApp
           </a>
 
-          <p className="mt-8 text-xs leading-5 text-white/35">La entrega y coordinación del producto se realiza directamente por WhatsApp.</p>
+          <p className="mt-8 text-xs leading-5 text-white/35">La entrega se realiza inmediatamente después de confirmar el pago.</p>
         </section>
         <ProductCard product={product} />
       </div>
