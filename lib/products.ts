@@ -32,7 +32,7 @@ export const products: Product[] = [
     id: "canva-pro",
     name: "Canva Edu",
     category: "Diseño",
-    description: "Canva Edu — suscripción por 12 meses.",
+    description: "Canva Edu — suscripción por 12 meses por invitación por correo.",
     price: 8,
     duration: "12 meses",
     guarantee: "12 meses",
