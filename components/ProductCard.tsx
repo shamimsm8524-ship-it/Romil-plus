@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
   };
 
   return (
-    <article className={`group mx-auto flex h-[540px] w-full max-w-[310px] flex-col rounded-[18px] border p-3 transition duration-200 min-[900px]:h-full min-[900px]:max-w-none min-[900px]:rounded-3xl min-[900px]:p-4 xl:p-5 ${justAdded ? "border-black bg-black shadow-2xl shadow-black/80 scale-[0.99]" : "border-white/10 bg-white/[0.045] hover:-translate-y-1 hover:border-[#d6a83f]/40 hover:bg-white/[0.065] min-[900px]:shadow-[0_18px_50px_rgba(0,0,0,.22)]"}`}>
+    <article className={`group mx-auto flex h-[540px] w-full max-w-[310px] flex-col rounded-[18px] border border-[#d6a83f] p-3 transition duration-200 min-[900px]:h-full min-[900px]:max-w-none min-[900px]:rounded-3xl min-[900px]:p-4 xl:p-5 ${justAdded ? "bg-black shadow-2xl shadow-black/80 scale-[0.99]" : "bg-white/[0.045] hover:-translate-y-1 hover:border-[#d6a83f] hover:bg-white/[0.065] min-[900px]:shadow-[0_18px_50px_rgba(0,0,0,.22)]"}`}>
       <div className="mx-auto mb-3 flex h-[210px] w-[210px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] bg-white min-[900px]:mb-5 min-[900px]:h-auto min-[900px]:w-full min-[900px]:aspect-square min-[900px]:rounded-2xl">
         {product.image ? <img src={product.image} alt={product.name} className={`h-full w-full object-cover object-center transition-transform duration-200 min-[900px]:object-contain ${desktopScale}`}/> : <span className="text-3xl font-black text-slate-800 min-[900px]:text-5xl">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>}
       </div>
