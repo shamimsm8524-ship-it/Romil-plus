@@ -37,7 +37,7 @@ export default function CatalogoPage() {
           <div className="mx-auto mt-3 h-1 w-12 rounded-full bg-[#e3b64f] md:mt-2"/>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-5 md:grid-cols-4 md:gap-4 xl:gap-5">
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-5 md:grid-cols-4 md:gap-4 min-[760px]:[&>article]:!h-[500px] xl:gap-5 xl:[&>article]:!h-[520px]">
           {products.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
 
