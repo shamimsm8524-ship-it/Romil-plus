@@ -1,15 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { Trash2 } from "lucide-react";
+import { Mail, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/components/CartProvider";
+import { supabase } from "@/lib/supabase";
 
 export default function CarritoPage() {
   const { items, remove, total } = useCart();
+  const [email,setEmail]=useState<string|null>(null);
+  useEffect(()=>{if(!supabase)return;supabase.auth.getSession().then(({data})=>setEmail(data.session?.user.email??null));const{data:listener}=supabase.auth.onAuthStateChange((_event,session)=>setEmail(session?.user.email??null));return()=>listener.subscription.unsubscribe();},[]);
   return (
     <main className="mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
       <h1 className="text-4xl font-black">Tu carrito</h1>
       <p className="mt-2 text-white/50">Revisa tu selección antes de continuar.</p>
+      {email&&<div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#d5a536]/30 bg-[#d5a536]/[0.08] px-4 py-3.5 sm:max-w-xl"><div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#d5a536]/15 text-[#e4b94e]"><Mail size={19}/></div><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-wider text-[#d8b65e]">Cuenta de compra</p><p className="truncate text-sm font-bold text-white sm:text-base" title={email}>{email}</p></div></div>}
       {items.length === 0 ? (
         <div className="mt-10 rounded-3xl border border-white/10 bg-white/[0.04] p-10 text-center"><p className="text-xl font-bold">Tu carrito está vacío</p><Link href="/catalogo" className="mt-5 inline-block rounded-xl bg-white px-5 py-3 font-bold text-slate-950">Ir al catálogo</Link></div>
       ) : (
