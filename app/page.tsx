@@ -10,17 +10,17 @@ export default function Home() {
       <style>{`body>div>header,body>div>footer{display:none!important}`}</style>
       <main className="min-h-screen bg-[#030303] text-white">
         <header className="border-b border-[#8f6927]/30 bg-black">
-          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6 min-[700px]:max-w-[1500px] min-[700px]:px-8 min-[700px]:py-5 lg:px-10">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6 min-[700px]:px-8 min-[700px]:py-4 lg:px-10">
             <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="ROMIL PLUS">
-              <div className="h-[78px] w-[92px] shrink-0 overflow-visible sm:h-[92px] sm:w-[110px] min-[700px]:h-[150px] min-[700px]:w-[260px] lg:h-[170px] lg:w-[300px] xl:h-[185px] xl:w-[330px]">
-                <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-full w-full object-contain min-[700px]:scale-[1.55] lg:scale-[1.7] xl:scale-[1.8]" />
+              <div className="h-[78px] w-[92px] shrink-0 overflow-visible sm:h-[92px] sm:w-[110px] min-[700px]:h-[104px] min-[700px]:w-[150px] lg:h-[112px] lg:w-[165px] xl:h-[120px] xl:w-[180px]">
+                <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-full w-full object-contain min-[700px]:scale-[1.18] lg:scale-[1.22] xl:scale-[1.25]" />
               </div>
             </Link>
-            <div className="flex gap-2 sm:gap-3 min-[700px]:gap-5 lg:gap-6">
-              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><MessageCircle className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={23}/></Link>
-              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><User className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={22}/></Link>
-              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><LogIn className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={22}/></Link>
-              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><ShoppingCart className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={22}/></Link>
+            <div className="flex gap-2 sm:gap-3 min-[700px]:gap-3 lg:gap-4">
+              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[700px]:h-[60px] min-[700px]:w-[60px] lg:h-16 lg:w-16"><MessageCircle className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={23}/></Link>
+              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[60px] min-[700px]:w-[60px] lg:h-16 lg:w-16"><User className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
+              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[60px] min-[700px]:w-[60px] lg:h-16 lg:w-16"><LogIn className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
+              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[60px] min-[700px]:w-[60px] lg:h-16 lg:w-16"><ShoppingCart className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
             </div>
           </div>
         </header>
