@@ -60,6 +60,16 @@ export const products: Product[] = [
     image: "/netflix-nueva.png",
   },
   {
+    id: "chatgpt-plus",
+    name: "ChatGPT PLUS",
+    category: "Inteligencia Artificial",
+    description: "ChatGPT PLUS — suscripción por 1 mes\nCuenta Personal\nSe envía correo y contraseña",
+    price: 45,
+    duration: "1 mes",
+    badge: "Promoción",
+    image: "/chatgpt-plus.png",
+  },
+  {
     id: "youtube-promocion",
     name: "YOUTUBE - PROMOCIÓN",
     category: "Promoción YouTube",
