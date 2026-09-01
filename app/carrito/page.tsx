@@ -16,9 +16,9 @@ export default function CarritoPage() {
       <p className="mt-2 text-white/50 sm:text-lg">Revisa tu selección antes de continuar.</p>
       {email&&<div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#d5a536]/30 bg-[#d5a536]/[0.08] px-4 py-3.5 sm:max-w-xl"><div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#d5a536]/15 text-[#e4b94e]"><Mail size={19}/></div><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-wider text-[#d8b65e]">Cuenta de compra</p><p className="truncate text-sm font-bold text-white sm:text-base" title={email}>{email}</p></div></div>}
       {items.length === 0 ? (
-        <section className="relative mx-auto mt-10 w-full max-w-[900px]">
+        <section className="relative mx-auto mt-10 w-full max-w-[940px]">
           <img src="/empty-cart-card.svg" alt="Tu carrito está vacío. Agrega productos desde nuestro catálogo y vuelve cuando quieras. Ver catálogo." className="block h-auto w-full select-none" draggable={false}/>
-          <Link href="/catalogo" aria-label="Ver catálogo" className="absolute left-[24.5%] top-[75.1%] h-[15.9%] w-[51.1%] rounded-[20px] focus:outline-none focus:ring-4 focus:ring-[#f0c65b]/60"/>
+          <Link href="/catalogo" aria-label="Ver catálogo" className="absolute left-[23.1%] top-[75.8%] h-[17%] w-[54.4%] rounded-[22px] focus:outline-none focus:ring-4 focus:ring-[#f0c65b]/60"/>
         </section>
       ) : (
         <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_320px]">
