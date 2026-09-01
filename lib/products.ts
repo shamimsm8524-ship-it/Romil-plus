@@ -57,7 +57,7 @@ export const products: Product[] = [
     price: 12,
     duration: "1 mes",
     badge: "Promoción",
-    image: "/netflix-vpn.png",
+    image: "/netflix-nueva.png",
   },
   {
     id: "youtube-promocion",
