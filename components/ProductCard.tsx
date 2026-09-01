@@ -18,8 +18,8 @@ export function ProductCard({ product }: { product: Product }) {
   const geminiTotal = geminiUnitPrice * geminiQuantity;
   const displayedPrice = isGemini ? geminiTotal : (selectedVariant?.price ?? product.price);
   const fullBleedImage = ["netflix-vpn", "canva-pro", "chatgpt-plus", "seguidores-likes"].includes(product.id);
-  const desktopScale = isSupportProduct ? "min-[760px]:scale-100" : fullBleedImage ? "min-[760px]:scale-[1.04]" : "min-[760px]:scale-100";
-  const imageFit = isSupportProduct ? "object-cover min-[760px]:object-contain" : fullBleedImage ? "object-cover" : "object-cover min-[760px]:object-contain";
+  const desktopScale = isSupportProduct ? "min-[900px]:scale-100" : fullBleedImage ? "min-[760px]:scale-[1.04]" : "min-[760px]:scale-100";
+  const imageFit = isSupportProduct ? "object-cover min-[900px]:!object-contain" : fullBleedImage ? "object-cover" : "object-cover min-[760px]:object-contain";
   const imagePanelBg = fullBleedImage ? "bg-black" : "bg-white";
 
   const playAddSound = () => {
