@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
+import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 
 export const metadata: Metadata = {
   title: "ROMIL PLUS",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <CartProvider>
           <Header />
           {children}
+          <SupportFloatingButton />
           <footer className="border-t border-white/10 px-4 py-10 text-center text-sm text-white/40">
             ROMIL PLUS · Tus herramientas digitales, en un solo lugar.
           </footer>
