@@ -83,21 +83,10 @@ for insert with check (
 );
 
 drop policy if exists "support messages update" on public.support_messages;
-create policy "support messages update" on public.support_messages
-for update using (
-  exists (
-    select 1 from public.support_conversations c
-    where c.id = support_messages.conversation_id
-      and (c.user_id = auth.uid() or lower(auth.jwt() ->> 'email') = 'milagroslove.1693@gmail.com')
-  )
-)
-with check (
-  exists (
-    select 1 from public.support_conversations c
-    where c.id = support_messages.conversation_id
-      and (c.user_id = auth.uid() or lower(auth.jwt() ->> 'email') = 'milagroslove.1693@gmail.com')
-  )
-);
+drop policy if exists "support messages update admin" on public.support_messages;
+create policy "support messages update admin" on public.support_messages
+for update using (lower(auth.jwt() ->> 'email') = 'milagroslove.1693@gmail.com')
+with check (lower(auth.jwt() ->> 'email') = 'milagroslove.1693@gmail.com');
 
 create or replace function public.touch_support_conversation()
 returns trigger
