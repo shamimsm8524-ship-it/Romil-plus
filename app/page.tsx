@@ -1,65 +1,61 @@
 import Link from "next/link";
-import { ArrowRight, Bolt, ClipboardList, Headphones, ShieldCheck, ShoppingBag, ShoppingCart, User } from "lucide-react";
+import { Headphones, LogIn, MessageCircle, ShieldCheck, ShoppingBag, ShoppingCart, User, Zap } from "lucide-react";
+import { products } from "@/lib/products";
 
-const benefits = [
-  { icon: ShieldCheck, title: "100% Seguras", text: "Licencias originales y verificadas" },
-  { icon: Bolt, title: "Entrega Instantánea", text: "Acceso inmediato tras la compra" },
-  { icon: Headphones, title: "Soporte Dedicado", text: "Estamos aquí para ayudarte" },
-];
-
-function RomilLogo() {
-  return (
-    <img
-      src="/logo-romil-plus.png"
-      alt="ROMIL PLUS"
-      className="h-[74px] w-[92px] shrink-0 rounded-xl object-contain sm:h-[88px] sm:w-[110px]"
-    />
-  );
-}
+const featured = products.filter(p => ["canva-pro","capcut-pro","gemini-pro"].includes(p.id));
 
 export default function Home() {
   return (
     <>
       <style>{`body>div>header,body>div>footer{display:none!important}`}</style>
-      <main className="min-h-screen overflow-hidden bg-[#020202] text-white">
-        <header className="border-b border-[#8f6927]/35 bg-[#020202]">
-          <div className="mx-auto flex w-full max-w-[1024px] items-center justify-between px-5 py-3 sm:px-7 sm:py-4">
-            <Link href="/" aria-label="ROMIL PLUS" className="flex min-w-0 items-center">
-              <RomilLogo />
+      <main className="min-h-screen bg-[#030303] text-white">
+        <header className="border-b border-[#8f6927]/30 bg-black">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+            <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="ROMIL PLUS">
+              <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-[78px] w-[92px] shrink-0 object-contain sm:h-[92px] sm:w-[110px]" />
             </Link>
-            <div className="ml-2 flex gap-2 sm:gap-3">
-              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 sm:h-14 sm:w-14 sm:rounded-2xl"><User size={21}/></Link>
-              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-xl border border-[#d5a536]/55 sm:h-14 sm:w-14 sm:rounded-2xl"><ShoppingCart size={21}/></Link>
+            <div className="flex gap-2 sm:gap-3">
+              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14"><MessageCircle size={23}/></Link>
+              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14"><User size={22}/></Link>
+              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14"><LogIn size={22}/></Link>
+              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14"><ShoppingCart size={22}/></Link>
             </div>
           </div>
         </header>
 
-        <section className="relative mx-auto max-w-[1024px] px-5 pb-9 pt-9 sm:px-7 sm:pb-12 sm:pt-14">
-          <div className="pointer-events-none absolute -right-[360px] top-[170px] h-[650px] w-[650px] rounded-full border-[2px] border-[#eab13c] shadow-[-7px_0_18px_rgba(255,190,60,.72),-24px_0_65px_rgba(215,145,25,.22)] sm:-right-[390px] sm:top-[120px] sm:h-[780px] sm:w-[780px]" />
-          <div className="relative z-10 max-w-[690px]">
-            <div className="inline-flex items-center gap-3">
-              <span className="h-px w-5 bg-[#d8a53a]" />
-              <div className="rounded-full border border-[#dba83b] px-6 py-2.5 text-[10px] font-black tracking-[.30em] text-[#edc35f] sm:text-xs">ROMIL PLUS</div>
-              <span className="h-px w-5 bg-[#d8a53a]" />
-            </div>
-
-            <h1 className="mt-8 text-[45px] font-black leading-[1.01] tracking-[-.045em] sm:mt-10 sm:text-7xl">
-              Todas tus<br/>herramientas<br/>digitales <span className="bg-gradient-to-r from-[#f2cf70] via-[#dfa93e] to-[#b77922] bg-clip-text text-transparent">en un<br/>solo lugar.</span>
-            </h1>
-
-            <p className="mt-7 max-w-[610px] text-[16px] leading-7 text-[#b9b3aa] sm:mt-8 sm:text-[18px] sm:leading-8">Una experiencia digital elegante para descubrir, comprar y administrar suscripciones y licencias autorizadas.</p>
-
-            <div className="mt-8 grid grid-cols-2 gap-3 sm:mt-9 sm:max-w-[700px] sm:gap-4">
-              <Link href="/catalogo" className="flex min-h-[62px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#f7dc80] via-[#e2b64f] to-[#bd8128] px-3 text-[14px] font-black text-black shadow-[0_10px_30px_rgba(204,151,47,.18)] sm:min-h-[68px] sm:rounded-2xl sm:text-base"><ShoppingBag size={19}/>Explorar catálogo<ArrowRight size={18}/></Link>
-              <Link href="/mis-compras" className="flex min-h-[62px] items-center justify-center gap-2 rounded-xl border border-[#d5a536]/75 bg-[#050505] px-3 text-[14px] font-bold sm:min-h-[68px] sm:rounded-2xl sm:text-base"><ClipboardList size={19} className="text-[#dfb14b]"/>Mis compras</Link>
-            </div>
+        <section className="mx-auto max-w-5xl px-4 pt-4 sm:px-6">
+          <div className="grid grid-cols-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]">
+            <div className="flex min-h-[92px] items-center justify-center gap-2 border-r border-white/10 px-2 text-center sm:gap-3"><ShieldCheck className="shrink-0 text-[#e6b84f]" size={25}/><div><p className="text-[11px] font-black uppercase sm:text-sm">Garantía</p><p className="mt-1 text-[10px] font-bold text-[#e6b84f] sm:text-xs">12 meses</p></div></div>
+            <div className="flex min-h-[92px] items-center justify-center gap-2 border-r border-white/10 px-2 text-center sm:gap-3"><Zap className="shrink-0 text-[#e6b84f]" size={25}/><div><p className="text-[11px] font-black uppercase sm:text-sm">Entrega</p><p className="mt-1 text-[10px] font-bold sm:text-xs">Inmediata</p></div></div>
+            <div className="flex min-h-[92px] items-center justify-center gap-2 px-2 text-center sm:gap-3"><Headphones className="shrink-0 text-[#e6b84f]" size={25}/><div><p className="text-[11px] font-black uppercase sm:text-sm">Soporte</p><p className="mt-1 text-[10px] font-bold sm:text-xs">24/7</p></div></div>
           </div>
         </section>
 
-        <section className="relative z-10 mx-auto max-w-[1024px] px-5 pb-14 sm:px-7 sm:pb-16">
-          <div className="grid grid-cols-3 overflow-hidden rounded-[22px] border border-[#9f772b]/55 bg-[#080807]/95 sm:rounded-[28px]">
-            {benefits.map(({icon:Icon,title,text},i)=><div key={title} className={`flex min-h-[160px] flex-col items-center justify-center px-2 py-5 text-center sm:min-h-[190px] sm:px-5 ${i<2?'border-r border-[#6d572c]/45':''}`}><Icon size={34} strokeWidth={1.7} className="text-[#e4b54b] sm:h-[42px] sm:w-[42px]"/><div className="mt-3 text-[12px] font-extrabold leading-4 sm:mt-4 sm:text-lg">{title}</div><div className="mt-2 text-[10px] leading-4 text-[#99938b] sm:text-sm sm:leading-5">{text}</div></div>)}
+        <section className="mx-auto max-w-5xl px-4 pt-5 sm:px-6">
+          <div className="rounded-3xl border border-[#a97a25]/45 bg-[radial-gradient(circle_at_90%_100%,rgba(230,184,79,.16),transparent_33%),linear-gradient(135deg,#0d0d0d,#111)] px-5 py-7 text-center shadow-[0_0_28px_rgba(197,139,33,.08)] sm:py-9">
+            <h1 className="text-3xl font-black sm:text-4xl">Bienvenido a <span className="text-[#e3b64f]">ROMIL PLUS</span></h1>
+            <p className="mt-2 text-sm text-white/65 sm:text-base">Tu tienda de suscripciones digitales premium</p>
           </div>
+        </section>
+
+        <section className="mx-auto max-w-5xl px-4 py-6 sm:px-6">
+          <div className="rounded-3xl border border-white/10 bg-[#080808] p-4 sm:p-6">
+            <div className="text-center"><h2 className="text-2xl font-black sm:text-3xl">PRODUCTOS <span className="text-[#e3b64f]">DESTACADOS</span></h2><div className="mx-auto mt-3 h-1 w-12 rounded-full bg-[#e3b64f]"/></div>
+            <div className="mt-6 space-y-3">
+              {featured.map((p)=><Link key={p.id} href={`/producto/${p.id}`} className="grid grid-cols-[112px_1fr_auto] items-center gap-4 rounded-2xl border border-white/10 bg-gradient-to-r from-[#101010] to-[#0a0a0a] p-3 transition hover:border-[#e3b64f]/40 sm:grid-cols-[140px_1fr_auto]">
+                <img src={p.image || "/logo-romil-plus.png"} alt={p.name} className="h-28 w-28 rounded-2xl bg-white object-cover sm:h-32 sm:w-32"/>
+                <div className="min-w-0"><p className="text-lg font-black sm:text-xl">{p.name}</p><p className="mt-2 text-sm text-white/60">Suscripción: <span className="font-bold text-[#e3b64f]">{p.duration}</span></p><p className="mt-3 inline-block rounded-xl border border-[#b17f26]/40 px-3 py-2 text-lg font-black text-[#e3b64f]">S/ {Number(p.price).toFixed(2)}</p></div>
+                <span className="text-3xl text-white/75">›</span>
+              </Link>)}
+            </div>
+            <Link href="/catalogo" className="mt-5 flex min-h-[58px] items-center justify-center gap-2 rounded-2xl border border-[#d5a536]/55 bg-black px-4 font-black">VER TODOS LOS PRODUCTOS <ShoppingBag size={18} className="text-[#e3b64f]"/></Link>
+          </div>
+
+          <Link href="/catalogo" className="mt-4 flex items-center gap-4 rounded-3xl border border-[#a97a25]/45 bg-[linear-gradient(90deg,#0a0a0a,#171107,#0b0b0b)] p-4">
+            <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[#e3b64f]/10 text-2xl">🏷️</div>
+            <div className="min-w-0 flex-1"><p className="font-black text-[#e3b64f]">PROMOCIÓN POR TIEMPO LIMITADO</p><p className="mt-1 text-sm text-white/60">Descuentos especiales en nuestras suscripciones</p></div>
+            <span className="text-2xl">›</span>
+          </Link>
         </section>
       </main>
     </>
