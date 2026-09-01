@@ -10,15 +10,15 @@ export default function Home() {
       <style>{`body>div>header,body>div>footer{display:none!important}`}</style>
       <main className="min-h-screen bg-[#030303] text-white">
         <header className="border-b border-[#8f6927]/30 bg-black">
-          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+          <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-4 sm:px-6 min-[800px]:max-w-7xl min-[800px]:px-8 min-[800px]:py-5 lg:max-w-[1500px] lg:px-10">
             <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="ROMIL PLUS">
-              <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-[78px] w-[92px] shrink-0 object-contain sm:h-[92px] sm:w-[110px]" />
+              <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-[78px] w-[92px] shrink-0 object-contain sm:h-[92px] sm:w-[110px] min-[800px]:h-[150px] min-[800px]:w-[190px] lg:h-[175px] lg:w-[220px] xl:h-[195px] xl:w-[245px]" />
             </Link>
-            <div className="flex gap-2 sm:gap-3">
-              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14"><MessageCircle size={23}/></Link>
-              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14"><User size={22}/></Link>
-              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14"><LogIn size={22}/></Link>
-              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14"><ShoppingCart size={22}/></Link>
+            <div className="flex gap-2 sm:gap-3 min-[800px]:gap-4">
+              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[800px]:h-16 min-[800px]:w-16 lg:h-[72px] lg:w-[72px]"><MessageCircle className="min-[800px]:h-7 min-[800px]:w-7 lg:h-8 lg:w-8" size={23}/></Link>
+              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[800px]:h-16 min-[800px]:w-16 lg:h-[72px] lg:w-[72px]"><User className="min-[800px]:h-7 min-[800px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
+              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14 min-[800px]:h-16 min-[800px]:w-16 lg:h-[72px] lg:w-[72px]"><LogIn className="min-[800px]:h-7 min-[800px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
+              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[800px]:h-16 min-[800px]:w-16 lg:h-[72px] lg:w-[72px]"><ShoppingCart className="min-[800px]:h-7 min-[800px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
             </div>
           </div>
         </header>
