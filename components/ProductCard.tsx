@@ -8,8 +8,6 @@ import { useCart } from "./CartProvider";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
-  const isCapCut = product.id === "capcut-pro";
-  const isYouTube = product.id === "youtube-promocion";
   const [selectedVariantId, setSelectedVariantId] = useState(product.variants?.[0]?.id ?? "");
   const [justAdded, setJustAdded] = useState(false);
   const selectedVariant = product.variants?.find((variant) => variant.id === selectedVariantId) ?? product.variants?.[0];
@@ -34,8 +32,8 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className={`group flex h-full flex-col rounded-3xl border p-4 transition duration-200 sm:p-5 lg:p-6 ${justAdded ? "border-black bg-black shadow-2xl shadow-black/80 scale-[0.99]" : "border-white/10 bg-white/[0.045] hover:-translate-y-1 hover:border-[#d6a83f]/40 hover:bg-white/[0.065] lg:shadow-[0_18px_50px_rgba(0,0,0,.22)]"}`}>
-      <div className={`mx-auto mb-5 flex w-full items-center justify-center overflow-hidden rounded-2xl lg:aspect-square lg:h-auto lg:max-w-none ${isCapCut || isYouTube ? "h-52 bg-white" : "h-48 bg-gradient-to-br from-cyan-500/10 via-violet-500/15 to-fuchsia-500/10"}`}>
-        {product.image ? <img src={product.image} alt={product.name} className="h-full w-full object-contain object-center lg:object-cover"/> : <span className="text-4xl font-black text-white/85 lg:text-5xl">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>}
+      <div className="mx-auto mb-5 flex h-48 w-full items-center justify-center overflow-hidden rounded-2xl bg-white lg:aspect-square lg:h-auto lg:w-full">
+        {product.image ? <img src={product.image} alt={product.name} className="h-full w-full object-contain object-center lg:p-2"/> : <span className="text-4xl font-black text-slate-800 lg:text-5xl">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>}
       </div>
       <div className="mb-3 flex items-start justify-between gap-3">
         <div><p className="text-xs font-semibold uppercase tracking-wider text-[#e2b44c] lg:text-sm">{product.category}</p><h3 className="mt-1 text-xl font-bold lg:text-2xl">{product.name}</h3></div>
