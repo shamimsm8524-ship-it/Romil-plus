@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, ChevronRight, Mail, Send, ShoppingCart, Sparkles, Trash2 } from "lucide-react";
+import { BookOpen, ChevronRight, Mail, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/components/CartProvider";
 import { supabase } from "@/lib/supabase";
@@ -16,27 +16,17 @@ export default function CarritoPage() {
       <p className="mt-2 text-white/50 sm:text-lg">Revisa tu selección antes de continuar.</p>
       {email&&<div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#d5a536]/30 bg-[#d5a536]/[0.08] px-4 py-3.5 sm:max-w-xl"><div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#d5a536]/15 text-[#e4b94e]"><Mail size={19}/></div><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-wider text-[#d8b65e]">Cuenta de compra</p><p className="truncate text-sm font-bold text-white sm:text-base" title={email}>{email}</p></div></div>}
       {items.length === 0 ? (
-        <section className="relative mt-10 overflow-hidden rounded-[30px] border border-[#d8aa42]/55 bg-[radial-gradient(circle_at_50%_16%,rgba(224,178,72,.14),transparent_28%),linear-gradient(180deg,#121212_0%,#0b0b0b_100%)] px-5 pb-8 pt-7 text-center shadow-[0_26px_80px_rgba(0,0,0,.5),inset_0_0_0_1px_rgba(255,255,255,.015)] sm:px-9 sm:pb-10 sm:pt-9 lg:px-14 lg:pb-12 lg:pt-11">
-          <div className="relative mx-auto h-[205px] max-w-3xl sm:h-[235px] lg:h-[260px]">
-            <div className="absolute inset-x-[16%] bottom-[38px] h-[3px] rounded-full bg-gradient-to-r from-transparent via-[#dcae3c] to-transparent shadow-[0_0_26px_rgba(231,182,61,.95)]"/>
-            <div className="absolute left-[13%] right-[17%] bottom-[68px] border-t-2 border-dashed border-[#d8aa42]/75"/>
-            <Sparkles className="absolute left-[24%] top-[26%] h-5 w-5 text-[#f2c65b] sm:h-6 sm:w-6"/>
-            <Sparkles className="absolute right-[26%] top-[19%] h-6 w-6 text-[#f2c65b] sm:h-7 sm:w-7"/>
-            <span className="absolute left-[17%] top-[54%] h-3 w-3 rounded-full border border-[#d8aa42]"/>
-            <span className="absolute left-[31%] top-[63%] h-1.5 w-1.5 rounded-full bg-[#d8aa42]"/>
-            <Send className="absolute right-[10%] bottom-[58px] h-12 w-12 rotate-[-10deg] text-[#efc45f] sm:h-14 sm:w-14 lg:h-16 lg:w-16" strokeWidth={1.7}/>
-            <div className="absolute left-1/2 top-1/2 grid h-32 w-32 -translate-x-1/2 -translate-y-[46%] place-items-center rounded-full border border-[#d6a83f]/50 bg-[radial-gradient(circle,rgba(214,168,63,.11),rgba(0,0,0,.7)_70%)] shadow-[0_0_42px_rgba(214,168,63,.22)] sm:h-36 sm:w-36 lg:h-40 lg:w-40">
-              <ShoppingCart className="h-16 w-16 text-[#f3d17d] drop-shadow-[0_0_14px_rgba(243,209,125,.5)] sm:h-20 sm:w-20 lg:h-24 lg:w-24" strokeWidth={1.8}/>
-            </div>
+        <section className="relative mt-10 overflow-hidden rounded-[30px] border border-[#c99a2c]/70 bg-[radial-gradient(circle_at_50%_18%,rgba(222,173,49,.10),transparent_34%),linear-gradient(180deg,#101010_0%,#080808_100%)] px-4 pb-8 pt-5 text-center shadow-[0_24px_80px_rgba(0,0,0,.58),inset_0_0_0_1px_rgba(255,255,255,.02)] sm:px-8 sm:pb-10 sm:pt-7 lg:px-12 lg:pb-12 lg:pt-9">
+          <div className="mx-auto w-full max-w-[760px]">
+            <img src="/empty-cart-premium.svg" alt="Carrito vacío" className="mx-auto w-full max-w-[700px] select-none" draggable={false}/>
           </div>
-
-          <div className="relative z-10 mx-auto max-w-2xl">
-            <h2 className="text-[27px] font-black tracking-tight text-white sm:text-3xl lg:text-4xl">Tu carrito está vacío</h2>
-            <p className="mx-auto mt-3 max-w-xl text-[15px] leading-6 text-white/60 sm:text-lg sm:leading-7">Agrega productos desde nuestro catálogo<br className="hidden sm:block"/> y vuelve cuando quieras.</p>
-            <Link href="/catalogo" className="mx-auto mt-7 flex w-full max-w-[360px] items-center justify-center gap-3 rounded-2xl border border-[#ffe396]/60 bg-gradient-to-r from-[#f6d779] via-[#e9b63e] to-[#f4ce67] px-5 py-4 text-[18px] font-black text-black shadow-[0_12px_34px_rgba(219,171,56,.32),inset_0_1px_0_rgba(255,255,255,.55)] transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 sm:max-w-[430px] sm:py-5 sm:text-xl lg:text-2xl">
-              <BookOpen className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={2.2}/>
+          <div className="relative z-10 mx-auto -mt-3 max-w-2xl sm:-mt-5">
+            <h2 className="text-[29px] font-black tracking-tight text-white sm:text-4xl lg:text-[42px]">Tu carrito está vacío</h2>
+            <p className="mx-auto mt-3 max-w-xl text-[16px] leading-7 text-white/60 sm:text-xl sm:leading-8 lg:text-[21px]">Agrega productos desde nuestro catálogo<br className="hidden sm:block"/> y vuelve cuando quieras.</p>
+            <Link href="/catalogo" className="mx-auto mt-7 flex w-full max-w-[390px] items-center justify-center gap-3 rounded-[20px] border border-[#ffe59b]/70 bg-gradient-to-r from-[#f7da7b] via-[#e8b43a] to-[#f4cc62] px-5 py-4 text-[20px] font-black text-black shadow-[0_14px_38px_rgba(219,171,56,.34),inset_0_1px_0_rgba(255,255,255,.6)] transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 sm:max-w-[470px] sm:py-5 sm:text-2xl lg:text-[28px]">
+              <BookOpen className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8" strokeWidth={2.1}/>
               Ver catálogo
-              <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={2.8}/>
+              <ChevronRight className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8" strokeWidth={2.8}/>
             </Link>
           </div>
         </section>
