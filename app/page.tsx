@@ -16,11 +16,11 @@ export default function Home() {
                 <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-full w-full object-contain min-[700px]:scale-[1.55] lg:scale-[1.7] xl:scale-[1.8]" />
               </div>
             </Link>
-            <div className="flex gap-2 sm:gap-3 min-[700px]:gap-4">
-              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[700px]:h-16 min-[700px]:w-16 lg:h-[72px] lg:w-[72px]"><MessageCircle className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={23}/></Link>
-              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-16 min-[700px]:w-16 lg:h-[72px] lg:w-[72px]"><User className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
-              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-16 min-[700px]:w-16 lg:h-[72px] lg:w-[72px]"><LogIn className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
-              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-16 min-[700px]:w-16 lg:h-[72px] lg:w-[72px]"><ShoppingCart className="min-[700px]:h-7 min-[700px]:w-7 lg:h-8 lg:w-8" size={22}/></Link>
+            <div className="flex gap-2 sm:gap-3 min-[700px]:gap-5 lg:gap-6">
+              <Link href="/soporte" aria-label="Chat" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white shadow-[0_0_18px_rgba(213,165,54,.08)] sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><MessageCircle className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={23}/></Link>
+              <Link href="/login" aria-label="Cuenta" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><User className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={22}/></Link>
+              <Link href="/login" aria-label="Ingresar" className="grid h-12 w-12 place-items-center rounded-2xl border border-white/15 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><LogIn className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={22}/></Link>
+              <Link href="/carrito" aria-label="Carrito" className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a53b]/55 bg-black text-white sm:h-14 sm:w-14 min-[700px]:h-[86px] min-[700px]:w-[86px] lg:h-[100px] lg:w-[100px]"><ShoppingCart className="min-[700px]:h-10 min-[700px]:w-10 lg:h-12 lg:w-12" size={22}/></Link>
             </div>
           </div>
         </header>
