@@ -17,7 +17,8 @@ export function ProductCard({ product }: { product: Product }) {
   const geminiTotal = geminiUnitPrice * geminiQuantity;
   const displayedPrice = isGemini ? geminiTotal : (selectedVariant?.price ?? product.price);
   const desktopScale = product.id === "canva-pro" ? "min-[760px]:scale-[1.08]" : "min-[760px]:scale-100";
-  const imageFit = product.id === "netflix-vpn" ? "object-contain" : "object-cover min-[760px]:object-contain";
+  const imageFit = product.id === "netflix-vpn" ? "object-cover" : "object-cover min-[760px]:object-contain";
+  const imagePanelBg = product.id === "netflix-vpn" ? "bg-black" : "bg-white";
 
   const playAddSound = () => {
     try {
@@ -44,7 +45,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <article className={`group mx-auto flex h-[540px] w-full max-w-[310px] flex-col rounded-[18px] border-2 border-[#d6a83f] p-3 transition duration-200 min-[760px]:h-[410px] min-[760px]:max-w-none min-[760px]:rounded-2xl min-[760px]:border min-[760px]:p-3 xl:h-[430px] ${justAdded ? "bg-black shadow-[0_0_0_1px_rgba(255,224,140,.35),0_0_22px_rgba(214,168,63,.24),0_22px_50px_rgba(0,0,0,.72)] scale-[0.99]" : "bg-[linear-gradient(180deg,#111,#0b0b0b)] shadow-[0_0_0_1px_rgba(255,224,140,.12),0_18px_44px_rgba(0,0,0,.28)] hover:-translate-y-1 hover:border-[#efc75e]"}`}>
-      <div className="mx-auto mb-3 flex h-[210px] w-[210px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] bg-white min-[760px]:mb-3 min-[760px]:h-[165px] min-[760px]:w-full min-[760px]:rounded-xl xl:h-[178px]">
+      <div className={`mx-auto mb-3 flex h-[210px] w-[210px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] ${imagePanelBg} min-[760px]:mb-3 min-[760px]:h-[165px] min-[760px]:w-full min-[760px]:rounded-xl xl:h-[178px]`}>
         {product.image ? <img src={product.image} alt={product.name} className={`h-full w-full ${imageFit} object-center transition-transform duration-200 ${desktopScale}`}/> : <span className="text-3xl font-black text-slate-800">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>}
       </div>
 
