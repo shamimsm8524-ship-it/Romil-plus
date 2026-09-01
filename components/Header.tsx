@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, ShoppingCart, User, ReceiptText } from "lucide-react";
+import { MessageCircle, ShoppingCart, User, ReceiptText, ClipboardList } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCart } from "./CartProvider";
@@ -59,7 +59,8 @@ export function Header() {
 
       <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 min-[700px]:gap-2.5">
         {isAdmin ? <>
-          <Link href="/admin/soporte" className={`${desktopButton} border border-[#d5a536]/55 text-white transition-all hover:bg-[#d5a536]/15 active:scale-95`} aria-label="Atención al cliente" title="Atención al cliente"><MessageCircle className="h-6 w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/></Link>
+          <Link href="/admin" className={`${desktopButton} flex-col border transition-all active:scale-95 ${pathname==="/admin"?"border-[#d5a536]/75 bg-[#d5a536]/15 text-[#efc75f]":"border-[#d5a536]/55 text-[#e1b04a] hover:bg-[#d5a536]/15"}`} aria-label="Pedidos" title="Pedidos"><ClipboardList className="h-[18px] w-[18px] sm:h-5 sm:w-5 min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/><span className="mt-0.5 text-[6px] font-black uppercase leading-none sm:text-[7px] min-[700px]:text-[8px]">Pedidos</span></Link>
+          <Link href="/admin/soporte" className={`${desktopButton} flex-col border transition-all active:scale-95 ${pathname.startsWith("/admin/soporte")?"border-[#d5a536]/75 bg-[#d5a536]/15 text-[#efc75f]":"border-[#d5a536]/55 text-white hover:bg-[#d5a536]/15"}`} aria-label="Atención al cliente" title="Atención al cliente"><MessageCircle className="h-[18px] w-[18px] sm:h-5 sm:w-5 min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/><span className="mt-0.5 text-[5.5px] font-black uppercase leading-none sm:text-[6px] min-[700px]:text-[7px]">Atención</span></Link>
           <Link href="/perfil" className={`${desktopButton} border transition-all active:scale-95 ${pathname.startsWith("/perfil")?"border-[#d5a536]/70 bg-[#d5a536]/15 text-[#efc75f]":"border-[#d5a536]/55 text-[#e1b04a] hover:bg-[#d5a536]/15"}`} aria-label={`Mi perfil: ${email}`} title="Mi perfil"><User className="h-[19px] w-[19px] sm:h-[21px] sm:w-[21px] min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/></Link>
         </> : <>
           <Link href={supportHref} className={`${desktopButton} hidden border border-[#d5a536]/55 text-white transition-all hover:bg-[#d5a536]/15 active:scale-95 min-[900px]:grid`} aria-label="Soporte"><MessageCircle className="h-6 w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/></Link>
