@@ -1,0 +1,47 @@
+<svg width="900" height="360" viewBox="0 0 900 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 180) rotate(90) scale(150)">
+      <stop stop-color="#D9A928" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#D9A928" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFE7A0"/>
+      <stop offset="0.45" stop-color="#F1C85A"/>
+      <stop offset="1" stop-color="#B98518"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <ellipse cx="450" cy="185" rx="210" ry="145" fill="url(#glow)"/>
+  <ellipse cx="450" cy="292" rx="120" ry="14" fill="#E9B63E" opacity="0.22" filter="url(#shadow)"/>
+
+  <path d="M155 278 C250 240 300 285 365 265 C440 242 500 272 560 260 C650 242 680 205 744 180" stroke="#D8AA42" stroke-width="4" stroke-linecap="round" stroke-dasharray="12 14" opacity="0.9"/>
+
+  <circle cx="450" cy="170" r="112" fill="#0D0D0D" stroke="#D7A83C" stroke-opacity="0.58" stroke-width="2"/>
+  <circle cx="450" cy="170" r="94" fill="url(#glow)" opacity="0.55"/>
+
+  <g stroke="url(#gold)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)">
+    <path d="M390 120H416L431 208H520L541 145H424"/>
+    <path d="M438 168H520"/>
+    <circle cx="447" cy="231" r="11"/>
+    <circle cx="513" cy="231" r="11"/>
+  </g>
+
+  <g stroke="#F2C45D" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+    <path d="M730 150L808 117L766 196L757 158L730 150Z"/>
+    <path d="M757 158L789 131"/>
+  </g>
+
+  <g fill="#F0C75D">
+    <path d="M294 92L300 106L314 112L300 118L294 132L288 118L274 112L288 106L294 92Z"/>
+    <path d="M622 65L629 81L645 88L629 95L622 111L615 95L599 88L615 81L622 65Z"/>
+    <circle cx="220" cy="164" r="7" fill="none" stroke="#E6B83E" stroke-width="3"/>
+    <circle cx="338" cy="206" r="4"/>
+    <circle cx="675" cy="124" r="4"/>
+  </g>
+
+  <path d="M320 292H580" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" opacity="0.9"/>
+</svg>
