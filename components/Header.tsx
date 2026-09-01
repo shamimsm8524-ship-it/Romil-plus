@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, ShoppingCart, User, ReceiptText } from "lucide-react";
+import { MessageCircle, ShoppingCart, User, ReceiptText, ClipboardList } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useCart } from "./CartProvider";
@@ -59,6 +59,7 @@ export function Header() {
 
       <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2 min-[700px]:gap-2.5">
         {isAdmin ? <>
+          <Link href="/admin" className={`${desktopButton} border transition-all active:scale-95 ${pathname==="/admin"?"border-[#d5a536]/70 bg-[#d5a536]/15 text-[#efc75f]":"border-[#d5a536]/55 text-[#e1b04a] hover:bg-[#d5a536]/15"}`} aria-label="Pedidos" title="Pedidos"><ClipboardList className="h-6 w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/></Link>
           <Link href="/admin/soporte" className={`${desktopButton} border border-[#d5a536]/55 text-white transition-all hover:bg-[#d5a536]/15 active:scale-95`} aria-label="Atención al cliente" title="Atención al cliente"><MessageCircle className="h-6 w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/></Link>
           <Link href="/perfil" className={`${desktopButton} border transition-all active:scale-95 ${pathname.startsWith("/perfil")?"border-[#d5a536]/70 bg-[#d5a536]/15 text-[#efc75f]":"border-[#d5a536]/55 text-[#e1b04a] hover:bg-[#d5a536]/15"}`} aria-label={`Mi perfil: ${email}`} title="Mi perfil"><User className="h-[19px] w-[19px] sm:h-[21px] sm:w-[21px] min-[700px]:h-6 min-[700px]:w-6 lg:h-7 lg:w-7" strokeWidth={1.8}/></Link>
         </> : <>
