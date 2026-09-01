@@ -8,7 +8,7 @@ import { useCart } from "./CartProvider";
 import { supabase } from "@/lib/supabase";
 
 const ADMIN_EMAIL="milagroslove.1693@gmail.com";
-function RomilLogo() { return <img src="/logo-romil-plus.png" alt="Romil Plus" className="h-[72px] w-[72px] shrink-0 object-contain sm:h-[82px] sm:w-[82px] md:h-[180px] md:w-[180px] lg:h-[220px] lg:w-[220px] xl:h-[245px] xl:w-[245px]"/>; }
+function RomilLogo() { return <img src="/logo-romil-plus.png" alt="Romil Plus" className="h-[72px] w-[72px] shrink-0 object-contain sm:h-[82px] sm:w-[82px] min-[800px]:h-[210px] min-[800px]:w-[210px] lg:h-[240px] lg:w-[240px] xl:h-[265px] xl:w-[265px]"/>; }
 
 export function Header() {
   const pathname = usePathname(); const router = useRouter(); const { items } = useCart();
