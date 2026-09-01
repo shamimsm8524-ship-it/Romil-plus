@@ -1,0 +1,24 @@
+<svg width="900" height="620" viewBox="0 0 900 620" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="bg" x1="450" y1="0" x2="450" y2="620" gradientUnits="userSpaceOnUse"><stop stop-color="#121212"/><stop offset="1" stop-color="#090909"/></linearGradient>
+  <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(450 190) rotate(90) scale(155 220)"><stop stop-color="#D7A936" stop-opacity=".30"/><stop offset="1" stop-color="#D7A936" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#FFE7A0"/><stop offset=".45" stop-color="#F0C85D"/><stop offset="1" stop-color="#B98518"/></linearGradient>
+  <linearGradient id="button" x1="250" y1="0" x2="650" y2="0"><stop stop-color="#F8DC7B"/><stop offset=".5" stop-color="#E7B53C"/><stop offset="1" stop-color="#F4CD63"/></linearGradient>
+  <filter id="glow" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="9" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect x="1" y="1" width="898" height="618" rx="30" fill="url(#bg)" stroke="#B98A25" stroke-opacity=".9" stroke-width="2"/>
+<ellipse cx="450" cy="190" rx="235" ry="165" fill="url(#halo)"/>
+<path d="M150 252C225 222 280 268 354 247C424 227 494 266 565 244C650 218 698 186 770 157" stroke="#D7A83C" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="10 13" opacity=".92"/>
+<circle cx="450" cy="176" r="105" fill="#111" stroke="#C49731" stroke-width="2"/>
+<circle cx="450" cy="176" r="90" fill="url(#halo)" opacity=".72"/>
+<ellipse cx="450" cy="282" rx="115" ry="10" fill="#E5B43D" opacity=".30" filter="url(#glow)"/>
+<g stroke="url(#gold)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"><path d="M400 132H421L435 211H512L531 151H427"/><path d="M442 174H511"/><circle cx="448" cy="232" r="10"/><circle cx="504" cy="232" r="10"/></g>
+<g stroke="#F1C65A" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M716 145L786 116L750 184L741 152L716 145Z"/><path d="M741 152L770 127"/></g>
+<g fill="#F2CA63"><path d="M304 92L310 105L323 111L310 117L304 130L298 117L285 111L298 105L304 92Z"/><path d="M603 73L610 89L626 96L610 103L603 119L596 103L580 96L596 89L603 73Z"/><circle cx="211" cy="169" r="7" fill="none" stroke="#E4B83E" stroke-width="3"/><circle cx="343" cy="226" r="3.5"/><circle cx="661" cy="139" r="3.5"/></g>
+<text x="450" y="350" fill="#FFFFFF" font-family="Arial,Helvetica,sans-serif" font-size="40" font-weight="800" text-anchor="middle">Tu carrito está vacío</text>
+<text x="450" y="397" fill="#B8B8B8" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="400" text-anchor="middle">Agrega productos desde nuestro catálogo</text>
+<text x="450" y="430" fill="#B8B8B8" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="400" text-anchor="middle">y vuelve cuando quieras.</text>
+<rect x="220" y="466" width="460" height="98" rx="21" fill="url(#button)" stroke="#FFE6A0" stroke-opacity=".75"/>
+<g stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M287 497C303 491 318 493 330 503V538C318 529 303 528 287 534V497Z"/><path d="M330 503C342 493 357 491 373 497V534C357 528 342 529 330 538V503Z"/><path d="M642 505L659 515L642 525"/></g>
+<text x="476" y="527" fill="#111111" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="800" text-anchor="middle">Ver catálogo</text>
+</svg>
