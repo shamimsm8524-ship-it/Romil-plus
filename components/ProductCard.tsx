@@ -17,6 +17,7 @@ export function ProductCard({ product }: { product: Product }) {
   const geminiTotal = geminiUnitPrice * geminiQuantity;
   const displayedPrice = isGemini ? geminiTotal : (selectedVariant?.price ?? product.price);
   const desktopScale = product.id === "canva-pro" ? "min-[900px]:scale-[1.55]" : product.id === "gemini-pro" ? "min-[900px]:scale-[1.22]" : "min-[900px]:scale-[1.04]";
+  const imageFit = product.id === "netflix-vpn" ? "object-contain" : "object-cover min-[900px]:object-contain";
 
   const playAddSound = () => {
     try {
@@ -44,7 +45,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <article className={`group mx-auto flex h-[540px] w-full max-w-[310px] flex-col rounded-[18px] border-2 border-[#d6a83f] p-3 transition duration-200 min-[900px]:h-full min-[900px]:max-w-none min-[900px]:rounded-3xl min-[900px]:p-4 xl:p-5 ${justAdded ? "bg-black shadow-[0_0_0_1px_rgba(255,224,140,.35),0_0_22px_rgba(214,168,63,.24),0_22px_50px_rgba(0,0,0,.72)] scale-[0.99]" : "bg-white/[0.045] shadow-[0_0_0_1px_rgba(255,224,140,.18),0_0_18px_rgba(214,168,63,.16),0_18px_50px_rgba(0,0,0,.28)] hover:-translate-y-1 hover:border-[#efc75e] hover:bg-white/[0.065] hover:shadow-[0_0_0_1px_rgba(255,233,166,.28),0_0_24px_rgba(214,168,63,.24),0_22px_56px_rgba(0,0,0,.32)]"}`}>
       <div className="mx-auto mb-3 flex h-[210px] w-[210px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] bg-white min-[900px]:mb-5 min-[900px]:h-auto min-[900px]:w-full min-[900px]:aspect-square min-[900px]:rounded-2xl">
-        {product.image ? <img src={product.image} alt={product.name} className={`h-full w-full object-cover object-center transition-transform duration-200 min-[900px]:object-contain ${desktopScale}`}/> : <span className="text-3xl font-black text-slate-800 min-[900px]:text-5xl">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>}
+        {product.image ? <img src={product.image} alt={product.name} className={`h-full w-full ${imageFit} object-center transition-transform duration-200 ${desktopScale}`}/> : <span className="text-3xl font-black text-slate-800 min-[900px]:text-5xl">{product.name.split(" ").map((word) => word[0]).join("").slice(0, 2)}</span>}
       </div>
       <div className="mb-2 flex min-h-[48px] items-start justify-between gap-2 min-[900px]:mb-3 min-[900px]:min-h-0 min-[900px]:gap-3">
         <div className="min-w-0"><p className="text-[12px] font-semibold uppercase tracking-wider text-[#e2b44c] min-[900px]:text-[11px] xl:text-sm">{product.category}</p><h3 className="mt-0.5 text-[20px] font-bold leading-6 min-[900px]:mt-1 min-[900px]:text-lg xl:text-2xl">{product.name}</h3></div>
