@@ -22,7 +22,7 @@ export const products: Product[] = [
     id: "gemini-pro",
     name: "Gemini Pro",
     category: "Inteligencia Artificial",
-    description: "Gemini Pro — suscripción por 18 meses.",
+    description: "Gemini Pro — suscripción por 18 meses\nCuenta Personal",
     price: 20,
     duration: "18 meses",
     badge: "Promoción",
