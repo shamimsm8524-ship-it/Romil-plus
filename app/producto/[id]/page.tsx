@@ -1,9 +1,53 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 
 const whatsappNumber = "51970825741";
+const siteUrl = "https://romilplus.me";
+
+function cleanDescription(value: string) {
+  return value.replace(/\s+/g, " ").trim();
+}
+
+export function generateStaticParams() {
+  return products.map((product) => ({ id: product.id }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const product = products.find((item) => item.id === id);
+
+  if (!product) {
+    return {
+      title: "Producto no encontrado",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const description = `${product.name} en ROMIL PLUS. ${cleanDescription(product.description)} Duración: ${product.duration}.`;
+  const canonical = `/producto/${product.id}`;
+
+  return {
+    title: `${product.name} | Suscripción digital`,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title: `${product.name} | ROMIL PLUS`,
+      description,
+      images: [product.image || "/logo-romil-plus.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | ROMIL PLUS`,
+      description,
+      images: [product.image || "/logo-romil-plus.png"],
+    },
+  };
+}
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -13,8 +57,37 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const whatsappMessage = encodeURIComponent(`Hola, quiero consultar por ${product.name}.`);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: cleanDescription(product.description),
+    image: product.image ? `${siteUrl}${product.image}` : `${siteUrl}/logo-romil-plus.png`,
+    category: product.category,
+    url: `${siteUrl}/producto/${product.id}`,
+    brand: {
+      "@type": "Brand",
+      name: "ROMIL PLUS",
+    },
+    ...(product.price > 0
+      ? {
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "PEN",
+            price: product.price,
+            availability: "https://schema.org/InStock",
+            url: `${siteUrl}/producto/${product.id}`,
+          },
+        }
+      : {}),
+  };
+
   return (
     <main className="mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
         <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-8">
           <p className="text-sm font-bold uppercase tracking-wider text-cyan-300">{product.category}</p>
