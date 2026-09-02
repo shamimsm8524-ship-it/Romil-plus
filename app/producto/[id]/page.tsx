@@ -4,7 +4,6 @@ import { MessageCircle } from "lucide-react";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 
-const whatsappNumber = "51970825741";
 const siteUrl = "https://romilplus.me";
 
 function cleanDescription(value: string) {
@@ -54,9 +53,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const product = products.find((item) => item.id === id);
   if (!product) notFound();
 
-  const whatsappMessage = encodeURIComponent(`Hola, quiero consultar por ${product.name}.`);
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -100,13 +96,18 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           </div>
 
           <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 font-bold text-white transition hover:bg-emerald-400"
+            href="/soporte"
+            aria-label={`Abrir chat de atención al cliente para consultar por ${product.name}`}
+            className="mt-6 flex w-full items-center justify-between gap-4 rounded-2xl border border-sky-500/70 bg-[#0b0d0f] px-5 py-4 text-left transition hover:border-sky-400 hover:bg-sky-500/[0.06]"
           >
-            <MessageCircle size={20} />
-            Contactar por WhatsApp
+            <span className="flex min-w-0 items-center gap-3">
+              <MessageCircle className="shrink-0 text-sky-400" size={30} strokeWidth={2.2} />
+              <span className="text-base font-black leading-tight text-white sm:text-lg">Chat de atención al cliente</span>
+            </span>
+            <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-sky-500/50 bg-sky-500/10 px-3 py-2 text-xs font-bold text-sky-300">
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+              En línea
+            </span>
           </a>
 
           <p className="mt-8 text-xs leading-5 text-white/35">La entrega se realiza inmediatamente después de confirmar el pago.</p>
