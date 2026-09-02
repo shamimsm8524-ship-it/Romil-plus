@@ -18,6 +18,13 @@ export const metadata: Metadata = {
   creator: "ROMIL PLUS",
   publisher: "ROMIL PLUS",
   referrer: "origin-when-cross-origin",
+  icons: {
+    icon: [
+      { url: "/logo-romil-plus.png", type: "image/png", sizes: "any" },
+    ],
+    shortcut: "/logo-romil-plus.png",
+    apple: [{ url: "/logo-romil-plus.png", type: "image/png" }],
+  },
   keywords: [
     "ROMIL PLUS",
     "suscripciones digitales Perú",
