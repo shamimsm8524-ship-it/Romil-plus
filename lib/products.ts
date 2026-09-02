@@ -14,6 +14,7 @@ export type Product = {
   guarantee?: string;
   badge?: string;
   image?: string;
+  video?: string;
   variants?: ProductVariant[];
 };
 
