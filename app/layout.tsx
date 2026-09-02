@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   applicationName: "ROMIL PLUS",
+  creator: "ROMIL PLUS",
+  publisher: "ROMIL PLUS",
+  referrer: "origin-when-cross-origin",
   keywords: [
     "ROMIL PLUS",
     "suscripciones digitales Perú",
