@@ -98,6 +98,21 @@ export const products: Product[] = [
     ],
   },
   {
+    id: "invitaciones-digitales",
+    name: "INVITACIONES — IMAGEN O VIDEO",
+    category: "Diseño",
+    description: "Se realizan invitaciones en imagen o video de 15 a 20 segundos.\nIncluye ubicación y confirmación para asistentes.\nPara cualquier tipo de celebración.\nSe envía por correo.",
+    price: 6,
+    duration: "Entrega digital por correo",
+    badge: "Personalizado",
+    image: "/logo-romil-plus.png",
+    video: "/invitaciones-romilplus.mp4",
+    variants: [
+      { id: "imagen", label: "Invitación en imagen", price: 6 },
+      { id: "video", label: "Invitación en video · 15–20 seg", price: 12 },
+    ],
+  },
+  {
     id: "productividad-plus",
     name: "Productividad Plus",
     category: "Productividad",
