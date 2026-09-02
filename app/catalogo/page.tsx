@@ -1,6 +1,22 @@
+import type { Metadata } from "next";
 import { Headphones, ShieldCheck, Zap, Star } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { categories, products } from "@/lib/products";
+
+export const metadata: Metadata = {
+  title: "Catálogo de suscripciones y herramientas digitales",
+  description: "Explora el catálogo de ROMIL PLUS: herramientas digitales, diseño, edición de video, inteligencia artificial y productividad con atención en Perú.",
+  alternates: {
+    canonical: "/catalogo",
+  },
+  openGraph: {
+    title: "Catálogo digital | ROMIL PLUS",
+    description: "Explora las opciones digitales disponibles en ROMIL PLUS.",
+    url: "/catalogo",
+    type: "website",
+    images: ["/logo-romil-plus.png"],
+  },
+};
 
 export default function CatalogoPage() {
   return (
