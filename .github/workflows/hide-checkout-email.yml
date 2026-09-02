@@ -1,0 +1,40 @@
+name: Hide checkout email
+
+on:
+  push:
+    paths:
+      - '.github/workflows/hide-checkout-email.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Hide customer email from checkout
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('app/checkout/page.tsx')
+          s = p.read_text()
+          old1 = '<p className="text-xs text-white/45">El comprobante quedará asociado automáticamente al correo <b className="text-white/75">{buyerEmail}</b>.</p>'
+          new1 = '<p className="text-xs text-white/45">El comprobante quedará asociado automáticamente a tu cuenta y será visible solo en el panel de administración.</p>'
+          old2 = '<p className="mt-1 text-xs">Pedido {orderId.slice(0,8).toUpperCase()} enviado desde {buyerEmail}. Los productos ya fueron retirados de tu carrito.</p>'
+          new2 = '<p className="mt-1 text-xs">Pedido {orderId.slice(0,8).toUpperCase()} recibido correctamente. Los productos ya fueron retirados de tu carrito.</p>'
+          if old1 not in s:
+              raise SystemExit('No se encontró el texto del correo en checkout')
+          if old2 not in s:
+              raise SystemExit('No se encontró el texto de confirmación con correo')
+          s = s.replace(old1, new1, 1).replace(old2, new2, 1)
+          p.write_text(s)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/checkout/page.tsx
+          git commit -m "Hide customer email from checkout"
+          git push origin main
