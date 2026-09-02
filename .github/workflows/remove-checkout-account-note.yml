@@ -1,0 +1,41 @@
+name: Remove checkout account note
+
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-checkout-account-note.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Remove note from checkout
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('app/checkout/page.tsx')
+          s=p.read_text()
+          old='          <p className="text-xs text-white/45">El comprobante quedará asociado automáticamente a tu cuenta y será visible solo en el panel de administración.</p>\n'
+          if old in s:
+              s=s.replace(old,'',1)
+              p.write_text(s)
+          else:
+              print('Note already absent')
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/checkout/page.tsx
+          if git diff --cached --quiet; then
+            echo "No source changes needed"
+          else
+            git commit -m "Remove checkout account note"
+            git push origin main
+          fi
