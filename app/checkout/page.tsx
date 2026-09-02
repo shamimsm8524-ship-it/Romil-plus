@@ -209,7 +209,6 @@ export default function CheckoutPage() {
             <p className="mt-2 break-all text-xs text-white/40">{receipt?`${receipt.name} · ${Math.ceil(receipt.size/1024)} KB`:"Adjunta imagen o PDF (máx. 5 MB)."}</p>
           </div>
           <input value={payerName} onChange={e=>setPayerName(e.target.value)} placeholder="Nombre de quien realizó el pago (opcional)" className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3"/>
-          <p className="text-xs text-white/45">El comprobante quedará asociado automáticamente a tu cuenta y será visible solo en el panel de administración.</p>
         </div>}
 
         {!paymentReported?<button type="button" onClick={reportPayment} disabled={items.length===0||savingOrder||!receipt} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#e3b64f] px-4 py-3 font-black text-black disabled:opacity-40"><Check size={19}/>{savingOrder?"Enviando comprobante...":"Enviar comprobante"}</button>:<div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.07] p-4 text-center"><Clock3 className="mx-auto text-amber-300"/><p className="mt-2 font-black">✓ Comprobante enviado · en revisión</p><p className="mt-1 text-xs">Pedido {orderId.slice(0,8).toUpperCase()} recibido correctamente. Los productos ya fueron retirados de tu carrito.</p></div>}
