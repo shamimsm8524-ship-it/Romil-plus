@@ -20,10 +20,10 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   icons: {
     icon: [
-      { url: "/logo-romil-plus.png", type: "image/png", sizes: "any" },
+      { url: "/logo-romil-plus.png", type: "image/png", sizes: "1254x1254" },
     ],
     shortcut: "/logo-romil-plus.png",
-    apple: [{ url: "/logo-romil-plus.png", type: "image/png" }],
+    apple: [{ url: "/logo-romil-plus.png", type: "image/png", sizes: "1254x1254" }],
   },
   keywords: [
     "ROMIL PLUS",
