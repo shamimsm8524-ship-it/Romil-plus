@@ -99,9 +99,9 @@ export const products: Product[] = [
   },
   {
     id: "invitaciones-digitales",
-    name: "INVITACIONES — IMAGEN O VIDEO",
+    name: "Invitaciones digitales",
     category: "Diseño",
-    description: "Se realizan invitaciones en imagen o video de 15 a 20 segundos.\nIncluye ubicación y confirmación para asistentes.\nPara cualquier tipo de celebración.\nSe envía por correo.",
+    description: "Invitaciones personalizadas en imagen o video de 15 a 20 segundos.\nIncluye ubicación y confirmación para asistentes.",
     price: 6,
     duration: "Entrega digital por correo",
     badge: "Personalizado",
