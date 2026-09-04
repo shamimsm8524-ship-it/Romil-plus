@@ -41,6 +41,16 @@ export const products: Product[] = [
     image: "/canva-pro-45-dias.jpg",
   },
   {
+    id: "autodesk-all-apps",
+    name: "AUTODESK",
+    category: "Diseño",
+    description: "AUTODESK — suscripción por 1 año\nCuenta personal\nSe envía invitación por correo electrónico",
+    price: 10,
+    duration: "12 meses",
+    badge: "Promoción",
+    image: "/autodesk-romil-plus.jpg",
+  },
+  {
     id: "capcut-pro",
     name: "CapCut Pro",
     category: "Edición de Videos",
