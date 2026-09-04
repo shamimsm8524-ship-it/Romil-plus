@@ -78,6 +78,7 @@ export const products: Product[] = [
     price: 4,
     duration: "1 mes",
     badge: "Promoción",
+    image: "/hbo-romil-plus.jpg",
     variants: [
       { id: "1-perfil", label: "1 Perfil", price: 4 },
       { id: "cuenta-completa", label: "Cuenta completa", price: 10 },
