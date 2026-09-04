@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">AUTODESK</title>
+  <desc id="desc">Autodesk product artwork for ROMIL PLUS</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08111f"/>
+      <stop offset="0.55" stop-color="#101b2f"/>
+      <stop offset="1" stop-color="#05070d"/>
+    </linearGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#49d6ff"/><stop offset="1" stop-color="#1268ff"/></linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8e6cff"/><stop offset="1" stop-color="#4d25dc"/></linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb14a"/><stop offset="1" stop-color="#ff5a36"/></linearGradient>
+    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#67f1a4"/><stop offset="1" stop-color="#08a86e"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".4"/></filter>
+  </defs>
+  <rect width="1200" height="800" rx="56" fill="url(#bg)"/>
+  <circle cx="980" cy="130" r="240" fill="#2c75ff" opacity=".08"/>
+  <circle cx="165" cy="705" r="240" fill="#8d5dff" opacity=".08"/>
+  <g opacity=".16" stroke="#89a7cf" stroke-width="1">
+    <path d="M0 610L1200 260"/><path d="M0 690L1200 340"/><path d="M0 770L1200 420"/>
+  </g>
+  <g transform="translate(82 85)">
+    <path d="M0 0h72l38 112H72L50 46 25 112H-22z" fill="#fff" opacity=".96"/>
+    <text x="130" y="84" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="800" letter-spacing="3" fill="#fff">AUTODESK</text>
+  </g>
+  <g filter="url(#shadow)">
+    <g transform="translate(115 280) rotate(-7 135 135)">
+      <rect width="270" height="270" rx="48" fill="url(#g1)"/>
+      <text x="135" y="170" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="900" fill="#fff">A</text>
+      <text x="135" y="225" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".9">AutoCAD</text>
+    </g>
+    <g transform="translate(345 335) rotate(5 125 125)">
+      <rect width="250" height="250" rx="44" fill="url(#g2)"/>
+      <text x="125" y="160" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="96" font-weight="900" fill="#fff">R</text>
+      <text x="125" y="212" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".9">Revit</text>
+    </g>
+    <g transform="translate(565 260) rotate(-3 130 130)">
+      <rect width="260" height="260" rx="46" fill="url(#g3)"/>
+      <text x="130" y="164" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="92" font-weight="900" fill="#fff">3D</text>
+      <text x="130" y="217" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" fill="#fff" opacity=".9">3ds Max</text>
+    </g>
+    <g transform="translate(800 330) rotate(7 120 120)">
+      <rect width="240" height="240" rx="42" fill="url(#g4)"/>
+      <text x="120" y="153" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#fff">F</text>
+      <text x="120" y="202" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#fff" opacity=".9">Fusion</text>
+    </g>
+  </g>
+  <g transform="translate(88 672)">
+    <text font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="5" fill="#fff">DESIGN. MAKE. INNOVATE. TOGETHER.</text>
+  </g>
+</svg>
