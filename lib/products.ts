@@ -48,7 +48,7 @@ export const products: Product[] = [
     price: 10,
     duration: "12 meses",
     badge: "Promoción",
-    image: "/autodesk-romil-plus.jpg",
+    image: "/file_000000001ce0820ebf1be744d159107e.png",
   },
   {
     id: "capcut-pro",
