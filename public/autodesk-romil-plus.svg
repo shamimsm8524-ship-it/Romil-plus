@@ -1,51 +1,49 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
-  <title id="title">AUTODESK</title>
-  <desc id="desc">Autodesk product artwork for ROMIL PLUS</desc>
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#08111f"/>
-      <stop offset="0.55" stop-color="#101b2f"/>
-      <stop offset="1" stop-color="#05070d"/>
-    </linearGradient>
-    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#49d6ff"/><stop offset="1" stop-color="#1268ff"/></linearGradient>
-    <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8e6cff"/><stop offset="1" stop-color="#4d25dc"/></linearGradient>
-    <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb14a"/><stop offset="1" stop-color="#ff5a36"/></linearGradient>
-    <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#67f1a4"/><stop offset="1" stop-color="#08a86e"/></linearGradient>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".4"/></filter>
-  </defs>
-  <rect width="1200" height="800" rx="56" fill="url(#bg)"/>
-  <circle cx="980" cy="130" r="240" fill="#2c75ff" opacity=".08"/>
-  <circle cx="165" cy="705" r="240" fill="#8d5dff" opacity=".08"/>
-  <g opacity=".16" stroke="#89a7cf" stroke-width="1">
-    <path d="M0 610L1200 260"/><path d="M0 690L1200 340"/><path d="M0 770L1200 420"/>
-  </g>
-  <g transform="translate(82 85)">
-    <path d="M0 0h72l38 112H72L50 46 25 112H-22z" fill="#fff" opacity=".96"/>
-    <text x="130" y="84" font-family="Arial,Helvetica,sans-serif" font-size="74" font-weight="800" letter-spacing="3" fill="#fff">AUTODESK</text>
-  </g>
-  <g filter="url(#shadow)">
-    <g transform="translate(115 280) rotate(-7 135 135)">
-      <rect width="270" height="270" rx="48" fill="url(#g1)"/>
-      <text x="135" y="170" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="104" font-weight="900" fill="#fff">A</text>
-      <text x="135" y="225" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".9">AutoCAD</text>
-    </g>
-    <g transform="translate(345 335) rotate(5 125 125)">
-      <rect width="250" height="250" rx="44" fill="url(#g2)"/>
-      <text x="125" y="160" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="96" font-weight="900" fill="#fff">R</text>
-      <text x="125" y="212" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="28" font-weight="700" fill="#fff" opacity=".9">Revit</text>
-    </g>
-    <g transform="translate(565 260) rotate(-3 130 130)">
-      <rect width="260" height="260" rx="46" fill="url(#g3)"/>
-      <text x="130" y="164" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="92" font-weight="900" fill="#fff">3D</text>
-      <text x="130" y="217" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" fill="#fff" opacity=".9">3ds Max</text>
-    </g>
-    <g transform="translate(800 330) rotate(7 120 120)">
-      <rect width="240" height="240" rx="42" fill="url(#g4)"/>
-      <text x="120" y="153" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="900" fill="#fff">F</text>
-      <text x="120" y="202" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="26" font-weight="700" fill="#fff" opacity=".9">Fusion</text>
-    </g>
-  </g>
-  <g transform="translate(88 672)">
-    <text font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="700" letter-spacing="5" fill="#fff">DESIGN. MAKE. INNOVATE. TOGETHER.</text>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+<title id="title">AUTODESK ALL APPS</title>
+<desc id="desc">Diseño negro y dorado con aplicaciones Autodesk para Romil Plus</desc>
+<defs>
+  <radialGradient id="bg" cx="50%" cy="42%" r="72%"><stop offset="0" stop-color="#191004"/><stop offset=".42" stop-color="#080808"/><stop offset="1" stop-color="#020202"/></radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a8"/><stop offset=".28" stop-color="#f9ca52"/><stop offset=".63" stop-color="#b26b08"/><stop offset="1" stop-color="#ffe47d"/></linearGradient>
+  <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff3f5f"/><stop offset="1" stop-color="#a8002c"/></linearGradient>
+  <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#29a6ff"/><stop offset="1" stop-color="#004ecf"/></linearGradient>
+  <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb13a"/><stop offset="1" stop-color="#f15a00"/></linearGradient>
+  <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2de8ff"/><stop offset="1" stop-color="#008aa0"/></linearGradient>
+  <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d84bff"/><stop offset="1" stop-color="#6512b5"/></linearGradient>
+  <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#45e06f"/><stop offset="1" stop-color="#0b7f31"/></linearGradient>
+  <linearGradient id="pink" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff61ad"/><stop offset="1" stop-color="#9a1458"/></linearGradient>
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="12" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#000" flood-opacity=".65"/></filter>
+</defs>
+<rect width="1080" height="1080" rx="42" fill="url(#bg)"/>
+<path d="M0 130L170 330M1080 130L910 330M0 905L165 725M1080 905L915 725" stroke="#d79f2b" stroke-width="4" opacity=".55"/>
+<path d="M0 190L135 340M1080 190L945 340" stroke="#5b3a09" stroke-width="2"/>
+<ellipse cx="540" cy="590" rx="420" ry="350" fill="none" stroke="#f4ba35" stroke-width="7" opacity=".35" filter="url(#glow)"/>
+<g transform="translate(135 84)">
+  <path d="M0 88L84 0h110v120h-42V55L63 145H0zM63 145l49-49h82v49z" fill="url(#gold)"/>
+  <text x="235" y="105" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="96" font-weight="900" letter-spacing="1">AUTODESK</text>
+  <text x="310" y="168" fill="#e9b64e" font-family="Arial,Helvetica,sans-serif" font-size="46" font-weight="700" letter-spacing="18">ALL APPS</text>
+  <line x1="215" y1="153" x2="286" y2="153" stroke="#d69b28" stroke-width="4"/><line x1="780" y1="153" x2="875" y2="153" stroke="#d69b28" stroke-width="4"/>
+</g>
+<text x="540" y="300" text-anchor="middle" fill="#f2f2f2" font-family="Arial,Helvetica,sans-serif" font-size="24" letter-spacing="9">DISEÑA · CREA · CONSTRUYE · INNOVA</text>
+<text x="540" y="334" text-anchor="middle" fill="#cfcfcf" font-family="Arial,Helvetica,sans-serif" font-size="20" letter-spacing="7">SIN LÍMITES</text>
+<g filter="url(#shadow)" font-family="Arial,Helvetica,sans-serif" text-anchor="middle" fill="#fff">
+  <g transform="translate(225 405)"><rect width="160" height="160" rx="24" fill="url(#red)" stroke="#ff93a7" stroke-width="3"/><text x="80" y="92" font-size="72" font-weight="900">A</text><text x="80" y="132" font-size="20" font-weight="700">AutoCAD</text></g>
+  <g transform="translate(405 405)"><rect width="160" height="160" rx="24" fill="url(#blue)" stroke="#8cc9ff" stroke-width="3"/><text x="80" y="92" font-size="72" font-weight="900">R</text><text x="80" y="132" font-size="20" font-weight="700">Revit</text></g>
+  <g transform="translate(585 405)"><rect width="160" height="160" rx="24" fill="url(#orange)" stroke="#ffd18b" stroke-width="3"/><text x="80" y="92" font-size="72" font-weight="900">F</text><text x="80" y="132" font-size="18" font-weight="700">Fusion 360</text></g>
+  <g transform="translate(765 405)"><rect width="160" height="160" rx="24" fill="url(#cyan)" stroke="#9af4ff" stroke-width="3"/><text x="80" y="92" font-size="72" font-weight="900">3</text><text x="80" y="132" font-size="20" font-weight="700">3ds Max</text></g>
+  <g transform="translate(140 580)"><rect width="150" height="150" rx="22" fill="url(#blue)" stroke="#8cc9ff" stroke-width="3"/><text x="75" y="85" font-size="66" font-weight="900">C</text><text x="75" y="123" font-size="18" font-weight="700">Civil 3D</text></g>
+  <g transform="translate(305 580)"><rect width="150" height="150" rx="22" fill="url(#orange)" stroke="#ffd18b" stroke-width="3"/><text x="75" y="85" font-size="66" font-weight="900">I</text><text x="75" y="123" font-size="18" font-weight="700">Inventor</text></g>
+  <g transform="translate(470 555)"><rect width="140" height="175" rx="24" fill="#111" stroke="#a6792e" stroke-width="4"/><path d="M28 105L70 58h48v65h-22V91L52 137H28zM52 137l24-25h42v25z" fill="url(#gold)"/></g>
+  <g transform="translate(625 580)"><rect width="150" height="150" rx="22" fill="url(#purple)" stroke="#eda4ff" stroke-width="3"/><text x="75" y="85" font-size="66" font-weight="900">N</text><text x="75" y="123" font-size="17" font-weight="700">Navisworks</text></g>
+  <g transform="translate(790 580)"><rect width="150" height="150" rx="22" fill="url(#red)" stroke="#ff93a7" stroke-width="3"/><text x="75" y="85" font-size="66" font-weight="900">A</text><text x="75" y="123" font-size="17" font-weight="700">AutoCAD LT</text></g>
+  <g transform="translate(185 745)"><rect width="145" height="145" rx="22" fill="url(#cyan)" stroke="#9af4ff" stroke-width="3"/><text x="72.5" y="82" font-size="64" font-weight="900">M</text><text x="72.5" y="118" font-size="19" font-weight="700">Maya</text></g>
+  <g transform="translate(345 745)"><rect width="145" height="145" rx="22" fill="url(#purple)" stroke="#eda4ff" stroke-width="3"/><text x="72.5" y="82" font-size="64" font-weight="900">M</text><text x="72.5" y="118" font-size="16" font-weight="700">MotionBuilder</text></g>
+  <g transform="translate(505 745)"><rect width="145" height="145" rx="22" fill="url(#blue)" stroke="#8cc9ff" stroke-width="3"/><text x="72.5" y="82" font-size="64" font-weight="900">B</text><text x="72.5" y="118" font-size="18" font-weight="700">BIM 360</text></g>
+  <g transform="translate(665 745)"><rect width="145" height="145" rx="22" fill="url(#gold)" stroke="#fff0a3" stroke-width="3"/><text x="72.5" y="82" font-size="64" font-weight="900">P</text><text x="72.5" y="118" font-size="18" font-weight="700">PowerMill</text></g>
+  <g transform="translate(825 745)"><rect width="145" height="145" rx="22" fill="url(#green)" stroke="#a4ffbd" stroke-width="3"/><text x="72.5" y="82" font-size="64" font-weight="900">F</text><text x="72.5" y="118" font-size="17" font-weight="700">Flow Design</text></g>
+</g>
+<ellipse cx="540" cy="916" rx="455" ry="70" fill="#080808" stroke="#d8a541" stroke-width="3" opacity=".95"/>
+<ellipse cx="540" cy="916" rx="420" ry="45" fill="none" stroke="#6b4512" stroke-width="3"/>
+<g transform="translate(270 952)"><rect width="540" height="82" rx="41" fill="#080808" stroke="#e2ad43" stroke-width="4"/><rect x="43" y="24" width="34" height="34" rx="4" fill="none" stroke="#e2ad43" stroke-width="4"/><line x1="50" y1="17" x2="50" y2="30" stroke="#e2ad43" stroke-width="4"/><line x1="70" y1="17" x2="70" y2="30" stroke="#e2ad43" stroke-width="4"/><text x="315" y="52" text-anchor="middle" fill="#f5e6c2" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" letter-spacing="8">SUSCRIPCIÓN 12 MESES</text></g>
+<text x="540" y="1064" text-anchor="middle" fill="#cfcfcf" font-family="Arial,Helvetica,sans-serif" font-size="15" letter-spacing="7">UN SOLO ACCESO · TODO EL POTENCIAL</text>
 </svg>
