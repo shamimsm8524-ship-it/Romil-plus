@@ -71,6 +71,19 @@ export const products: Product[] = [
     image: "/netflix-nueva.png",
   },
   {
+    id: "hbo",
+    name: "HBO",
+    category: "Otros",
+    description: "HBO — suscripción por 1 mes.\nSe envia correo y contraseña",
+    price: 4,
+    duration: "1 mes",
+    badge: "Promoción",
+    variants: [
+      { id: "1-perfil", label: "1 Perfil", price: 4 },
+      { id: "cuenta-completa", label: "Cuenta completa", price: 10 },
+    ],
+  },
+  {
     id: "chatgpt-plus",
     name: "ChatGPT PLUS",
     category: "Inteligencia Artificial",
