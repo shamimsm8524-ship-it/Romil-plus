@@ -96,7 +96,7 @@ export function ProductCard({ product }: { product: Product }) {
       : "h-[68px] min-[760px]:h-auto";
 
   return <article className={`group mx-auto flex w-full max-w-[310px] flex-col rounded-[18px] border-2 border-[#d6a83f] p-3 transition duration-200 min-[760px]:max-w-none min-[760px]:rounded-2xl min-[760px]:border min-[760px]:p-3 ${cardHeight} ${justAdded ? "scale-[0.99] bg-black shadow-[0_0_0_1px_rgba(255,224,140,.35),0_0_22px_rgba(214,168,63,.24),0_22px_50px_rgba(0,0,0,.72)]" : "bg-[linear-gradient(180deg,#111,#0b0b0b)] shadow-[0_0_0_1px_rgba(255,224,140,.12),0_18px_44px_rgba(0,0,0,.28)] hover:-translate-y-1 hover:border-[#efc75e]"}`}>
-    <div className={`mx-auto mb-3 flex shrink-0 items-center justify-center overflow-hidden ${isAutodesk ? "rounded-[7px] min-[760px]:rounded-lg" : "rounded-[15px] min-[760px]:rounded-xl"} ${mediaSize} ${product.video || fullBleedImage ? "bg-black" : "bg-white"}`}><ProductMedia product={product} imageClassName={fullBleedImage ? "object-cover" : "object-contain"}/></div>
+    <div className={`mx-auto mb-3 flex shrink-0 items-center justify-center overflow-hidden ${isAutodesk ? "rounded-[7px] min-[760px]:rounded-lg" : "rounded-[15px] min-[760px]:rounded-xl"} ${mediaSize} ${product.video || fullBleedImage || isAutodesk ? "bg-black" : "bg-white"}`}><ProductMedia product={product} imageClassName={isAutodesk || fullBleedImage ? "object-cover" : "object-contain"}/></div>
 
     <div className="mb-2 flex min-h-[48px] items-start justify-between gap-2 min-[760px]:min-h-0">
       <div className="min-w-0 pr-1">
