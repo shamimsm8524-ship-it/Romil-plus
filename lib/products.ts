@@ -44,7 +44,7 @@ export const products: Product[] = [
     id: "autodesk-all-apps",
     name: "AUTODESK",
     category: "Diseño",
-    description: "AUTODESK — suscripción por 1 año\nCuenta personal\nSe envía invitación por correo electrónico",
+    description: "Descripción: Acceso a Autodesk mediante cuenta personal.\nSuscripción: 12 meses\nTipo de cuenta: Personal\nEntrega: Se envía invitación por correo electrónico",
     price: 10,
     duration: "12 meses",
     badge: "Promoción",
