@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Headphones, ShieldCheck, Zap, Star } from "lucide-react";
-import { ProductCard } from "@/components/ProductCard";
-import { categories, products } from "@/lib/products";
+import { ProductSearch } from "@/components/ProductSearch";
+import { categories } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Catálogo de suscripciones y herramientas digitales",
@@ -53,9 +53,7 @@ export default function CatalogoPage() {
           <div className="mx-auto mt-3 h-1 w-12 rounded-full bg-[#e3b64f] md:mt-2"/>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-5 md:grid-cols-4 md:gap-4 min-[760px]:[&>article]:!h-[500px] xl:gap-5 xl:[&>article]:!h-[520px]">
-          {products.map((product) => <ProductCard key={product.id} product={product} />)}
-        </div>
+        <ProductSearch />
 
         <div className="mt-8 hidden overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] md:grid md:grid-cols-4">
           {[{icon:<ShieldCheck className="h-5 w-5"/>,title:"PAGO SEGURO",text:"Tus pagos están protegidos"},{icon:<Zap className="h-5 w-5"/>,title:"ENTREGA INMEDIATA",text:"Acceso enviado al instante"},{icon:<Headphones className="h-5 w-5"/>,title:"SOPORTE 24/7",text:"Estamos para ayudarte"},{icon:<Star className="h-5 w-5"/>,title:"CALIDAD PREMIUM",text:"Atención y servicio premium"}].map((item,index)=>(
