@@ -118,18 +118,18 @@ export function ProductCard({ product }: { product: Product }) {
 
     {isGemini && <div className="mt-2">
       <label className="mb-2 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Cantidad de cuentas</label>
-      <div className="grid grid-cols-3 gap-2">
-        {[{q:1,p:15},{q:2,p:13},{q:3,p:10}].map(({q,p})=><button key={q} type="button" onClick={()=>setGeminiQuantity(q)} className={`rounded-xl border px-2 py-2 text-[12px] font-bold transition ${geminiQuantity===q?"border-[#f6bf2f] bg-[#f6bf2f]/15 text-[#f6bf2f]":"border-white/10 bg-slate-950 text-white"}`}>{q} {q===1?"cuenta":"cuentas"}<br/><span className="text-[11px]">S/ {p} c/u</span></button>)}
+      <div className="grid grid-cols-2 gap-2">
+        {[{q:1,p:15},{q:2,p:13}].map(({q,p})=><button key={q} type="button" onClick={()=>setGeminiQuantity(q)} className={`rounded-xl border px-2 py-2 text-[12px] font-bold transition ${geminiQuantity===q?"border-[#f6bf2f] bg-[#f6bf2f]/15 text-[#f6bf2f]":"border-white/10 bg-slate-950 text-white"}`}>{q} {q===1?"cuenta":"cuentas"}<br/><span className="text-[11px]">S/ {p} c/u</span></button>)}
       </div>
-      <div className={`mt-2 flex items-center justify-between rounded-xl border px-3 py-2 ${geminiQuantity>=4?"border-[#f6bf2f] bg-[#f6bf2f]/10":"border-white/10 bg-slate-950"}`}>
-        <button type="button" onClick={()=>setGeminiQuantity((q)=>Math.max(4,q))} className="text-left">
-          <span className="block text-[12px] font-bold text-white">4 o más cuentas</span>
+      <div className={`mt-2 flex items-center justify-between rounded-xl border px-3 py-2 ${geminiQuantity>=3?"border-[#f6bf2f] bg-[#f6bf2f]/10":"border-white/10 bg-slate-950"}`}>
+        <button type="button" onClick={()=>setGeminiQuantity((q)=>Math.max(3,q))} className="text-left">
+          <span className="block text-[12px] font-bold text-white">3 o más cuentas</span>
           <span className="block text-[11px] text-[#f0cd78]">S/ 10 c/u</span>
         </button>
         <div className="flex items-center gap-1.5">
-          <button type="button" aria-label="Quitar una cuenta" onClick={()=>setGeminiQuantity((q)=>Math.max(4,(q<4?4:q)-1))} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-black text-lg font-bold text-white">−</button>
-          <input type="number" min={4} value={geminiQuantity>=4?geminiQuantity:4} onChange={(e)=>setGeminiQuantity(Math.max(4,Number(e.target.value)||4))} className="h-8 w-12 rounded-lg border border-white/15 bg-black text-center text-[13px] font-bold text-white outline-none"/>
-          <button type="button" aria-label="Agregar una cuenta" onClick={()=>setGeminiQuantity((q)=>q<4?4:q+1)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#d6a83f]/60 bg-black text-lg font-bold text-[#f6bf2f]">+</button>
+          <button type="button" aria-label="Quitar una cuenta" onClick={()=>setGeminiQuantity((q)=>Math.max(3,(q<3?3:q)-1))} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-black text-lg font-bold text-white">−</button>
+          <input type="number" min={3} value={geminiQuantity>=3?geminiQuantity:3} onChange={(e)=>setGeminiQuantity(Math.max(3,Number(e.target.value)||3))} className="h-8 w-12 rounded-lg border border-white/15 bg-black text-center text-[13px] font-bold text-white outline-none"/>
+          <button type="button" aria-label="Agregar una cuenta" onClick={()=>setGeminiQuantity((q)=>q<3?3:q+1)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#d6a83f]/60 bg-black text-lg font-bold text-[#f6bf2f]">+</button>
         </div>
       </div>
     </div>}
