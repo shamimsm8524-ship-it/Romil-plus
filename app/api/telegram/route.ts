@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 
 const TELEGRAM_API = "https://api.telegram.org";
 const STORE_URL = process.env.TELEGRAM_STORE_URL || "https://romilplus.me";
+const BINANCE_ID = process.env.TELEGRAM_BINANCE_ID || "804098123";
 const PAGE_SIZE = 6;
 
 type ButtonStyle = "danger" | "success" | "primary";
@@ -275,14 +276,37 @@ async function showPayments(chatId: number, messageId?: number) {
     "",
     "⭐ <b>Dentro de Telegram:</b> las compras de productos digitales deben realizarse con Telegram Stars.",
     "",
-    "🌐 <b>En RomilPlus.me:</b> puedes consultar las opciones disponibles de Yape, Plin, BCP, Interbank y PayPal.",
+    `💛 <b>Binance ID de Romil Plus:</b> <code>${escapeHtml(BINANCE_ID)}</code>`,
+    "",
+    "🌐 <b>En RomilPlus.me:</b> puedes consultar las opciones disponibles de Binance, Yape, Plin, BCP, Interbank y PayPal.",
     "",
     "Por seguridad, los datos bancarios y códigos QR se muestran únicamente durante el proceso de compra en la web.",
   ].join("\n");
 
   const keyboard: InlineKeyboard = {
     inline_keyboard: [
+      [{ text: `💛 Binance ID: ${BINANCE_ID}`, callback_data: "binance_info", style: "primary" }],
       [{ text: "🌐 Abrir RomilPlus.me", url: STORE_URL, style: "success" }],
+      [{ text: "🏠 Inicio", callback_data: "home" }],
+    ],
+  };
+
+  return render(chatId, text, keyboard, messageId);
+}
+
+async function showBinanceInfo(chatId: number, messageId?: number) {
+  const text = [
+    "<b>💛 Binance — Romil Plus</b>",
+    "",
+    `Binance ID: <code>${escapeHtml(BINANCE_ID)}</code>`,
+    "",
+    "Para completar una compra con Binance, revisa el importe en USD y confirma el pago mediante el proceso indicado en RomilPlus.me.",
+  ].join("\n");
+
+  const keyboard: InlineKeyboard = {
+    inline_keyboard: [
+      [{ text: "🌐 Ir a RomilPlus.me", url: STORE_URL, style: "success" }],
+      [{ text: "⬅️ Formas de pago", callback_data: "payments" }],
       [{ text: "🏠 Inicio", callback_data: "home" }],
     ],
   };
@@ -347,6 +371,7 @@ async function handleCallback(query: TelegramCallbackQuery) {
   if (data === "home") return showHome(chatId, messageId);
   if (data === "catalog") return showCatalog(chatId, messageId);
   if (data === "payments") return showPayments(chatId, messageId);
+  if (data === "binance_info") return showBinanceInfo(chatId, messageId);
 
   if (data.startsWith("cat:")) {
     const [, categoryIndexRaw, pageRaw] = data.split(":");
