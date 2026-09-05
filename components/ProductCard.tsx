@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
   const isSupportProduct = product.id === "seguidores-likes";
   const isInvitation = product.id === "invitaciones-digitales";
   const isAutodesk = product.id === "autodesk-all-apps";
-  const geminiUnitPrice = geminiQuantity === 1 ? 20 : geminiQuantity === 2 ? 17 : geminiQuantity === 3 ? 14 : 10;
+  const geminiUnitPrice = geminiQuantity === 1 ? 15 : geminiQuantity === 2 ? 13 : 10;
   const geminiTotal = geminiUnitPrice * geminiQuantity;
   const displayedPrice = isGemini ? geminiTotal : (selectedVariant?.price ?? product.price);
   const fullBleedImage = ["netflix-vpn", "canva-pro", "chatgpt-plus"].includes(product.id);
@@ -77,9 +77,11 @@ export function ProductCard({ product }: { product: Product }) {
     </article>
   );
 
-  const cardHeight = isInvitation
-    ? "h-[570px] min-[760px]:h-[530px] xl:h-[540px]"
-    : "h-[540px] min-[760px]:h-[500px] xl:h-[520px]";
+  const cardHeight = isGemini
+    ? "h-[625px] min-[760px]:h-[590px] xl:h-[605px]"
+    : isInvitation
+      ? "h-[570px] min-[760px]:h-[530px] xl:h-[540px]"
+      : "h-[540px] min-[760px]:h-[500px] xl:h-[520px]";
 
   const mediaSize = isInvitation
     ? "h-[190px] w-[210px] min-[760px]:h-[190px] min-[760px]:w-full xl:h-[205px]"
@@ -114,7 +116,23 @@ export function ProductCard({ product }: { product: Product }) {
       : product.description}
     </p>
 
-    {isGemini && <div className="mt-2"><label className="mb-1 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Cantidad de cuentas</label><select value={geminiQuantity} onChange={(e)=>setGeminiQuantity(Math.max(1,Number(e.target.value)))} className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-[14px] font-semibold text-white outline-none focus:border-[#d6a83f]/60 min-[760px]:text-[11px]">{[1,2,3,4,5,6,7,8,9,10].map(q=><option key={q} value={q}>{q} {q===1?"cuenta":"cuentas"} — S/ {(q===1?20:q===2?17:q===3?14:10).toFixed(2)} c/u</option>)}</select></div>}
+    {isGemini && <div className="mt-2">
+      <label className="mb-2 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Cantidad de cuentas</label>
+      <div className="grid grid-cols-3 gap-2">
+        {[{q:1,p:15},{q:2,p:13},{q:3,p:10}].map(({q,p})=><button key={q} type="button" onClick={()=>setGeminiQuantity(q)} className={`rounded-xl border px-2 py-2 text-[12px] font-bold transition ${geminiQuantity===q?"border-[#f6bf2f] bg-[#f6bf2f]/15 text-[#f6bf2f]":"border-white/10 bg-slate-950 text-white"}`}>{q} {q===1?"cuenta":"cuentas"}<br/><span className="text-[11px]">S/ {p} c/u</span></button>)}
+      </div>
+      <div className={`mt-2 flex items-center justify-between rounded-xl border px-3 py-2 ${geminiQuantity>=4?"border-[#f6bf2f] bg-[#f6bf2f]/10":"border-white/10 bg-slate-950"}`}>
+        <button type="button" onClick={()=>setGeminiQuantity((q)=>Math.max(4,q))} className="text-left">
+          <span className="block text-[12px] font-bold text-white">4 o más cuentas</span>
+          <span className="block text-[11px] text-[#f0cd78]">S/ 10 c/u</span>
+        </button>
+        <div className="flex items-center gap-1.5">
+          <button type="button" aria-label="Quitar una cuenta" onClick={()=>setGeminiQuantity((q)=>Math.max(4,(q<4?4:q)-1))} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-black text-lg font-bold text-white">−</button>
+          <input type="number" min={4} value={geminiQuantity>=4?geminiQuantity:4} onChange={(e)=>setGeminiQuantity(Math.max(4,Number(e.target.value)||4))} className="h-8 w-12 rounded-lg border border-white/15 bg-black text-center text-[13px] font-bold text-white outline-none"/>
+          <button type="button" aria-label="Agregar una cuenta" onClick={()=>setGeminiQuantity((q)=>q<4?4:q+1)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#d6a83f]/60 bg-black text-lg font-bold text-[#f6bf2f]">+</button>
+        </div>
+      </div>
+    </div>}
 
     {!isGemini && product.variants && product.variants.length>0 && <div className="mt-2"><label className="mb-1 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Elige un paquete</label><select value={selectedVariantId} onChange={(e)=>setSelectedVariantId(e.target.value)} className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-[14px] font-semibold text-white outline-none focus:border-[#d6a83f]/60 min-[760px]:text-[11px]">{product.variants.map(v=><option key={v.id} value={v.id}>{v.label} — S/ {v.price.toFixed(2)}</option>)}</select></div>}
 
