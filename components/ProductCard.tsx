@@ -68,6 +68,52 @@ export function ProductCard({ product }: { product: Product }) {
     window.setTimeout(() => setJustAdded(false), 900);
   };
 
+  if (isGemini) return (
+    <article data-product="gemini-pro" className={`group mx-auto flex w-full max-w-[310px] flex-col rounded-[20px] border-2 border-[#d6a83f] p-3 transition duration-200 min-[760px]:max-w-none min-[760px]:rounded-2xl min-[760px]:border min-[760px]:p-3 ${justAdded ? "scale-[0.99] bg-black shadow-[0_0_0_1px_rgba(255,224,140,.35),0_0_22px_rgba(214,168,63,.24),0_22px_50px_rgba(0,0,0,.72)]" : "bg-[linear-gradient(180deg,#111,#090909)] shadow-[0_0_0_1px_rgba(255,224,140,.12),0_18px_44px_rgba(0,0,0,.28)] hover:-translate-y-1 hover:border-[#efc75e]"}`}>
+      <div className="mx-auto mb-3 flex h-[210px] w-[210px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] bg-white min-[760px]:h-[228px] min-[760px]:w-full min-[760px]:rounded-xl xl:h-[240px]"><ProductMedia product={product} imageClassName="object-contain"/></div>
+
+      <div className="mb-2 flex items-start justify-between gap-2">
+        <div className="min-w-0 pr-1">
+          <p className="text-[12px] font-semibold uppercase tracking-wider text-[#e2b44c] min-[760px]:text-[11px]">INTELIGENCIA ARTIFICIAL</p>
+          <h3 className="mt-0.5 text-[20px] font-black leading-6 text-white min-[760px]:text-[19px] xl:text-[20px]">Gemini Pro</h3>
+        </div>
+        <span className="shrink-0 rounded-full bg-[#d8aa42]/15 px-2.5 py-1 text-[12px] text-[#f0cd78] min-[760px]:text-[10px]">Promoción</span>
+      </div>
+
+      <div className="mb-3 space-y-0.5 text-[13px] leading-5 text-white/60 min-[760px]:text-[11px] min-[760px]:leading-[17px]">
+        <p>• Suscripción por 18 meses</p>
+        <p>• Cuenta Personal</p>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2">
+        {[{q:1,label:"1 cuenta",price:15},{q:2,label:"2 cuentas",price:13},{q:3,label:"3 o más",price:10}].map(({q,label,price}) => {
+          const active = q === 3 ? geminiQuantity >= 3 : geminiQuantity === q;
+          return <button key={q} type="button" onClick={()=>setGeminiQuantity(q)} className={`rounded-xl border px-2 py-2.5 text-center transition ${active ? "border-[#f6bf2f] bg-[#f6bf2f]/15 text-[#f6bf2f]" : "border-white/10 bg-slate-950 text-white"}`}>
+            <span className="block text-[11px] font-black leading-4 min-[760px]:text-[10px] xl:text-[11px]">{label}</span>
+            <span className="mt-1 block text-[10px] leading-4 text-[#f0cd78] min-[760px]:text-[9px] xl:text-[10px]">S/ {price} c/u</span>
+          </button>;
+        })}
+      </div>
+
+      <div className="mt-3 flex items-center justify-center gap-2">
+        <button type="button" aria-label="Quitar una cuenta" onClick={()=>setGeminiQuantity((q)=>Math.max(1,q-1))} className="flex h-9 w-11 items-center justify-center rounded-xl border border-white/15 bg-black text-lg font-bold text-white">−</button>
+        <input type="number" min={1} value={geminiQuantity} onChange={(e)=>setGeminiQuantity(Math.max(1,Number(e.target.value)||1))} className="h-9 w-14 rounded-xl border border-white/15 bg-black text-center text-[14px] font-bold text-white outline-none"/>
+        <button type="button" aria-label="Agregar una cuenta" onClick={()=>setGeminiQuantity((q)=>q+1)} className="flex h-9 w-11 items-center justify-center rounded-xl border border-[#d6a83f]/60 bg-black text-lg font-bold text-[#f6bf2f]">+</button>
+      </div>
+
+      <div className="mt-auto flex items-end justify-between gap-2 pt-4">
+        <div className="min-w-0">
+          <span className="inline-flex whitespace-nowrap rounded-md border border-[#d6a83f]/70 px-2 py-1 text-[16px] font-black leading-none xl:text-[17px]">S/ {geminiTotal.toFixed(2)}</span>
+          <p className="mt-1 text-[11px] text-white/45 min-[760px]:text-[9px]">{geminiQuantity} {geminiQuantity===1?"cuenta":"cuentas"} · S/ {geminiUnitPrice.toFixed(2)} c/u</p>
+          <p className="mt-0.5 text-[11px] text-white/45 min-[760px]:text-[9px]">Suscripción: {product.duration}</p>
+        </div>
+        <button type="button" onClick={addToCart} className={`shrink-0 rounded-xl px-3 py-2.5 text-[14px] font-bold transition min-[760px]:px-4 min-[760px]:py-2.5 min-[760px]:text-[12px] ${justAdded ? "bg-black text-white ring-2 ring-white/30" : "bg-[#f6bf2f] text-black hover:bg-[#ffd052]"}`}><ShoppingBag className="inline" size={14}/> {justAdded?"Añadido":"Añadir"}</button>
+      </div>
+
+      <Link href={`/producto/${product.id}`} className="mt-3 block border-t border-white/10 pt-3 text-center text-[14px] text-white/70 hover:text-white min-[760px]:text-[10px]">Ver detalles</Link>
+    </article>
+  );
+
   if (isSupportProduct) return (
     <article className="group mx-auto flex h-[540px] w-full max-w-[310px] flex-col rounded-[18px] border-2 border-[#d6a83f] bg-[linear-gradient(180deg,#111,#0b0b0b)] p-3 shadow-[0_0_0_1px_rgba(255,224,140,.12),0_18px_44px_rgba(0,0,0,.28)] min-[760px]:h-[500px] min-[760px]:max-w-none min-[760px]:rounded-2xl min-[760px]:border xl:h-[520px]">
       <div className="mx-auto mb-3 flex h-[210px] w-[210px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] bg-black min-[760px]:h-[228px] min-[760px]:w-full min-[760px]:rounded-xl xl:h-[240px]"><ProductMedia product={product} imageClassName="object-cover"/></div>
@@ -77,11 +123,9 @@ export function ProductCard({ product }: { product: Product }) {
     </article>
   );
 
-  const cardHeight = isGemini
-    ? "h-[625px] min-[760px]:h-[590px] xl:h-[605px]"
-    : isInvitation
-      ? "h-[570px] min-[760px]:h-[530px] xl:h-[540px]"
-      : "h-[540px] min-[760px]:h-[500px] xl:h-[520px]";
+  const cardHeight = isInvitation
+    ? "h-[570px] min-[760px]:h-[530px] xl:h-[540px]"
+    : "h-[540px] min-[760px]:h-[500px] xl:h-[520px]";
 
   const mediaSize = isInvitation
     ? "h-[190px] w-[210px] min-[760px]:h-[190px] min-[760px]:w-full xl:h-[205px]"
@@ -110,36 +154,17 @@ export function ProductCard({ product }: { product: Product }) {
 
     <p className={`${descriptionHeight} overflow-hidden whitespace-pre-line text-[14px] leading-[22px] text-white/60 min-[760px]:text-[12px] min-[760px]:leading-[17px]`}>
       {product.id === "canva-pro" ? <><span>Canva Edu — suscripción por 12 meses</span><br/><span>Se envía invitación por correo</span></>
-      : product.id === "gemini-pro" ? <><span>Gemini Pro — suscripción por 18 meses</span><br/><span>Cuenta Personal</span></>
       : product.id === "netflix-vpn" ? <><span>Netflix — suscripción por 1 mes</span><br/><span>Cuenta Completa</span><br/><span>Se envía correo y contraseña</span><br/><span>Uso solo con VPN</span></>
       : isInvitation ? <><span>Invitación personalizada en imagen o video de 15 a 20 segundos.</span><br/><span>Incluye ubicación y confirmación para asistentes.</span></>
       : product.description}
     </p>
 
-    {isGemini && <div className="mt-2">
-      <label className="mb-2 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Cantidad de cuentas</label>
-      <div className="grid grid-cols-2 gap-2">
-        {[{q:1,p:15},{q:2,p:13}].map(({q,p})=><button key={q} type="button" onClick={()=>setGeminiQuantity(q)} className={`rounded-xl border px-2 py-2 text-[12px] font-bold transition ${geminiQuantity===q?"border-[#f6bf2f] bg-[#f6bf2f]/15 text-[#f6bf2f]":"border-white/10 bg-slate-950 text-white"}`}>{q} {q===1?"cuenta":"cuentas"}<br/><span className="text-[11px]">S/ {p} c/u</span></button>)}
-      </div>
-      <div className={`mt-2 flex items-center justify-between rounded-xl border px-3 py-2 ${geminiQuantity>=3?"border-[#f6bf2f] bg-[#f6bf2f]/10":"border-white/10 bg-slate-950"}`}>
-        <button type="button" onClick={()=>setGeminiQuantity((q)=>Math.max(3,q))} className="text-left">
-          <span className="block text-[12px] font-bold text-white">3 o más cuentas</span>
-          <span className="block text-[11px] text-[#f0cd78]">S/ 10 c/u</span>
-        </button>
-        <div className="flex items-center gap-1.5">
-          <button type="button" aria-label="Quitar una cuenta" onClick={()=>setGeminiQuantity((q)=>Math.max(3,(q<3?3:q)-1))} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-black text-lg font-bold text-white">−</button>
-          <input type="number" min={3} value={geminiQuantity>=3?geminiQuantity:3} onChange={(e)=>setGeminiQuantity(Math.max(3,Number(e.target.value)||3))} className="h-8 w-12 rounded-lg border border-white/15 bg-black text-center text-[13px] font-bold text-white outline-none"/>
-          <button type="button" aria-label="Agregar una cuenta" onClick={()=>setGeminiQuantity((q)=>q<3?3:q+1)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#d6a83f]/60 bg-black text-lg font-bold text-[#f6bf2f]">+</button>
-        </div>
-      </div>
-    </div>}
-
-    {!isGemini && product.variants && product.variants.length>0 && <div className="mt-2"><label className="mb-1 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Elige un paquete</label><select value={selectedVariantId} onChange={(e)=>setSelectedVariantId(e.target.value)} className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-[14px] font-semibold text-white outline-none focus:border-[#d6a83f]/60 min-[760px]:text-[11px]">{product.variants.map(v=><option key={v.id} value={v.id}>{v.label} — S/ {v.price.toFixed(2)}</option>)}</select></div>}
+    {product.variants && product.variants.length>0 && <div className="mt-2"><label className="mb-1 block text-[12px] font-semibold uppercase tracking-wider text-white/50 min-[760px]:text-[10px]">Elige un paquete</label><select value={selectedVariantId} onChange={(e)=>setSelectedVariantId(e.target.value)} className="w-full rounded-xl border border-white/10 bg-slate-950 px-3 py-2 text-[14px] font-semibold text-white outline-none focus:border-[#d6a83f]/60 min-[760px]:text-[11px]">{product.variants.map(v=><option key={v.id} value={v.id}>{v.label} — S/ {v.price.toFixed(2)}</option>)}</select></div>}
 
     <div className="mt-auto flex items-end justify-between gap-2 pt-3">
       <div className="min-w-0">
         <span className="inline-flex whitespace-nowrap rounded-md border border-[#d6a83f]/70 px-2 py-1 text-[16px] font-black leading-none xl:text-[17px]">S/ {displayedPrice.toFixed(2)}</span>
-        {isGemini ? <><p className="mt-0.5 text-[12px] text-white/45 min-[760px]:text-[10px]">{geminiQuantity} {geminiQuantity===1?"cuenta":"cuentas"} · S/ {geminiUnitPrice.toFixed(2)} c/u</p><p className="mt-0.5 text-[12px] text-white/45 min-[760px]:text-[10px]">Suscripción: {product.duration}</p></> : <p className="mt-0.5 text-[12px] text-white/45 min-[760px]:text-[10px]">{selectedVariant ? selectedVariant.label : `Suscripción: ${product.duration}`}</p>}
+        <p className="mt-0.5 text-[12px] text-white/45 min-[760px]:text-[10px]">{selectedVariant ? selectedVariant.label : `Suscripción: ${product.duration}`}</p>
         {product.guarantee && <p className="mt-1 inline-flex items-center gap-1 rounded-lg border border-[#d6a83f]/35 px-2 py-1 text-[11px] font-semibold text-[#f0cd78] min-[760px]:text-[9px]"><ShieldCheck className="h-3 w-3"/> Garantía: {product.guarantee}</p>}
       </div>
       <button type="button" onClick={addToCart} className={`shrink-0 rounded-xl px-3 py-2.5 text-[14px] font-bold transition min-[760px]:px-4 min-[760px]:py-2.5 min-[760px]:text-[12px] ${justAdded ? "bg-black text-white ring-2 ring-white/30" : "bg-[#f6bf2f] text-black hover:bg-[#ffd052]"}`}><ShoppingBag className="inline" size={14}/> {justAdded?"Añadido":"Añadir"}</button>
