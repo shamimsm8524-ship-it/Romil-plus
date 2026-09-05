@@ -26,3 +26,20 @@ button, input { font: inherit; }
     object-position: center center !important;
   }
 }
+
+/* Gemini necesita más altura que el resto para mantener el diseño limpio y sin superposiciones */
+article[data-product="gemini-pro"] {
+  height: 650px !important;
+}
+
+@media (min-width: 760px) {
+  article[data-product="gemini-pro"] {
+    height: 620px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  article[data-product="gemini-pro"] {
+    height: 635px !important;
+  }
+}
