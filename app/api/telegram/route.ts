@@ -55,7 +55,7 @@ function usdValue(pen: number) {
 
 function priceLine(pen: number) {
   if (pen <= 0) return "Consultar precio";
-  return `S/ ${pen.toFixed(2)} (≈ $${usdValue(pen).toFixed(2)} USD)`;
+  return `$${usdValue(pen).toFixed(2)} USD`;
 }
 
 function priceButton(pen: number) {
@@ -139,7 +139,7 @@ async function showHome(chatId: number, messageId?: number) {
     "",
     "Accesos, suscripciones digitales, software y servicios online.",
     "",
-    "💵 Los productos muestran su precio en soles y su equivalente aproximado en dólares.",
+    "💵 Los productos muestran sus precios en dólares (USD).",
     "🌐 Sitio oficial: <b>romilplus.me</b>",
     "",
     "Elige una opción:",
