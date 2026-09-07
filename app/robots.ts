@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://romilplus.me/sitemap.xml",
-    host: "https://romilplus.me",
+    sitemap: "https://www.romilplus.me/sitemap.xml",
+    host: "https://www.romilplus.me",
   };
 }
