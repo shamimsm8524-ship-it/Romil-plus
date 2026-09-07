@@ -68,6 +68,7 @@ export const products: Product[] = [
     price: 25,
     duration: "12 meses",
     badge: "Promoción",
+    image: "/duolingo-romil-plus.jpg",
   },
   {
     id: "netflix-vpn",
