@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { products } from "@/lib/products";
 
-const baseUrl = "https://romilplus.me";
+const baseUrl = "https://www.romilplus.me";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
