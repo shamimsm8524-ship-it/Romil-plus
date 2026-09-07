@@ -1,40 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, Copy, MessageCircle, ShieldCheck, Clock3, Upload } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
+import { Check, Clock3, MessageCircle, ShieldCheck, Upload } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 import { supabase } from "@/lib/supabase";
 
-type PaymentMethod = "yape" | "plin" | "bcp" | "interbank" | "paypal";
 type SupabaseLikeError = { message?: string; code?: string; details?: string; hint?: string };
-
-const holder = "Milagros Olinda Quispe Venegas";
-const paymentData = {
-  yape: { label: "Yape", subtitle: "Paga escaneando el QR", qr: "0002010102113932184b659db5b05375a402477a73bb68105204561153036045802PE5906YAPERO6004Lima63047ACC" },
-  plin: { label: "Plin", subtitle: "Paga escaneando el QR", qr: "0002015802PE0102115204482953036045912P2P Transfer6004Lima265600329751102dbd374d2b99a91b1c74ebda0d0116Plin Network P2P6304EE01" },
-  bcp: { label: "BCP", subtitle: "Transferencia bancaria", account: "19109678540001", cci: "00219110967854000158" },
-  interbank: { label: "Interbank", subtitle: "Transferencia bancaria", account: "8983392293592", cci: "00389801339229359248" },
-  paypal: { label: "PayPal", subtitle: "Paga por PayPal", email: "milagroslove.1693@gmail.com", qr: "https://www.paypal.com/qrcodes/p2pqrc/92DEGPDN9GX8E", url: "https://www.paypal.com/qrcodes/p2pqrc/92DEGPDN9GX8E" },
-} as const;
 
 export default function CheckoutPage() {
   const { items, total, clear } = useCart();
-  const [method,setMethod] = useState<PaymentMethod>("yape");
-  const [copied,setCopied] = useState("");
   const [paymentReported,setPaymentReported] = useState(false);
   const [checkingAuth,setCheckingAuth] = useState(true);
   const [savingOrder,setSavingOrder] = useState(false);
   const [saveError,setSaveError] = useState("");
-  const [orderId,setOrderId] = useState("");
   const [draftOrderId,setDraftOrderId] = useState("");
   const [submittedItems,setSubmittedItems] = useState<typeof items>([]);
   const [submittedTotal,setSubmittedTotal] = useState(0);
-  const [buyerEmail,setBuyerEmail] = useState("");
   const [receipt,setReceipt] = useState<File|null>(null);
   const [payerName,setPayerName] = useState("");
 
-  const selected = paymentData[method];
   const displayItems = paymentReported ? submittedItems : items;
   const displayTotal = paymentReported ? submittedTotal : total;
 
@@ -45,20 +29,11 @@ export default function CheckoutPage() {
       const {data} = await supabase.auth.getSession();
       if(!active) return;
       if(!data.session){ window.location.replace("/login?next=%2Fcheckout"); return; }
-      setBuyerEmail(data.session.user.email||"");
       setCheckingAuth(false);
     };
     requireAccount();
     return()=>{active=false;};
   },[]);
-
-  const copyValue = async(value:string,key:string)=>{
-    try{
-      await navigator.clipboard.writeText(value);
-      setCopied(key);
-      window.setTimeout(()=>setCopied(""),1500);
-    }catch{ setCopied(""); }
-  };
 
   const reportPayment = async()=>{
     if(!supabase || items.length===0 || paymentReported || savingOrder) return;
@@ -84,7 +59,7 @@ export default function CheckoutPage() {
           user_id: user.id,
           customer_email: user.email||null,
           total: purchasedTotal,
-          payment_method: method,
+          payment_method: "yape",
         });
         if(orderError) throw orderError;
 
@@ -118,8 +93,6 @@ export default function CheckoutPage() {
 
       setSubmittedItems(purchasedItems);
       setSubmittedTotal(purchasedTotal);
-      setBuyerEmail(user.email||"");
-      setOrderId(currentOrderId);
       setPaymentReported(true);
       setDraftOrderId("");
       clear();
@@ -145,49 +118,19 @@ export default function CheckoutPage() {
 
   return <main className="mx-auto min-h-[75vh] max-w-6xl px-4 py-14">
     <h1 className="text-4xl font-black">Métodos de pago</h1>
-    <p className="mt-2 text-white/50">Elige cómo quieres pagar tu pedido.</p>
+    <p className="mt-2 text-white/50">Para Realizar el Pago Escanea este QR</p>
 
     <div className="mt-10 grid gap-6 lg:grid-cols-[1.25fr_.75fr]">
       <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 sm:p-7">
-        <h2 className="text-xl font-bold">Elige un método</h2>
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
-          {(Object.keys(paymentData) as PaymentMethod[]).map(key=>{
-            const item = paymentData[key];
-            const active = method===key;
-            return <button
-              key={key}
-              type="button"
-              onClick={()=>{setMethod(key);setSaveError("");}}
-              disabled={paymentReported||savingOrder||!!draftOrderId}
-              className={`rounded-2xl border px-3 py-4 text-center transition ${active?"border-[#e3b64f] bg-[#e3b64f]/15 text-[#f5d98e]":"border-white/10 bg-black/20 text-white/65 hover:border-white/25"}`}
-            ><span className="block font-black">{item.label}</span></button>;
-          })}
-        </div>
-
-        <div className="mt-6 rounded-3xl border border-white/10 bg-black/25 p-5 sm:p-7">
-          <div className="flex items-start justify-between gap-4">
-            <div><p className="text-2xl font-black">{selected.label}</p><p className="mt-1 text-sm text-white/50">{selected.subtitle}</p></div>
-            <span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">Disponible</span>
+        <div className="rounded-3xl border border-[#d6b25e]/25 bg-black/25 p-5 sm:p-7">
+          <div className="text-center">
+            <p className="text-2xl font-black text-white">Para Realizar el Pago Escanea este QR</p>
+            <p className="mt-3 text-base font-bold text-[#d6b25e]">Nombre: Romil Plus</p>
           </div>
 
-          {(method==="yape"||method==="plin")&&<div className="mt-6 flex flex-col items-center rounded-2xl bg-white p-5 text-slate-950">
-            <QRCodeSVG value={paymentData[method].qr} size={230} level="M" includeMargin/>
-            <p className="mt-4 text-center text-sm font-bold">Titular: {holder}</p>
-          </div>}
-
-          {(method==="bcp"||method==="interbank")&&(()=>{
-            const bank = paymentData[method];
-            return <div className="mt-6 space-y-3">
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><p className="text-xs text-white/40">Titular</p><p className="font-bold">{holder}</p></div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><p className="text-xs text-white/40">Número de cuenta</p><div className="flex justify-between"><p>{bank.account}</p><button type="button" onClick={()=>copyValue(bank.account,`${method}-account`)}>{copied===`${method}-account`?<Check size={17}/>:<Copy size={17}/>}</button></div></div>
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4"><p className="text-xs text-white/40">CCI</p><div className="flex justify-between"><p>{bank.cci}</p><button type="button" onClick={()=>copyValue(bank.cci,`${method}-cci`)}>{copied===`${method}-cci`?<Check size={17}/>:<Copy size={17}/>}</button></div></div>
-            </div>;
-          })()}
-
-          {method==="paypal"&&<div className="mt-6">
-            <div className="flex flex-col items-center rounded-2xl bg-white p-5 text-slate-950"><QRCodeSVG value={paymentData.paypal.qr} size={230}/><p className="mt-4 font-bold">PayPal: {paymentData.paypal.email}</p></div>
-            <a href={paymentData.paypal.url} target="_blank" rel="noopener noreferrer" className="mt-4 block rounded-xl bg-[#0070ba] px-4 py-3 text-center font-black">Abrir PayPal</a>
-          </div>}
+          <div className="mx-auto mt-6 max-w-[520px] overflow-hidden rounded-[2rem] bg-white p-2 shadow-[0_18px_55px_rgba(0,0,0,.35)] sm:p-3">
+            <img src="/romil-plus-pago-qr.svg" alt="Código QR para realizar el pago a Romil Plus" className="block h-auto w-full rounded-[1.6rem]"/>
+          </div>
 
           <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.06] p-4">
             <div className="flex gap-3"><ShieldCheck className="text-amber-300" size={20}/><div><p className="font-bold text-amber-100">Entrega protegida</p><p className="mt-1 text-xs text-white/50">Tu producto no se entrega hasta que el pago haya sido confirmado.</p></div></div>
