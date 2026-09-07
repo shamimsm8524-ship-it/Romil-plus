@@ -33,9 +33,23 @@ type Order={
 };
 
 type Delivery={email:string;password:string;verification:string;link:string;notes:string};
+type OrderGroup={key:string;label:string;orders:Order[]};
+
 const emptyDelivery:Delivery={email:"",password:"",verification:"",link:"",notes:""};
 const hasDelivery=(i:OrderItem)=>!!(i.delivery_email||i.delivery_password||i.delivery_verification||i.delivery_link||i.delivery_notes);
 const isClosedStatus=(status:string)=>status==="delivered"||status==="cancelled"||status==="refunded";
+
+const capitalize=(value:string)=>value?value.charAt(0).toUpperCase()+value.slice(1):value;
+const orderDateKey=(iso:string)=>{
+  const parts=new Intl.DateTimeFormat("es-PE",{timeZone:"America/Lima",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(iso));
+  const part=(type:string)=>parts.find(p=>p.type===type)?.value||"";
+  return `${part("year")}-${part("month")}-${part("day")}`;
+};
+const orderDateLabel=(iso:string)=>{
+  const parts=new Intl.DateTimeFormat("es-PE",{timeZone:"America/Lima",weekday:"long",day:"numeric",month:"long"}).formatToParts(new Date(iso));
+  const part=(type:string)=>parts.find(p=>p.type===type)?.value||"";
+  return `${capitalize(part("weekday"))} ${part("day")} de ${capitalize(part("month"))}`;
+};
 
 export default function AdminPage(){
   const[orders,setOrders]=useState<Order[]>([]);
@@ -170,6 +184,13 @@ export default function AdminPage(){
   const pending=orders.filter(o=>!isClosedStatus(o.status)).length;
   const cancelled=orders.filter(o=>o.status==="cancelled").length;
   const receipts=orders.filter(o=>!!o.receipt_path).length;
+  const groupedOrders=orders.reduce<OrderGroup[]>((groups,order)=>{
+    const key=orderDateKey(order.created_at);
+    const current=groups[groups.length-1];
+    if(current?.key===key)current.orders.push(order);
+    else groups.push({key,label:orderDateLabel(order.created_at),orders:[order]});
+    return groups;
+  },[]);
 
   return <main className="mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
     <div className="flex flex-wrap items-end justify-between gap-4">
@@ -187,61 +208,73 @@ export default function AdminPage(){
     {loading&&<p className="mt-10 text-white/50">Cargando pedidos...</p>}
     {error&&<p className="mt-6 rounded-xl bg-red-400/10 p-4 text-red-200">{error}</p>}
 
-    <div className="mt-8 space-y-5">
-      {orders.map(o=>{
-        const closed=isClosedStatus(o.status);
-        const cancelledOrder=o.status==="cancelled";
-        return <article key={o.id} className={`rounded-3xl border p-5 ${cancelledOrder?"border-red-400/20 bg-red-400/[0.03]":"border-white/10 bg-white/[0.04]"}`}>
-          <div className="flex flex-wrap justify-between gap-3"><div><p className="font-mono text-sm text-[#e3b64f]">{o.id.slice(0,8).toUpperCase()}</p><p className="mt-1 text-xs text-white/40">{new Date(o.created_at).toLocaleString("es-PE")}</p></div><p className="text-xl font-black">S/ {Number(o.total).toFixed(2)}</p></div>
-
-          <div className="mt-4 rounded-xl border border-[#e3b64f]/20 bg-[#e3b64f]/5 p-3">
-            <p className="text-xs font-bold uppercase text-[#e3b64f]">Correo del cliente</p>
-            <p className="mt-1 break-all font-bold">{o.customer_email||"Correo no registrado"}</p>
+    <div className="mt-8 space-y-10">
+      {groupedOrders.map(group=><section key={group.key}>
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#d6b25e]/25 bg-[linear-gradient(90deg,rgba(214,178,94,.12),rgba(126,87,194,.08),rgba(34,211,238,.06))] px-4 py-3 sm:px-5">
+          <div>
+            <p className="text-lg font-black text-[#d6b25e] sm:text-xl">{group.label}</p>
+            <p className="mt-0.5 text-xs text-white/45">Pedidos realizados este día</p>
           </div>
+          <span className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-xs font-black text-white/70">{group.orders.length} {group.orders.length===1?"pedido":"pedidos"}</span>
+        </div>
 
-          <div className="mt-3 rounded-xl border border-violet-400/20 bg-violet-400/[0.06] p-3">
-            <p className="text-xs font-bold uppercase text-violet-300">Comprobante de pago</p>
-            {o.receipt_path?<>
-              <p className="mt-1 break-all text-sm"><b>Enviado por:</b> {o.customer_email||"Correo no registrado"}</p>
-              <p className="mt-1 text-xs text-white/50"><b>Pagador:</b> {o.receipt_payer_name||"No indicado"}</p>
-              {o.receipt_uploaded_at&&<p className="mt-1 text-xs text-white/40">Recibido: {new Date(o.receipt_uploaded_at).toLocaleString("es-PE")}</p>}
-              <button type="button" onClick={()=>openReceipt(o)} className="mt-3 rounded-xl bg-violet-500 px-4 py-2 text-sm font-black text-white">👁 Ver comprobante</button>
-            </>:<p className="mt-1 text-sm text-white/45">Aún no se adjuntó comprobante.</p>}
-          </div>
+        <div className="space-y-5">
+          {group.orders.map(o=>{
+            const closed=isClosedStatus(o.status);
+            const cancelledOrder=o.status==="cancelled";
+            return <article key={o.id} className={`rounded-3xl border p-5 ${cancelledOrder?"border-red-400/20 bg-red-400/[0.03]":"border-white/10 bg-white/[0.04]"}`}>
+              <div className="flex flex-wrap justify-between gap-3"><div><p className="font-mono text-sm text-[#e3b64f]">{o.id.slice(0,8).toUpperCase()}</p><p className="mt-1 text-xs text-white/40">{new Date(o.created_at).toLocaleString("es-PE",{timeZone:"America/Lima"})}</p></div><p className="text-xl font-black">S/ {Number(o.total).toFixed(2)}</p></div>
 
-          <p className="mt-4 text-sm">Estado: <b className={cancelledOrder?"text-red-300":""}>{cancelledOrder?"CANCELADO":o.status}</b></p>
-          <p className="mt-1 text-xs text-white/40">Método: {o.payment_method?.toUpperCase()||"—"}</p>
+              <div className="mt-4 rounded-xl border border-[#e3b64f]/20 bg-[#e3b64f]/5 p-3">
+                <p className="text-xs font-bold uppercase text-[#e3b64f]">Correo del cliente</p>
+                <p className="mt-1 break-all font-bold">{o.customer_email||"Correo no registrado"}</p>
+              </div>
 
-          <div className="mt-5 grid gap-2 sm:grid-cols-3">
-            <button type="button" disabled={closed||!o.receipt_path} onClick={()=>changeStatus(o.id,"paid",o.status)} className="rounded-xl bg-emerald-500 px-4 py-3 font-black disabled:opacity-40">Confirmar pago</button>
-            <button type="button" disabled={closed} onClick={()=>changeStatus(o.id,"processing",o.status)} className="rounded-xl bg-amber-400 px-4 py-3 font-black text-black disabled:opacity-40">Procesando</button>
-            <button type="button" disabled={closed} onClick={()=>cancelOrder(o)} className="rounded-xl bg-red-500 px-4 py-3 font-black text-white disabled:opacity-40">Cancelar pedido</button>
-          </div>
-          {feedback[o.id]&&<p className="mt-3 rounded-xl border border-white/10 p-3 text-sm font-bold">{feedback[o.id]}</p>}
+              <div className="mt-3 rounded-xl border border-violet-400/20 bg-violet-400/[0.06] p-3">
+                <p className="text-xs font-bold uppercase text-violet-300">Comprobante de pago</p>
+                {o.receipt_path?<>
+                  <p className="mt-1 break-all text-sm"><b>Enviado por:</b> {o.customer_email||"Correo no registrado"}</p>
+                  <p className="mt-1 text-xs text-white/50"><b>Pagador:</b> {o.receipt_payer_name||"No indicado"}</p>
+                  {o.receipt_uploaded_at&&<p className="mt-1 text-xs text-white/40">Recibido: {new Date(o.receipt_uploaded_at).toLocaleString("es-PE",{timeZone:"America/Lima"})}</p>}
+                  <button type="button" onClick={()=>openReceipt(o)} className="mt-3 rounded-xl bg-violet-500 px-4 py-2 text-sm font-black text-white">👁 Ver comprobante</button>
+                </>:<p className="mt-1 text-sm text-white/45">Aún no se adjuntó comprobante.</p>}
+              </div>
 
-          <div className="mt-6 space-y-4 border-t border-white/10 pt-5">
-            <h2 className="font-black text-[#e3b64f]">Cuentas a entregar ({o.order_items.length})</h2>
-            {o.order_items.map((item,index)=>{
-              const f=forms[item.id]||emptyDelivery;
-              const sent=hasDelivery(item);
-              const unlocked=(!sent||!!editing[item.id])&&!cancelledOrder&&o.status!=="refunded";
-              const inputClass=`rounded-xl border border-white/10 px-4 py-3 ${unlocked?"bg-black/30":"cursor-not-allowed bg-white/[0.03] text-white/60"}`;
-              return <section key={item.id} className="rounded-2xl border border-white/10 bg-black/20 p-4">
-                <div className="flex items-start justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-wider text-violet-300">Cuenta {index+1}</p><p className="mt-1 font-black">{item.product_name}</p></div>{sent&&<span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">Enviada</span>}</div>
-                <div className="mt-4 grid gap-3">
-                  <input disabled={!unlocked} value={f.email} onChange={e=>setField(item.id,"email",e.target.value)} placeholder="Correo / usuario" className={inputClass}/>
-                  <input disabled={!unlocked} value={f.password} onChange={e=>setField(item.id,"password",e.target.value)} placeholder="Contraseña" className={inputClass}/>
-                  <input disabled={!unlocked} value={f.verification} onChange={e=>setField(item.id,"verification",e.target.value)} placeholder="Código o verificación" className={inputClass}/>
-                  <input disabled={!unlocked} value={f.link} onChange={e=>setField(item.id,"link",e.target.value)} placeholder="Enlace de acceso" className={inputClass}/>
-                  <textarea disabled={!unlocked} value={f.notes} onChange={e=>setField(item.id,"notes",e.target.value)} placeholder="Instrucciones" rows={2} className={inputClass}/>
-                  {cancelledOrder?<p className="rounded-xl bg-red-400/10 p-3 text-center text-sm font-black text-red-200">Pedido cancelado — entrega bloqueada</p>:sent&&!editing[item.id]?<button type="button" onClick={()=>beginEdit(item)} className="rounded-xl border border-[#e3b64f]/40 bg-[#e3b64f]/10 px-4 py-3 font-black text-[#e3b64f]">✏️ Editar datos</button>:<div className="grid gap-2 sm:grid-cols-2">{sent&&<button type="button" disabled={!!saving[item.id]} onClick={()=>cancelEdit(item)} className="rounded-xl border border-white/15 bg-white/[0.05] px-4 py-3 font-black">Cancelar</button>}<button type="button" disabled={!!saving[item.id]||!o.receipt_path} onClick={()=>deliverItem(o,item)} className="rounded-xl bg-[#e3b64f] px-4 py-3 font-black text-black disabled:opacity-40">{saving[item.id]?"Guardando...":sent?"💾 Guardar cambios":`Enviar cuenta ${index+1}`}</button></div>}
-                  {feedback[item.id]&&<p className="rounded-xl border border-white/10 p-3 text-sm font-bold">{feedback[item.id]}</p>}
-                </div>
-              </section>;
-            })}
-          </div>
-        </article>;
-      })}
+              <p className="mt-4 text-sm">Estado: <b className={cancelledOrder?"text-red-300":""}>{cancelledOrder?"CANCELADO":o.status}</b></p>
+              <p className="mt-1 text-xs text-white/40">Método: {o.payment_method?.toUpperCase()||"—"}</p>
+
+              <div className="mt-5 grid gap-2 sm:grid-cols-3">
+                <button type="button" disabled={closed||!o.receipt_path} onClick={()=>changeStatus(o.id,"paid",o.status)} className="rounded-xl bg-emerald-500 px-4 py-3 font-black disabled:opacity-40">Confirmar pago</button>
+                <button type="button" disabled={closed} onClick={()=>changeStatus(o.id,"processing",o.status)} className="rounded-xl bg-amber-400 px-4 py-3 font-black text-black disabled:opacity-40">Procesando</button>
+                <button type="button" disabled={closed} onClick={()=>cancelOrder(o)} className="rounded-xl bg-red-500 px-4 py-3 font-black text-white disabled:opacity-40">Cancelar pedido</button>
+              </div>
+              {feedback[o.id]&&<p className="mt-3 rounded-xl border border-white/10 p-3 text-sm font-bold">{feedback[o.id]}</p>}
+
+              <div className="mt-6 space-y-4 border-t border-white/10 pt-5">
+                <h2 className="font-black text-[#e3b64f]">Cuentas a entregar ({o.order_items.length})</h2>
+                {o.order_items.map((item,index)=>{
+                  const f=forms[item.id]||emptyDelivery;
+                  const sent=hasDelivery(item);
+                  const unlocked=(!sent||!!editing[item.id])&&!cancelledOrder&&o.status!=="refunded";
+                  const inputClass=`rounded-xl border border-white/10 px-4 py-3 ${unlocked?"bg-black/30":"cursor-not-allowed bg-white/[0.03] text-white/60"}`;
+                  return <section key={item.id} className="rounded-2xl border border-white/10 bg-black/20 p-4">
+                    <div className="flex items-start justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-wider text-violet-300">Cuenta {index+1}</p><p className="mt-1 font-black">{item.product_name}</p></div>{sent&&<span className="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-bold text-emerald-300">Enviada</span>}</div>
+                    <div className="mt-4 grid gap-3">
+                      <input disabled={!unlocked} value={f.email} onChange={e=>setField(item.id,"email",e.target.value)} placeholder="Correo / usuario" className={inputClass}/>
+                      <input disabled={!unlocked} value={f.password} onChange={e=>setField(item.id,"password",e.target.value)} placeholder="Contraseña" className={inputClass}/>
+                      <input disabled={!unlocked} value={f.verification} onChange={e=>setField(item.id,"verification",e.target.value)} placeholder="Código o verificación" className={inputClass}/>
+                      <input disabled={!unlocked} value={f.link} onChange={e=>setField(item.id,"link",e.target.value)} placeholder="Enlace de acceso" className={inputClass}/>
+                      <textarea disabled={!unlocked} value={f.notes} onChange={e=>setField(item.id,"notes",e.target.value)} placeholder="Instrucciones" rows={2} className={inputClass}/>
+                      {cancelledOrder?<p className="rounded-xl bg-red-400/10 p-3 text-center text-sm font-black text-red-200">Pedido cancelado — entrega bloqueada</p>:sent&&!editing[item.id]?<button type="button" onClick={()=>beginEdit(item)} className="rounded-xl border border-[#e3b64f]/40 bg-[#e3b64f]/10 px-4 py-3 font-black text-[#e3b64f]">✏️ Editar datos</button>:<div className="grid gap-2 sm:grid-cols-2">{sent&&<button type="button" disabled={!!saving[item.id]} onClick={()=>cancelEdit(item)} className="rounded-xl border border-white/15 bg-white/[0.05] px-4 py-3 font-black">Cancelar</button>}<button type="button" disabled={!!saving[item.id]||!o.receipt_path} onClick={()=>deliverItem(o,item)} className="rounded-xl bg-[#e3b64f] px-4 py-3 font-black text-black disabled:opacity-40">{saving[item.id]?"Guardando...":sent?"💾 Guardar cambios":`Enviar cuenta ${index+1}`}</button></div>}
+                      {feedback[item.id]&&<p className="rounded-xl border border-white/10 p-3 text-sm font-bold">{feedback[item.id]}</p>}
+                    </div>
+                  </section>;
+                })}
+              </div>
+            </article>;
+          })}
+        </div>
+      </section>)}
     </div>
   </main>;
 }
