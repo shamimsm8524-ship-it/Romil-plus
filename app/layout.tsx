@@ -6,7 +6,7 @@ import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 
 const siteUrl = "https://www.romilplus.me";
 const siteDescription = "ROMIL PLUS es una tienda digital en Perú con suscripciones y herramientas digitales, entrega rápida, soporte y opciones para productividad, diseño, edición e inteligencia artificial.";
-const socialImage = `${siteUrl}/og`;
+const socialImage = `${siteUrl}/logo-romil-plus.png?v=20260907`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -49,8 +49,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImage,
-        width: 1200,
-        height: 630,
+        width: 1254,
+        height: 1254,
         type: "image/png",
         alt: "ROMIL PLUS - Suscripciones y herramientas digitales en Perú",
       },
