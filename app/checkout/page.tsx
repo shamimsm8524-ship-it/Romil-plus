@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, Clock3, Download, MessageCircle, ShieldCheck, Upload } from "lucide-react";
+import { Check, Clock3, Download, Eye, MessageCircle, ShieldCheck, Upload } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 import { supabase } from "@/lib/supabase";
 
@@ -132,14 +132,27 @@ export default function CheckoutPage() {
             <img src="/qr-romil-plus.jpg" alt="Código QR para realizar el pago a Romil Plus" className="block h-auto w-full rounded-[1.6rem]"/>
           </div>
 
-          <a
-            href="/qr-romil-plus.jpg"
-            download="qr-romil-plus.jpg"
-            className="mx-auto mt-4 flex w-full max-w-[520px] items-center justify-center gap-2 rounded-xl border border-[#d6b25e]/40 bg-[#d6b25e]/10 px-4 py-3 font-black text-[#f0d283] transition hover:bg-[#d6b25e]/20"
-          >
-            <Download size={19}/>
-            Descargar QR
-          </a>
+          <div className="mx-auto mt-4 grid w-full max-w-[520px] grid-cols-1 gap-3 sm:grid-cols-2">
+            <a
+              href="/qr-romil-plus.jpg"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.06] px-4 py-3 font-black text-white transition hover:bg-white/[0.10]"
+            >
+              <Eye size={19}/>
+              Ver QR
+            </a>
+            <a
+              href="/qr-romil-plus.jpg"
+              download="qr-romil-plus.jpg"
+              className="flex items-center justify-center gap-2 rounded-xl border border-[#d6b25e]/40 bg-[#d6b25e]/10 px-4 py-3 font-black text-[#f0d283] transition hover:bg-[#d6b25e]/20"
+            >
+              <Download size={19}/>
+              Descargar QR
+            </a>
+          </div>
+
+          <p className="mx-auto mt-3 max-w-[520px] text-center text-xs text-white/45">En celular, toca “Ver QR” y luego mantén presionada la imagen para guardarla en tu galería.</p>
 
           <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.06] p-4">
             <div className="flex gap-3"><ShieldCheck className="text-amber-300" size={20}/><div><p className="font-bold text-amber-100">Entrega protegida</p><p className="mt-1 text-xs text-white/50">Tu producto no se entrega hasta que el pago haya sido confirmado.</p></div></div>
