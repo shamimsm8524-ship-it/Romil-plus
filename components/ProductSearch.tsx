@@ -5,16 +5,16 @@ import { Search, Sparkles, X } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/products";
 
-const categoryAccent: Record<string, {border:string; bg:string; text:string; glow:string}> = {
-  "Inteligencia Artificial": { border:"border-[#6d5cff]/50", bg:"bg-[#6552ff]/12", text:"text-[#d8d1ff]", glow:"rgba(101,82,255,.22)" },
-  "Diseño": { border:"border-[#dc4dff]/50", bg:"bg-[#ce49ff]/12", text:"text-[#f2c8ff]", glow:"rgba(214,73,255,.22)" },
-  "Productividad": { border:"border-[#34d1ff]/50", bg:"bg-[#2dc7ff]/12", text:"text-[#c4f4ff]", glow:"rgba(45,199,255,.22)" },
-  "Edición de Videos": { border:"border-[#ff4eaf]/50", bg:"bg-[#ff479f]/12", text:"text-[#ffd0e7]", glow:"rgba(255,71,159,.22)" },
-  "VPN": { border:"border-[#ff5e5e]/50", bg:"bg-[#ff5353]/12", text:"text-[#ffd0d0]", glow:"rgba(255,83,83,.22)" },
-  "Redes Sociales": { border:"border-[#ff8a38]/50", bg:"bg-[#ff7b28]/12", text:"text-[#ffe0c7]", glow:"rgba(255,123,40,.22)" },
-  "Promoción YouTube": { border:"border-[#ff3f68]/50", bg:"bg-[#ff365d]/12", text:"text-[#ffc7d2]", glow:"rgba(255,54,93,.22)" },
-  "Educación": { border:"border-[#38d37d]/50", bg:"bg-[#31ca74]/12", text:"text-[#c9ffe0]", glow:"rgba(49,202,116,.22)" },
-  "Otros": { border:"border-[#f0bc45]/50", bg:"bg-[#e7ad32]/12", text:"text-[#ffe7ad]", glow:"rgba(231,173,50,.22)" },
+const categoryAccent: Record<string, {border:string; bg:string; text:string; glow:string; c1:string; c2:string}> = {
+  "Inteligencia Artificial": { border:"border-[#6d5cff]/50", bg:"bg-[#6552ff]/12", text:"text-[#d8d1ff]", glow:"rgba(101,82,255,.24)", c1:"rgba(70,108,255,.34)", c2:"rgba(171,65,255,.30)" },
+  "Diseño": { border:"border-[#dc4dff]/50", bg:"bg-[#ce49ff]/12", text:"text-[#f2c8ff]", glow:"rgba(214,73,255,.24)", c1:"rgba(53,187,255,.30)", c2:"rgba(242,67,214,.34)" },
+  "Productividad": { border:"border-[#34d1ff]/50", bg:"bg-[#2dc7ff]/12", text:"text-[#c4f4ff]", glow:"rgba(45,199,255,.24)", c1:"rgba(31,204,255,.32)", c2:"rgba(70,101,255,.28)" },
+  "Edición de Videos": { border:"border-[#ff4eaf]/50", bg:"bg-[#ff479f]/12", text:"text-[#ffd0e7]", glow:"rgba(255,71,159,.24)", c1:"rgba(128,64,255,.30)", c2:"rgba(255,65,174,.34)" },
+  "VPN": { border:"border-[#ff5e5e]/50", bg:"bg-[#ff5353]/12", text:"text-[#ffd0d0]", glow:"rgba(255,83,83,.24)", c1:"rgba(37,112,255,.32)", c2:"rgba(255,65,86,.32)" },
+  "Redes Sociales": { border:"border-[#ff8a38]/50", bg:"bg-[#ff7b28]/12", text:"text-[#ffe0c7]", glow:"rgba(255,123,40,.24)", c1:"rgba(255,77,171,.30)", c2:"rgba(255,139,44,.32)" },
+  "Promoción YouTube": { border:"border-[#ff3f68]/50", bg:"bg-[#ff365d]/12", text:"text-[#ffc7d2]", glow:"rgba(255,54,93,.24)", c1:"rgba(255,54,93,.32)", c2:"rgba(173,45,255,.28)" },
+  "Educación": { border:"border-[#38d37d]/50", bg:"bg-[#31ca74]/12", text:"text-[#c9ffe0]", glow:"rgba(49,202,116,.24)", c1:"rgba(44,210,107,.30)", c2:"rgba(126,230,44,.28)" },
+  "Otros": { border:"border-[#f0bc45]/50", bg:"bg-[#e7ad32]/12", text:"text-[#ffe7ad]", glow:"rgba(231,173,50,.24)", c1:"rgba(245,183,54,.28)", c2:"rgba(125,62,255,.25)" },
 };
 
 export function ProductSearch() {
@@ -49,10 +49,16 @@ export function ProductSearch() {
       <style>{`
         @keyframes rpCatalogCardIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
         @keyframes rpSearchGlow{0%,100%{box-shadow:0 0 0 rgba(42,207,255,0),0 12px 32px rgba(0,0,0,.22)}50%{box-shadow:0 0 30px rgba(42,207,255,.10),0 12px 32px rgba(0,0,0,.22)}}
-        .rp-catalog-card{animation:rpCatalogCardIn .5s ease both;transition:transform .22s ease,filter .22s ease}
-        .rp-catalog-card:hover{transform:translateY(-4px)}
+        @keyframes rpCardAura{0%,100%{opacity:.30;transform:scale(.98)}50%{opacity:.56;transform:scale(1.025)}}
+        .rp-catalog-card{animation:rpCatalogCardIn .5s ease both;transition:transform .24s ease,filter .24s ease;position:relative;isolation:isolate}
+        .rp-catalog-card:hover{transform:translateY(-5px) scale(1.012);filter:saturate(1.08)}
+        .rp-catalog-card:before{content:"";position:absolute;z-index:-1;inset:-9px;border-radius:28px;background:radial-gradient(circle at 16% 8%,var(--rp-c1),transparent 45%),radial-gradient(circle at 88% 92%,var(--rp-c2),transparent 48%);filter:blur(17px);animation:rpCardAura 3.8s ease-in-out infinite;pointer-events:none}
+        .rp-catalog-card>article{border-color:rgba(255,255,255,.14)!important;background:radial-gradient(circle at 10% 0%,var(--rp-c1),transparent 34%),radial-gradient(circle at 100% 88%,var(--rp-c2),transparent 40%),linear-gradient(150deg,#11131d 0%,#090a10 50%,#0d0913 100%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 18px 45px rgba(0,0,0,.34)!important}
+        .rp-catalog-card>article>div:first-child{box-shadow:0 0 0 1px rgba(255,255,255,.08),0 0 24px var(--rp-c1);transition:box-shadow .25s ease,transform .25s ease}
+        .rp-catalog-card:hover>article>div:first-child{box-shadow:0 0 0 1px rgba(255,255,255,.14),0 0 34px var(--rp-c1);transform:translateY(-1px)}
+        .rp-catalog-card>article button:not([aria-label]){box-shadow:0 7px 18px rgba(0,0,0,.18)}
         .rp-searchbox:focus-within{animation:rpSearchGlow 1.9s ease-in-out infinite;border-color:rgba(78,211,255,.65)}
-        @media(prefers-reduced-motion:reduce){.rp-catalog-card,.rp-searchbox:focus-within{animation:none!important}.rp-catalog-card{transition:none!important}}
+        @media(prefers-reduced-motion:reduce){.rp-catalog-card,.rp-catalog-card:before,.rp-searchbox:focus-within{animation:none!important}.rp-catalog-card,.rp-catalog-card>article>div:first-child{transition:none!important}}
       `}</style>
 
       <div className="mx-auto mt-6 w-full max-w-[920px] md:mt-5">
@@ -111,23 +117,27 @@ export function ProductSearch() {
       </div>
 
       {filteredProducts.length > 0 ? (
-        <div className="mt-7 grid grid-cols-1 gap-5 sm:grid-cols-2 md:mt-5 md:grid-cols-4 md:gap-4 xl:gap-5">
-          {filteredProducts.map((product, index) => {
-            const accent = categoryAccent[product.category] ?? categoryAccent.Otros;
-            return (
-              <div
-                key={product.id}
-                className="rp-catalog-card mx-auto w-full max-w-[312px] rounded-[22px] p-[1px] md:max-w-none"
-                style={{
-                  animationDelay: `${Math.min(index, 10) * 55}ms`,
-                  background: `linear-gradient(135deg, ${accent.glow.replace('.22','.75')}, rgba(255,255,255,.05), ${accent.glow.replace('.22','.45')})`,
-                  boxShadow: `0 0 24px ${accent.glow}`,
-                }}
-              >
-                <ProductCard product={product} />
-              </div>
-            );
-          })}
+        <div className="mt-7 rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_4%_0%,rgba(0,174,255,.12),transparent_26%),radial-gradient(circle_at_96%_4%,rgba(226,54,255,.11),transparent_27%),radial-gradient(circle_at_50%_100%,rgba(68,74,255,.09),transparent_32%),linear-gradient(180deg,#07080d,#050507)] p-3 shadow-[0_22px_70px_rgba(0,0,0,.42)] sm:p-4 md:mt-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4 md:gap-4 xl:gap-5">
+            {filteredProducts.map((product, index) => {
+              const accent = categoryAccent[product.category] ?? categoryAccent.Otros;
+              return (
+                <div
+                  key={product.id}
+                  className="rp-catalog-card mx-auto w-full max-w-[312px] rounded-[22px] p-[1px] md:max-w-none"
+                  style={{
+                    animationDelay: `${Math.min(index, 10) * 55}ms`,
+                    background: `linear-gradient(135deg, ${accent.c1}, rgba(255,255,255,.09), ${accent.c2})`,
+                    boxShadow: `0 0 24px ${accent.glow}`,
+                    ["--rp-c1" as string]: accent.c1,
+                    ["--rp-c2" as string]: accent.c2,
+                  }}
+                >
+                  <ProductCard product={product} />
+                </div>
+              );
+            })}
+          </div>
         </div>
       ) : (
         <div className="mt-8 rounded-2xl border border-[#6bdcff]/20 bg-[radial-gradient(circle_at_20%_20%,rgba(45,92,255,.15),transparent_32%),radial-gradient(circle_at_80%_80%,rgba(207,61,255,.12),transparent_32%),#080a0f] px-6 py-12 text-center shadow-[0_0_28px_rgba(64,163,255,.08)]">
