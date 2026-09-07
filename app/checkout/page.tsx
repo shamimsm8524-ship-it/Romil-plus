@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, Clock3, MessageCircle, ShieldCheck, Upload } from "lucide-react";
+import { Check, Clock3, Download, MessageCircle, ShieldCheck, Upload } from "lucide-react";
 import { useCart } from "@/components/CartProvider";
 import { supabase } from "@/lib/supabase";
 
@@ -129,8 +129,17 @@ export default function CheckoutPage() {
           </div>
 
           <div className="mx-auto mt-6 max-w-[520px] overflow-hidden rounded-[2rem] bg-white p-2 shadow-[0_18px_55px_rgba(0,0,0,.35)] sm:p-3">
-            <img src="/romil-plus-pago-qr.svg" alt="Código QR para realizar el pago a Romil Plus" className="block h-auto w-full rounded-[1.6rem]"/>
+            <img src="/qr-romil-plus.jpg" alt="Código QR para realizar el pago a Romil Plus" className="block h-auto w-full rounded-[1.6rem]"/>
           </div>
+
+          <a
+            href="/qr-romil-plus.jpg"
+            download="qr-romil-plus.jpg"
+            className="mx-auto mt-4 flex w-full max-w-[520px] items-center justify-center gap-2 rounded-xl border border-[#d6b25e]/40 bg-[#d6b25e]/10 px-4 py-3 font-black text-[#f0d283] transition hover:bg-[#d6b25e]/20"
+          >
+            <Download size={19}/>
+            Descargar QR
+          </a>
 
           <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.06] p-4">
             <div className="flex gap-3"><ShieldCheck className="text-amber-300" size={20}/><div><p className="font-bold text-amber-100">Entrega protegida</p><p className="mt-1 text-xs text-white/50">Tu producto no se entrega hasta que el pago haya sido confirmado.</p></div></div>
