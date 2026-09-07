@@ -4,7 +4,7 @@ import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 
-const siteUrl = "https://romilplus.me";
+const siteUrl = "https://www.romilplus.me";
 const siteDescription = "ROMIL PLUS es una tienda digital en Perú con suscripciones y herramientas digitales, entrega rápida, soporte y opciones para productividad, diseño, edición e inteligencia artificial.";
 
 export const metadata: Metadata = {
