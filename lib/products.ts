@@ -88,7 +88,7 @@ export const products: Product[] = [
     id: "prime-video",
     name: "Prime Video",
     category: "Otros",
-    description: "Prime Video — suscripción por 1 o 6 meses.\nSe envía correo y contraseña.\nGarantía de 1 mes solo para cuenta completa.",
+    description: "Prime Video — suscripción por 1 o 6 meses.\nSe envía correo y contraseña.",
     price: 4,
     duration: "1 o 6 meses",
     badge: "Promoción",
