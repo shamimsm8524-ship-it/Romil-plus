@@ -18,6 +18,7 @@ export default function CheckoutPage() {
   const [submittedTotal,setSubmittedTotal] = useState(0);
   const [receipt,setReceipt] = useState<File|null>(null);
   const [payerName,setPayerName] = useState("");
+  const [showReceiptStep,setShowReceiptStep] = useState(false);
 
   const displayItems = paymentReported ? submittedItems : items;
   const displayTotal = paymentReported ? submittedTotal : total;
@@ -154,6 +155,16 @@ export default function CheckoutPage() {
 
           <p className="mx-auto mt-3 max-w-[520px] text-center text-xs text-white/45">En celular, toca “Ver QR” y luego mantén presionada la imagen para guardarla en tu galería.</p>
 
+          {!paymentReported&&!showReceiptStep&&<button
+            type="button"
+            onClick={()=>{setShowReceiptStep(true);setSaveError("");}}
+            disabled={items.length===0}
+            className="mx-auto mt-5 flex w-full max-w-[520px] items-center justify-center gap-2 rounded-xl bg-[#e3b64f] px-4 py-3 font-black text-black disabled:opacity-40"
+          >
+            <Check size={19}/>
+            Ya realicé el pago
+          </button>}
+
           <div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.06] p-4">
             <div className="flex gap-3"><ShieldCheck className="text-amber-300" size={20}/><div><p className="font-bold text-amber-100">Entrega protegida</p><p className="mt-1 text-xs text-white/50">Tu producto no se entrega hasta que el pago haya sido confirmado.</p></div></div>
           </div>
@@ -167,7 +178,7 @@ export default function CheckoutPage() {
         </div>
         <div className="mt-6 border-t border-white/10 pt-5"><div className="flex justify-between"><span className="font-bold">Total</span><span className="text-2xl font-black">S/ {displayTotal.toFixed(2)}</span></div></div>
 
-        {!paymentReported&&<div className="mt-6 space-y-3">
+        {!paymentReported&&showReceiptStep&&<div className="mt-6 space-y-3">
           <div className="rounded-2xl border border-white/10 bg-black/20 p-4">
             <div className="flex items-center gap-2 text-[#e3b64f]"><Upload size={18}/><p className="text-xs font-black uppercase tracking-wider">Comprobante de pago</p></div>
             <input type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onChange={e=>{setReceipt(e.target.files?.[0]||null);setSaveError("");}} className="mt-3 block w-full text-sm text-white/70 file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:font-bold file:text-black"/>
@@ -176,7 +187,11 @@ export default function CheckoutPage() {
           <input value={payerName} onChange={e=>setPayerName(e.target.value)} placeholder="Nombre de quien realizó el pago (opcional)" className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3"/>
         </div>}
 
-        {!paymentReported?<button type="button" onClick={reportPayment} disabled={items.length===0||savingOrder||!receipt} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#e3b64f] px-4 py-3 font-black text-black disabled:opacity-40"><Check size={19}/>{savingOrder?"Enviando comprobante...":"Enviar comprobante"}</button>:<div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.07] p-4 text-center"><Clock3 className="mx-auto text-amber-300"/><p className="mt-2 font-black">✅ Comprobante enviado correctamente</p><p className="mt-1 text-xs">Tu pago está en revisión.</p></div>}
+        {!paymentReported&&showReceiptStep&&<button type="button" onClick={reportPayment} disabled={items.length===0||savingOrder||!receipt} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-[#e3b64f] px-4 py-3 font-black text-black disabled:opacity-40"><Check size={19}/>{savingOrder?"Enviando comprobante...":"Enviar comprobante"}</button>}
+
+        {!paymentReported&&!showReceiptStep&&<p className="mt-5 rounded-2xl border border-[#d6b25e]/20 bg-[#d6b25e]/[0.06] p-4 text-center text-sm text-white/65">Primero escanea el QR y realiza el pago. Luego toca “Ya realicé el pago” para adjuntar tu comprobante.</p>}
+
+        {paymentReported&&<div className="mt-6 rounded-2xl border border-amber-300/20 bg-amber-300/[0.07] p-4 text-center"><Clock3 className="mx-auto text-amber-300"/><p className="mt-2 font-black">✅ Comprobante enviado correctamente</p><p className="mt-1 text-xs">Tu pago está en revisión.</p></div>}
 
         {saveError&&<p className="mt-4 rounded-xl bg-red-400/10 p-3 text-sm text-red-200">{saveError}</p>}
         {displayItems.length>0&&<a href="/soporte" className="mt-4 flex w-full items-center justify-between gap-3 rounded-2xl border border-sky-500/55 bg-black/30 px-4 py-4 transition hover:bg-sky-500/10"><span className="flex items-center gap-3"><MessageCircle className="text-sky-400" size={28}/><span className="text-left font-black text-white">Chat de atención al cliente</span></span><span className="shrink-0 rounded-full border border-sky-500/50 bg-sky-500/10 px-2.5 py-1 text-xs font-bold text-sky-300"><span className="mr-1 text-emerald-400">●</span> En línea</span></a>}
