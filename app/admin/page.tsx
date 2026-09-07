@@ -59,6 +59,7 @@ export default function AdminPage(){
   const[feedback,setFeedback]=useState<Record<string,string>>({});
   const[saving,setSaving]=useState<Record<string,boolean>>({});
   const[editing,setEditing]=useState<Record<string,boolean>>({});
+  const[dateMenuOpen,setDateMenuOpen]=useState(false);
 
   const clickSound=()=>{
     try{
@@ -192,10 +193,35 @@ export default function AdminPage(){
     return groups;
   },[]);
 
-  return <main className="mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
+  const goToDate=(key:string)=>{
+    setDateMenuOpen(false);
+    setTimeout(()=>document.getElementById(`fecha-${key}`)?.scrollIntoView({behavior:"smooth",block:"start"}),60);
+  };
+
+  return <main className="relative mx-auto min-h-[75vh] max-w-5xl px-4 py-14">
+    {dateMenuOpen&&<>
+      <button type="button" aria-label="Cerrar menú" onClick={()=>setDateMenuOpen(false)} className="fixed inset-0 z-[90] bg-black/65 backdrop-blur-[2px]"/>
+      <aside className="fixed inset-y-0 left-0 z-[100] w-[84vw] max-w-[360px] overflow-y-auto border-r border-[#d6b25e]/25 bg-[radial-gradient(circle_at_0%_0%,rgba(35,115,255,.14),transparent_36%),radial-gradient(circle_at_100%_100%,rgba(215,55,255,.16),transparent_40%),#070814] px-5 py-6 shadow-[18px_0_55px_rgba(0,0,0,.60)]">
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-5">
+          <div><p className="text-xs font-black uppercase tracking-[.18em] text-white/45">Administración</p><h2 className="mt-1 text-2xl font-black"><span className="text-white">PEDIDOS</span> <span className="text-[#d6b25e]">POR FECHA</span></h2></div>
+          <button type="button" onClick={()=>setDateMenuOpen(false)} className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[.05] text-2xl font-light text-white">×</button>
+        </div>
+
+        <div className="mt-5 space-y-2">
+          {groupedOrders.length===0?<p className="rounded-xl border border-white/10 bg-white/[.04] p-4 text-sm text-white/50">Todavía no hay pedidos.</p>:groupedOrders.map((group,index)=><button key={group.key} type="button" onClick={()=>goToDate(group.key)} className="flex w-full items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/[.035] px-4 py-4 text-left transition hover:border-[#d6b25e]/45 hover:bg-[#d6b25e]/[.08]">
+            <div className="min-w-0"><p className="text-[11px] font-black uppercase tracking-[.15em] text-[#9fcfff]">{index===0?"Más reciente":"Fecha"}</p><p className="mt-1 font-black text-white">{group.label}</p></div>
+            <span className="shrink-0 rounded-full border border-[#d6b25e]/25 bg-[#d6b25e]/[.08] px-3 py-1 text-xs font-black text-[#e7c979]">{group.orders.length}</span>
+          </button>)}
+        </div>
+      </aside>
+    </>}
+
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div><p className="text-sm font-bold uppercase tracking-wider text-[#e3b64f]">Administración</p><h1 className="mt-2 text-4xl font-black">Pedidos y comprobantes</h1><p className="mt-3 text-white/50">Aquí verás el comprobante y el correo exacto del cliente que lo envió.</p></div>
-      <button type="button" onClick={()=>{setLoading(true);load();}} className="rounded-xl border border-white/15 bg-white/[0.05] px-4 py-3 font-black">↻ Actualizar</button>
+      <div className="flex flex-wrap gap-2">
+        <button type="button" onClick={()=>setDateMenuOpen(true)} className="flex items-center gap-2 rounded-xl border border-[#d6b25e]/35 bg-[linear-gradient(90deg,rgba(214,178,94,.13),rgba(126,87,194,.10))] px-4 py-3 font-black text-[#ecd28f] shadow-[0_0_22px_rgba(214,178,94,.08)]"><span className="text-xl leading-none">☰</span> Por fecha</button>
+        <button type="button" onClick={()=>{setLoading(true);load();}} className="rounded-xl border border-white/15 bg-white/[0.05] px-4 py-3 font-black">↻ Actualizar</button>
+      </div>
     </div>
 
     <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -209,7 +235,7 @@ export default function AdminPage(){
     {error&&<p className="mt-6 rounded-xl bg-red-400/10 p-4 text-red-200">{error}</p>}
 
     <div className="mt-8 space-y-10">
-      {groupedOrders.map(group=><section key={group.key}>
+      {groupedOrders.map(group=><section id={`fecha-${group.key}`} key={group.key} className="scroll-mt-28">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#d6b25e]/25 bg-[linear-gradient(90deg,rgba(214,178,94,.12),rgba(126,87,194,.08),rgba(34,211,238,.06))] px-4 py-3 sm:px-5">
           <div>
             <p className="text-lg font-black text-[#d6b25e] sm:text-xl">{group.label}</p>
