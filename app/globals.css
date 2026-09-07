@@ -19,12 +19,12 @@ a { color: inherit; text-decoration: none; }
 button, input { font: inherit; }
 ::selection { background: rgba(215,178,87,.35); }
 
-/* Títulos principales: MI/MIS/TU blancos y PERFIL/COMPRAS/CARRITO dorado brillante sólido */
+/* Títulos principales: MI/MIS/TU blancos y PERFIL/COMPRAS/CARRITO en dorado elegante */
 h1 span[class*="bg-[linear-gradient(180deg,#fff9d6"] {
   background-image: none !important;
-  color: #ffd24a !important;
-  -webkit-text-fill-color: #ffd24a !important;
-  text-shadow: 0 0 8px rgba(255, 210, 74, .48), 0 0 16px rgba(255, 190, 32, .22);
+  color: #d6b25e !important;
+  -webkit-text-fill-color: #d6b25e !important;
+  text-shadow: none !important;
 }
 
 /* Ajuste exclusivo para computadora: la imagen de HBO llena mejor su tarjeta */
