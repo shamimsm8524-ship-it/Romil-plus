@@ -9,10 +9,10 @@ export default function PurchasesLayout({ children }: Readonly<{ children: React
       <style>{`
         .rp-purchases-profile-bg > main {
           background:
-            radial-gradient(circle at 12% 10%, rgba(0,190,255,.18), transparent 26%),
-            radial-gradient(circle at 88% 14%, rgba(217,70,239,.17), transparent 28%),
-            radial-gradient(circle at 50% 92%, rgba(139,92,246,.15), transparent 34%),
-            #030308 !important;
+            radial-gradient(circle at 12% 10%, rgba(0,190,255,.10), transparent 28%),
+            radial-gradient(circle at 88% 14%, rgba(217,70,239,.09), transparent 30%),
+            radial-gradient(circle at 50% 92%, rgba(139,92,246,.08), transparent 36%),
+            linear-gradient(180deg,#010104 0%,#020207 48%,#010103 100%) !important;
         }
         .rp-purchases-profile-bg > main > div:first-child {
           display: none !important;
