@@ -4,7 +4,7 @@ import { MessageCircle } from "lucide-react";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
 
-const siteUrl = "https://romilplus.me";
+const siteUrl = "https://www.romilplus.me";
 
 function cleanDescription(value: string) {
   return value.replace(/\s+/g, " ").trim();
