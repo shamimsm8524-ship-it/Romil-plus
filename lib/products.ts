@@ -92,6 +92,7 @@ export const products: Product[] = [
     price: 4,
     duration: "1 o 6 meses",
     badge: "Promoción",
+    image: "/prime-video.png",
     variants: [
       { id: "perfil", label: "Perfil", price: 4 },
       { id: "cuenta-completa-1-mes", label: "Cuenta completa · 1 mes", price: 15 },
