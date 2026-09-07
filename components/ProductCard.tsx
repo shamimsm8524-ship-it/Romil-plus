@@ -36,7 +36,7 @@ export function ProductCard({ product }: { product: Product }) {
   const geminiTotal = geminiUnitPrice * geminiQuantity;
   const displayedPrice = isGemini ? geminiTotal : (selectedVariant?.price ?? product.price);
   const fullBleedImage = ["netflix-vpn", "canva-pro", "chatgpt-plus"].includes(product.id);
-  const desktopCoverImage = ["hbo", "prime-video"].includes(product.id);
+  const desktopCoverImage = ["hbo", "prime-video", "duolingo"].includes(product.id);
 
   const playAddSound = () => {
     try {
