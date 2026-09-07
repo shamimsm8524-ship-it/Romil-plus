@@ -61,6 +61,15 @@ export const products: Product[] = [
     image: "/capcut-pro.png",
   },
   {
+    id: "duolingo",
+    name: "Duolingo",
+    category: "Educación",
+    description: "Duolingo — suscripción por 12 meses.\nCuenta personal",
+    price: 25,
+    duration: "12 meses",
+    badge: "Promoción",
+  },
+  {
     id: "netflix-vpn",
     name: "NETFLIX",
     category: "VPN",
