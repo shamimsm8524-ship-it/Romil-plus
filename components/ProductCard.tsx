@@ -10,10 +10,15 @@ function ProductMedia({product,imageClassName="object-contain"}:{product:Product
   if(product.video) {
     return <video
       src={product.video}
-      poster={product.image}
       controls
       playsInline
-      preload="metadata"
+      preload="auto"
+      onLoadedMetadata={(event) => {
+        const video = event.currentTarget;
+        if (video.currentTime === 0 && Number.isFinite(video.duration) && video.duration > 0) {
+          video.currentTime = Math.min(0.12, Math.max(0.01, video.duration / 100));
+        }
+      }}
       aria-label={`Video de ${product.name}`}
       className="h-full w-full bg-black object-contain object-center"
     />;
