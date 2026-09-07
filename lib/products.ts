@@ -85,6 +85,20 @@ export const products: Product[] = [
     ],
   },
   {
+    id: "prime-video",
+    name: "Prime Video",
+    category: "Otros",
+    description: "Prime Video — suscripción por 1 o 6 meses.\nSe envía correo y contraseña.\nGarantía de 1 mes solo para cuenta completa.",
+    price: 4,
+    duration: "1 o 6 meses",
+    badge: "Promoción",
+    variants: [
+      { id: "perfil", label: "Perfil", price: 4 },
+      { id: "cuenta-completa-1-mes", label: "Cuenta completa · 1 mes", price: 15 },
+      { id: "cuenta-completa-6-meses", label: "Cuenta completa · 6 meses", price: 25 },
+    ],
+  },
+  {
     id: "chatgpt-plus",
     name: "ChatGPT PLUS",
     category: "Inteligencia Artificial",
