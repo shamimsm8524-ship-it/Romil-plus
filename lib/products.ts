@@ -161,14 +161,6 @@ export const products: Product[] = [
       { id: "video", label: "Invitación en video · 15–20 seg", price: 12 },
     ],
   },
-  {
-    id: "productividad-plus",
-    name: "Productividad Plus",
-    category: "Productividad",
-    description: "Producto de demostración listo para ser reemplazado por una licencia autorizada real.",
-    price: 24.9,
-    duration: "1 mes",
-  },
 ];
 
 export const categories = [
