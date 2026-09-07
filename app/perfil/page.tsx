@@ -66,7 +66,7 @@ export default function PerfilPage(){
       <div className="mb-5 text-center sm:mb-6 min-[700px]:mb-7">
         <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-[#63e4ff]/45 bg-[linear-gradient(145deg,rgba(38,198,255,.18),rgba(179,71,255,.18),rgba(255,72,190,.16))] text-white shadow-[0_0_36px_rgba(75,204,255,.20),0_0_54px_rgba(202,70,255,.12)] sm:h-20 sm:w-20 min-[700px]:h-24 min-[700px]:w-24"><UserCircle2 className="h-8 w-8 sm:h-10 sm:w-10 min-[700px]:h-12 min-[700px]:w-12"/></div>
         <div className="mx-auto mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[.05] px-3 py-1.5 text-[11px] font-black uppercase tracking-[.13em] text-[#bfefff]"><Sparkles size={13}/> Tu espacio ROMIL PLUS</div>
-        <h1 className="mt-3 text-[28px] font-black sm:text-3xl min-[700px]:mt-4 min-[700px]:text-4xl">MI <span className="bg-[linear-gradient(90deg,#5de2ff,#a66cff,#ff62c5,#ffd15c)] bg-clip-text text-transparent">PERFIL</span></h1>
+        <h1 className="mt-3 text-[28px] font-black sm:text-3xl min-[700px]:mt-4 min-[700px]:text-4xl"><span className="text-white">MI</span> <span className="text-[#e3b64f]">PERFIL</span></h1>
         <p className="mt-1.5 text-sm text-white/55 sm:text-base min-[700px]:mt-2">Datos y seguridad de tu cuenta</p>
       </div>
 
