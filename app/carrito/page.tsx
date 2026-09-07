@@ -14,7 +14,7 @@ export default function CarritoPage() {
     <main className="relative mx-auto min-h-[75vh] max-w-5xl overflow-hidden px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_8%_8%,rgba(34,211,238,.16),transparent_27%),radial-gradient(circle_at_92%_10%,rgba(217,70,239,.17),transparent_27%),radial-gradient(circle_at_50%_95%,rgba(99,102,241,.14),transparent_34%)]"/>
       <div className="inline-flex items-center gap-2 rounded-full border border-[#61ddff]/20 bg-[#61ddff]/[.07] px-3 py-1.5 text-[11px] font-black uppercase tracking-[.13em] text-[#c3f3ff]"><Sparkles size={13}/> Tu selección</div>
-      <h1 className="mt-3 text-4xl font-black sm:text-5xl">Tu <span className="bg-[linear-gradient(90deg,#5be1ff,#a46cff,#ff62c7,#ffd15d)] bg-clip-text text-transparent">carrito</span></h1>
+      <h1 className="mt-3 text-4xl font-black sm:text-5xl">TU <span className="text-[#e3b64f]">CARRITO</span></h1>
       <p className="mt-2 text-white/50 sm:text-lg">Revisa tu selección antes de continuar.</p>
       {email&&<div className="mt-6 flex items-center gap-3 rounded-2xl border border-[#59dcff]/20 bg-[linear-gradient(90deg,rgba(39,180,255,.10),rgba(158,83,255,.09))] px-4 py-3.5 shadow-[0_0_25px_rgba(44,194,255,.07)] sm:max-w-xl"><div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[linear-gradient(135deg,rgba(47,209,255,.22),rgba(166,89,255,.20))] text-[#c8f7ff]"><Mail size={19}/></div><div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-wider text-[#bfefff]">Cuenta de compra</p><p className="truncate text-sm font-bold text-white sm:text-base" title={email}>{email}</p></div></div>}
       {items.length === 0 ? (
