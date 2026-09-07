@@ -6,6 +6,7 @@ import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 
 const siteUrl = "https://www.romilplus.me";
 const siteDescription = "ROMIL PLUS es una tienda digital en Perú con suscripciones y herramientas digitales, entrega rápida, soporte y opciones para productividad, diseño, edición e inteligencia artificial.";
+const socialImage = `${siteUrl}/logo-romil-plus.png?v=3`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -41,16 +42,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_PE",
-    url: siteUrl,
+    url: `${siteUrl}/`,
     siteName: "ROMIL PLUS",
     title: "ROMIL PLUS | Suscripciones y herramientas digitales en Perú",
     description: siteDescription,
     images: [
       {
-        url: "/logo-romil-plus.png",
-        width: 1200,
-        height: 630,
-        alt: "ROMIL PLUS",
+        url: socialImage,
+        width: 1254,
+        height: 1254,
+        type: "image/png",
+        alt: "ROMIL PLUS - Tienda digital en Perú",
       },
     ],
   },
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ROMIL PLUS | Suscripciones y herramientas digitales en Perú",
     description: siteDescription,
-    images: ["/logo-romil-plus.png"],
+    images: [socialImage],
   },
   robots: {
     index: true,
