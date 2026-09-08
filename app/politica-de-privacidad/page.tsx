@@ -5,6 +5,14 @@ export const metadata: Metadata = {
   title: "Política de privacidad",
   description: "Política de privacidad de ROMIL PLUS.",
   alternates: { canonical: "/politica-de-privacidad" },
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 const sections = [
