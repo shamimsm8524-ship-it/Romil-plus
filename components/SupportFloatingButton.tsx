@@ -17,11 +17,11 @@ export function SupportFloatingButton(){
       href={href}
       aria-label={label}
       title={label}
-      className="fixed bottom-4 right-3 z-[80] grid h-[64px] w-[64px] place-items-center rounded-full border border-[#e3b64f]/85 bg-[#050505] text-white shadow-[0_0_0_4px_rgba(227,182,79,.07),0_0_22px_rgba(227,182,79,.34),0_10px_24px_rgba(0,0,0,.58)] transition duration-200 hover:scale-105 active:scale-95 sm:bottom-5 sm:right-5 sm:h-[66px] sm:w-[66px] min-[760px]:bottom-7 min-[760px]:right-7 min-[760px]:h-[128px] min-[760px]:w-[128px] min-[760px]:shadow-[0_0_0_7px_rgba(227,182,79,.10),0_0_42px_rgba(227,182,79,.52),0_18px_38px_rgba(0,0,0,.68)] xl:h-[148px] xl:w-[148px]"
+      className="fixed bottom-4 right-3 z-[80] grid h-[56px] w-[56px] place-items-center rounded-full border border-[#e3b64f]/80 bg-[#050505] text-white shadow-[0_0_0_3px_rgba(227,182,79,.06),0_0_16px_rgba(227,182,79,.26),0_8px_20px_rgba(0,0,0,.52)] transition duration-200 hover:scale-105 active:scale-95 sm:bottom-5 sm:right-5 sm:h-[58px] sm:w-[58px] min-[760px]:h-[60px] min-[760px]:w-[60px] min-[1024px]:bottom-5 min-[1024px]:right-5 min-[1024px]:h-[60px] min-[1024px]:w-[60px] min-[1500px]:h-[66px] min-[1500px]:w-[66px]"
     >
-      <span className="absolute inset-[6px] rounded-full border border-white/5 bg-gradient-to-br from-white/[0.08] to-transparent min-[760px]:inset-[10px] min-[760px]:from-white/[0.10]"/>
-      <MessageCircleMore size={32} strokeWidth={2.2} className="relative z-10 drop-shadow-[0_0_8px_rgba(255,255,255,.2)] sm:h-[34px] sm:w-[34px] min-[760px]:h-[72px] min-[760px]:w-[72px] min-[760px]:drop-shadow-[0_0_13px_rgba(255,255,255,.3)] xl:h-[84px] xl:w-[84px]"/>
-      <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full bg-[#f0c65b] shadow-[0_0_10px_rgba(240,198,91,.85)] min-[760px]:h-5 min-[760px]:w-5 min-[760px]:shadow-[0_0_16px_rgba(240,198,91,.95)]"/>
+      <span className="absolute inset-[6px] rounded-full border border-white/5 bg-gradient-to-br from-white/[0.08] to-transparent"/>
+      <MessageCircleMore size={27} strokeWidth={2.2} className="relative z-10 drop-shadow-[0_0_7px_rgba(255,255,255,.18)] sm:h-[28px] sm:w-[28px] min-[760px]:h-[29px] min-[760px]:w-[29px] min-[1500px]:h-[32px] min-[1500px]:w-[32px]"/>
+      <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-[#f0c65b] shadow-[0_0_8px_rgba(240,198,91,.8)] min-[1500px]:h-3 min-[1500px]:w-3"/>
     </Link>
   );
 }
