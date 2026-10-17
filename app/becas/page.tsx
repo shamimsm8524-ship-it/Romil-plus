@@ -6,11 +6,11 @@ import ScholarshipGrid from "./ScholarshipGrid";
 
 export const metadata: Metadata = {
   title: "Becas nacionales e internacionales para peruanos",
-  description: "Catálogo de becas nacionales e internacionales para peruanos con fuentes oficiales, estado de convocatoria, cobertura y enlace a la institución responsable.",
+  description: "Catálogo de becas nacionales e internacionales para peruanos con requisitos, cobertura, fechas, etapas y acceso a la postulación oficial cuando está disponible.",
   alternates: { canonical: "/becas" },
   openGraph: {
     title: "Becas nacionales e internacionales | ROMIL PLUS",
-    description: "Programas de becas para peruanos, separados entre nacionales e internacionales y contrastados con fuentes oficiales.",
+    description: "Programas de becas para peruanos con fichas completas y fuentes oficiales.",
     url: "https://www.romilplus.me/becas",
   },
 };
@@ -28,14 +28,14 @@ export default function ScholarshipsPage() {
           </div>
           <h1 className="mt-5 text-4xl font-black leading-tight text-white sm:text-5xl">Becas nacionales e internacionales</h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-white/60">
-            Aquí encontrarás tanto convocatorias abiertas como programas de becas existentes cuya próxima edición aún no ha sido publicada. Cada ficha muestra su estado real y una fuente oficial.
+            Cada oportunidad abre una ficha propia con requisitos, quién puede postular, cobertura, documentos, etapas y fechas importantes. Cuando verificamos un enlace oficial directo de postulación, el botón te lleva a ese canal; si no existe uno estable, te mostramos las instrucciones y la fuente oficial sin inventar enlaces.
           </p>
         </div>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-3">
           {[
             [BadgeCheck, "Fuente oficial", "Confirmamos que el programa existe"],
-            [CalendarClock, "Estado visible", "Abierta, próxima, cerrada o sin convocatoria"],
+            [CalendarClock, "Ficha completa", "Requisitos, cobertura, etapas y fechas"],
             [ShieldCheck, "Sin intermediarios", "La postulación se realiza con la entidad"],
           ].map(([Icon, title, text]) => {
             const IconComponent = Icon as typeof BadgeCheck;
