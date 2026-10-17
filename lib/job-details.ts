@@ -79,10 +79,13 @@ const sunarpDetails: JobDetailExtra = {
 };
 
 const sunarpJob = publicOpportunities.find((job) => job.slug === "sunarp-zrix-cas-061-2026");
+const temporarilyIncompleteSlugs = new Set([
+  "programa-contigo-019-2026-especialista-administracion-general",
+]);
 
 export const detailedPublicJobs = [
   ...(sunarpJob ? [sunarpJob] : []),
-  ...exactStateJobs,
+  ...exactStateJobs.filter((job) => !temporarilyIncompleteSlugs.has(job.slug)),
 ];
 
 const publicDetails: Record<string, JobDetailExtra> = {
