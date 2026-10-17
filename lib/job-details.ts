@@ -47,12 +47,38 @@ export type JobDetailView = {
 const manualDetails: Record<string, JobDetailExtra> = {
   "sunarp-zrix-cas-061-2026": {
     processCode: "CAS N.° 061-2026-SUNARP-ZRIX",
-    positions: [
-      { title: "Asistente de Programación", vacancies: 1, location: "Lima" },
-      { title: "Analista de Sistemas", vacancies: 1, location: "Lima" },
+    salary: "Asistente de Programación: S/ 2,500.00 · Analista de Sistemas: S/ 4,000.00",
+    education: [
+      "Universitaria completa: egresado/a de Ingeniería de Sistemas, Informática, Software o Computación.",
     ],
-    applicationInstructions: "Abre la publicación oficial, identifica el proceso CAS N.° 061-2026-SUNARP-ZRIX y sigue el canal de postulación indicado por SUNARP para el 21 de octubre.",
-    notes: ["ROMIL PLUS no recibe CV ni documentos de postulación."],
+    experience: [
+      "Experiencia laboral general: dos (02) años en el sector público o privado.",
+      "Experiencia específica en la función o materia: un (01) año, con nivel mínimo desde prácticas profesionales.",
+    ],
+    requirements: [
+      "Asistente de Programación: Programación Estructurada (20 horas acumuladas) o Java y ASP.Net (30 horas acumuladas).",
+      "Asistente de Programación: PHP, Angular u Oracle Database (30 horas acumuladas) o SQL Server (20 horas acumuladas).",
+      "Analista de Sistemas: curso de Desarrollo de Software (12 horas acumuladas).",
+      "Analista de Sistemas: Power Builder (20 horas acumuladas).",
+      "Analista de Sistemas: Angular, Java, PHP o Programación Estructurada (30 horas acumuladas).",
+    ],
+    documents: [
+      "Ficha de Inscripción de postulante (Anexo 2A).",
+      "Enviar la ficha en un solo archivo PDF guardado con los apellidos y nombres del postulante.",
+      "Remitir el PDF al correo oficial convocatoriascas_lima@sunarp.gob.pe el 21/10/2026, de 08:00 a 17:00.",
+      "En el asunto colocar: CAS N° 061-2026, APELLIDOS Y NOMBRES + PUESTO al que postula.",
+    ],
+    positions: [
+      { title: "Asistente de Programación", vacancies: 1, location: "Unidad de Tecnologías de la Información · Av. Edgardo Rebagliati 561, Jesús María, Lima", salary: "S/ 2,500.00" },
+      { title: "Analista de Sistemas", vacancies: 1, location: "Unidad de Tecnologías de la Información · Av. Edgardo Rebagliati 561, Jesús María, Lima", salary: "S/ 4,000.00" },
+    ],
+    applicationUrl: "mailto:convocatoriascas_lima@sunarp.gob.pe?subject=CAS%20N%C2%B0%20061-2026%20-%20APELLIDOS%20Y%20NOMBRES%20-%20PUESTO",
+    applicationLabel: "Enviar al correo oficial de SUNARP",
+    applicationInstructions: "La postulación se realiza por correo institucional de SUNARP el 21 de octubre de 2026, de 08:00 a 17:00. Adjunta la Ficha de Inscripción (Anexo 2A) en un solo PDF e indica en el asunto el proceso, tus apellidos y nombres y el puesto al que postulas.",
+    notes: [
+      "ROMIL PLUS no recibe CV ni documentos de postulación.",
+      "Los dos puestos pertenecen al mismo proceso, pero tienen remuneración y cursos requeridos distintos.",
+    ],
   },
   "ipd-cas-062-069-2026": {
     processCode: "CAS 062 al 069-2026",
@@ -165,5 +191,5 @@ export function getJobBySlug(slug: string) {
 }
 
 export function fieldOrOfficial(value?: string) {
-  return value || "No transcrito todavía por ROMIL PLUS. Revisa las bases oficiales del proceso para confirmar este dato antes de postular.";
+  return value || "Revisa este dato en las bases oficiales del proceso.";
 }
