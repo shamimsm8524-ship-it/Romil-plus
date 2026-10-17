@@ -3,16 +3,26 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
 import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { detailedPublicJobs } from "@/lib/job-details";
+import { exactStateJobs, supersededLegacySlugs } from "@/lib/exact-state-jobs";
 import { inpeJobMeta } from "@/lib/inpe-job-details";
 import { jobs as inpeJobs } from "@/lib/jobs";
-import { institutionSources } from "@/lib/state-opportunities";
+import { institutionSources, publicOpportunities } from "@/lib/state-opportunities";
 
 export const metadata: Metadata = {
   title: "Convocatorias de trabajo del Estado peruano",
   description:
-    "Convocatorias laborales del Estado peruano con fichas por puesto, requisitos, remuneración, cronograma y acceso a la fuente oficial.",
+    "Convocatorias laborales del Estado peruano con procesos vigentes, fuentes oficiales y fichas detalladas cuando la información ya fue verificada.",
   alternates: { canonical: "/convocatorias" },
 };
+
+const exactSlugs = new Set(exactStateJobs.map((job) => job.slug));
+const publicJobsForExplorer = [
+  ...exactStateJobs,
+  ...publicOpportunities.filter(
+    (job) => !exactSlugs.has(job.slug) && !supersededLegacySlugs.has(job.slug),
+  ),
+];
+const detailSlugs = detailedPublicJobs.map((job) => job.slug);
 
 export default function ConvocatoriasPage() {
   return (
@@ -20,9 +30,9 @@ export default function ConvocatoriasPage() {
       <section className="overflow-hidden rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_85%_15%,rgba(229,185,79,.14),transparent_30%),linear-gradient(145deg,#111114,#070708)] p-6 sm:p-8 lg:p-10">
         <div className="max-w-3xl">
           <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Empleo público en Perú</p>
-          <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">Convocatorias del Estado con ficha por puesto</h1>
+          <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">Todas las convocatorias registradas, en un solo lugar</h1>
           <p className="mt-4 text-base leading-7 text-white/60">
-            Cada convocatoria publicada como ficha incluye únicamente información que pudimos contrastar: puesto, vacantes, requisitos, experiencia, remuneración cuando está confirmada, cronograma y canal oficial de postulación. Ya no agrupamos cargos distintos en una sola ficha incompleta.
+            Mostramos todas las oportunidades laborales que tenemos registradas y contrastadas con una fuente oficial. Las convocatorias con información completa tienen ficha propia; si todavía estamos completando requisitos, sueldo o cronograma, la oportunidad permanece visible y te enviamos directamente a la fuente oficial.
           </p>
         </div>
 
@@ -44,7 +54,7 @@ export default function ConvocatoriasPage() {
         </div>
       </section>
 
-      <StateJobsExplorer jobs={detailedPublicJobs} />
+      <StateJobsExplorer jobs={publicJobsForExplorer} detailSlugs={detailSlugs} />
 
       <section className="mt-14">
         <div className="max-w-3xl">
@@ -86,7 +96,7 @@ export default function ConvocatoriasPage() {
           <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Directorio oficial</p>
           <h2 className="mt-2 text-3xl font-black text-white">Instituciones y portales que revisamos</h2>
           <p className="mt-3 text-sm leading-6 text-white/52">
-            Conservamos aquí las fuentes de SUNAT, SUNARP, Cuna Más, BCRP/Casa Nacional de Moneda, educación, Poder Judicial y otras entidades. Un proceso solo pasa al listado principal cuando podemos publicarlo como ficha individual y no como un grupo ambiguo de cargos.
+            Conservamos aquí las fuentes de SUNAT, SUNARP, Cuna Más, BCRP/Casa Nacional de Moneda, educación, Poder Judicial y otras entidades. Aunque una ficha detallada todavía esté en revisión, la oportunidad laboral puede aparecer en el buscador siempre que tengamos una publicación y una fuente oficial identificadas.
           </p>
         </div>
 
@@ -107,7 +117,7 @@ export default function ConvocatoriasPage() {
       <section className="mt-12 rounded-[24px] border border-white/10 bg-white/[0.02] p-5 sm:p-6">
         <h2 className="text-xl font-black text-white">Criterio de publicación</h2>
         <p className="mt-3 text-sm leading-6 text-white/52">
-          ROMIL PLUS no mostrará una tarjeta como “ficha completa” si solo conocemos el número total de plazas. Cuando una entidad reúne varios puestos en un proceso, los separamos por cargo para que requisitos y remuneración no se mezclen.
+          ROMIL PLUS mantiene visibles las oportunidades laborales registradas. Cuando ya verificamos puesto, requisitos, remuneración, cronograma y canal de postulación, habilitamos una ficha completa. Si faltan datos por confirmar, la tarjeta se marca como “Ficha en revisión” y enlaza a la fuente oficial para que no pierdas la oportunidad.
         </p>
       </section>
     </main>
