@@ -3,17 +3,23 @@ import { ArrowUpRight, Cpu, GraduationCap, Landmark, ShieldCheck, Wrench } from 
 import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { detailedPublicJobs } from "@/lib/job-details";
 import { institutionSources } from "@/lib/state-opportunities";
+import { getSunatLiveJobs } from "@/lib/sunat-live";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Trabajo en SUNAT, docentes, ingeniería y carreras técnicas | ROMIL PLUS",
   description:
-    "Convocatorias laborales verificadas para docentes, ingenieros, técnicos y profesionales universitarios, con fichas completas y acceso a la postulación oficial.",
+    "Convocatorias laborales verificadas para docentes, ingenieros, técnicos y profesionales universitarios, con sincronización automática de procesos disponibles en SUNAT.",
   alternates: { canonical: "/convocatorias" },
 };
 
 const detailSlugs = detailedPublicJobs.map((job) => job.slug);
 
-export default function ConvocatoriasPage() {
+export default async function ConvocatoriasPage() {
+  const sunatJobs = await getSunatLiveJobs();
+  const jobsForExplorer = [...sunatJobs, ...detailedPublicJobs];
+
   return (
     <main className="mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 lg:px-6">
       <section className="overflow-hidden rounded-[30px] border border-white/10 bg-[radial-gradient(circle_at_85%_15%,rgba(229,185,79,.14),transparent_30%),linear-gradient(145deg,#111114,#070708)] p-6 sm:p-8 lg:p-10">
@@ -21,15 +27,15 @@ export default function ConvocatoriasPage() {
           <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Empleo público que vale la pena revisar</p>
           <h1 className="mt-3 text-4xl font-black leading-tight text-white sm:text-5xl">Docentes, ingeniería, TI, técnicos y carreras universitarias</h1>
           <p className="mt-4 text-base leading-7 text-white/60">
-            El listado principal muestra solo convocatorias con ficha completa: puesto, vacantes, remuneración cuando la entidad la publica, formación, experiencia, requisitos, cronograma, documentos y canal oficial de postulación. Dejamos de priorizar INPE y nos enfocamos en oportunidades profesionales y técnicas de mayor interés.
+            Las convocatorias de SUNAT se sincronizan automáticamente con su portal oficial. Para las demás entidades seguimos mostrando fichas verificadas con puesto, vacantes, remuneración cuando la entidad la publica, formación, experiencia, requisitos, cronograma, documentos y canal oficial de postulación.
           </p>
         </div>
 
         <div className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           <a href="https://unete.sunat.gob.pe/" target="_blank" rel="noopener noreferrer" className="group rounded-2xl border border-[#e5b94f]/25 bg-[#e5b94f]/[.07] p-5 transition hover:bg-[#e5b94f]/10">
             <div className="flex items-start justify-between gap-3"><Landmark size={22} className="text-[#efcb70]" /><ArrowUpRight size={17} className="text-[#efcb70]" /></div>
-            <p className="mt-4 text-lg font-black text-white">SUNAT</p>
-            <p className="mt-2 text-sm leading-6 text-white/50">Portal oficial vigilado. Publicaremos una ficha apenas exista una convocatoria abierta confirmada; no mostraremos procesos ya concluidos como vigentes.</p>
+            <p className="mt-4 text-lg font-black text-white">SUNAT · automático</p>
+            <p className="mt-2 text-sm leading-6 text-white/50">ROMIL PLUS revisa el listado oficial aproximadamente cada 5 minutos. Si aparece una convocatoria nueva disponible, entra al listado; si vence o SUNAT la cierra, cancela o declara desierta, deja de mostrarse.</p>
           </a>
 
           <div className="rounded-2xl border border-sky-400/15 bg-sky-400/[.05] p-5">
@@ -53,18 +59,18 @@ export default function ConvocatoriasPage() {
 
         <div className="mt-4 rounded-2xl border border-emerald-400/15 bg-emerald-400/[.04] p-4 sm:flex sm:items-center sm:gap-3">
           <ShieldCheck size={21} className="shrink-0 text-emerald-200" />
-          <p className="mt-2 text-sm leading-6 text-emerald-100/65 sm:mt-0">Revisión: 17/10/2026. Las bases de la institución convocante y su cronograma oficial siempre prevalecen.</p>
+          <p className="mt-2 text-sm leading-6 text-emerald-100/65 sm:mt-0">SUNAT se contrasta automáticamente; las bases y el cronograma de la institución convocante siempre prevalecen.</p>
         </div>
       </section>
 
-      <StateJobsExplorer jobs={detailedPublicJobs} detailSlugs={detailSlugs} />
+      <StateJobsExplorer jobs={jobsForExplorer} detailSlugs={detailSlugs} />
 
       <section className="mt-14">
         <div className="max-w-3xl">
           <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Fuentes oficiales</p>
           <h2 className="mt-2 text-3xl font-black text-white">Instituciones que seguimos revisando</h2>
           <p className="mt-3 text-sm leading-6 text-white/52">
-            SUNAT, SUNARP, MINEDU, DRE, UGEL, BCRP/Casa Nacional de Moneda, Poder Judicial, Ministerio Público, IPD, MINEM, PCM y otras entidades siguen bajo revisión. Una oportunidad entra al listado principal cuando puede mostrarse como ficha individual completa y con fuente oficial.
+            SUNAT, SUNARP, MINEDU, DRE, UGEL, BCRP/Casa Nacional de Moneda, Poder Judicial, Ministerio Público, IPD, MINEM, PCM y otras entidades siguen bajo revisión. En SUNAT la lectura ya es automática; para las demás fuentes seguimos priorizando información verificable y fichas individuales completas.
           </p>
         </div>
 
@@ -83,9 +89,9 @@ export default function ConvocatoriasPage() {
       </section>
 
       <section className="mt-12 rounded-[24px] border border-white/10 bg-white/[0.02] p-5 sm:p-6">
-        <h2 className="text-xl font-black text-white">Sin fichas a medias</h2>
+        <h2 className="text-xl font-black text-white">SUNAT sin convocatorias vencidas</h2>
         <p className="mt-3 text-sm leading-6 text-white/52">
-          Si un proceso agrupa varios cargos con sueldos o requisitos distintos, ROMIL PLUS los separa. Si la entidad todavía no permite confirmar los datos necesarios, esa convocatoria no se publica como ficha completa hasta poder contrastarla.
+          Para SUNAT no guardamos tarjetas antiguas como si siguieran abiertas. La sincronización toma los procesos recientes del portal oficial, descarta estados concluidos, cancelados o desiertos y también retira los que ya superaron su fecha final. Si el portal de SUNAT estuviera temporalmente inaccesible, ROMIL PLUS no inventa datos ni publica una convocatoria nueva sin poder leer la fuente.
         </p>
       </section>
     </main>
