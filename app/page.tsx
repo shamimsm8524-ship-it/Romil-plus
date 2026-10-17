@@ -101,7 +101,7 @@ export default function Home() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div>
             <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Actualizadas</p>
-            <h2 className="mt-2 text-3xl font-black text-white sm:text-4xl">Convocatorias verificadas recientemente</h2>
+            <h2 className="mt-2 text-3xl font-black text-white sm:text-4xl">Publicaciones oficiales verificadas recientemente</h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 sm:text-base">La información se resume para ayudarte a revisar opciones rápidamente, pero la postulación siempre se realiza según las bases oficiales.</p>
           </div>
           <Link href="/convocatorias" className="inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ver todas <ArrowRight size={16} /></Link>
@@ -111,7 +111,7 @@ export default function Home() {
           {featured.map((job) => (
             <article key={job.slug} className="rounded-[24px] border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#e5b94f]/30">
               <div className="flex items-start justify-between gap-3">
-                <span className="rounded-full border border-[#e5b94f]/25 bg-[#e5b94f]/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-[.12em] text-[#e5b94f]">Verificada</span>
+                <span className="rounded-full border border-[#e5b94f]/25 bg-[#e5b94f]/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-[.12em] text-[#e5b94f]">Fuente verificada</span>
                 <span className="text-[10px] font-bold text-white/35">{job.verifiedAt}</span>
               </div>
               <p className="mt-4 text-xs font-black uppercase tracking-[.13em] text-white/45">{job.entity}</p>
