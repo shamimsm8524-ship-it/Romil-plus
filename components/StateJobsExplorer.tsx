@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ArrowRight, BriefcaseBusiness, Building2, CalendarDays, MapPin, Search, UsersRound } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Building2, CalendarDays, MapPin, Search, UsersRound } from "lucide-react";
 import type { PublicJobCategory, PublicJobStatus, PublicOpportunity } from "@/lib/state-opportunities";
 
 const statusStyles: Record<PublicJobStatus, string> = {
@@ -34,10 +34,17 @@ const categoryKeywords: Partial<Record<PublicJobCategory, string[]>> = {
 
 const statuses: Array<"Todas" | PublicJobStatus> = ["Todas", "Vigente", "Próxima", "Cerrada reciente"];
 
-export default function StateJobsExplorer({ jobs }: { jobs: PublicOpportunity[] }) {
+export default function StateJobsExplorer({
+  jobs,
+  detailSlugs = [],
+}: {
+  jobs: PublicOpportunity[];
+  detailSlugs?: string[];
+}) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<(typeof categories)[number]>("Todas");
   const [status, setStatus] = useState<(typeof statuses)[number]>("Vigente");
+  const detailSlugSet = useMemo(() => new Set(detailSlugs), [detailSlugs]);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("es");
@@ -146,40 +153,64 @@ export default function StateJobsExplorer({ jobs }: { jobs: PublicOpportunity[] 
         </div>
       ) : (
         <div className="mt-5 grid gap-4 lg:grid-cols-2">
-          {filtered.map((job) => (
-            <article key={job.slug} className="rounded-[24px] border border-white/10 bg-white/[0.025] p-5">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="flex flex-wrap gap-2">
-                  <span className={`rounded-full border px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] ${statusStyles[job.status]}`}>
-                    {job.status}
-                  </span>
-                  <span className="rounded-full border border-[#e5b94f]/20 bg-[#e5b94f]/[.06] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-[#efcb70]">
-                    {job.category}
-                  </span>
+          {filtered.map((job) => {
+            const hasDetail = detailSlugSet.has(job.slug);
+
+            return (
+              <article key={job.slug} className="rounded-[24px] border border-white/10 bg-white/[0.025] p-5">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div className="flex flex-wrap gap-2">
+                    <span className={`rounded-full border px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] ${statusStyles[job.status]}`}>
+                      {job.status}
+                    </span>
+                    <span className="rounded-full border border-[#e5b94f]/20 bg-[#e5b94f]/[.06] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-[#efcb70]">
+                      {job.category}
+                    </span>
+                    {!hasDetail ? (
+                      <span className="rounded-full border border-amber-300/20 bg-amber-300/[.07] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-amber-100/75">
+                        Ficha en revisión
+                      </span>
+                    ) : null}
+                  </div>
+                  <span className="text-[10px] font-bold text-white/35">Revisada {job.verifiedAt}</span>
                 </div>
-                <span className="text-[10px] font-bold text-white/35">Revisada {job.verifiedAt}</span>
-              </div>
 
-              <p className="mt-4 text-xs font-black uppercase tracking-[.13em] text-white/45">{job.entity}</p>
-              <h2 className="mt-2 text-xl font-black leading-tight text-white">{job.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-white/52">{job.summary}</p>
+                <p className="mt-4 text-xs font-black uppercase tracking-[.13em] text-white/45">{job.entity}</p>
+                <h2 className="mt-2 text-xl font-black leading-tight text-white">{job.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-white/52">{job.summary}</p>
 
-              <div className="mt-4 grid gap-2 rounded-2xl border border-white/10 bg-black/20 p-4 text-xs text-white/52">
-                <p className="inline-flex items-center gap-2"><MapPin size={14} className="text-[#e5b94f]" /> {job.location}</p>
-                <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> Publicada: {job.publishedAt}</p>
-                <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> Cierre / postulación: {job.closesAt}</p>
-                <p className="inline-flex items-center gap-2"><Building2 size={14} className="text-[#e5b94f]" /> {job.regime}{job.vacancies !== null ? ` · ${job.vacancies} ${job.vacancies === 1 ? "vacante" : "vacantes"}` : ""}</p>
-              </div>
+                <div className="mt-4 grid gap-2 rounded-2xl border border-white/10 bg-black/20 p-4 text-xs text-white/52">
+                  <p className="inline-flex items-center gap-2"><MapPin size={14} className="text-[#e5b94f]" /> {job.location}</p>
+                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> Publicada: {job.publishedAt}</p>
+                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> Cierre / postulación: {job.closesAt}</p>
+                  <p className="inline-flex items-center gap-2"><Building2 size={14} className="text-[#e5b94f]" /> {job.regime}{job.vacancies !== null ? ` · ${job.vacancies} ${job.vacancies === 1 ? "vacante" : "vacantes"}` : ""}</p>
+                </div>
 
-              <Link
-                href={`/convocatorias/${job.slug}`}
-                className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
-              >
-                Ver ficha completa <ArrowRight size={15} />
-              </Link>
-              <p className="mt-3 text-[11px] text-white/33">Dentro de la ficha encontrarás requisitos, cronograma y el acceso oficial de postulación cuando exista una URL directa verificada.</p>
-            </article>
-          ))}
+                {hasDetail ? (
+                  <Link
+                    href={`/convocatorias/${job.slug}`}
+                    className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
+                  >
+                    Ver ficha completa <ArrowRight size={15} />
+                  </Link>
+                ) : (
+                  <a
+                    href={job.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
+                  >
+                    Ver fuente oficial <ArrowUpRight size={15} />
+                  </a>
+                )}
+                <p className="mt-3 text-[11px] text-white/33">
+                  {hasDetail
+                    ? "Dentro de la ficha encontrarás requisitos, cronograma y el acceso oficial de postulación cuando exista una URL directa verificada."
+                    : "Esta oportunidad sí se muestra en el listado. Mientras completamos su ficha individual, consulta los requisitos y la postulación directamente en la fuente oficial."}
+                </p>
+              </article>
+            );
+          })}
         </div>
       )}
     </section>
