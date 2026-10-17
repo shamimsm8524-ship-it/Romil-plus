@@ -1,4 +1,5 @@
 import { jobs as inpeJobs } from "@/lib/jobs";
+import { inpeJobDetails, inpeJobMeta } from "@/lib/inpe-job-details";
 import { publicOpportunities } from "@/lib/state-opportunities";
 
 export type JobPosition = {
@@ -48,9 +49,7 @@ const manualDetails: Record<string, JobDetailExtra> = {
   "sunarp-zrix-cas-061-2026": {
     processCode: "CAS N.° 061-2026-SUNARP-ZRIX",
     salary: "Asistente de Programación: S/ 2,500.00 · Analista de Sistemas: S/ 4,000.00",
-    education: [
-      "Universitaria completa: egresado/a de Ingeniería de Sistemas, Informática, Software o Computación.",
-    ],
+    education: ["Universitaria completa: egresado/a de Ingeniería de Sistemas, Informática, Software o Computación."],
     experience: [
       "Experiencia laboral general: dos (02) años en el sector público o privado.",
       "Experiencia específica en la función o materia: un (01) año, con nivel mínimo desde prácticas profesionales.",
@@ -75,10 +74,7 @@ const manualDetails: Record<string, JobDetailExtra> = {
     applicationUrl: "mailto:convocatoriascas_lima@sunarp.gob.pe?subject=CAS%20N%C2%B0%20061-2026%20-%20APELLIDOS%20Y%20NOMBRES%20-%20PUESTO",
     applicationLabel: "Enviar al correo oficial de SUNARP",
     applicationInstructions: "La postulación se realiza por correo institucional de SUNARP el 21 de octubre de 2026, de 08:00 a 17:00. Adjunta la Ficha de Inscripción (Anexo 2A) en un solo PDF e indica en el asunto el proceso, tus apellidos y nombres y el puesto al que postulas.",
-    notes: [
-      "ROMIL PLUS no recibe CV ni documentos de postulación.",
-      "Los dos puestos pertenecen al mismo proceso, pero tienen remuneración y cursos requeridos distintos.",
-    ],
+    notes: ["ROMIL PLUS no recibe CV ni documentos de postulación.", "Los dos puestos pertenecen al mismo proceso, pero tienen remuneración y cursos requeridos distintos."],
   },
   "ipd-cas-062-069-2026": {
     processCode: "CAS 062 al 069-2026",
@@ -158,28 +154,25 @@ const manualDetails: Record<string, JobDetailExtra> = {
     applicationLabel: "Ir al portal CAS de Cuna Más",
     applicationInstructions: "El proceso registrado ya cerró. Usa este portal oficial para revisar si Cuna Más publica una nueva convocatoria.",
   },
+  ...inpeJobDetails,
 };
-
-for (const job of inpeJobs) {
-  manualDetails[job.slug] = {
-    ...(manualDetails[job.slug] ?? {}),
-    applicationInstructions: "Abre el portal oficial del INPE, ubica el número de convocatoria indicado en la ficha y revisa las bases, anexos y cronograma antes de presentar documentos.",
-    notes: ["El INPE publica varios procesos en una misma página; ROMIL PLUS no marcará un botón como postulación directa si no existe una URL estable para ese proceso."],
-  };
-}
 
 const publicViews: JobDetailView[] = publicOpportunities.map((job) => ({
   ...job,
   details: manualDetails[job.slug] ?? {},
 }));
 
-const inpeViews: JobDetailView[] = inpeJobs.map((job) => ({
-  ...job,
-  category: job.title.toLocaleLowerCase("es").includes("técnic") ? "Técnicos" : job.title.toLocaleLowerCase("es").includes("enfer") || job.title.toLocaleLowerCase("es").includes("nutric") || job.title.toLocaleLowerCase("es").includes("farmacia") ? "Salud" : job.title.toLocaleLowerCase("es").includes("legal") ? "Legal" : "Administración",
-  status: "Revisar cronograma",
-  closesAt: "Revisar cronograma oficial del proceso",
-  details: manualDetails[job.slug] ?? {},
-}));
+const inpeViews: JobDetailView[] = inpeJobs.map((job) => {
+  const meta = inpeJobMeta[job.slug];
+  return {
+    ...job,
+    location: meta?.location ?? job.location,
+    category: job.title.toLocaleLowerCase("es").includes("técnic") ? "Técnicos" : job.title.toLocaleLowerCase("es").includes("enfer") || job.title.toLocaleLowerCase("es").includes("nutric") || job.title.toLocaleLowerCase("es").includes("farmacia") || job.title.toLocaleLowerCase("es").includes("seguridad y salud") ? "Salud" : job.title.toLocaleLowerCase("es").includes("legal") || job.title.toLocaleLowerCase("es").includes("contrataciones") ? "Legal" : "Administración",
+    status: meta?.status ?? "Revisar cronograma",
+    closesAt: meta?.closesAt ?? "Revisar cronograma oficial del proceso",
+    details: manualDetails[job.slug] ?? {},
+  };
+});
 
 export const allJobDetails: JobDetailView[] = [
   ...publicViews,
