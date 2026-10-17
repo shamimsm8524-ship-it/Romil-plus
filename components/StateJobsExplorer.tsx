@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
-import { ArrowUpRight, BriefcaseBusiness, Building2, CalendarDays, MapPin, Search, UsersRound } from "lucide-react";
+import { ArrowRight, BriefcaseBusiness, Building2, CalendarDays, MapPin, Search, UsersRound } from "lucide-react";
 import type { PublicJobCategory, PublicJobStatus, PublicOpportunity } from "@/lib/state-opportunities";
 
 const statusStyles: Record<PublicJobStatus, string> = {
@@ -170,15 +171,13 @@ export default function StateJobsExplorer({ jobs }: { jobs: PublicOpportunity[] 
                 <p className="inline-flex items-center gap-2"><Building2 size={14} className="text-[#e5b94f]" /> {job.regime}{job.vacancies !== null ? ` · ${job.vacancies} ${job.vacancies === 1 ? "vacante" : "vacantes"}` : ""}</p>
               </div>
 
-              <a
-                href={job.sourceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={`/convocatorias/${job.slug}`}
                 className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
               >
-                Ver fuente oficial <ArrowUpRight size={15} />
-              </a>
-              <p className="mt-3 text-[11px] text-white/33">Fuente: {job.sourceLabel}</p>
+                Ver ficha completa <ArrowRight size={15} />
+              </Link>
+              <p className="mt-3 text-[11px] text-white/33">Dentro de la ficha encontrarás requisitos, cronograma y el acceso oficial de postulación cuando exista una URL directa verificada.</p>
             </article>
           ))}
         </div>
