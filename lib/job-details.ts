@@ -1,8 +1,6 @@
 import { exactStateJobDetails } from "@/lib/exact-state-job-details";
 import { exactStateJobs } from "@/lib/exact-state-jobs";
-import { inpeJobDetails, inpeJobMeta } from "@/lib/inpe-job-details";
-import { jobs as inpeJobs } from "@/lib/jobs";
-import { publicOpportunities } from "@/lib/state-opportunities";
+import { priorityCareerJobs } from "@/lib/priority-career-jobs";
 
 export type JobPosition = {
   title: string;
@@ -47,82 +45,30 @@ export type JobDetailView = {
   details: JobDetailExtra;
 };
 
-const sunarpDetails: JobDetailExtra = {
-  processCode: "CAS N.° 061-2026-SUNARP-ZRIX",
-  salary: "Asistente de Programación: S/ 2,500.00 · Analista de Sistemas: S/ 4,000.00",
-  education: ["Universitaria completa: egresado/a de Ingeniería de Sistemas, Informática, Software o Computación."],
-  experience: [
-    "Experiencia laboral general: dos (02) años en el sector público o privado.",
-    "Experiencia específica en la función o materia: un (01) año, con nivel mínimo desde prácticas profesionales.",
-  ],
-  requirements: [
-    "Asistente de Programación: Programación Estructurada (20 horas acumuladas) o Java y ASP.Net (30 horas acumuladas).",
-    "Asistente de Programación: PHP, Angular u Oracle Database (30 horas acumuladas) o SQL Server (20 horas acumuladas).",
-    "Analista de Sistemas: curso de Desarrollo de Software (12 horas acumuladas).",
-    "Analista de Sistemas: Power Builder (20 horas acumuladas).",
-    "Analista de Sistemas: Angular, Java, PHP o Programación Estructurada (30 horas acumuladas).",
-  ],
-  documents: [
-    "Ficha de Inscripción de postulante (Anexo 2A).",
-    "Enviar la ficha en un solo archivo PDF guardado con los apellidos y nombres del postulante.",
-    "Remitir el PDF al correo oficial convocatoriascas_lima@sunarp.gob.pe el 21/10/2026, de 08:00 a 17:00.",
-    "En el asunto colocar: CAS N° 061-2026, APELLIDOS Y NOMBRES + PUESTO al que postula.",
-  ],
-  positions: [
-    { title: "Asistente de Programación", vacancies: 1, location: "Unidad de Tecnologías de la Información · Av. Edgardo Rebagliati 561, Jesús María, Lima", salary: "S/ 2,500.00" },
-    { title: "Analista de Sistemas", vacancies: 1, location: "Unidad de Tecnologías de la Información · Av. Edgardo Rebagliati 561, Jesús María, Lima", salary: "S/ 4,000.00" },
-  ],
-  applicationUrl: "mailto:convocatoriascas_lima@sunarp.gob.pe?subject=CAS%20N%C2%B0%20061-2026%20-%20APELLIDOS%20Y%20NOMBRES%20-%20PUESTO",
-  applicationLabel: "Enviar al correo oficial de SUNARP",
-  applicationInstructions: "La postulación se realiza por correo institucional de SUNARP el 21 de octubre de 2026, de 08:00 a 17:00. Adjunta la Ficha de Inscripción (Anexo 2A) en un solo PDF e indica en el asunto el proceso, tus apellidos y nombres y el puesto al que postulas.",
-  notes: ["ROMIL PLUS no recibe CV ni documentos de postulación.", "Los dos puestos pertenecen al mismo proceso, pero tienen remuneración y cursos requeridos distintos."],
-};
-
-const sunarpJob = publicOpportunities.find((job) => job.slug === "sunarp-zrix-cas-061-2026");
 const temporarilyIncompleteSlugs = new Set([
   "programa-contigo-019-2026-especialista-administracion-general",
 ]);
 
-export const detailedPublicJobs = [
-  ...(sunarpJob ? [sunarpJob] : []),
-  ...exactStateJobs.filter((job) => !temporarilyIncompleteSlugs.has(job.slug)),
-];
+const exactCompleteJobs = exactStateJobs.filter(
+  (job) => !temporarilyIncompleteSlugs.has(job.slug),
+);
 
-const publicDetails: Record<string, JobDetailExtra> = {
-  "sunarp-zrix-cas-061-2026": sunarpDetails,
-  ...exactStateJobDetails,
-};
-
-const publicViews: JobDetailView[] = detailedPublicJobs.map((job) => ({
+const exactViews: JobDetailView[] = exactCompleteJobs.map((job) => ({
   ...job,
-  details: publicDetails[job.slug] ?? {},
+  details: exactStateJobDetails[job.slug] ?? {},
 }));
 
-const inpeViews: JobDetailView[] = inpeJobs.map((job) => {
-  const meta = inpeJobMeta[job.slug];
-  return {
-    ...job,
-    location: meta?.location ?? job.location,
-    category: job.title.toLocaleLowerCase("es").includes("técnic")
-      ? "Técnicos"
-      : job.title.toLocaleLowerCase("es").includes("enfer") ||
-          job.title.toLocaleLowerCase("es").includes("nutric") ||
-          job.title.toLocaleLowerCase("es").includes("farmacia") ||
-          job.title.toLocaleLowerCase("es").includes("seguridad y salud")
-        ? "Salud"
-        : job.title.toLocaleLowerCase("es").includes("legal") || job.title.toLocaleLowerCase("es").includes("contrataciones")
-          ? "Legal"
-          : "Administración",
-    status: meta?.status ?? "Revisar cronograma",
-    closesAt: meta?.closesAt ?? "Revisar cronograma oficial del proceso",
-    details: inpeJobDetails[job.slug] ?? {},
-  };
-});
+const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
+  ...job,
+  details: job.details,
+}));
 
-export const allJobDetails: JobDetailView[] = [
-  ...publicViews,
-  ...inpeViews,
+export const detailedPublicJobs: JobDetailView[] = [
+  ...priorityViews,
+  ...exactViews,
 ];
+
+export const allJobDetails: JobDetailView[] = detailedPublicJobs;
 
 export function getJobBySlug(slug: string) {
   return allJobDetails.find((job) => job.slug === slug);
