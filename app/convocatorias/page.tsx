@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
 import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { institutionSources, publicOpportunities } from "@/lib/state-opportunities";
+import { jobs as inpeJobs } from "@/lib/jobs";
 
 export const metadata: Metadata = {
-  title: "Convocatorias de trabajo del Estado peruano | ROMIL PLUS",
+  title: "Convocatorias de trabajo del Estado peruano",
   description:
     "Convocatorias laborales del Estado peruano con filtros por entidad y profesión: docentes, ingenieros, técnicos, salud, administración, SUNAT, SUNARP, Cuna Más, Poder Judicial y más.",
   alternates: { canonical: "/convocatorias" },
@@ -46,6 +47,38 @@ export default function ConvocatoriasPage() {
       </section>
 
       <StateJobsExplorer jobs={publicOpportunities} />
+
+      <section className="mt-14">
+        <div className="max-w-3xl">
+          <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">INPE · publicaciones recientes</p>
+          <h2 className="mt-2 text-3xl font-black text-white">Convocatorias verificadas que ya teníamos registradas</h2>
+          <p className="mt-3 text-sm leading-6 text-white/52">
+            Estas publicaciones fueron encontradas en el portal oficial del INPE el 14 y 15 de octubre. Las conservamos en el catálogo, pero no las marcamos automáticamente como “vigentes” porque el día exacto de postulación depende del cronograma de cada proceso.
+          </p>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2">
+          {inpeJobs.map((job) => (
+            <article key={job.slug} className="rounded-[22px] border border-white/10 bg-white/[0.025] p-5">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <span className="rounded-full border border-amber-300/20 bg-amber-300/[0.07] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.1em] text-amber-100/70">Revisar cronograma</span>
+                <span className="text-[10px] font-bold text-white/35">Revisada {job.verifiedAt}</span>
+              </div>
+              <p className="mt-4 text-xs font-black uppercase tracking-[.12em] text-white/42">{job.entity}</p>
+              <h3 className="mt-2 text-xl font-black leading-tight text-white">{job.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-white/52">{job.summary}</p>
+              <div className="mt-4 grid gap-1.5 text-xs text-white/45">
+                <p>{job.location} · {job.vacancies} {job.vacancies === 1 ? "vacante" : "vacantes"}</p>
+                <p>{job.regime}</p>
+                <p>Publicada: {job.publishedAt}</p>
+              </div>
+              <a href={job.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#efcb70] hover:underline">
+                Ver cronograma oficial <ArrowUpRight size={14} />
+              </a>
+            </article>
+          ))}
+        </div>
+      </section>
 
       <section className="mt-14">
         <div className="max-w-3xl">
