@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 
 const siteUrl = "https://www.romilplus.me";
-const siteDescription = "ROMIL PLUS reúne convocatorias de trabajo verificadas en Perú, enlaza a las fuentes oficiales y publica guías prácticas para postular con más seguridad.";
+const siteDescription = "ROMIL PLUS reúne convocatorias de trabajo y becas verificadas para peruanos, enlaza a fuentes oficiales y publica guías prácticas para postular con más seguridad.";
 const socialImage = `${siteUrl}/logo-romil-plus.png?v=20261017`;
 const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
@@ -15,7 +15,7 @@ const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ROMIL PLUS | Convocatorias de trabajo verificadas en Perú",
+    default: "ROMIL PLUS | Trabajo y becas verificadas en Perú",
     template: "%s | ROMIL PLUS",
   },
   description: siteDescription,
@@ -28,21 +28,21 @@ export const metadata: Metadata = {
     shortcut: "/logo-romil-plus.png",
     apple: [{ url: "/logo-romil-plus.png", type: "image/png", sizes: "1254x1254" }],
   },
-  keywords: ["convocatorias de trabajo Perú", "empleos Perú", "convocatorias CAS", "Talento Perú", "trabajo sector público", "oportunidades laborales Perú", "ROMIL PLUS"],
+  keywords: ["convocatorias de trabajo Perú", "empleos Perú", "convocatorias CAS", "becas Perú", "Beca 18", "becas para peruanos", "becas internacionales", "PRONABEC", "oportunidades de estudio", "ROMIL PLUS"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "es_PE",
     url: `${siteUrl}/`,
     siteName: "ROMIL PLUS",
-    title: "ROMIL PLUS | Convocatorias de trabajo verificadas en Perú",
+    title: "ROMIL PLUS | Trabajo y becas verificadas en Perú",
     description: siteDescription,
-    images: [{ url: socialImage, width: 1254, height: 1254, type: "image/png", alt: "ROMIL PLUS - Convocatorias verificadas" }],
+    images: [{ url: socialImage, width: 1254, height: 1254, type: "image/png", alt: "ROMIL PLUS - Trabajo y becas verificadas" }],
   },
-  twitter: { card: "summary_large_image", title: "ROMIL PLUS | Convocatorias verificadas", description: siteDescription, images: [socialImage] },
+  twitter: { card: "summary_large_image", title: "ROMIL PLUS | Trabajo y becas verificadas", description: siteDescription, images: [socialImage] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
-  category: "jobs",
+  category: "jobs and education",
 };
 
 const websiteJsonLd = {
