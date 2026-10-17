@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, ArrowUpRight, Landmark, ShieldCheck } from "lucide-react";
 import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { institutionSources, publicOpportunities } from "@/lib/state-opportunities";
 import { jobs as inpeJobs } from "@/lib/jobs";
@@ -24,12 +25,7 @@ export default function ConvocatoriasPage() {
         </div>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-2">
-          <a
-            href="https://www.gob.pe/talento-peru"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group rounded-2xl border border-[#e5b94f]/25 bg-[#e5b94f]/[.07] p-5 transition hover:bg-[#e5b94f]/10"
-          >
+          <a href="https://www.gob.pe/talento-peru" target="_blank" rel="noopener noreferrer" className="group rounded-2xl border border-[#e5b94f]/25 bg-[#e5b94f]/[.07] p-5 transition hover:bg-[#e5b94f]/10">
             <div className="flex items-start justify-between gap-3">
               <Landmark size={22} className="text-[#efcb70]" />
               <ArrowUpRight size={17} className="text-[#efcb70] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -72,9 +68,9 @@ export default function ConvocatoriasPage() {
                 <p>{job.regime}</p>
                 <p>Publicada: {job.publishedAt}</p>
               </div>
-              <a href={job.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#efcb70] hover:underline">
-                Ver cronograma oficial <ArrowUpRight size={14} />
-              </a>
+              <Link href={`/convocatorias/${job.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#efcb70] hover:underline">
+                Ver ficha completa <ArrowRight size={14} />
+              </Link>
             </article>
           ))}
         </div>
@@ -91,13 +87,7 @@ export default function ConvocatoriasPage() {
 
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {institutionSources.map((source) => (
-            <a
-              key={source.name}
-              href={source.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group rounded-[22px] border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#e5b94f]/30 hover:bg-[#e5b94f]/[.025]"
-            >
+            <a key={source.name} href={source.url} target="_blank" rel="noopener noreferrer" className="group rounded-[22px] border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#e5b94f]/30 hover:bg-[#e5b94f]/[.025]">
               <div className="flex items-start justify-between gap-3">
                 <p className="font-black text-white">{source.name}</p>
                 <ArrowUpRight size={15} className="mt-0.5 shrink-0 text-white/35 transition group-hover:text-[#efcb70]" />
