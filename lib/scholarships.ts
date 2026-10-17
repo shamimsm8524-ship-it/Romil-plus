@@ -1,10 +1,12 @@
 export type ScholarshipStatus = "Abierta" | "Próxima" | "Cerrada";
+export type ScholarshipCategory = "Nacional" | "Internacional";
 
 export type Scholarship = {
   slug: string;
   institution: string;
   title: string;
   status: ScholarshipStatus;
+  category: ScholarshipCategory;
   level: string;
   destination: string;
   deadline: string;
@@ -21,6 +23,7 @@ export const scholarships: Scholarship[] = [
     institution: "PRONABEC",
     title: "Beca 18 · Convocatoria 2027",
     status: "Abierta",
+    category: "Nacional",
     level: "Pregrado",
     destination: "Perú",
     deadline: "18/10/2026 · 11:59 a. m.",
@@ -35,6 +38,7 @@ export const scholarships: Scholarship[] = [
     institution: "Universidad Católica San Pablo",
     title: "Beca Ingeniero UCSP · Convocatoria 2027",
     status: "Abierta",
+    category: "Nacional",
     level: "Pregrado",
     destination: "Arequipa, Perú",
     deadline: "Postulación hasta 25/10/2026",
@@ -49,6 +53,7 @@ export const scholarships: Scholarship[] = [
     institution: "University of British Columbia",
     title: "UBC International Scholars Program · Ingreso 2027",
     status: "Abierta",
+    category: "Internacional",
     level: "Pregrado",
     destination: "Canadá",
     deadline: "15/11/2026 · 11:59 p. m. PST",
@@ -63,6 +68,7 @@ export const scholarships: Scholarship[] = [
     institution: "PRONABEC",
     title: "Beca Generación Bicentenario · Extraordinaria 2026",
     status: "Próxima",
+    category: "Internacional",
     level: "Maestría y doctorado",
     destination: "Extranjero",
     deadline: "Postulación: 30/10/2026 al 13/11/2026",
