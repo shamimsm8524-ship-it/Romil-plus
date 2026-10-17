@@ -1,6 +1,7 @@
 import { exactStateJobDetails } from "@/lib/exact-state-job-details";
 import { exactStateJobs } from "@/lib/exact-state-jobs";
 import { priorityCareerJobs } from "@/lib/priority-career-jobs";
+import type { PublicJobCategory, PublicJobStatus } from "@/lib/state-opportunities";
 
 export type JobPosition = {
   title: string;
@@ -31,8 +32,8 @@ export type JobDetailView = {
   slug: string;
   entity: string;
   title: string;
-  category: string;
-  status: string;
+  category: PublicJobCategory;
+  status: PublicJobStatus;
   regime: string;
   location: string;
   vacancies: number | null;
