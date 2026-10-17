@@ -22,6 +22,15 @@ const categories: Array<"Todas" | PublicJobCategory> = [
   "Varias",
 ];
 
+const categoryKeywords: Partial<Record<PublicJobCategory, string[]>> = {
+  Docencia: ["docent", "ugel", "drec", "minedu", "educación"],
+  "Ingeniería y TI": ["ingenier", "sistemas", "programación", "tecnolog", "ti ", "saneamiento"],
+  Técnicos: ["técnic", "tecnico", "técnico"],
+  Salud: ["salud", "enfermer", "médic", "medic", "nutricion", "farmacia"],
+  Administración: ["administr", "logística", "logistica", "gestión", "gestion", "contrataciones"],
+  Legal: ["legal", "abogad", "juríd", "jurid", "judicial", "fiscal"],
+};
+
 const statuses: Array<"Todas" | PublicJobStatus> = ["Todas", "Vigente", "Próxima", "Cerrada reciente"];
 
 export default function StateJobsExplorer({ jobs }: { jobs: PublicOpportunity[] }) {
@@ -33,9 +42,13 @@ export default function StateJobsExplorer({ jobs }: { jobs: PublicOpportunity[] 
     const normalized = query.trim().toLocaleLowerCase("es");
 
     return jobs.filter((job) => {
-      const matchesCategory = category === "Todas" || job.category === category;
+      const searchable = `${job.entity} ${job.title} ${job.category} ${job.location} ${job.summary} ${job.regime}`.toLocaleLowerCase("es");
+      const keywords = category === "Todas" ? [] : categoryKeywords[category] ?? [];
+      const matchesCategory =
+        category === "Todas" ||
+        job.category === category ||
+        keywords.some((keyword) => searchable.includes(keyword));
       const matchesStatus = status === "Todas" || job.status === status;
-      const searchable = `${job.entity} ${job.title} ${job.category} ${job.location} ${job.summary}`.toLocaleLowerCase("es");
       const matchesQuery = !normalized || searchable.includes(normalized);
       return matchesCategory && matchesStatus && matchesQuery;
     });
