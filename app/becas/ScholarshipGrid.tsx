@@ -1,4 +1,5 @@
-import { ArrowUpRight, CalendarClock, GraduationCap, MapPin } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, CalendarClock, GraduationCap, MapPin } from "lucide-react";
 import type { Scholarship, ScholarshipStatus } from "@/lib/scholarships";
 
 const statusStyles: Record<ScholarshipStatus, string> = {
@@ -60,10 +61,10 @@ export default function ScholarshipGrid({ items }: { items: Scholarship[] }) {
                     <p className="mt-2 text-sm leading-6 text-white/55">{scholarship.coverage}</p>
                   </div>
 
-                  <a href={scholarship.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15">
-                    {scholarship.status === "Abierta" || scholarship.status === "Próxima" ? "Ver convocatoria oficial" : "Ver fuente oficial"} <ArrowUpRight size={16} />
-                  </a>
-                  <p className="mt-3 text-xs text-white/35">Fuente: {scholarship.sourceLabel}</p>
+                  <Link href={`/becas/oportunidad/${scholarship.slug}`} className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15">
+                    Ver ficha completa <ArrowRight size={16} />
+                  </Link>
+                  <p className="mt-3 text-xs text-white/35">Requisitos, documentos, etapas, fechas y postulación oficial dentro de la ficha.</p>
                 </article>
               ))}
             </div>
