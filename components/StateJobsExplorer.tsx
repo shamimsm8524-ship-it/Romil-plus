@@ -155,6 +155,7 @@ export default function StateJobsExplorer({
         <div className="mt-5 grid gap-4 lg:grid-cols-2">
           {filtered.map((job) => {
             const hasDetail = detailSlugSet.has(job.slug);
+            const isSunatLive = job.sourceLabel === "SUNAT · sincronización automática";
 
             return (
               <article key={job.slug} className="rounded-[24px] border border-white/10 bg-white/[0.025] p-5">
@@ -166,13 +167,17 @@ export default function StateJobsExplorer({
                     <span className="rounded-full border border-[#e5b94f]/20 bg-[#e5b94f]/[.06] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-[#efcb70]">
                       {job.category}
                     </span>
-                    {!hasDetail ? (
+                    {isSunatLive ? (
+                      <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[.07] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-cyan-100/80">
+                        SUNAT automático
+                      </span>
+                    ) : !hasDetail ? (
                       <span className="rounded-full border border-amber-300/20 bg-amber-300/[.07] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-amber-100/75">
                         Ficha en revisión
                       </span>
                     ) : null}
                   </div>
-                  <span className="text-[10px] font-bold text-white/35">Revisada {job.verifiedAt}</span>
+                  <span className="text-[10px] font-bold text-white/35">{isSunatLive ? "Sincronizada" : "Revisada"} {job.verifiedAt}</span>
                 </div>
 
                 <p className="mt-4 text-xs font-black uppercase tracking-[.13em] text-white/45">{job.entity}</p>
@@ -181,8 +186,8 @@ export default function StateJobsExplorer({
 
                 <div className="mt-4 grid gap-2 rounded-2xl border border-white/10 bg-black/20 p-4 text-xs text-white/52">
                   <p className="inline-flex items-center gap-2"><MapPin size={14} className="text-[#e5b94f]" /> {job.location}</p>
-                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> Publicada: {job.publishedAt}</p>
-                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> Cierre / postulación: {job.closesAt}</p>
+                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> {isSunatLive ? "Inicio oficial:" : "Publicada:"} {job.publishedAt}</p>
+                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> {isSunatLive ? "Fin oficial:" : "Cierre / postulación:"} {job.closesAt}</p>
                   <p className="inline-flex items-center gap-2"><Building2 size={14} className="text-[#e5b94f]" /> {job.regime}{job.vacancies !== null ? ` · ${job.vacancies} ${job.vacancies === 1 ? "vacante" : "vacantes"}` : ""}</p>
                 </div>
 
@@ -200,13 +205,15 @@ export default function StateJobsExplorer({
                     rel="noopener noreferrer"
                     className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
                   >
-                    Ver fuente oficial <ArrowUpRight size={15} />
+                    {isSunatLive ? "Ver proceso en SUNAT" : "Ver fuente oficial"} <ArrowUpRight size={15} />
                   </a>
                 )}
                 <p className="mt-3 text-[11px] text-white/33">
-                  {hasDetail
-                    ? "Dentro de la ficha encontrarás requisitos, cronograma y el acceso oficial de postulación cuando exista una URL directa verificada."
-                    : "Esta oportunidad sí se muestra en el listado. Mientras completamos su ficha individual, consulta los requisitos y la postulación directamente en la fuente oficial."}
+                  {isSunatLive
+                    ? "Esta tarjeta se genera desde el portal oficial de SUNAT. Si el proceso deja de estar disponible o vence su fecha final, deja de mostrarse automáticamente."
+                    : hasDetail
+                      ? "Dentro de la ficha encontrarás requisitos, cronograma y el acceso oficial de postulación cuando exista una URL directa verificada."
+                      : "Esta oportunidad sí se muestra en el listado. Mientras completamos su ficha individual, consulta los requisitos y la postulación directamente en la fuente oficial."}
                 </p>
               </article>
             );
