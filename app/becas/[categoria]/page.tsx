@@ -9,13 +9,13 @@ const categoryConfig: Record<string, { category: ScholarshipCategory; title: str
   nacionales: {
     category: "Nacional",
     title: "Becas nacionales",
-    description: "Becas verificadas para estudiar en universidades, institutos y programas dentro del Perú.",
+    description: "Programas y convocatorias de becas para estudiar en universidades, institutos y centros de formación dentro del Perú.",
     icon: Flag,
   },
   internacionales: {
     category: "Internacional",
     title: "Becas internacionales",
-    description: "Becas verificadas para peruanos que buscan estudiar en el extranjero o acceder a programas internacionales.",
+    description: "Programas y convocatorias para peruanos que buscan estudiar, investigar o realizar movilidad académica en el extranjero.",
     icon: Globe2,
   },
 };
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ categoria
 
   return {
     title: `${config.title} para peruanos`,
-    description: `${config.description} Revisa fechas, cobertura y la fuente oficial antes de postular.`,
+    description: `${config.description} Consulta el estado actual, cobertura y la fuente oficial antes de postular.`,
     alternates: { canonical: `/becas/${categoria}` },
     openGraph: {
       title: `${config.title} para peruanos | ROMIL PLUS`,
@@ -65,7 +65,7 @@ export default async function ScholarshipCategoryPage({ params }: { params: Prom
           <h1 className="mt-5 text-4xl font-black leading-tight text-white sm:text-5xl">{config.title}</h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-white/60">{config.description}</p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-4 py-2 text-sm font-bold text-white/55">
-            <GraduationCap size={16} className="text-[#e5b94f]" /> {items.length} {items.length === 1 ? "oportunidad publicada" : "oportunidades publicadas"}
+            <GraduationCap size={16} className="text-[#e5b94f]" /> {items.length} {items.length === 1 ? "programa registrado" : "programas registrados"}
           </div>
         </div>
       </section>
@@ -77,7 +77,7 @@ export default async function ScholarshipCategoryPage({ params }: { params: Prom
       </nav>
 
       <div className="mt-8 rounded-2xl border border-emerald-400/15 bg-emerald-400/[.05] p-4 text-sm leading-6 text-emerald-100/75">
-        <strong className="text-emerald-100">Verificadas el 17/10/2026.</strong> La clasificación se basa en el destino de estudios. Revisa siempre las bases y el cronograma en la fuente oficial.
+        <strong className="text-emerald-100">Fuentes revisadas el 17/10/2026.</strong> La clasificación se basa en el destino de estudios. Un programa puede existir aunque su convocatoria actual esté cerrada o todavía no haya sido publicada.
       </div>
 
       <div className="mt-10">
