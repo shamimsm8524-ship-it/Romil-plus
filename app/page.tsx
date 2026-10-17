@@ -38,7 +38,7 @@ export default function Home() {
               Encuentra <span className="text-[#e5b94f]">oportunidades reales</span> de trabajo y estudio.
             </h1>
             <p className="mt-5 max-w-2xl text-base leading-7 text-white/64 sm:text-lg">
-              ROMIL PLUS reúne convocatorias laborales y becas para peruanos, resume la información importante y siempre te dirige a la fuente original para revisar bases, cronograma, requisitos y postulación.
+              ROMIL PLUS reúne convocatorias laborales y becas para peruanos, organiza sus especificaciones en fichas completas y te dirige al canal oficial de postulación cuando existe un enlace directo verificado.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/convocatorias" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#e5b94f] px-6 text-sm font-black text-black transition hover:brightness-110">
@@ -107,7 +107,7 @@ export default function Home() {
           <div>
             <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Trabajo</p>
             <h2 className="mt-2 text-3xl font-black text-white sm:text-4xl">Convocatorias laborales verificadas recientemente</h2>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 sm:text-base">La información se resume para ayudarte a revisar opciones rápidamente, pero la postulación siempre se realiza según las bases oficiales.</p>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 sm:text-base">Cada oportunidad abre una ficha con requisitos, experiencia, funciones, documentos, condiciones, cronograma y el acceso oficial de postulación cuando está disponible.</p>
           </div>
           <Link href="/convocatorias" className="inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ver todas <ArrowRight size={16} /></Link>
         </div>
@@ -127,7 +127,7 @@ export default function Home() {
                 <p className="inline-flex items-center gap-2"><Building2 size={14} className="text-[#e5b94f]" /> {job.regime}</p>
               </div>
               <p className="mt-4 text-sm leading-6 text-white/52">{job.summary}</p>
-              <a href={job.sourceUrl} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ir a la fuente oficial <ArrowRight size={15} /></a>
+              <Link href={`/convocatorias/${job.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ver ficha completa <ArrowRight size={15} /></Link>
             </article>
           ))}
         </div>
@@ -139,7 +139,7 @@ export default function Home() {
             <div>
               <p className="text-xs font-black uppercase tracking-[.15em] text-[#e5b94f]">Estudios</p>
               <h2 className="mt-2 text-3xl font-black text-white sm:text-4xl">Becas verificadas para peruanos</h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 sm:text-base">Becas nacionales e internacionales con estado, fecha límite y enlace directo a la convocatoria oficial.</p>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55 sm:text-base">Cada beca tiene una ficha con requisitos, cobertura, documentos, etapas, fechas importantes y postulación oficial cuando la convocatoria está abierta.</p>
             </div>
             <Link href="/becas" className="inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ver todas las becas <ArrowRight size={16} /></Link>
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
                   <p className="inline-flex items-center gap-2"><CalendarDays size={16} className="text-[#e5b94f]" /> {scholarship.deadline}</p>
                 </div>
                 <p className="mt-4 text-sm leading-6 text-white/52">{scholarship.summary}</p>
-                <Link href="/becas" className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ver detalles <ArrowRight size={15} /></Link>
+                <Link href={`/becas/oportunidad/${scholarship.slug}`} className="mt-5 inline-flex items-center gap-2 text-sm font-black text-[#e5b94f]">Ver ficha completa <ArrowRight size={15} /></Link>
               </article>
             ))}
           </div>
