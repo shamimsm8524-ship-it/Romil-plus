@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArrowRight, ArrowUpRight, Cpu, GraduationCap, Landmark, ShieldCheck, Wrench } from "lucide-react";
 import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { detailedPublicJobs } from "@/lib/job-details";
+import { privateVerifiedJobs } from "@/lib/private-verified-jobs";
 import { institutionSources } from "@/lib/state-opportunities";
 import { getSunatLiveJobs } from "@/lib/sunat-live";
 
@@ -46,7 +47,7 @@ const employmentSectors = [
 
 export default async function ConvocatoriasPage() {
   const sunatJobs = await getSunatLiveJobs();
-  const jobsForExplorer = [...sunatJobs, ...detailedPublicJobs];
+  const jobsForExplorer = [...privateVerifiedJobs, ...sunatJobs, ...detailedPublicJobs];
 
   return (
     <main className="min-h-screen bg-white text-[#0a2d5a]">
