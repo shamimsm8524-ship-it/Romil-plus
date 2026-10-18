@@ -8,13 +8,41 @@ import { getSunatLiveJobs } from "@/lib/sunat-live";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Trabajo en SUNAT, docentes, ingeniería y carreras técnicas | ROMIL PLUS",
+  title: "Trabajos verificados en Perú: cajeros, limpieza, restaurantes, técnicos y profesionales | ROMIL PLUS",
   description:
-    "Convocatorias laborales verificadas para docentes, ingenieros, técnicos y profesionales universitarios, con sincronización automática de procesos disponibles en SUNAT.",
+    "Vacantes verificadas en Perú para cajeros, ventas, restaurantes, limpieza, almacén, seguridad, técnicos, profesionales, prácticas y empleo público, siempre enlazadas a una fuente comprobable.",
   alternates: { canonical: "/convocatorias" },
 };
 
 const detailSlugs = detailedPublicJobs.map((job) => job.slug);
+
+const employmentSectors = [
+  "Cajeros y ventas",
+  "Atención al cliente",
+  "Restaurantes y pollerías",
+  "Mozo, azafata y cocina",
+  "Bar, cafetería y barista",
+  "Limpieza y mantenimiento",
+  "Hoteles y turismo",
+  "Aeropuertos y aerolíneas",
+  "Seguridad y vigilancia",
+  "Almacén y logística",
+  "Transporte y delivery",
+  "Supermercados y tiendas",
+  "Producción y fábricas",
+  "Construcción y oficios",
+  "Salud",
+  "Educación",
+  "Administración y oficina",
+  "Ingeniería y TI",
+  "Belleza y cuidado personal",
+  "Minería e industria",
+  "Agroindustria y campo",
+  "Banca y finanzas",
+  "Sector público",
+  "Prácticas",
+  "Trabajo remoto",
+];
 
 export default async function ConvocatoriasPage() {
   const sunatJobs = await getSunatLiveJobs();
@@ -26,21 +54,21 @@ export default async function ConvocatoriasPage() {
         <div className="mx-auto grid w-full max-w-[1180px] gap-7 px-4 pb-8 pt-8 sm:px-6 lg:grid-cols-[1.12fr_.88fr] lg:items-center lg:px-6 lg:pb-12 lg:pt-10">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full bg-[#eef5ff] px-4 py-2 text-sm font-black text-[#0b58b6]">
-              <ShieldCheck size={18} /> Convocatorias verificadas
+              <ShieldCheck size={18} /> Empleos con fuente comprobable
             </div>
             <h1 className="mt-5 max-w-3xl text-[2.55rem] font-black leading-[1.04] tracking-[-.035em] text-[#0a2d5a] sm:text-5xl lg:text-[4.1rem]">
-              Trabajos y Convocatorias <span className="text-[#e6aa16]">Verificadas</span>
+              Trabajos para todos los rubros <span className="text-[#e6aa16]">Verificados</span>
             </h1>
             <p className="mt-5 max-w-2xl text-lg font-medium leading-8 text-[#52647a] sm:text-xl">
-              Encuentra oportunidades laborales reales y actualizadas: docentes, ingeniería, TI, técnicos, administración y carreras universitarias en todo el Perú.
+              Cajeros, ventas, restaurantes, pollerías, limpieza, almacén, seguridad, hoteles, fábricas, técnicos, profesionales, prácticas y empleo público en todo el Perú. Solo mostramos ofertas que puedan rastrearse a una fuente real.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <a href="#listado" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#0866d8] px-5 text-base font-black text-white transition hover:bg-[#075abc]">
-                Ver convocatorias <ArrowRight size={18} />
+                Buscar trabajo <ArrowRight size={18} />
               </a>
-              <a href="https://unete.sunat.gob.pe/" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-[#f0c24a] bg-[#fff6d9] px-5 text-base font-black text-[#775200] transition hover:bg-[#ffefb6]">
-                SUNAT oficial <ArrowUpRight size={18} />
+              <a href="/como-verificamos" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-[#f0c24a] bg-[#fff6d9] px-5 text-base font-black text-[#775200] transition hover:bg-[#ffefb6]">
+                Cómo verificamos <ShieldCheck size={18} />
               </a>
             </div>
           </div>
@@ -58,26 +86,41 @@ export default async function ConvocatoriasPage() {
 
       <section className="mx-auto w-full max-w-[1180px] px-4 py-8 sm:px-6 lg:px-6">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <a href="https://unete.sunat.gob.pe/" target="_blank" rel="noopener noreferrer" className="rounded-[22px] border border-[#f0d481] bg-[#fff8e4] p-5 transition hover:-translate-y-0.5 hover:border-[#e0b841]">
+          <div className="rounded-[22px] border border-[#f0d481] bg-[#fff8e4] p-5">
             <Landmark size={28} className="text-[#b77d00]" />
-            <p className="mt-3 text-xl font-black text-[#0a2d5a]">SUNAT automático</p>
-            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Se revisa aproximadamente cada 5 minutos y solo muestra procesos disponibles.</p>
-          </a>
-          <div className="rounded-[22px] border border-[#dbe5f1] bg-[#f5f9ff] p-5">
-            <GraduationCap size={28} className="text-[#0866d8]" />
-            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Docentes</p>
-            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">UGEL, DRE y oportunidades del sector educación por especialidad.</p>
-          </div>
-          <div className="rounded-[22px] border border-[#dbe5f1] bg-[#f5f9ff] p-5">
-            <Cpu size={28} className="text-[#0866d8]" />
-            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Ingeniería y TI</p>
-            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Sistemas, software, industrial, infraestructura y tecnología.</p>
+            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Sector público</p>
+            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">SUNAT y convocatorias institucionales con bases y fuente oficial.</p>
           </div>
           <div className="rounded-[22px] border border-[#dbe5f1] bg-[#f5f9ff] p-5">
             <Wrench size={28} className="text-[#0866d8]" />
-            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Técnicos y profesionales</p>
-            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Administración, mantenimiento, legal, gestión y otras carreras.</p>
+            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Operativos y servicios</p>
+            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Limpieza, almacén, seguridad, producción, construcción, transporte y mantenimiento.</p>
           </div>
+          <div className="rounded-[22px] border border-[#dbe5f1] bg-[#f5f9ff] p-5">
+            <GraduationCap size={28} className="text-[#0866d8]" />
+            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Atención y servicios</p>
+            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Cajeros, ventas, restaurantes, pollerías, hoteles, turismo y atención al cliente.</p>
+          </div>
+          <div className="rounded-[22px] border border-[#dbe5f1] bg-[#f5f9ff] p-5">
+            <Cpu size={28} className="text-[#0866d8]" />
+            <p className="mt-3 text-xl font-black text-[#0a2d5a]">Técnicos y profesionales</p>
+            <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Administración, salud, educación, ingeniería, TI, legal, finanzas y prácticas.</p>
+          </div>
+        </div>
+
+        <div className="mt-7 rounded-[26px] border border-[#dbe5f1] bg-[#f8fbff] p-5 sm:p-6">
+          <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Rubros que cubre RomilPlus</p>
+          <h2 className="mt-2 text-2xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-3xl">Desde trabajos sin experiencia hasta puestos profesionales</h2>
+          <div className="mt-5 flex flex-wrap gap-2.5">
+            {employmentSectors.map((sector) => (
+              <span key={sector} className="rounded-full border border-[#d7e4f2] bg-white px-3.5 py-2 text-sm font-black text-[#38546f] shadow-[0_2px_8px_rgba(10,45,90,.03)]">
+                {sector}
+              </span>
+            ))}
+          </div>
+          <p className="mt-5 text-sm font-semibold leading-6 text-[#657489]">
+            Que un rubro aparezca aquí no significa que inventemos una oferta. Una vacante solo entra al listado cuando encontramos una fuente trazable, comprobamos los datos básicos y sigue vigente.
+          </p>
         </div>
       </section>
 
@@ -88,10 +131,10 @@ export default async function ConvocatoriasPage() {
       <section className="border-t border-[#dbe5f1] bg-[#f8fafc]">
         <div className="mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 lg:px-6">
           <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Fuentes oficiales</p>
-            <h2 className="mt-2 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl">Instituciones que seguimos revisando</h2>
+            <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Fuentes comprobables</p>
+            <h2 className="mt-2 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl">Fuentes que seguimos revisando</h2>
             <p className="mt-3 text-base font-medium leading-7 text-[#5f7084]">
-              SUNAT, SUNARP, MINEDU, DRE, UGEL, BCRP/Casa Nacional de Moneda, Poder Judicial, Ministerio Público, IPD, MINEM, PCM y otras entidades públicas.
+              En el sector público seguimos portales institucionales como SUNAT, SUNARP, MINEDU, DRE, UGEL, Poder Judicial, Ministerio Público, IPD, MINEM y PCM. Para empresas privadas, una oferta solo debe incorporarse cuando el enlace pueda trazarse al empleador o a una plataforma oficial de reclutamiento identificable.
             </p>
           </div>
 
@@ -109,9 +152,9 @@ export default async function ConvocatoriasPage() {
           </div>
 
           <div className="mt-8 rounded-[24px] bg-[#0a2d5a] p-6 text-white sm:p-7">
-            <h2 className="text-2xl font-black">SUNAT sin convocatorias vencidas</h2>
+            <h2 className="text-2xl font-black">Verificación antes que cantidad</h2>
             <p className="mt-3 text-base font-medium leading-7 text-white/78">
-              Para SUNAT no guardamos procesos antiguos como si siguieran abiertos. La sincronización descarta procesos concluidos, cancelados o desiertos y retira los que ya superaron su fecha final. Las bases oficiales de SUNAT siempre prevalecen.
+              No publicamos un empleo solo para aumentar el número de avisos. Revisamos fuente, empleador o entidad, vigencia, ubicación y forma de postulación. Cuando una oferta vence o deja de estar disponible, debe retirarse del listado de vigentes.
             </p>
           </div>
         </div>
