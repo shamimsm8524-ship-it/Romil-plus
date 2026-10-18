@@ -100,16 +100,16 @@
   margin-right:auto!important;
 }
 
-/* Si una columna no tiene nada asignado en una página, no dejamos un bloque vacío. */
+/* Si una zona no tiene contenido en una página, no dejamos una caja vacía flotando. */
 #cv-print-area.cv-manual-page [data-cv-empty-section-group]{
   display:none!important;
 }
 
-/* Las páginas de continuación conservan el estilo, pero no repiten nombre, foto ni datos personales. */
+/* Página 2+ mantiene la identidad del modelo, sin repetir nombre, foto ni contacto. */
 #cv-print-area.cv-continuation-page>header.grid{
   display:block!important;
-  min-height:42px!important;
-  height:42px!important;
+  min-height:34px!important;
+  height:34px!important;
   padding:0!important;
 }
 
@@ -117,33 +117,67 @@
   display:none!important;
 }
 
-#cv-print-area.cv-continuation-page>.grid>aside:first-child>div:first-child,
-#cv-print-area.cv-continuation-page>.grid>aside:first-child>div:nth-child(2),
-#cv-print-area.cv-continuation-page>.grid>div:last-child>div:first-child{
+/* Familia con barra lateral. */
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>aside:first-child>div:first-child,
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>aside:first-child>div:nth-child(2),
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>div:last-child>div:first-child{
   display:none!important;
 }
 
-#cv-print-area.cv-continuation-page>.grid>div:last-child>div:nth-child(2){
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>aside:first-child>div:last-child,
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>div:last-child>div:last-child{
   margin-top:0!important;
 }
 
-#cv-print-area.cv-continuation-page>.h-3+div.grid{
-  display:none!important;
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>aside:first-child,
+#cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>div:last-child{
+  padding-top:34px!important;
 }
 
-#cv-print-area.cv-continuation-page>.flex.items-start.justify-between,
-#cv-print-area.cv-continuation-page>.flex.items-start.justify-between+div{
-  display:none!important;
+/* Familia con encabezado superior. */
+#cv-print-area.cv-continuation-page[data-cv-layout="topbar"]>div.grid:last-child{
+  align-items:start!important;
+  padding-top:34px!important;
 }
 
-/* En topbar/split, si una de las dos zonas queda sin secciones, la otra aprovecha todo el ancho. */
-#cv-print-area.cv-continuation-page>div.grid:last-child:has(> [data-cv-empty-section-group]){
+#cv-print-area.cv-continuation-page[data-cv-layout="topbar"]>div.grid:last-child:has(> [data-cv-empty-section-group]){
   grid-template-columns:minmax(0,1fr)!important;
 }
 
-#cv-print-area.cv-continuation-page>div.grid:last-child:has(> [data-cv-empty-section-group])>aside:not([data-cv-empty-section-group]){
+#cv-print-area.cv-continuation-page[data-cv-layout="topbar"]>div.grid:last-child:has(> [data-cv-empty-section-group])>aside:not([data-cv-empty-section-group]){
   border-left:0!important;
   padding-left:0!important;
+}
+
+/* Familia dividida en dos columnas. */
+#cv-print-area.cv-continuation-page[data-cv-layout="split"]>.h-3+div.grid,
+#cv-print-area.cv-continuation-page[data-cv-layout="split"]>.h-3+div.grid+div{
+  display:none!important;
+}
+
+#cv-print-area.cv-continuation-page[data-cv-layout="split"]>div.grid:last-child{
+  padding-top:38px!important;
+  align-items:start!important;
+}
+
+#cv-print-area.cv-continuation-page[data-cv-layout="split"]>div.grid:last-child:has(> [data-cv-empty-section-group]){
+  grid-template-columns:minmax(0,1fr)!important;
+}
+
+/* Familia minimalista. */
+#cv-print-area.cv-continuation-page[data-cv-layout="minimal"]>.flex.items-start.justify-between,
+#cv-print-area.cv-continuation-page[data-cv-layout="minimal"]>.flex.items-start.justify-between+div{
+  display:none!important;
+}
+
+#cv-print-area.cv-continuation-page[data-cv-layout="minimal"]>div.grid:last-child{
+  margin-top:0!important;
+  padding-top:22px!important;
+}
+
+/* Cuando solo queda una sección, dale ancho completo para evitar una esquina vacía. */
+#cv-print-area.cv-continuation-page[data-cv-layout="minimal"]>div.grid:last-child>section:only-child{
+  grid-column:1/-1!important;
 }
 
 @media (max-width:899px){
