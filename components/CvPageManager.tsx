@@ -16,6 +16,30 @@ function pageRange(total: number, pages: number, page: number) {
   return [before, before + size] as const;
 }
 
+function splitSectionsByVisualColumn(clone: HTMLElement, page: number, pages: number) {
+  const sections = Array.from(clone.querySelectorAll<HTMLElement>("section"));
+  const groups = new Map<HTMLElement, HTMLElement[]>();
+
+  sections.forEach((section) => {
+    const parent = section.parentElement;
+    if (!parent) return;
+    const group = groups.get(parent) ?? [];
+    group.push(section);
+    groups.set(parent, group);
+  });
+
+  groups.forEach((groupSections, parent) => {
+    const [start, end] = pageRange(groupSections.length, pages, page);
+
+    groupSections.forEach((section, index) => {
+      if (index < start || index >= end) section.remove();
+    });
+
+    const remaining = Array.from(parent.children).some((child) => child.tagName === "SECTION");
+    parent.toggleAttribute("data-cv-empty-section-group", !remaining);
+  });
+}
+
 function createVisualPage(source: HTMLElement, page: number, pages: number) {
   const clone = source.cloneNode(true) as HTMLElement;
   clone.removeAttribute("data-cv-source-preview");
@@ -26,12 +50,12 @@ function createVisualPage(source: HTMLElement, page: number, pages: number) {
 
   if (page > 1) clone.classList.add("cv-continuation-page");
 
-  const sections = Array.from(clone.querySelectorAll<HTMLElement>("section"));
-  const [start, end] = pageRange(sections.length, pages, page);
-
-  sections.forEach((section, index) => {
-    if (index < start || index >= end) section.remove();
-  });
+  /*
+   * Repartimos cada columna por separado. De esta forma las plantillas con
+   * contenido principal + barra lateral conservan ambas zonas en la página 2,
+   * en vez de mandar todo lo restante a una sola esquina.
+   */
+  splitSectionsByVisualColumn(clone, page, pages);
 
   return clone;
 }
