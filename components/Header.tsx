@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, GraduationCap, Menu, Search, ShieldCheck, User } from "lucide-react";
+import { BookOpen, FileText, GraduationCap, Menu, Search, ShieldCheck, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -82,21 +82,22 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-1 min-[820px]:flex lg:gap-2">
+        <nav className="hidden flex-1 items-center justify-center gap-1 min-[980px]:flex lg:gap-2">
           <Link href="/" className={navClass("/")}>Inicio</Link>
           <Link href="/convocatorias" className={navClass("/convocatorias")}><span className="inline-flex items-center gap-1.5"><Search size={16}/> Trabajos</span></Link>
           <Link href="/becas" className={navClass("/becas")}><span className="inline-flex items-center gap-1.5"><GraduationCap size={16}/> Becas</span></Link>
           <Link href="/guias" className={navClass("/guias")}><span className="inline-flex items-center gap-1.5"><BookOpen size={16}/> Guías</span></Link>
+          <Link href="/crear-cv" className={navClass("/crear-cv")}><span className="inline-flex items-center gap-1.5"><FileText size={16}/> Crear CV</span></Link>
           <Link href="/como-verificamos" className={navClass("/como-verificamos")}><span className="inline-flex items-center gap-1.5"><ShieldCheck size={16}/> Verificación</span></Link>
         </nav>
 
-        <div className="hidden items-center gap-2 min-[820px]:flex">
+        <div className="hidden items-center gap-2 min-[980px]:flex">
           <Link href={accountHref} className="grid h-11 w-11 place-items-center rounded-xl border border-[#d7e2ef] text-[#17365d] transition hover:border-[#8bb6e8] hover:bg-[#eef5ff] hover:text-[#0758ad]" aria-label={email ? "Mi cuenta" : "Iniciar sesión"}>
             <User size={20}/>
           </Link>
         </div>
 
-        <div ref={mobileMenuRef} className="relative min-[820px]:hidden">
+        <div ref={mobileMenuRef} className="relative min-[980px]:hidden">
           <button
             type="button"
             onClick={() => setMobileMenuOpen((open) => !open)}
@@ -113,6 +114,7 @@ export function Header() {
               <Link onClick={() => setMobileMenuOpen(false)} href="/convocatorias" className={mobileNavClass("/convocatorias")}>Trabajos</Link>
               <Link onClick={() => setMobileMenuOpen(false)} href="/becas" className={mobileNavClass("/becas")}>Becas</Link>
               <Link onClick={() => setMobileMenuOpen(false)} href="/guias" className={mobileNavClass("/guias")}>Guías</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/crear-cv" className={mobileNavClass("/crear-cv")}>Crear CV</Link>
               <Link onClick={() => setMobileMenuOpen(false)} href="/como-verificamos" className={mobileNavClass("/como-verificamos")}>Cómo verificamos</Link>
               <Link onClick={() => setMobileMenuOpen(false)} href={accountHref} className={`mt-1 flex items-center gap-2 rounded-xl px-4 py-3 text-base font-black transition ${isActive(accountHref) ? "bg-[#fff2c8] text-[#0a2d5a] ring-1 ring-inset ring-[#f0c24a]" : "bg-[#0a2d5a] text-white"}`}><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
             </div>
