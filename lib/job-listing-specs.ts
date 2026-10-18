@@ -1,3 +1,5 @@
+import { detailedPublicJobs } from "@/lib/job-details";
+
 export type JobListingSpecs = {
   employmentType: string;
   hours: string;
@@ -7,13 +9,45 @@ export type JobListingSpecs = {
   education: string;
 };
 
+const NOT_PUBLISHED = "No publicado por la fuente";
+
+function compactList(values?: string[]) {
+  if (!values?.length) return NOT_PUBLISHED;
+  const visible = values.slice(0, 2).join(" ");
+  return values.length > 2 ? `${visible} Revisa la fuente para requisitos adicionales.` : visible;
+}
+
+function inferEmploymentType(regime: string) {
+  const value = regime.toLocaleLowerCase("es");
+  if (value.includes("part time") || value.includes("tiempo parcial")) return "Tiempo parcial";
+  if (value.includes("full time") || value.includes("tiempo completo")) return "Tiempo completo";
+  if (value.includes("práctica") || value.includes("practica")) return "Prácticas";
+  if (value.includes("cas")) return "CAS";
+  return regime || NOT_PUBLISHED;
+}
+
+function hoursFromSchedule(schedule?: string) {
+  if (!schedule) return NOT_PUBLISHED;
+  const match = schedule.match(/(?:\d+(?:[.,]\d+)?\s*(?:horas?|h)\b[^.;]*)/i);
+  return match?.[0]?.trim() || NOT_PUBLISHED;
+}
+
+function salaryFromPositions(
+  positions?: Array<{ salary?: string }>,
+) {
+  const values = Array.from(new Set((positions ?? []).map((item) => item.salary).filter(Boolean))) as string[];
+  if (!values.length) return undefined;
+  if (values.length <= 3) return values.join(" / ");
+  return `${values.slice(0, 3).join(" / ")} · según puesto`;
+}
+
 /*
  * Datos concretos mostrados en las tarjetas de empleos privados.
  * Solo se incluyen condiciones publicadas por la empresa o por la fuente
  * enlazada. Cuando una condición no aparece en el aviso, se indica como tal
  * en vez de estimarla.
  */
-export const jobListingSpecs: Record<string, JobListingSpecs> = {
+const verifiedPrivateListingSpecs: Record<string, JobListingSpecs> = {
   "plaza-vea-cajero-5x2-octubre-2026": {
     employmentType: "Tiempo parcial",
     hours: "No indicadas en el aviso",
@@ -143,3 +177,49 @@ export const jobListingSpecs: Record<string, JobListingSpecs> = {
     education: "Técnica completa en Contabilidad, Administración, Economía o afines",
   },
 };
+
+const detailedPublicListingSpecs = Object.fromEntries(
+  detailedPublicJobs.map((job) => {
+    const details = job.details;
+    const salary = details.salary || salaryFromPositions(details.positions) || NOT_PUBLISHED;
+    const schedule = details.workSchedule || NOT_PUBLISHED;
+
+    const specs: JobListingSpecs = {
+      employmentType: inferEmploymentType(job.regime),
+      hours: hoursFromSchedule(details.workSchedule),
+      schedule,
+      salary,
+      experience: compactList(details.experience),
+      education: compactList(details.education),
+    };
+
+    return [job.slug, specs];
+  }),
+) as Record<string, JobListingSpecs>;
+
+const knownSpecs: Record<string, JobListingSpecs> = {
+  ...detailedPublicListingSpecs,
+  ...verifiedPrivateListingSpecs,
+};
+
+const genericSpecs: JobListingSpecs = {
+  employmentType: NOT_PUBLISHED,
+  hours: NOT_PUBLISHED,
+  schedule: NOT_PUBLISHED,
+  salary: NOT_PUBLISHED,
+  experience: NOT_PUBLISHED,
+  education: NOT_PUBLISHED,
+};
+
+export const jobListingSpecs = new Proxy(knownSpecs, {
+  get(target, property: string | symbol) {
+    if (typeof property !== "string") return Reflect.get(target, property);
+    if (property in target) return target[property];
+
+    if (property.startsWith("sunat-cas-")) {
+      return { ...genericSpecs, employmentType: "CAS" };
+    }
+
+    return { ...genericSpecs };
+  },
+}) as Record<string, JobListingSpecs>;
