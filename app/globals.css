@@ -189,20 +189,6 @@ article[data-product="gemini-pro"] { height: 650px !important; }
   .cv-page { max-width: none; zoom: 94%; }
 }
 
-/* Datos de contacto del CV: orden uniforme en todos los modelos. */
-.cv-page .flex.flex-wrap.gap-x-3.gap-y-1 {
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  align-items: baseline !important;
-  column-gap: 1.25rem !important;
-  row-gap: .25rem !important;
-}
-
-.cv-page .flex.flex-wrap.gap-x-3.gap-y-1 > span {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
 /* Columna lateral del CV: contactos e idiomas quedan compactos y alineados. */
 .cv-page > .grid > aside:first-child > div:nth-child(2) > div {
   display: grid !important;
