@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const STORAGE_KEY = "romilplus-cv-pages";
 const MAX_PAGES = 4;
 
+type VisualLayout = "sidebar" | "topbar" | "split" | "minimal";
+
 function pageRange(total: number, pages: number, page: number) {
   if (total <= 0) return [0, 0] as const;
   const safePages = Math.max(1, pages);
@@ -14,6 +16,17 @@ function pageRange(total: number, pages: number, page: number) {
   const before = (page - 1) * base + Math.min(page - 1, remainder);
   const size = base + (page <= remainder ? 1 : 0);
   return [before, before + size] as const;
+}
+
+function detectVisualLayout(root: HTMLElement): VisualLayout {
+  if (root.querySelector(":scope > header.grid")) return "topbar";
+
+  const first = root.firstElementChild as HTMLElement | null;
+  const second = root.children.item(1) as HTMLElement | null;
+
+  if (first?.classList.contains("grid") && first.querySelector(":scope > aside")) return "sidebar";
+  if (first?.classList.contains("h-3") && second?.classList.contains("grid")) return "split";
+  return "minimal";
 }
 
 function splitSectionsByVisualColumn(clone: HTMLElement, page: number, pages: number) {
@@ -47,13 +60,13 @@ function createVisualPage(source: HTMLElement, page: number, pages: number) {
   clone.classList.add("cv-manual-page");
   clone.dataset.cvManualPage = String(page);
   clone.dataset.cvTotalPages = String(pages);
+  clone.dataset.cvLayout = detectVisualLayout(source);
 
   if (page > 1) clone.classList.add("cv-continuation-page");
 
   /*
-   * Repartimos cada columna por separado. De esta forma las plantillas con
-   * contenido principal + barra lateral conservan ambas zonas en la página 2,
-   * en vez de mandar todo lo restante a una sola esquina.
+   * Cada columna visual se reparte de forma independiente. Esto se aplica a
+   * todas las familias de plantillas: sidebar, topbar, split y minimal.
    */
   splitSectionsByVisualColumn(clone, page, pages);
 
@@ -87,6 +100,7 @@ export function CvPageManager() {
     if (!source) return;
 
     source.dataset.cvSourcePreview = "true";
+    source.dataset.cvLayout = detectVisualLayout(source);
     const parent = source.parentElement;
     if (!parent) return;
 
@@ -97,7 +111,7 @@ export function CvPageManager() {
       source.insertAdjacentElement("afterend", host);
     }
 
-    const signature = `${pageCount}|${activePage}|${source.dataset.cvTemplate || ""}|${source.innerHTML}`;
+    const signature = `${pageCount}|${activePage}|${source.dataset.cvTemplate || ""}|${source.dataset.cvLayout || ""}|${source.innerHTML}`;
     if (!force && signature === lastSignature.current) return;
     lastSignature.current = signature;
 
