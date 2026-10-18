@@ -189,6 +189,12 @@ article[data-product="gemini-pro"] { height: 650px !important; }
   .cv-page { max-width: none; zoom: 94%; }
 }
 
+/* Columna lateral del CV: la foto queda centrada en la franja en todos los modelos equivalentes. */
+.cv-page > .grid > aside:first-child > div:first-child {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 /* Columna lateral del CV: contactos e idiomas quedan compactos y alineados. */
 .cv-page > .grid > aside:first-child > div:nth-child(2) > div {
   display: grid !important;
