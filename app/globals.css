@@ -160,19 +160,33 @@ article[data-product="gemini-pro"] { height: 650px !important; }
   }
 }
 
-/* En celular y tablet reducimos la hoja completa, no sus columnas internas. */
-@media (max-width: 639px) {
-  .cv-page {
-    max-width: none;
-    zoom: min(1, calc((100vw - 32px) / 794px));
-  }
+/* En celular y tablet reducimos la hoja completa con valores compatibles con navegador móvil. */
+@media (max-width: 359px) {
+  .cv-page { max-width: none; zoom: 36%; }
 }
-
-@media (min-width: 640px) and (max-width: 900px) {
-  .cv-page {
-    max-width: none;
-    zoom: min(1, calc((100vw - 48px) / 794px));
-  }
+@media (min-width: 360px) and (max-width: 389px) {
+  .cv-page { max-width: none; zoom: 40%; }
+}
+@media (min-width: 390px) and (max-width: 429px) {
+  .cv-page { max-width: none; zoom: 44%; }
+}
+@media (min-width: 430px) and (max-width: 479px) {
+  .cv-page { max-width: none; zoom: 49%; }
+}
+@media (min-width: 480px) and (max-width: 539px) {
+  .cv-page { max-width: none; zoom: 55%; }
+}
+@media (min-width: 540px) and (max-width: 639px) {
+  .cv-page { max-width: none; zoom: 64%; }
+}
+@media (min-width: 640px) and (max-width: 719px) {
+  .cv-page { max-width: none; zoom: 73%; }
+}
+@media (min-width: 720px) and (max-width: 799px) {
+  .cv-page { max-width: none; zoom: 82%; }
+}
+@media (min-width: 800px) and (max-width: 839px) {
+  .cv-page { max-width: none; zoom: 94%; }
 }
 
 /* Al imprimir solo se muestra el currículum y conserva sus colores. */
