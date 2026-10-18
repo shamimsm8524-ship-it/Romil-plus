@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CvBuilder } from "@/components/CvBuilder";
 import { CvDesignEnhancer } from "@/components/CvDesignEnhancer";
 import "./cv-designs.css";
+import "./photo-alignment.css";
 
 export const metadata: Metadata = {
   title: "Crear CV profesional gratis",
