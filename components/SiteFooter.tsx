@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, GraduationCap, Mail, Search, ShieldCheck } from "lucide-react";
+import { BookOpen, FileText, GraduationCap, Mail, Search, ShieldCheck } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -24,6 +24,7 @@ export function SiteFooter() {
             <Link href="/convocatorias" className="inline-flex items-center gap-2 transition hover:text-[#e5b94f]"><Search size={15}/> Convocatorias</Link>
             <Link href="/becas" className="inline-flex items-center gap-2 transition hover:text-[#e5b94f]"><GraduationCap size={15}/> Becas</Link>
             <Link href="/guias" className="inline-flex items-center gap-2 transition hover:text-[#e5b94f]"><BookOpen size={15}/> Guías</Link>
+            <Link href="/crear-cv" className="inline-flex items-center gap-2 transition hover:text-[#e5b94f]"><FileText size={15}/> Crear CV</Link>
             <Link href="/como-verificamos" className="inline-flex items-center gap-2 transition hover:text-[#e5b94f]"><ShieldCheck size={15}/> Cómo verificamos</Link>
             <Link href="/nosotros" className="transition hover:text-[#e5b94f]">Nosotros</Link>
             <Link href="/contacto" className="inline-flex items-center gap-2 transition hover:text-[#e5b94f]"><Mail size={15}/> Contacto</Link>
