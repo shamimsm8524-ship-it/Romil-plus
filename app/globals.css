@@ -189,6 +189,31 @@ article[data-product="gemini-pro"] { height: 650px !important; }
   .cv-page { max-width: none; zoom: 94%; }
 }
 
+/* Columna lateral del CV: contactos e idiomas quedan compactos y alineados. */
+.cv-page > .grid > aside:first-child > div:nth-child(2) > div {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: .2rem !important;
+}
+
+.cv-page > .grid > aside:first-child > div:nth-child(2) > div > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.cv-page aside section .flex.justify-between {
+  display: grid !important;
+  grid-template-columns: 78px auto;
+  justify-content: start !important;
+  column-gap: .8rem !important;
+}
+
+.cv-page aside section .flex.justify-between > span:last-child {
+  margin-left: 0 !important;
+  text-align: left !important;
+}
+
 /* Al imprimir solo se muestra el currículum y conserva sus colores. */
 @media print {
   @page { size: A4 portrait; margin: 0; }
