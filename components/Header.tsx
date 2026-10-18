@@ -70,7 +70,7 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#dbe5f1] bg-white/95 backdrop-blur-xl">
+    <header className="cv-no-print sticky top-0 z-50 border-b border-[#dbe5f1] bg-white/95 backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="ROMIL PLUS">
           <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#eef5ff] text-[#0758ad]">
@@ -78,47 +78,31 @@ export function Header() {
           </span>
           <span className="min-w-0">
             <span className="block whitespace-nowrap text-xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-2xl">ROMIL <span className="text-[#e6aa16]">PLUS</span></span>
-            <span className="block text-[10px] font-black uppercase tracking-[.17em] text-[#687b91] sm:text-[11px]">Trabajos · Becas · Guías</span>
+            <span className="block whitespace-nowrap text-[10px] font-black uppercase tracking-[.15em] text-[#6d7f92] sm:text-xs">Trabajos · Becas · Guías</span>
           </span>
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-1 min-[980px]:flex lg:gap-2">
-          <Link href="/" className={navClass("/")}>Inicio</Link>
-          <Link href="/convocatorias" className={navClass("/convocatorias")}><span className="inline-flex items-center gap-1.5"><Search size={16}/> Trabajos</span></Link>
-          <Link href="/becas" className={navClass("/becas")}><span className="inline-flex items-center gap-1.5"><GraduationCap size={16}/> Becas</span></Link>
-          <Link href="/guias" className={navClass("/guias")}><span className="inline-flex items-center gap-1.5"><BookOpen size={16}/> Guías</span></Link>
-          <Link href="/crear-cv" className={navClass("/crear-cv")}><span className="inline-flex items-center gap-1.5"><FileText size={16}/> Crear CV</span></Link>
-          <Link href="/como-verificamos" className={navClass("/como-verificamos")}><span className="inline-flex items-center gap-1.5"><ShieldCheck size={16}/> Verificación</span></Link>
+        <nav className="hidden items-center gap-1 lg:flex">
+          <Link href="/convocatorias" className={navClass("/convocatorias")}><Search size={15} className="mr-1 inline"/> Convocatorias</Link>
+          <Link href="/becas" className={navClass("/becas")}><GraduationCap size={15} className="mr-1 inline"/> Becas</Link>
+          <Link href="/guias" className={navClass("/guias")}><BookOpen size={15} className="mr-1 inline"/> Guías</Link>
+          <Link href="/crear-cv" className={navClass("/crear-cv")}><FileText size={15} className="mr-1 inline"/> Crear CV</Link>
+          <Link href="/como-verificamos" className={navClass("/como-verificamos")}><ShieldCheck size={15} className="mr-1 inline"/> Cómo verificamos</Link>
+          <Link href={accountHref} className={navClass(accountHref)}><User size={15} className="mr-1 inline"/> Cuenta</Link>
         </nav>
 
-        <div className="hidden items-center gap-2 min-[980px]:flex">
-          <Link href={accountHref} className="grid h-11 w-11 place-items-center rounded-xl border border-[#d7e2ef] text-[#17365d] transition hover:border-[#8bb6e8] hover:bg-[#eef5ff] hover:text-[#0758ad]" aria-label={email ? "Mi cuenta" : "Iniciar sesión"}>
-            <User size={20}/>
-          </Link>
-        </div>
-
-        <div ref={mobileMenuRef} className="relative min-[980px]:hidden">
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen((open) => !open)}
-            className="grid h-11 w-11 place-items-center rounded-xl border border-[#d7e2ef] text-[#0a2d5a]"
-            aria-label="Abrir menú"
-            aria-expanded={mobileMenuOpen}
-          >
-            <Menu size={25} />
+        <div ref={mobileMenuRef} className="relative lg:hidden">
+          <button type="button" onClick={() => setMobileMenuOpen((value) => !value)} className="grid h-12 w-12 place-items-center rounded-2xl border border-[#dbe5f1] bg-white text-[#0a2d5a]" aria-label="Abrir menú" aria-expanded={mobileMenuOpen}>
+            <Menu size={26}/>
           </button>
-
-          {mobileMenuOpen && (
-            <div className="absolute right-0 top-14 w-[250px] rounded-[20px] border border-[#dbe5f1] bg-white p-2 shadow-[0_18px_45px_rgba(10,45,90,.16)]">
-              <Link onClick={() => setMobileMenuOpen(false)} href="/" className={mobileNavClass("/")}>Inicio</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/convocatorias" className={mobileNavClass("/convocatorias")}>Trabajos</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/becas" className={mobileNavClass("/becas")}>Becas</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/guias" className={mobileNavClass("/guias")}>Guías</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/crear-cv" className={mobileNavClass("/crear-cv")}>Crear CV</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/como-verificamos" className={mobileNavClass("/como-verificamos")}>Cómo verificamos</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href={accountHref} className={`mt-1 flex items-center gap-2 rounded-xl px-4 py-3 text-base font-black transition ${isActive(accountHref) ? "bg-[#fff2c8] text-[#0a2d5a] ring-1 ring-inset ring-[#f0c24a]" : "bg-[#0a2d5a] text-white"}`}><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
-            </div>
-          )}
+          {mobileMenuOpen && <div className="absolute right-0 top-[58px] z-[70] w-[min(86vw,330px)] rounded-2xl border border-[#dbe5f1] bg-white p-2 shadow-[0_18px_45px_rgba(10,45,90,.18)]">
+            <Link href="/convocatorias" className={mobileNavClass("/convocatorias")}>Convocatorias</Link>
+            <Link href="/becas" className={mobileNavClass("/becas")}>Becas</Link>
+            <Link href="/guias" className={mobileNavClass("/guias")}>Guías</Link>
+            <Link href="/crear-cv" className={mobileNavClass("/crear-cv")}>Crear CV</Link>
+            <Link href="/como-verificamos" className={mobileNavClass("/como-verificamos")}>Cómo verificamos</Link>
+            <Link href={accountHref} className={mobileNavClass(accountHref)}>Cuenta</Link>
+          </div>}
         </div>
       </div>
     </header>
