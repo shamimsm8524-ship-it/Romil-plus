@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { CvBuilder } from "@/components/CvBuilder";
 import { CvDesignEnhancer } from "@/components/CvDesignEnhancer";
+import { CvPageManager } from "@/components/CvPageManager";
 import "./cv-designs.css";
 import "./photo-alignment.css";
 import "./azul-tecnico-redesign.css";
 import "./cv-print-fix.css";
+import "./cv-pages.css";
 
 export const metadata: Metadata = {
   title: "Crear CV profesional gratis",
@@ -16,5 +18,6 @@ export default function CrearCvPage() {
   return <>
     <CvBuilder />
     <CvDesignEnhancer />
+    <CvPageManager />
   </>;
 }
