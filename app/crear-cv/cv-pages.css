@@ -170,7 +170,7 @@
 @media print{
   .cv-page-manager{display:none!important}
 
-  [data-cv-source-preview="true"]{
+  [data-cv-manual-mode="true"]{
     display:none!important;
   }
 
