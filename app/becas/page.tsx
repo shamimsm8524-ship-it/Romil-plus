@@ -23,14 +23,25 @@ export default function ScholarshipsPage() {
     <main className="min-h-screen bg-white text-[#0a2d5a]">
       <div className="mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 lg:px-6">
         <section className="overflow-hidden rounded-[30px] border border-[#dbe5f1] bg-[radial-gradient(circle_at_85%_15%,rgba(244,189,45,.18),transparent_32%),linear-gradient(145deg,#f7fbff,#ffffff)] p-6 shadow-[0_12px_34px_rgba(10,45,90,.06)] sm:p-8 lg:p-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#f0cf70] bg-[#fff7da] px-3 py-1.5 text-xs font-black uppercase tracking-[.12em] text-[#9a6a00]">
-              <GraduationCap size={15} /> Catálogo de becas
+          <div className="grid gap-7 lg:grid-cols-[1fr_340px] lg:items-center">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#f0cf70] bg-[#fff7da] px-3 py-1.5 text-xs font-black uppercase tracking-[.12em] text-[#9a6a00]">
+                <GraduationCap size={15} /> Catálogo de becas
+              </div>
+              <h1 className="mt-5 text-4xl font-black leading-tight text-[#0a2d5a] sm:text-5xl">Becas nacionales e internacionales</h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[#52647a]">
+                Cada oportunidad abre una ficha propia con requisitos, quién puede postular, cobertura, documentos, etapas y fechas importantes. Cuando verificamos un enlace oficial directo de postulación, el botón te lleva a ese canal; si no existe uno estable, te mostramos las instrucciones y la fuente oficial sin inventar enlaces.
+              </p>
             </div>
-            <h1 className="mt-5 text-4xl font-black leading-tight text-[#0a2d5a] sm:text-5xl">Becas nacionales e internacionales</h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-[#52647a]">
-              Cada oportunidad abre una ficha propia con requisitos, quién puede postular, cobertura, documentos, etapas y fechas importantes. Cuando verificamos un enlace oficial directo de postulación, el botón te lleva a ese canal; si no existe uno estable, te mostramos las instrucciones y la fuente oficial sin inventar enlaces.
-            </p>
+
+            <div className="relative mx-auto flex w-full max-w-[340px] items-end justify-center">
+              <div className="absolute inset-x-6 bottom-4 top-10 rounded-[42%] bg-[radial-gradient(circle,#eef5ff_0%,#fff4c7_62%,transparent_74%)]" />
+              <img
+                src="/romil-hero-scholar.svg"
+                alt="Estudiante con cuadernos"
+                className="relative z-10 h-auto w-full max-w-[330px] object-contain"
+              />
+            </div>
           </div>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
