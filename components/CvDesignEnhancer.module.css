@@ -1,0 +1,399 @@
+.enhancer {
+  display: none;
+}
+
+:global(#cv-print-area[data-cv-template]) {
+  position: relative;
+  isolation: isolate;
+  transition: background .2s ease, box-shadow .2s ease;
+}
+
+:global(#cv-print-area[data-cv-template] section) {
+  break-inside: avoid;
+}
+
+/* Miniaturas: cada familia se reconoce antes de abrir el modelo. */
+:global(button[data-cv-template-card] > div:first-child > div) {
+  position: relative;
+  border: 1px solid rgba(15, 42, 73, .08);
+  box-shadow: 0 4px 12px rgba(15, 42, 73, .08);
+}
+
+:global(button[data-cv-template-card] > div:first-child > div > *) {
+  position: relative;
+  z-index: 1;
+}
+
+:global(button[data-cv-template-card="ejecutivo-azul"] > div:first-child > div),
+:global(button[data-cv-template-card="dorado-elegante"] > div:first-child > div),
+:global(button[data-cv-template-card="lavanda-profesional"] > div:first-child > div),
+:global(button[data-cv-template-card="malva-ejecutivo"] > div:first-child > div) {
+  background: linear-gradient(90deg, var(--thumb, #0a2d5a) 0 31%, #fff 31% 100%);
+}
+
+:global(button[data-cv-template-card="azul-tecnico"] > div:first-child > div) {
+  background: linear-gradient(90deg, #0866d8 0 25%, #eaf3ff 25% 28%, #fff 28% 100%);
+}
+
+:global(button[data-cv-template-card="cobalto-directivo"] > div:first-child > div) {
+  background: linear-gradient(90deg, #0d3c5f 0 36%, #fff 36% 100%);
+}
+
+:global(button[data-cv-template-card="corporativo-oro"] > div:first-child > div),
+:global(button[data-cv-template-card="verde-ejecutivo"] > div:first-child > div),
+:global(button[data-cv-template-card="cafe-ejecutivo"] > div:first-child > div),
+:global(button[data-cv-template-card="azul-sereno"] > div:first-child > div),
+:global(button[data-cv-template-card="verde-salvia"] > div:first-child > div),
+:global(button[data-cv-template-card="champagne-profesional"] > div:first-child > div) {
+  background: linear-gradient(180deg, #dbe7f3 0 30%, #fff 30% 100%);
+}
+
+:global(button[data-cv-template-card="navy-moderno"] > div:first-child > div),
+:global(button[data-cv-template-card="acero-profesional"] > div:first-child > div),
+:global(button[data-cv-template-card="rosa-ejecutivo"] > div:first-child > div),
+:global(button[data-cv-template-card="borgona-elegante"] > div:first-child > div) {
+  background: linear-gradient(90deg, #fff 0 50%, #f1f4f8 50% 100%);
+  border-top-width: 5px;
+}
+
+:global(button[data-cv-template-card="grafito-premium"] > div:first-child > div) {
+  background: linear-gradient(180deg, #343a40 0 28%, #f4f5f6 28% 100%);
+}
+
+:global(button[data-cv-template-card="indigo-sobrio"] > div:first-child > div) {
+  background: linear-gradient(90deg, #384a8a 0 8%, #f5f6fb 8% 100%);
+}
+
+:global(button[data-cv-template-card="arena-premium"] > div:first-child > div) {
+  background: linear-gradient(180deg, #efe5d8 0 36%, #fff 36% 100%);
+}
+
+:global(button[data-cv-template-card="celeste-moderno"] > div:first-child > div) {
+  background: linear-gradient(135deg, #367c91 0 18%, #eef8fa 18% 42%, #fff 42% 100%);
+}
+
+/* 1. Ejecutivo Azul: clásico ejecutivo con barra lateral limpia. */
+:global(#cv-print-area[data-cv-template="ejecutivo-azul"] > .grid) {
+  grid-template-columns: 31% 69% !important;
+}
+:global(#cv-print-area[data-cv-template="ejecutivo-azul"] > .grid > aside:first-child) {
+  background: linear-gradient(180deg, #09284f 0%, #103c70 100%) !important;
+  border-right: 6px solid #e5b94f;
+}
+:global(#cv-print-area[data-cv-template="ejecutivo-azul"] > .grid > div:last-child) {
+  background: linear-gradient(180deg, #f8fbff 0 120px, #fff 120px);
+}
+
+/* 2. Corporativo Oro: encabezado diagonal corporativo. */
+:global(#cv-print-area[data-cv-template="corporativo-oro"] > header.grid) {
+  background: linear-gradient(135deg, #172434 0 68%, #9b6a00 68% 100%) !important;
+  border-bottom: 8px solid #e8c15f;
+}
+:global(#cv-print-area[data-cv-template="corporativo-oro"] > header.grid > div:last-child) {
+  margin-right: 32px !important;
+}
+:global(#cv-print-area[data-cv-template="corporativo-oro"] > div.grid:last-child > aside) {
+  background: #fff8e7;
+  border-left: 0 !important;
+  padding: 24px !important;
+}
+
+/* 3. Navy Moderno: cabecera suave y composición editorial. */
+:global(#cv-print-area[data-cv-template="navy-moderno"] > div:nth-child(2)) {
+  background: linear-gradient(90deg, #eef4fa 0 72%, #17365d 72% 100%);
+  padding-top: 34px !important;
+  padding-bottom: 34px !important;
+}
+:global(#cv-print-area[data-cv-template="navy-moderno"] > div:nth-child(2) > div:first-child) {
+  border-radius: 18px !important;
+  border-color: #17365d !important;
+}
+:global(#cv-print-area[data-cv-template="navy-moderno"] > div:last-child) {
+  background: linear-gradient(90deg, #fff 0 50%, #f7f9fc 50% 100%);
+}
+
+/* 4. Grafito Premium: deja de ser una hoja blanca simple. */
+:global(#cv-print-area[data-cv-template="grafito-premium"]) {
+  background: #f4f5f6 !important;
+  padding-top: 0 !important;
+}
+:global(#cv-print-area[data-cv-template="grafito-premium"] > div:first-child) {
+  margin: 0 -40px 0 !important;
+  padding: 38px 40px 32px !important;
+  background: linear-gradient(120deg, #272c31 0 74%, #444b52 74% 100%);
+  align-items: center !important;
+}
+:global(#cv-print-area[data-cv-template="grafito-premium"] > div:first-child h2),
+:global(#cv-print-area[data-cv-template="grafito-premium"] > div:first-child p) {
+  color: #fff !important;
+}
+:global(#cv-print-area[data-cv-template="grafito-premium"] > div:nth-child(2)) {
+  margin-top: 0 !important;
+  padding: 14px 18px !important;
+  background: #e9ecef;
+  border: 0 !important;
+}
+:global(#cv-print-area[data-cv-template="grafito-premium"] > div:last-child > section) {
+  background: #fff;
+  border: 1px solid #e1e5e9;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 5px 16px rgba(36, 42, 48, .05);
+}
+
+/* 5. Azul Técnico: banda técnica estrecha y foto cuadrada. */
+:global(#cv-print-area[data-cv-template="azul-tecnico"] > .grid) {
+  grid-template-columns: 27% 73% !important;
+}
+:global(#cv-print-area[data-cv-template="azul-tecnico"] > .grid > aside:first-child) {
+  background: repeating-linear-gradient(135deg, #075bbf 0 18px, #0866d8 18px 36px) !important;
+  border-right: 10px solid #dbeafe;
+}
+:global(#cv-print-area[data-cv-template="azul-tecnico"] > .grid > aside:first-child > div:first-child) {
+  border-radius: 18px !important;
+}
+:global(#cv-print-area[data-cv-template="azul-tecnico"] > .grid > div:last-child) {
+  border-top: 14px solid #0866d8;
+}
+
+/* 6. Verde Ejecutivo: cabecera profunda con cierre suave. */
+:global(#cv-print-area[data-cv-template="verde-ejecutivo"] > header.grid) {
+  background: linear-gradient(135deg, #184a39, #2b7659) !important;
+  padding-bottom: 52px !important;
+  clip-path: polygon(0 0, 100% 0, 100% 84%, 0 100%);
+}
+:global(#cv-print-area[data-cv-template="verde-ejecutivo"] > div.grid:last-child) {
+  margin-top: -18px;
+  padding-top: 48px !important;
+}
+:global(#cv-print-area[data-cv-template="verde-ejecutivo"] > div.grid:last-child > aside) {
+  background: #eff7f2;
+  border-left: 0 !important;
+  border-radius: 18px;
+  padding: 22px !important;
+}
+
+/* 7. Acero Profesional: tarjetas y estructura industrial. */
+:global(#cv-print-area[data-cv-template="acero-profesional"] > div:nth-child(2)) {
+  background: #eef1f4;
+  border-left: 18px solid #495867;
+}
+:global(#cv-print-area[data-cv-template="acero-profesional"] > div:nth-child(4) > div > section) {
+  background: #f8f9fa;
+  border-left: 4px solid #8493a1;
+  padding: 16px 18px;
+  border-radius: 0 12px 12px 0;
+}
+
+/* 8. Índigo Sobrio: franja vertical y bloques sobrios. */
+:global(#cv-print-area[data-cv-template="indigo-sobrio"]) {
+  background: linear-gradient(90deg, #384a8a 0 16px, #fff 16px 100%) !important;
+  padding-left: 54px !important;
+}
+:global(#cv-print-area[data-cv-template="indigo-sobrio"] > div:first-child) {
+  background: #f2f3fb;
+  margin: -12px -10px 0 -18px;
+  padding: 24px 24px 22px;
+  border-radius: 16px;
+}
+:global(#cv-print-area[data-cv-template="indigo-sobrio"] > div:last-child > section) {
+  border-left: 3px solid #d4d9f2;
+  padding-left: 14px;
+}
+
+/* 9. Cobalto Directivo: lateral ancho y paneles de alto contraste. */
+:global(#cv-print-area[data-cv-template="cobalto-directivo"] > .grid) {
+  grid-template-columns: 36% 64% !important;
+}
+:global(#cv-print-area[data-cv-template="cobalto-directivo"] > .grid > aside:first-child) {
+  background: linear-gradient(160deg, #0c3959 0%, #17658f 100%) !important;
+}
+:global(#cv-print-area[data-cv-template="cobalto-directivo"] > .grid > aside:first-child section) {
+  background: rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 12px;
+}
+:global(#cv-print-area[data-cv-template="cobalto-directivo"] > .grid > div:last-child) {
+  border-top: 12px solid #124e78;
+}
+
+/* 10. Café Ejecutivo: dos tonos elegantes. */
+:global(#cv-print-area[data-cv-template="cafe-ejecutivo"] > header.grid) {
+  background: linear-gradient(90deg, #5e4333 0 72%, #e9ddd3 72% 100%) !important;
+}
+:global(#cv-print-area[data-cv-template="cafe-ejecutivo"] > header.grid > div:last-child) {
+  margin-right: 28px !important;
+  border-color: #fff !important;
+}
+:global(#cv-print-area[data-cv-template="cafe-ejecutivo"] > div.grid:last-child > aside) {
+  background: #faf5f1;
+}
+
+/* 11. Dorado Elegante: lateral claro, no otra copia azul. */
+:global(#cv-print-area[data-cv-template="dorado-elegante"] > .grid > aside:first-child) {
+  background: linear-gradient(180deg, #fff9e9, #f3e4b9) !important;
+  border-right: 7px solid #b78314;
+  color: #3d3425 !important;
+}
+:global(#cv-print-area[data-cv-template="dorado-elegante"] > .grid > aside:first-child *) {
+  color: #3d3425 !important;
+  border-color: rgba(111, 78, 13, .25) !important;
+}
+:global(#cv-print-area[data-cv-template="dorado-elegante"] > .grid > aside:first-child section span) {
+  background: rgba(183, 131, 20, .12) !important;
+}
+:global(#cv-print-area[data-cv-template="dorado-elegante"] > .grid > div:last-child) {
+  background: #fffdf8;
+}
+
+/* 12. Azul Sereno: encabezado claro, aireado y contemporáneo. */
+:global(#cv-print-area[data-cv-template="azul-sereno"] > header.grid) {
+  background: linear-gradient(135deg, #edf5fc, #cfe3f4) !important;
+  border-bottom: 5px solid #315d8c;
+}
+:global(#cv-print-area[data-cv-template="azul-sereno"] > header.grid *) {
+  color: #244a71 !important;
+}
+:global(#cv-print-area[data-cv-template="azul-sereno"] > header.grid > div:last-child) {
+  border-color: #315d8c !important;
+}
+:global(#cv-print-area[data-cv-template="azul-sereno"] > div.grid:last-child > aside) {
+  background: #f3f8fc;
+}
+
+/* 13. Rosa Ejecutivo: composición editorial suave. */
+:global(#cv-print-area[data-cv-template="rosa-ejecutivo"] > div:nth-child(2)) {
+  background: linear-gradient(90deg, #fbf0f3 0 68%, #a24f68 68% 100%);
+  border-bottom: 1px solid #ead4db;
+}
+:global(#cv-print-area[data-cv-template="rosa-ejecutivo"] > div:nth-child(2) > div:first-child) {
+  border-radius: 28px !important;
+  border-color: #a24f68 !important;
+}
+:global(#cv-print-area[data-cv-template="rosa-ejecutivo"] > div:last-child > div:nth-child(2)) {
+  background: #fff8fa;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+/* 14. Arena Premium: lujo cálido y bloques marcados. */
+:global(#cv-print-area[data-cv-template="arena-premium"]) {
+  background: #f8f4ef !important;
+}
+:global(#cv-print-area[data-cv-template="arena-premium"] > div:first-child) {
+  background: #eadfD1;
+  margin: -10px -10px 0;
+  padding: 28px;
+  border-radius: 18px;
+  border-bottom: 4px solid #8b7355;
+}
+:global(#cv-print-area[data-cv-template="arena-premium"] > div:last-child > section) {
+  background: #fff;
+  padding: 16px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(107, 87, 62, .07);
+}
+
+/* 15. Lavanda Profesional: lateral pastel con texto oscuro. */
+:global(#cv-print-area[data-cv-template="lavanda-profesional"] > .grid > aside:first-child) {
+  background: linear-gradient(180deg, #f1edf8, #ded5ef) !important;
+  border-right: 7px solid #6a5b8f;
+  color: #44395e !important;
+}
+:global(#cv-print-area[data-cv-template="lavanda-profesional"] > .grid > aside:first-child *) {
+  color: #44395e !important;
+  border-color: rgba(106,91,143,.24) !important;
+}
+:global(#cv-print-area[data-cv-template="lavanda-profesional"] > .grid > div:last-child) {
+  background: linear-gradient(180deg, #faf8fd 0 150px, #fff 150px);
+}
+
+/* 16. Verde Salvia: natural y elegante. */
+:global(#cv-print-area[data-cv-template="verde-salvia"] > header.grid) {
+  background: linear-gradient(135deg, #e9f0e5 0 58%, #5f7658 58% 100%) !important;
+  border-bottom: 6px solid #bdcdb7;
+}
+:global(#cv-print-area[data-cv-template="verde-salvia"] > header.grid > div:first-child *) {
+  color: #33422f !important;
+}
+:global(#cv-print-area[data-cv-template="verde-salvia"] > div.grid:last-child > aside) {
+  background: #f2f6ef;
+  border-left: 0 !important;
+  padding: 22px !important;
+}
+
+/* 17. Borgoña Elegante: contraste editorial fuerte. */
+:global(#cv-print-area[data-cv-template="borgona-elegante"] > div:first-child) {
+  height: 18px !important;
+  background: linear-gradient(90deg, #7e3342, #c18a96) !important;
+}
+:global(#cv-print-area[data-cv-template="borgona-elegante"] > div:nth-child(2)) {
+  border-bottom: 1px solid #ecd6db;
+}
+:global(#cv-print-area[data-cv-template="borgona-elegante"] > div:last-child) {
+  background: linear-gradient(90deg, #fff 0 48.5%, #f4e8eb 48.5% 51.5%, #fff 51.5% 100%);
+}
+:global(#cv-print-area[data-cv-template="borgona-elegante"] > div:last-child section) {
+  background: #fffafa;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+/* 18. Celeste Moderno: geometría limpia y tecnológica. */
+:global(#cv-print-area[data-cv-template="celeste-moderno"]) {
+  background: linear-gradient(135deg, #367c91 0 84px, #eef8fa 84px 170px, #fff 170px) !important;
+}
+:global(#cv-print-area[data-cv-template="celeste-moderno"] > div:first-child) {
+  margin-left: 34px;
+  background: rgba(255,255,255,.92);
+  padding: 24px;
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(54,124,145,.10);
+}
+:global(#cv-print-area[data-cv-template="celeste-moderno"] > div:last-child > section) {
+  border-top: 3px solid #cce8ee;
+  padding-top: 14px;
+}
+
+/* 19. Malva Ejecutivo: panel lateral refinado. */
+:global(#cv-print-area[data-cv-template="malva-ejecutivo"] > .grid > aside:first-child) {
+  background: linear-gradient(160deg, #5d4657, #856b7d) !important;
+  border-right: 6px solid #eadfe7;
+}
+:global(#cv-print-area[data-cv-template="malva-ejecutivo"] > .grid > aside:first-child section) {
+  background: rgba(255,255,255,.09);
+  border-radius: 14px;
+  padding: 12px;
+}
+:global(#cv-print-area[data-cv-template="malva-ejecutivo"] > .grid > div:last-child) {
+  background: #fcfafc;
+}
+
+/* 20. Champagne Profesional: luminoso, premium y distinto. */
+:global(#cv-print-area[data-cv-template="champagne-profesional"] > header.grid) {
+  background: linear-gradient(180deg, #fbf5e9, #efe0c6) !important;
+  border-top: 10px solid #9d7b47;
+  border-bottom: 2px solid #d7bd91;
+}
+:global(#cv-print-area[data-cv-template="champagne-profesional"] > header.grid *) {
+  color: #5c4930 !important;
+}
+:global(#cv-print-area[data-cv-template="champagne-profesional"] > header.grid > div:last-child) {
+  border-color: #9d7b47 !important;
+}
+:global(#cv-print-area[data-cv-template="champagne-profesional"] > div.grid:last-child) {
+  background: #fffdf8;
+}
+:global(#cv-print-area[data-cv-template="champagne-profesional"] > div.grid:last-child > aside) {
+  background: #faf2e5;
+  border-left: 0 !important;
+  padding: 22px !important;
+}
+
+@media print {
+  :global(#cv-print-area[data-cv-template="grafito-premium"] > div:first-child),
+  :global(#cv-print-area[data-cv-template="arena-premium"] > div:first-child),
+  :global(#cv-print-area[data-cv-template="celeste-moderno"] > div:first-child) {
+    box-shadow: none !important;
+  }
+}
