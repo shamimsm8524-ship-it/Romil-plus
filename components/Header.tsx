@@ -49,12 +49,23 @@ export function Header() {
   const isAdmin = (email || "").toLowerCase() === ADMIN_EMAIL;
   const accountHref = !checkingSession && email ? (isAdmin ? "/admin" : "/perfil") : "/login";
 
+  const isActive = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+
   const navClass = (href: string) => {
-    const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+    const active = isActive(href);
     return `rounded-xl px-3 py-2 text-sm font-black transition ${
       active
         ? "bg-[#fff2c8] text-[#8a6100] ring-1 ring-[#f0c24a]"
         : "text-[#3d5877] hover:bg-[#eef5ff] hover:text-[#0758ad]"
+    }`;
+  };
+
+  const mobileNavClass = (href: string) => {
+    const active = isActive(href);
+    return `block rounded-xl px-4 py-3 text-base font-black transition ${
+      active
+        ? "bg-[#fff2c8] text-[#0a2d5a] ring-1 ring-inset ring-[#f0c24a]"
+        : "text-[#17365d] hover:bg-[#eef5ff]"
     }`;
   };
 
@@ -98,12 +109,12 @@ export function Header() {
 
           {mobileMenuOpen && (
             <div className="absolute right-0 top-14 w-[250px] rounded-[20px] border border-[#dbe5f1] bg-white p-2 shadow-[0_18px_45px_rgba(10,45,90,.16)]">
-              <Link onClick={() => setMobileMenuOpen(false)} href="/" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Inicio</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/convocatorias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Trabajos</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/becas" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Becas</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/guias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Guías</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href="/como-verificamos" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Cómo verificamos</Link>
-              <Link onClick={() => setMobileMenuOpen(false)} href={accountHref} className="mt-1 flex items-center gap-2 rounded-xl bg-[#0a2d5a] px-4 py-3 text-base font-black text-white"><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/" className={mobileNavClass("/")}>Inicio</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/convocatorias" className={mobileNavClass("/convocatorias")}>Trabajos</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/becas" className={mobileNavClass("/becas")}>Becas</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/guias" className={mobileNavClass("/guias")}>Guías</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/como-verificamos" className={mobileNavClass("/como-verificamos")}>Cómo verificamos</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href={accountHref} className={`mt-1 flex items-center gap-2 rounded-xl px-4 py-3 text-base font-black transition ${isActive(accountHref) ? "bg-[#fff2c8] text-[#0a2d5a] ring-1 ring-inset ring-[#f0c24a]" : "bg-[#0a2d5a] text-white"}`}><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
             </div>
           )}
         </div>
