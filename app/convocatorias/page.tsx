@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { ArrowRight, ArrowUpRight, Cpu, GraduationCap, Landmark, ShieldCheck, Wrench } from "lucide-react";
+import { ArrowRight, Cpu, GraduationCap, Landmark, ShieldCheck, Wrench } from "lucide-react";
 import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { detailedPublicJobs } from "@/lib/job-details";
 import { privateVerifiedJobs } from "@/lib/private-verified-jobs";
-import { institutionSources } from "@/lib/state-opportunities";
 import { getSunatLiveJobs } from "@/lib/sunat-live";
 
 export const revalidate = 300;
@@ -128,38 +127,6 @@ export default async function ConvocatoriasPage() {
       <div id="listado" className="mx-auto w-full max-w-[1180px] px-4 pb-12 sm:px-6 lg:px-6">
         <StateJobsExplorer jobs={jobsForExplorer} detailSlugs={detailSlugs} />
       </div>
-
-      <section className="border-t border-[#dbe5f1] bg-[#f8fafc]">
-        <div className="mx-auto w-full max-w-[1180px] px-4 py-12 sm:px-6 lg:px-6">
-          <div className="max-w-3xl">
-            <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Fuentes comprobables</p>
-            <h2 className="mt-2 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl">Fuentes que seguimos revisando</h2>
-            <p className="mt-3 text-base font-medium leading-7 text-[#5f7084]">
-              En el sector público seguimos portales institucionales como SUNAT, SUNARP, MINEDU, DRE, UGEL, Poder Judicial, Ministerio Público, IPD, MINEM y PCM. Para empresas privadas, una oferta solo debe incorporarse cuando el enlace pueda trazarse al empleador o a una plataforma oficial de reclutamiento identificable.
-            </p>
-          </div>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {institutionSources.map((source) => (
-              <a key={source.name} href={source.url} target="_blank" rel="noopener noreferrer" className="group rounded-[22px] border border-[#dbe5f1] bg-white p-5 shadow-[0_6px_20px_rgba(10,45,90,.04)] transition hover:-translate-y-0.5 hover:border-[#9bbde3]">
-                <div className="flex items-start justify-between gap-3">
-                  <p className="text-lg font-black text-[#12365f]">{source.name}</p>
-                  <ArrowUpRight size={18} className="mt-0.5 shrink-0 text-[#0866d8]" />
-                </div>
-                <p className="mt-2 text-sm font-black uppercase tracking-[.06em] text-[#b77d00]">{source.area}</p>
-                <p className="mt-3 text-base font-medium leading-6 text-[#657489]">{source.note}</p>
-              </a>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-[24px] bg-[#0a2d5a] p-6 text-white sm:p-7">
-            <h2 className="text-2xl font-black">Verificación antes que cantidad</h2>
-            <p className="mt-3 text-base font-medium leading-7 text-white/78">
-              No publicamos un empleo solo para aumentar el número de avisos. Revisamos fuente, empleador o entidad, vigencia, ubicación y forma de postulación. Cuando una oferta vence o deja de estar disponible, debe retirarse del listado de vigentes.
-            </p>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
