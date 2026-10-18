@@ -34,12 +34,12 @@ export default function ScholarshipsPage() {
               </p>
             </div>
 
-            <div className="relative mx-auto flex w-full max-w-[340px] items-end justify-center">
+            <div className="relative mx-auto flex w-full max-w-[390px] items-end justify-center px-5 py-4 sm:px-7">
               <div className="absolute inset-x-6 bottom-4 top-10 rounded-[42%] bg-[radial-gradient(circle,#eef5ff_0%,#fff4c7_62%,transparent_74%)]" />
               <img
                 src="/romil-hero-scholar.svg"
                 alt="Estudiante con cuadernos"
-                className="relative z-10 h-auto w-full max-w-[330px] object-contain"
+                className="relative z-10 h-auto w-full max-w-[285px] object-contain sm:max-w-[305px]"
               />
             </div>
           </div>
