@@ -1,0 +1,213 @@
+.cv-page-manager{
+  position:fixed;
+  right:14px;
+  top:50%;
+  z-index:70;
+  display:grid;
+  width:132px;
+  transform:translateY(-50%);
+  gap:8px;
+  border:1px solid #dbe5f1;
+  border-radius:18px;
+  background:rgba(255,255,255,.98);
+  padding:10px;
+  box-shadow:0 14px 40px rgba(10,45,90,.16);
+  color:#0a2d5a;
+}
+
+.cv-page-manager-title{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#60758d;
+}
+
+.cv-page-manager-pages{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+
+.cv-page-manager-pages button{
+  display:grid;
+  width:34px;
+  height:34px;
+  place-items:center;
+  border:1px solid #d7e2ee;
+  border-radius:10px;
+  background:#f7f9fc;
+  color:#52677f;
+  font-size:12px;
+  font-weight:900;
+}
+
+.cv-page-manager-pages button.is-active{
+  border-color:#0a2d5a;
+  background:#0a2d5a;
+  color:#fff;
+  box-shadow:0 4px 12px rgba(10,45,90,.18);
+}
+
+.cv-page-add,
+.cv-page-remove{
+  display:flex;
+  min-height:36px;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  border-radius:10px;
+  padding:0 8px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.cv-page-add{
+  border:1px solid #b8d2ef;
+  background:#eef5ff;
+  color:#0758ad;
+}
+
+.cv-page-add:disabled{
+  cursor:not-allowed;
+  opacity:.45;
+}
+
+.cv-page-remove{
+  border:1px solid #efd0d0;
+  background:#fff5f5;
+  color:#a44747;
+}
+
+.cv-page-counter{
+  border-top:1px solid #edf1f5;
+  padding-top:7px;
+  text-align:center;
+  font-size:10px;
+  font-weight:800;
+  color:#718096;
+}
+
+#cv-manual-pages-host{
+  width:100%;
+}
+
+#cv-manual-pages-host>.cv-manual-page{
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* Las páginas de continuación conservan el estilo, pero no repiten nombre, foto ni datos personales. */
+#cv-print-area.cv-continuation-page>header.grid{
+  display:block!important;
+  min-height:42px!important;
+  height:42px!important;
+  padding:0!important;
+}
+
+#cv-print-area.cv-continuation-page>header.grid>*{
+  display:none!important;
+}
+
+#cv-print-area.cv-continuation-page>.grid>aside:first-child>div:first-child,
+#cv-print-area.cv-continuation-page>.grid>aside:first-child>div:nth-child(2),
+#cv-print-area.cv-continuation-page>.grid>div:last-child>div:first-child{
+  display:none!important;
+}
+
+#cv-print-area.cv-continuation-page>.grid>div:last-child>div:nth-child(2){
+  margin-top:0!important;
+}
+
+#cv-print-area.cv-continuation-page>.h-3+div.grid{
+  display:none!important;
+}
+
+#cv-print-area.cv-continuation-page>.flex.items-start.justify-between,
+#cv-print-area.cv-continuation-page>.flex.items-start.justify-between+div{
+  display:none!important;
+}
+
+@media (max-width:899px){
+  .cv-page-manager{
+    right:auto;
+    top:auto;
+    bottom:12px;
+    left:50%;
+    width:auto;
+    max-width:calc(100vw - 20px);
+    transform:translateX(-50%);
+    grid-template-columns:auto auto auto;
+    align-items:center;
+    border-radius:16px;
+    padding:8px;
+  }
+
+  .cv-page-manager-title,
+  .cv-page-counter{
+    display:none;
+  }
+
+  .cv-page-manager-pages{
+    flex-wrap:nowrap;
+  }
+
+  .cv-page-add,
+  .cv-page-remove{
+    min-height:34px;
+    white-space:nowrap;
+  }
+
+  .cv-page-add span,
+  .cv-page-remove span{
+    display:none;
+  }
+}
+
+@media print{
+  .cv-page-manager{display:none!important}
+
+  [data-cv-source-preview="true"]{
+    display:none!important;
+  }
+
+  #cv-manual-pages-host{
+    display:block!important;
+    width:210mm!important;
+    margin:0!important;
+    padding:0!important;
+    visibility:visible!important;
+  }
+
+  #cv-manual-pages-host>#cv-print-area.cv-manual-page{
+    position:relative!important;
+    inset:auto!important;
+    display:block!important;
+    width:210mm!important;
+    max-width:none!important;
+    min-height:297mm!important;
+    margin:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    zoom:1!important;
+    transform:none!important;
+    break-after:page!important;
+    page-break-after:always!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+    visibility:visible!important;
+  }
+
+  #cv-manual-pages-host>#cv-print-area.cv-manual-page:last-child{
+    break-after:auto!important;
+    page-break-after:auto!important;
+  }
+
+  #cv-manual-pages-host>#cv-print-area.cv-manual-page,
+  #cv-manual-pages-host>#cv-print-area.cv-manual-page *{
+    visibility:visible!important;
+  }
+}
