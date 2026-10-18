@@ -1,0 +1,11 @@
+@media print {
+  /* El encabezado interno del CV (nombre, cargo y foto) debe imprimirse. */
+  #cv-print-area > header {
+    display: grid !important;
+    visibility: visible !important;
+  }
+
+  #cv-print-area > header * {
+    visibility: visible !important;
+  }
+}
