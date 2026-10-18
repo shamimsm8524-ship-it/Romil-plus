@@ -51,6 +51,81 @@ button, input, textarea, select { font: inherit; }
 .article-copy li { line-height: 1.7; }
 .article-copy strong { color: rgba(255,255,255,.9); }
 
+/* Portada ROMIL PLUS: proporciones compactas en celular. */
+@media (max-width: 639px) {
+  main.bg-white > section:first-child > div {
+    gap: 1.15rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.75rem;
+  }
+
+  main.bg-white > section:first-child h1 {
+    margin-top: 1rem;
+    font-size: 2.05rem !important;
+    line-height: 1.02 !important;
+  }
+
+  main.bg-white > section:first-child h1 + p {
+    margin-top: .9rem;
+    font-size: 1rem !important;
+    line-height: 1.65rem !important;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] {
+    margin-top: 1.15rem;
+    gap: .25rem;
+    border-radius: 15px;
+    padding: .3rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] > svg {
+    width: 20px;
+    height: 20px;
+    margin-left: .4rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] input {
+    padding: .55rem .25rem;
+    font-size: .9rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] button {
+    min-height: 2.45rem;
+    border-radius: 11px;
+    padding-left: .8rem;
+    padding-right: .8rem;
+    font-size: .9rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] + div {
+    margin-top: .8rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .45rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] + div > a {
+    min-height: 3.25rem;
+    justify-content: center;
+    border-radius: 14px;
+    padding-left: .55rem;
+    padding-right: .55rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] + div > a > span {
+    gap: .35rem;
+    font-size: .9rem;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] + div > a > span svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  main.bg-white > section:first-child form[action="/convocatorias"] + div > a > svg {
+    display: none;
+  }
+}
+
 /* Mantiene las tarjetas históricas del catálogo sin alterar su funcionamiento. */
 @media (min-width: 1024px) {
   img[alt="HBO"] { object-fit: cover !important; object-position: center center !important; }
