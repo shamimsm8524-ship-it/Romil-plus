@@ -4,6 +4,7 @@ import { CvDesignEnhancer } from "@/components/CvDesignEnhancer";
 import "./cv-designs.css";
 import "./photo-alignment.css";
 import "./azul-tecnico-redesign.css";
+import "./cv-print-fix.css";
 
 export const metadata: Metadata = {
   title: "Crear CV profesional gratis",
