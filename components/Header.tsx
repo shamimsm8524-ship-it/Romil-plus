@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { BookOpen, GraduationCap, Menu, Search, ShieldCheck, User } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
 const ADMIN_EMAIL = "milagroslove.1693@gmail.com";
@@ -12,6 +12,8 @@ export function Header() {
   const pathname = usePathname();
   const [email, setEmail] = useState<string | null>(null);
   const [checkingSession, setCheckingSession] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!supabase) { setCheckingSession(false); return; }
@@ -25,6 +27,24 @@ export function Header() {
     });
     return () => authListener.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleOutsidePress = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(target)) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handleOutsidePress);
+    return () => document.removeEventListener("pointerdown", handleOutsidePress);
+  }, [mobileMenuOpen]);
 
   const isAdmin = (email || "").toLowerCase() === ADMIN_EMAIL;
   const accountHref = !checkingSession && email ? (isAdmin ? "/admin" : "/perfil") : "/login";
@@ -65,19 +85,28 @@ export function Header() {
           </Link>
         </div>
 
-        <details className="relative min-[820px]:hidden">
-          <summary className="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-xl border border-[#d7e2ef] text-[#0a2d5a] marker:hidden">
+        <div ref={mobileMenuRef} className="relative min-[820px]:hidden">
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            className="grid h-11 w-11 place-items-center rounded-xl border border-[#d7e2ef] text-[#0a2d5a]"
+            aria-label="Abrir menú"
+            aria-expanded={mobileMenuOpen}
+          >
             <Menu size={25} />
-          </summary>
-          <div className="absolute right-0 top-14 w-[250px] rounded-[20px] border border-[#dbe5f1] bg-white p-2 shadow-[0_18px_45px_rgba(10,45,90,.16)]">
-            <Link href="/" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Inicio</Link>
-            <Link href="/convocatorias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Trabajos</Link>
-            <Link href="/becas" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Becas</Link>
-            <Link href="/guias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Guías</Link>
-            <Link href="/como-verificamos" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Cómo verificamos</Link>
-            <Link href={accountHref} className="mt-1 flex items-center gap-2 rounded-xl bg-[#0a2d5a] px-4 py-3 text-base font-black text-white"><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
-          </div>
-        </details>
+          </button>
+
+          {mobileMenuOpen && (
+            <div className="absolute right-0 top-14 w-[250px] rounded-[20px] border border-[#dbe5f1] bg-white p-2 shadow-[0_18px_45px_rgba(10,45,90,.16)]">
+              <Link onClick={() => setMobileMenuOpen(false)} href="/" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Inicio</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/convocatorias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Trabajos</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/becas" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Becas</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/guias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Guías</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href="/como-verificamos" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Cómo verificamos</Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href={accountHref} className="mt-1 flex items-center gap-2 rounded-xl bg-[#0a2d5a] px-4 py-3 text-base font-black text-white"><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
