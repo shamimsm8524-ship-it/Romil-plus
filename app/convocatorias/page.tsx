@@ -45,9 +45,13 @@ export default async function ConvocatoriasPage() {
             </div>
           </div>
 
-          <div className="relative mx-auto flex w-full max-w-[420px] items-end justify-center lg:justify-end">
+          <div className="relative mx-auto flex min-h-[430px] w-full max-w-[430px] items-end justify-center lg:justify-end">
             <div className="absolute inset-x-8 bottom-5 top-14 rounded-[42%] bg-[radial-gradient(circle,#eef5ff_0%,#fff7dc_62%,transparent_72%)]" />
-            <img src="/romil-hero-student.svg" alt="Estudiante con cuadernos" className="relative z-10 h-auto w-full max-w-[340px] object-contain" />
+            <img
+              src="/romil-hero-worker.webp"
+              alt="Trabajador con casco y chaleco de seguridad"
+              className="relative z-10 h-auto w-full max-w-[390px] object-contain"
+            />
           </div>
         </div>
       </section>
