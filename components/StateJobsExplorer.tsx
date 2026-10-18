@@ -45,16 +45,19 @@ const statuses: Array<"Todas" | PublicJobStatus> = [
   "Sin convocatoria vigente",
 ];
 
-const featuredCategories: Array<{
+type FeaturedCategory = {
   value: "Todas" | PublicJobCategory;
   label: string;
   icon: typeof BriefcaseBusiness;
-}> = [
+  query?: string;
+};
+
+const featuredCategories: FeaturedCategory[] = [
   { value: "Docencia", label: "Docentes", icon: GraduationCap },
   { value: "Ingeniería y TI", label: "Ingeniería", icon: Cpu },
   { value: "Técnicos", label: "Técnicos", icon: Wrench },
   { value: "Administración", label: "Administración", icon: BriefcaseBusiness },
-  { value: "Todas", label: "Universitarios", icon: GraduationCap },
+  { value: "Todas", label: "Universitarios", icon: GraduationCap, query: "profesional" },
 ];
 
 function regionFromLocation(location: string) {
@@ -67,6 +70,11 @@ type ExplorerJob = PublicOpportunity & {
     salary?: string;
   };
 };
+
+function verifiedSalary(raw?: string) {
+  if (!raw) return undefined;
+  return /(?:^|\s)(?:S\/|US\$|\$|€)\s*[\d.,]+/i.test(raw) ? raw : undefined;
+}
 
 export default function StateJobsExplorer({
   jobs,
@@ -120,17 +128,17 @@ export default function StateJobsExplorer({
         <div className="rounded-[20px] border border-[#dbe5f1] bg-[#f8fafc] p-4">
           <BriefcaseBusiness size={22} className="text-[#0866d8]" />
           <p className="mt-2 text-3xl font-black text-[#0a2d5a]">{activeCount}</p>
-          <p className="mt-1 text-sm font-semibold text-[#6b7b8e]">publicaciones vigentes</p>
+          <p className="mt-1 text-base font-semibold text-[#6b7b8e]">publicaciones vigentes</p>
         </div>
         <div className="rounded-[20px] border border-[#dbe5f1] bg-[#f8fafc] p-4">
           <UsersRound size={22} className="text-[#0866d8]" />
           <p className="mt-2 text-3xl font-black text-[#0a2d5a]">{activeVacancies}+</p>
-          <p className="mt-1 text-sm font-semibold text-[#6b7b8e]">vacantes visibles</p>
+          <p className="mt-1 text-base font-semibold text-[#6b7b8e]">vacantes visibles</p>
         </div>
         <div className="rounded-[20px] border border-[#f0d481] bg-[#fff8e4] p-4">
           <Building2 size={22} className="text-[#b77d00]" />
           <p className="mt-2 text-3xl font-black text-[#0a2d5a]">Perú</p>
-          <p className="mt-1 text-sm font-semibold text-[#6b7b8e]">entidades y regiones</p>
+          <p className="mt-1 text-base font-semibold text-[#6b7b8e]">entidades y regiones</p>
         </div>
       </div>
 
@@ -143,17 +151,22 @@ export default function StateJobsExplorer({
             placeholder="Buscar puesto, institución o palabra clave..."
             className="min-w-0 flex-1 bg-transparent py-4 text-base font-semibold text-[#17365d] outline-none placeholder:text-[#8391a1] sm:text-lg"
           />
-          <span className="hidden rounded-xl bg-[#0866d8] px-5 py-3 text-base font-black text-white sm:block">Buscar</span>
+          <button type="button" onClick={() => setQuery(query.trim())} className="hidden rounded-xl bg-[#0866d8] px-5 py-3 text-base font-black text-white sm:block">Buscar</button>
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-          {featuredCategories.map(({ value, label, icon: Icon }) => {
-            const active = category === value;
+          {featuredCategories.map(({ value, label, icon: Icon, query: categoryQuery }) => {
+            const active = categoryQuery
+              ? category === "Todas" && query.toLocaleLowerCase("es") === categoryQuery
+              : category === value && !query;
             return (
               <button
                 key={`${value}-${label}`}
                 type="button"
-                onClick={() => setCategory(value)}
+                onClick={() => {
+                  setCategory(value);
+                  setQuery(categoryQuery ?? "");
+                }}
                 className={`flex min-h-20 flex-col items-center justify-center gap-2 rounded-[18px] border px-3 text-center text-base font-black transition ${
                   active
                     ? "border-[#efbd38] bg-[#f7c843] text-[#0a2d5a] shadow-sm"
@@ -179,7 +192,7 @@ export default function StateJobsExplorer({
           <label className="relative">
             <span className="sr-only">Categoría</span>
             <BriefcaseBusiness size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0758ad]" />
-            <select value={category} onChange={(event) => setCategory(event.target.value as (typeof categories)[number])} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
+            <select value={category} onChange={(event) => { setCategory(event.target.value as (typeof categories)[number]); setQuery(""); }} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
               {categories.map((item) => <option key={item} value={item}>{item === "Todas" ? "Todas las categorías" : item}</option>)}
             </select>
           </label>
@@ -207,7 +220,7 @@ export default function StateJobsExplorer({
             setStatus("Vigente");
             setRegion("Todas");
           }}
-          className="text-sm font-black text-[#0866d8] hover:underline"
+          className="text-base font-black text-[#0866d8] hover:underline"
         >
           Limpiar filtros
         </button>
@@ -223,13 +236,13 @@ export default function StateJobsExplorer({
           {filtered.map((job) => {
             const hasDetail = detailSlugSet.has(job.slug);
             const isSunatLive = job.sourceLabel === "SUNAT · sincronización automática";
-            const salary = (job as ExplorerJob).details?.salary;
+            const salary = verifiedSalary((job as ExplorerJob).details?.salary);
 
             return (
               <article key={job.slug} className="grid gap-4 rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_24px_rgba(10,45,90,.055)] md:grid-cols-[1fr_auto] md:items-center">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-[.06em] ${
+                    <span className={`rounded-full px-3 py-1 text-sm font-black uppercase tracking-[.04em] ${
                       job.status === "Vigente"
                         ? "bg-[#e7f8ec] text-[#15723f]"
                         : job.status === "Próxima"
@@ -238,8 +251,8 @@ export default function StateJobsExplorer({
                     }`}>
                       {job.status}
                     </span>
-                    <span className="rounded-full bg-[#fff2c8] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#8d6200]">{job.category}</span>
-                    {isSunatLive ? <span className="rounded-full bg-[#e9f7ff] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#0a668f]">SUNAT automático</span> : null}
+                    <span className="rounded-full bg-[#fff2c8] px-3 py-1 text-sm font-black uppercase tracking-[.04em] text-[#8d6200]">{job.category}</span>
+                    {isSunatLive ? <span className="rounded-full bg-[#e9f7ff] px-3 py-1 text-sm font-black uppercase tracking-[.04em] text-[#0a668f]">SUNAT automático</span> : null}
                   </div>
 
                   <p className="mt-4 text-sm font-black uppercase tracking-[.055em] text-[#657489]">{job.entity}</p>
