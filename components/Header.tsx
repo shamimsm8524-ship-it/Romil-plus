@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpen, GraduationCap, Search, ShieldCheck, User } from "lucide-react";
+import { BookOpen, GraduationCap, Menu, Search, ShieldCheck, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -27,41 +27,57 @@ export function Header() {
   }, []);
 
   const isAdmin = (email || "").toLowerCase() === ADMIN_EMAIL;
+  const accountHref = !checkingSession && email ? (isAdmin ? "/admin" : "/perfil") : "/login";
 
   const navClass = (href: string) => {
     const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
-    return `rounded-xl px-3 py-2 text-sm font-semibold transition ${active ? "bg-[#e5b94f]/12 text-[#efcb70] ring-1 ring-[#e5b94f]/35" : "text-white/62 hover:bg-white/[0.05] hover:text-white"}`;
+    return `rounded-xl px-3 py-2 text-sm font-black transition ${
+      active
+        ? "bg-[#fff2c8] text-[#8a6100] ring-1 ring-[#f0c24a]"
+        : "text-[#3d5877] hover:bg-[#eef5ff] hover:text-[#0758ad]"
+    }`;
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#050505]/93 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between gap-3 px-3 py-2 sm:px-5 lg:px-6">
-        <Link href="/" className="flex min-w-0 items-center gap-2" aria-label="ROMIL PLUS">
-          <img src="/logo-romil-plus.png" alt="ROMIL PLUS" className="h-14 w-16 object-contain sm:h-16 sm:w-20" />
-          <span className="hidden border-l border-white/10 pl-3 min-[430px]:block">
-            <span className="block text-sm font-black tracking-wide text-white">ROMIL <span className="text-[#e5b94f]">PLUS</span></span>
-            <span className="block text-[9px] font-bold uppercase tracking-[.16em] text-white/35">Trabajo y becas</span>
+    <header className="sticky top-0 z-50 border-b border-[#dbe5f1] bg-white/95 backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-6">
+        <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="ROMIL PLUS">
+          <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#eef5ff] text-[#0758ad]">
+            <GraduationCap size={27} strokeWidth={2.5} />
+          </span>
+          <span className="min-w-0">
+            <span className="block whitespace-nowrap text-xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-2xl">ROMIL <span className="text-[#e6aa16]">PLUS</span></span>
+            <span className="block text-[10px] font-black uppercase tracking-[.17em] text-[#687b91] sm:text-[11px]">Trabajos · Becas · Guías</span>
           </span>
         </Link>
 
         <nav className="hidden flex-1 items-center justify-center gap-1 min-[820px]:flex lg:gap-2">
           <Link href="/" className={navClass("/")}>Inicio</Link>
-          <Link href="/convocatorias" className={navClass("/convocatorias")}><span className="inline-flex items-center gap-1.5"><Search size={15}/> Convocatorias</span></Link>
-          <Link href="/becas" className={navClass("/becas")}><span className="inline-flex items-center gap-1.5"><GraduationCap size={15}/> Becas</span></Link>
-          <Link href="/guias" className={navClass("/guias")}><span className="inline-flex items-center gap-1.5"><BookOpen size={15}/> Guías</span></Link>
-          <Link href="/como-verificamos" className={navClass("/como-verificamos")}><span className="inline-flex items-center gap-1.5"><ShieldCheck size={15}/> Cómo verificamos</span></Link>
-          <Link href="/nosotros" className={navClass("/nosotros")}>Nosotros</Link>
+          <Link href="/convocatorias" className={navClass("/convocatorias")}><span className="inline-flex items-center gap-1.5"><Search size={16}/> Trabajos</span></Link>
+          <Link href="/becas" className={navClass("/becas")}><span className="inline-flex items-center gap-1.5"><GraduationCap size={16}/> Becas</span></Link>
+          <Link href="/guias" className={navClass("/guias")}><span className="inline-flex items-center gap-1.5"><BookOpen size={16}/> Guías</span></Link>
+          <Link href="/como-verificamos" className={navClass("/como-verificamos")}><span className="inline-flex items-center gap-1.5"><ShieldCheck size={16}/> Verificación</span></Link>
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Link href="/convocatorias" className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-white transition hover:border-[#e5b94f]/50 hover:text-[#e5b94f] min-[820px]:hidden" aria-label="Buscar convocatorias"><Search size={19}/></Link>
-          <Link href="/becas" className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-white transition hover:border-[#e5b94f]/50 hover:text-[#e5b94f] min-[820px]:hidden" aria-label="Ver becas"><GraduationCap size={19}/></Link>
-          {!checkingSession && email ? (
-            <Link href={isAdmin ? "/admin" : "/perfil"} className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-white transition hover:border-[#e5b94f]/50 hover:text-[#e5b94f]" aria-label="Mi cuenta"><User size={19}/></Link>
-          ) : (
-            <Link href="/login" className="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-white transition hover:border-[#e5b94f]/50 hover:text-[#e5b94f]" aria-label="Iniciar sesión"><User size={19}/></Link>
-          )}
+        <div className="hidden items-center gap-2 min-[820px]:flex">
+          <Link href={accountHref} className="grid h-11 w-11 place-items-center rounded-xl border border-[#d7e2ef] text-[#17365d] transition hover:border-[#8bb6e8] hover:bg-[#eef5ff] hover:text-[#0758ad]" aria-label={email ? "Mi cuenta" : "Iniciar sesión"}>
+            <User size={20}/>
+          </Link>
         </div>
+
+        <details className="relative min-[820px]:hidden">
+          <summary className="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-xl border border-[#d7e2ef] text-[#0a2d5a] marker:hidden">
+            <Menu size={25} />
+          </summary>
+          <div className="absolute right-0 top-14 w-[250px] rounded-[20px] border border-[#dbe5f1] bg-white p-2 shadow-[0_18px_45px_rgba(10,45,90,.16)]">
+            <Link href="/" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Inicio</Link>
+            <Link href="/convocatorias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Trabajos</Link>
+            <Link href="/becas" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Becas</Link>
+            <Link href="/guias" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Guías</Link>
+            <Link href="/como-verificamos" className="block rounded-xl px-4 py-3 text-base font-black text-[#17365d] hover:bg-[#eef5ff]">Cómo verificamos</Link>
+            <Link href={accountHref} className="mt-1 flex items-center gap-2 rounded-xl bg-[#0a2d5a] px-4 py-3 text-base font-black text-white"><User size={18}/> {email ? "Mi cuenta" : "Iniciar sesión"}</Link>
+          </div>
+        </details>
       </div>
     </header>
   );
