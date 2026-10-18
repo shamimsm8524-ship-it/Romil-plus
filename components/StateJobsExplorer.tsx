@@ -1,16 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { ArrowRight, ArrowUpRight, BriefcaseBusiness, Building2, CalendarDays, MapPin, Search, UsersRound } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Building2,
+  CalendarDays,
+  Cpu,
+  GraduationCap,
+  MapPin,
+  Search,
+  UsersRound,
+  Wrench,
+} from "lucide-react";
 import type { PublicJobCategory, PublicJobStatus, PublicOpportunity } from "@/lib/state-opportunities";
-
-const statusStyles: Record<PublicJobStatus, string> = {
-  Vigente: "border-emerald-400/25 bg-emerald-400/10 text-emerald-200",
-  Próxima: "border-sky-400/25 bg-sky-400/10 text-sky-200",
-  "Cerrada reciente": "border-white/15 bg-white/[0.05] text-white/45",
-  "Sin convocatoria vigente": "border-amber-300/20 bg-amber-300/[0.07] text-amber-100/70",
-};
 
 const categories: Array<"Todas" | PublicJobCategory> = [
   "Todas",
@@ -32,7 +37,36 @@ const categoryKeywords: Partial<Record<PublicJobCategory, string[]>> = {
   Legal: ["legal", "abogad", "juríd", "jurid", "judicial", "fiscal"],
 };
 
-const statuses: Array<"Todas" | PublicJobStatus> = ["Todas", "Vigente", "Próxima", "Cerrada reciente"];
+const statuses: Array<"Todas" | PublicJobStatus> = [
+  "Todas",
+  "Vigente",
+  "Próxima",
+  "Cerrada reciente",
+  "Sin convocatoria vigente",
+];
+
+const featuredCategories: Array<{
+  value: "Todas" | PublicJobCategory;
+  label: string;
+  icon: typeof BriefcaseBusiness;
+}> = [
+  { value: "Docencia", label: "Docentes", icon: GraduationCap },
+  { value: "Ingeniería y TI", label: "Ingeniería", icon: Cpu },
+  { value: "Técnicos", label: "Técnicos", icon: Wrench },
+  { value: "Administración", label: "Administración", icon: BriefcaseBusiness },
+  { value: "Todas", label: "Universitarios", icon: GraduationCap },
+];
+
+function regionFromLocation(location: string) {
+  const last = location.split(",").pop()?.trim() || location;
+  return last.split("·")[0].trim();
+}
+
+type ExplorerJob = PublicOpportunity & {
+  details?: {
+    salary?: string;
+  };
+};
 
 export default function StateJobsExplorer({
   jobs,
@@ -44,7 +78,18 @@ export default function StateJobsExplorer({
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<(typeof categories)[number]>("Todas");
   const [status, setStatus] = useState<(typeof statuses)[number]>("Vigente");
+  const [region, setRegion] = useState("Todas");
   const detailSlugSet = useMemo(() => new Set(detailSlugs), [detailSlugs]);
+
+  useEffect(() => {
+    const initial = new URLSearchParams(window.location.search).get("q");
+    if (initial) setQuery(initial);
+  }, []);
+
+  const regions = useMemo(() => {
+    const values = Array.from(new Set(jobs.map((job) => regionFromLocation(job.location)).filter(Boolean)));
+    return ["Todas", ...values.sort((a, b) => a.localeCompare(b, "es"))];
+  }, [jobs]);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("es");
@@ -57,164 +102,170 @@ export default function StateJobsExplorer({
         job.category === category ||
         keywords.some((keyword) => searchable.includes(keyword));
       const matchesStatus = status === "Todas" || job.status === status;
+      const matchesRegion = region === "Todas" || job.location.toLocaleLowerCase("es").includes(region.toLocaleLowerCase("es"));
       const matchesQuery = !normalized || searchable.includes(normalized);
-      return matchesCategory && matchesStatus && matchesQuery;
+      return matchesCategory && matchesStatus && matchesRegion && matchesQuery;
     });
-  }, [jobs, query, category, status]);
+  }, [jobs, query, category, status, region]);
 
   const activeVacancies = jobs
     .filter((job) => job.status === "Vigente")
     .reduce((total, job) => total + (job.vacancies ?? 0), 0);
 
+  const activeCount = jobs.filter((job) => job.status === "Vigente").length;
+
   return (
-    <section className="mt-8">
+    <section className="pt-4">
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4">
-          <BriefcaseBusiness size={19} className="text-[#e5b94f]" />
-          <p className="mt-2 text-2xl font-black text-white">{jobs.filter((job) => job.status === "Vigente").length}</p>
-          <p className="text-xs text-white/45">publicaciones vigentes registradas</p>
+        <div className="rounded-[20px] border border-[#dbe5f1] bg-[#f8fafc] p-4">
+          <BriefcaseBusiness size={22} className="text-[#0866d8]" />
+          <p className="mt-2 text-3xl font-black text-[#0a2d5a]">{activeCount}</p>
+          <p className="mt-1 text-sm font-semibold text-[#6b7b8e]">publicaciones vigentes</p>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4">
-          <UsersRound size={19} className="text-[#e5b94f]" />
-          <p className="mt-2 text-2xl font-black text-white">{activeVacancies}+</p>
-          <p className="text-xs text-white/45">vacantes visibles en procesos vigentes</p>
+        <div className="rounded-[20px] border border-[#dbe5f1] bg-[#f8fafc] p-4">
+          <UsersRound size={22} className="text-[#0866d8]" />
+          <p className="mt-2 text-3xl font-black text-[#0a2d5a]">{activeVacancies}+</p>
+          <p className="mt-1 text-sm font-semibold text-[#6b7b8e]">vacantes visibles</p>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.025] p-4">
-          <Building2 size={19} className="text-[#e5b94f]" />
-          <p className="mt-2 text-2xl font-black text-white">Nacional</p>
-          <p className="text-xs text-white/45">ministerios, programas, cortes, UGEL y organismos</p>
+        <div className="rounded-[20px] border border-[#f0d481] bg-[#fff8e4] p-4">
+          <Building2 size={22} className="text-[#b77d00]" />
+          <p className="mt-2 text-3xl font-black text-[#0a2d5a]">Perú</p>
+          <p className="mt-1 text-sm font-semibold text-[#6b7b8e]">entidades y regiones</p>
         </div>
       </div>
 
-      <div className="mt-6 rounded-[24px] border border-white/10 bg-white/[0.025] p-4 sm:p-5">
-        <div className="relative">
-          <Search size={18} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/35" />
+      <div className="mt-6 rounded-[26px] border border-[#dbe5f1] bg-white p-4 shadow-[0_8px_26px_rgba(10,45,90,.05)] sm:p-5">
+        <div className="flex items-center gap-2 rounded-[18px] border-2 border-[#d8e3ef] bg-white px-3 focus-within:border-[#8bb6e8]">
+          <Search size={24} className="shrink-0 text-[#0866d8]" />
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Buscar SUNAT, SUNARP, docente, ingeniero, técnico, Lima..."
-            className="w-full rounded-2xl border border-white/10 bg-black/25 py-3 pl-11 pr-4 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#e5b94f]/45"
+            placeholder="Buscar puesto, institución o palabra clave..."
+            className="min-w-0 flex-1 bg-transparent py-4 text-base font-semibold text-[#17365d] outline-none placeholder:text-[#8391a1] sm:text-lg"
           />
+          <span className="hidden rounded-xl bg-[#0866d8] px-5 py-3 text-base font-black text-white sm:block">Buscar</span>
         </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {statuses.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setStatus(item)}
-              className={`rounded-full border px-3 py-1.5 text-xs font-black transition ${
-                status === item
-                  ? "border-[#e5b94f]/40 bg-[#e5b94f]/12 text-[#efcb70]"
-                  : "border-white/10 bg-white/[0.03] text-white/48 hover:text-white"
-              }`}
-            >
-              {item === "Todas" ? "Todos los estados" : item}
-            </button>
-          ))}
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {featuredCategories.map(({ value, label, icon: Icon }) => {
+            const active = category === value;
+            return (
+              <button
+                key={`${value}-${label}`}
+                type="button"
+                onClick={() => setCategory(value)}
+                className={`flex min-h-20 flex-col items-center justify-center gap-2 rounded-[18px] border px-3 text-center text-base font-black transition ${
+                  active
+                    ? "border-[#efbd38] bg-[#f7c843] text-[#0a2d5a] shadow-sm"
+                    : "border-[#dbe5f1] bg-[#f5f8fc] text-[#17365d] hover:border-[#a7c5e7] hover:bg-[#eef5ff]"
+                }`}
+              >
+                <Icon size={25} className={active ? "text-[#0a2d5a]" : "text-[#0758ad]"} />
+                {label}
+              </button>
+            );
+          })}
         </div>
 
-        <div className="mt-3 flex flex-wrap gap-2">
-          {categories.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setCategory(item)}
-              className={`rounded-full border px-3 py-1.5 text-xs font-bold transition ${
-                category === item
-                  ? "border-white/25 bg-white/[0.08] text-white"
-                  : "border-white/10 bg-transparent text-white/42 hover:text-white/75"
-              }`}
-            >
-              {item}
-            </button>
-          ))}
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          <label className="relative">
+            <span className="sr-only">Región</span>
+            <MapPin size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0758ad]" />
+            <select value={region} onChange={(event) => setRegion(event.target.value)} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
+              {regions.map((item) => <option key={item} value={item}>{item === "Todas" ? "Todas las regiones" : item}</option>)}
+            </select>
+          </label>
+
+          <label className="relative">
+            <span className="sr-only">Categoría</span>
+            <BriefcaseBusiness size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0758ad]" />
+            <select value={category} onChange={(event) => setCategory(event.target.value as (typeof categories)[number])} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
+              {categories.map((item) => <option key={item} value={item}>{item === "Todas" ? "Todas las categorías" : item}</option>)}
+            </select>
+          </label>
+
+          <label className="relative">
+            <span className="sr-only">Estado</span>
+            <CalendarDays size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0758ad]" />
+            <select value={status} onChange={(event) => setStatus(event.target.value as (typeof statuses)[number])} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
+              {statuses.map((item) => <option key={item} value={item}>{item === "Todas" ? "Todos los estados" : item}</option>)}
+            </select>
+          </label>
         </div>
       </div>
 
-      <div className="mt-5 flex items-center justify-between gap-3">
-        <p className="text-sm font-bold text-white/55">{filtered.length} resultados</p>
+      <div className="mt-7 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Resultados</p>
+          <h2 className="mt-1 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl">Últimas convocatorias de trabajo</h2>
+        </div>
         <button
           type="button"
           onClick={() => {
             setQuery("");
             setCategory("Todas");
             setStatus("Vigente");
+            setRegion("Todas");
           }}
-          className="text-xs font-black text-[#efcb70] hover:underline"
+          className="text-sm font-black text-[#0866d8] hover:underline"
         >
           Limpiar filtros
         </button>
       </div>
+      <p className="mt-2 text-base font-semibold text-[#697a8e]">{filtered.length} resultados</p>
 
       {filtered.length === 0 ? (
-        <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.02] p-7 text-center text-sm text-white/50">
-          No encontramos una convocatoria con esos filtros. Prueba con otra entidad, profesión o selecciona “Todos los estados”.
+        <div className="mt-5 rounded-[22px] border border-[#dbe5f1] bg-[#f8fafc] p-7 text-center text-base font-semibold leading-7 text-[#647487]">
+          No encontramos una convocatoria con esos filtros. Prueba con otra entidad, profesión o selecciona todos los estados.
         </div>
       ) : (
-        <div className="mt-5 grid gap-4 lg:grid-cols-2">
+        <div className="mt-5 grid gap-4">
           {filtered.map((job) => {
             const hasDetail = detailSlugSet.has(job.slug);
             const isSunatLive = job.sourceLabel === "SUNAT · sincronización automática";
+            const salary = (job as ExplorerJob).details?.salary;
 
             return (
-              <article key={job.slug} className="rounded-[24px] border border-white/10 bg-white/[0.025] p-5">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="flex flex-wrap gap-2">
-                    <span className={`rounded-full border px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] ${statusStyles[job.status]}`}>
+              <article key={job.slug} className="grid gap-4 rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_24px_rgba(10,45,90,.055)] md:grid-cols-[1fr_auto] md:items-center">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-[.06em] ${
+                      job.status === "Vigente"
+                        ? "bg-[#e7f8ec] text-[#15723f]"
+                        : job.status === "Próxima"
+                          ? "bg-[#e9f3ff] text-[#0a5fbf]"
+                          : "bg-[#f1f3f6] text-[#657489]"
+                    }`}>
                       {job.status}
                     </span>
-                    <span className="rounded-full border border-[#e5b94f]/20 bg-[#e5b94f]/[.06] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-[#efcb70]">
-                      {job.category}
-                    </span>
-                    {isSunatLive ? (
-                      <span className="rounded-full border border-cyan-300/20 bg-cyan-300/[.07] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-cyan-100/80">
-                        SUNAT automático
-                      </span>
-                    ) : !hasDetail ? (
-                      <span className="rounded-full border border-amber-300/20 bg-amber-300/[.07] px-2.5 py-1 text-[10px] font-black uppercase tracking-[.11em] text-amber-100/75">
-                        Ficha en revisión
-                      </span>
-                    ) : null}
+                    <span className="rounded-full bg-[#fff2c8] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#8d6200]">{job.category}</span>
+                    {isSunatLive ? <span className="rounded-full bg-[#e9f7ff] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#0a668f]">SUNAT automático</span> : null}
                   </div>
-                  <span className="text-[10px] font-bold text-white/35">{isSunatLive ? "Sincronizada" : "Revisada"} {job.verifiedAt}</span>
+
+                  <p className="mt-4 text-sm font-black uppercase tracking-[.055em] text-[#657489]">{job.entity}</p>
+                  <h3 className="mt-1.5 text-2xl font-black leading-tight text-[#102f57] sm:text-[1.7rem]">{job.title}</h3>
+                  <p className="mt-3 max-w-3xl text-base font-medium leading-7 text-[#5d6f84]">{job.summary}</p>
+
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-base font-semibold text-[#5d6f84]">
+                    <span className="inline-flex items-center gap-2"><MapPin size={18} className="text-[#0866d8]" /> {job.location}</span>
+                    <span className="inline-flex items-center gap-2"><CalendarDays size={18} className="text-[#0866d8]" /> {job.closesAt}</span>
+                    {job.vacancies !== null ? <span className="inline-flex items-center gap-2"><UsersRound size={18} className="text-[#0866d8]" /> {job.vacancies} {job.vacancies === 1 ? "vacante" : "vacantes"}</span> : null}
+                  </div>
                 </div>
 
-                <p className="mt-4 text-xs font-black uppercase tracking-[.13em] text-white/45">{job.entity}</p>
-                <h2 className="mt-2 text-xl font-black leading-tight text-white">{job.title}</h2>
-                <p className="mt-3 text-sm leading-6 text-white/52">{job.summary}</p>
-
-                <div className="mt-4 grid gap-2 rounded-2xl border border-white/10 bg-black/20 p-4 text-xs text-white/52">
-                  <p className="inline-flex items-center gap-2"><MapPin size={14} className="text-[#e5b94f]" /> {job.location}</p>
-                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> {isSunatLive ? "Inicio oficial:" : "Publicada:"} {job.publishedAt}</p>
-                  <p className="inline-flex items-center gap-2"><CalendarDays size={14} className="text-[#e5b94f]" /> {isSunatLive ? "Fin oficial:" : "Cierre / postulación:"} {job.closesAt}</p>
-                  <p className="inline-flex items-center gap-2"><Building2 size={14} className="text-[#e5b94f]" /> {job.regime}{job.vacancies !== null ? ` · ${job.vacancies} ${job.vacancies === 1 ? "vacante" : "vacantes"}` : ""}</p>
+                <div className="flex min-w-[220px] flex-col gap-3 md:items-end">
+                  {salary ? <span className="w-fit rounded-xl bg-[#e5f7e9] px-4 py-2 text-xl font-black text-[#12643a]">{salary}</span> : null}
+                  {hasDetail ? (
+                    <Link href={`/convocatorias/${job.slug}`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#0866d8] px-5 text-base font-black text-white transition hover:bg-[#075abc]">
+                      Ver ficha completa <ArrowRight size={18} />
+                    </Link>
+                  ) : (
+                    <a href={job.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#0866d8] px-5 text-base font-black text-white transition hover:bg-[#075abc]">
+                      {isSunatLive ? "Ver proceso en SUNAT" : "Ver fuente oficial"} <ArrowUpRight size={18} />
+                    </a>
+                  )}
+                  <span className="text-sm font-semibold text-[#7b8998]">Revisada {job.verifiedAt}</span>
                 </div>
-
-                {hasDetail ? (
-                  <Link
-                    href={`/convocatorias/${job.slug}`}
-                    className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
-                  >
-                    Ver ficha completa <ArrowRight size={15} />
-                  </Link>
-                ) : (
-                  <a
-                    href={job.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-5 inline-flex items-center gap-2 rounded-xl border border-[#e5b94f]/30 bg-[#e5b94f]/10 px-4 py-2.5 text-sm font-black text-[#efcb70] transition hover:bg-[#e5b94f]/15"
-                  >
-                    {isSunatLive ? "Ver proceso en SUNAT" : "Ver fuente oficial"} <ArrowUpRight size={15} />
-                  </a>
-                )}
-                <p className="mt-3 text-[11px] text-white/33">
-                  {isSunatLive
-                    ? "Esta tarjeta se genera desde el portal oficial de SUNAT. Si el proceso deja de estar disponible o vence su fecha final, deja de mostrarse automáticamente."
-                    : hasDetail
-                      ? "Dentro de la ficha encontrarás requisitos, cronograma y el acceso oficial de postulación cuando exista una URL directa verificada."
-                      : "Esta oportunidad sí se muestra en el listado. Mientras completamos su ficha individual, consulta los requisitos y la postulación directamente en la fuente oficial."}
-                </p>
               </article>
             );
           })}
