@@ -15,26 +15,94 @@ import {
   UsersRound,
   Wrench,
 } from "lucide-react";
-import type { PublicJobCategory, PublicJobStatus, PublicOpportunity } from "@/lib/state-opportunities";
+import type { PublicJobStatus, PublicOpportunity } from "@/lib/state-opportunities";
 
-const categories: Array<"Todas" | PublicJobCategory> = [
+type FilterCategory =
+  | "Todas"
+  | "Cajeros y ventas"
+  | "Atención al cliente"
+  | "Restaurantes y comida"
+  | "Limpieza y mantenimiento"
+  | "Hoteles y turismo"
+  | "Aeropuertos y aerolíneas"
+  | "Seguridad"
+  | "Almacén y logística"
+  | "Transporte y delivery"
+  | "Supermercados y tiendas"
+  | "Producción y fábricas"
+  | "Construcción y oficios"
+  | "Salud"
+  | "Docencia"
+  | "Administración"
+  | "Ingeniería y TI"
+  | "Técnicos"
+  | "Belleza y cuidado personal"
+  | "Minería e industria"
+  | "Agroindustria y campo"
+  | "Banca y finanzas"
+  | "Legal"
+  | "Sector público"
+  | "Prácticas"
+  | "Trabajo remoto"
+  | "Varias";
+
+const categories: FilterCategory[] = [
   "Todas",
+  "Cajeros y ventas",
+  "Atención al cliente",
+  "Restaurantes y comida",
+  "Limpieza y mantenimiento",
+  "Hoteles y turismo",
+  "Aeropuertos y aerolíneas",
+  "Seguridad",
+  "Almacén y logística",
+  "Transporte y delivery",
+  "Supermercados y tiendas",
+  "Producción y fábricas",
+  "Construcción y oficios",
+  "Salud",
   "Docencia",
+  "Administración",
   "Ingeniería y TI",
   "Técnicos",
-  "Salud",
-  "Administración",
+  "Belleza y cuidado personal",
+  "Minería e industria",
+  "Agroindustria y campo",
+  "Banca y finanzas",
   "Legal",
+  "Sector público",
+  "Prácticas",
+  "Trabajo remoto",
   "Varias",
 ];
 
-const categoryKeywords: Partial<Record<PublicJobCategory, string[]>> = {
-  Docencia: ["docent", "ugel", "drec", "minedu", "educación"],
-  "Ingeniería y TI": ["ingenier", "sistemas", "programación", "tecnolog", "ti ", "saneamiento"],
+const categoryKeywords: Record<Exclude<FilterCategory, "Todas">, string[]> = {
+  "Cajeros y ventas": ["cajer", "vendedor", "ventas", "promotor", "impulsador", "asesor comercial", "retail"],
+  "Atención al cliente": ["atención al cliente", "atencion al cliente", "anfitri", "recepcion", "call center", "teleoper", "servicio al cliente"],
+  "Restaurantes y comida": ["restaurante", "poller", "mozo", "mesero", "azafata", "cocin", "ayudante de cocina", "barista", "bartender", "bar ", "cafeter", "panader", "pasteler", "fast food", "lavaplat"],
+  "Limpieza y mantenimiento": ["limpieza", "operario de limpieza", "mantenimiento", "housekeeping", "jardiner", "saneamiento"],
+  "Hoteles y turismo": ["hotel", "turismo", "camarer", "housekeeping", "botones", "reservas", "hospedaje", "guía", "guia"],
+  "Aeropuertos y aerolíneas": ["aeropuerto", "aerolínea", "aerolinea", "tripulante", "cabina", "rampa", "equipaje", "pasajero", "aviación", "aviacion"],
+  Seguridad: ["seguridad", "vigilante", "prevención de pérdidas", "prevencion de perdidas", "control de accesos", "cctv"],
+  "Almacén y logística": ["almacén", "almacen", "logística", "logistica", "picking", "packing", "inventario", "despacho", "montacarg"],
+  "Transporte y delivery": ["conductor", "chofer", "repartidor", "delivery", "motoriz", "transporte", "distribución", "distribucion"],
+  "Supermercados y tiendas": ["supermercado", "tienda", "reponedor", "reposición", "reposicion", "retail", "mercaderista"],
+  "Producción y fábricas": ["producción", "produccion", "operario", "planta", "fábrica", "fabrica", "manufactura", "envasado", "etiquetado", "calidad"],
+  "Construcción y oficios": ["construcción", "construccion", "albañil", "electricista", "gasfiter", "soldador", "pintor", "maestro de obra", "obra"],
+  Salud: ["salud", "enfermer", "médic", "medic", "nutricion", "farmacia", "laboratorio", "odont", "clínica", "clinica"],
+  Docencia: ["docent", "profesor", "auxiliar de educación", "ugel", "drec", "minedu", "educación", "educacion"],
+  Administración: ["administr", "secretari", "digitador", "archivo", "recursos humanos", "rrhh", "contabilidad", "cobranzas", "gestión", "gestion"],
+  "Ingeniería y TI": ["ingenier", "sistemas", "programación", "programacion", "software", "tecnolog", "soporte técnico", "soporte tecnico", "redes", "datos", "ciberseguridad"],
   Técnicos: ["técnic", "tecnico", "técnico"],
-  Salud: ["salud", "enfermer", "médic", "medic", "nutricion", "farmacia"],
-  Administración: ["administr", "logística", "logistica", "gestión", "gestion", "contrataciones"],
+  "Belleza y cuidado personal": ["estilista", "barbero", "manicur", "cosmet", "masaj", "salón", "salon", "belleza"],
+  "Minería e industria": ["minería", "mineria", "mina", "industrial", "mecánico", "mecanico", "operador", "campamento"],
+  "Agroindustria y campo": ["agro", "agrícola", "agricola", "campo", "cosecha", "packing", "selección", "seleccion", "agroindustr"],
+  "Banca y finanzas": ["banco", "banca", "finanzas", "crédito", "credito", "cajero bancario", "microfinanzas", "préstamo", "prestamo"],
   Legal: ["legal", "abogad", "juríd", "jurid", "judicial", "fiscal"],
+  "Sector público": ["cas", "convocatoria", "ministerio", "municipalidad", "sunat", "sunarp", "ugel", "poder judicial", "sector público", "sector publico"],
+  Prácticas: ["practicante", "prácticas", "practicas", "preprofesional", "pre-profesional", "práctica profesional", "practica profesional"],
+  "Trabajo remoto": ["remoto", "teletrabajo", "home office", "desde casa", "trabajo remoto"],
+  Varias: ["varias", "diversos", "múltiples", "multiples"],
 };
 
 const statuses: Array<"Todas" | PublicJobStatus> = [
@@ -46,18 +114,19 @@ const statuses: Array<"Todas" | PublicJobStatus> = [
 ];
 
 type FeaturedCategory = {
-  value: "Todas" | PublicJobCategory;
+  value: FilterCategory;
   label: string;
   icon: typeof BriefcaseBusiness;
   query?: string;
 };
 
 const featuredCategories: FeaturedCategory[] = [
-  { value: "Docencia", label: "Docentes", icon: GraduationCap },
-  { value: "Ingeniería y TI", label: "Ingeniería", icon: Cpu },
-  { value: "Técnicos", label: "Técnicos", icon: Wrench },
-  { value: "Administración", label: "Administración", icon: BriefcaseBusiness },
-  { value: "Todas", label: "Universitarios", icon: GraduationCap, query: "profesional" },
+  { value: "Cajeros y ventas", label: "Cajeros y ventas", icon: BriefcaseBusiness },
+  { value: "Restaurantes y comida", label: "Restaurantes", icon: UsersRound },
+  { value: "Limpieza y mantenimiento", label: "Limpieza", icon: Wrench },
+  { value: "Almacén y logística", label: "Almacén", icon: Building2 },
+  { value: "Todas", label: "Sin experiencia", icon: GraduationCap, query: "sin experiencia" },
+  { value: "Ingeniería y TI", label: "Profesionales", icon: Cpu },
 ];
 
 function regionFromLocation(location: string) {
@@ -84,7 +153,7 @@ export default function StateJobsExplorer({
   detailSlugs?: string[];
 }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<(typeof categories)[number]>("Todas");
+  const [category, setCategory] = useState<FilterCategory>("Todas");
   const [status, setStatus] = useState<(typeof statuses)[number]>("Vigente");
   const [region, setRegion] = useState("Todas");
   const detailSlugSet = useMemo(() => new Set(detailSlugs), [detailSlugs]);
@@ -104,11 +173,8 @@ export default function StateJobsExplorer({
 
     return jobs.filter((job) => {
       const searchable = `${job.entity} ${job.title} ${job.category} ${job.location} ${job.summary} ${job.regime}`.toLocaleLowerCase("es");
-      const keywords = category === "Todas" ? [] : categoryKeywords[category] ?? [];
-      const matchesCategory =
-        category === "Todas" ||
-        job.category === category ||
-        keywords.some((keyword) => searchable.includes(keyword));
+      const keywords = category === "Todas" ? [] : categoryKeywords[category];
+      const matchesCategory = category === "Todas" || job.category === category || keywords.some((keyword) => searchable.includes(keyword));
       const matchesStatus = status === "Todas" || job.status === status;
       const matchesRegion = region === "Todas" || job.location.toLocaleLowerCase("es").includes(region.toLocaleLowerCase("es"));
       const matchesQuery = !normalized || searchable.includes(normalized);
@@ -138,7 +204,7 @@ export default function StateJobsExplorer({
         <div className="rounded-[20px] border border-[#f0d481] bg-[#fff8e4] p-4">
           <Building2 size={22} className="text-[#b77d00]" />
           <p className="mt-2 text-3xl font-black text-[#0a2d5a]">Perú</p>
-          <p className="mt-1 text-base font-semibold text-[#6b7b8e]">entidades y regiones</p>
+          <p className="mt-1 text-base font-semibold text-[#6b7b8e]">empresas, entidades y regiones</p>
         </div>
       </div>
 
@@ -148,13 +214,13 @@ export default function StateJobsExplorer({
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Buscar puesto, institución o palabra clave..."
+            placeholder="Buscar cajero, limpieza, almacén, mozo, ingeniero..."
             className="min-w-0 flex-1 bg-transparent py-4 text-base font-semibold text-[#17365d] outline-none placeholder:text-[#8391a1] sm:text-lg"
           />
           <button type="button" onClick={() => setQuery(query.trim())} className="hidden rounded-xl bg-[#0866d8] px-5 py-3 text-base font-black text-white sm:block">Buscar</button>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {featuredCategories.map(({ value, label, icon: Icon, query: categoryQuery }) => {
             const active = categoryQuery
               ? category === "Todas" && query.toLocaleLowerCase("es") === categoryQuery
@@ -167,7 +233,7 @@ export default function StateJobsExplorer({
                   setCategory(value);
                   setQuery(categoryQuery ?? "");
                 }}
-                className={`flex min-h-20 flex-col items-center justify-center gap-2 rounded-[18px] border px-3 text-center text-base font-black transition ${
+                className={`flex min-h-20 flex-col items-center justify-center gap-2 rounded-[18px] border px-3 text-center text-sm font-black transition sm:text-base ${
                   active
                     ? "border-[#efbd38] bg-[#f7c843] text-[#0a2d5a] shadow-sm"
                     : "border-[#dbe5f1] bg-[#f5f8fc] text-[#17365d] hover:border-[#a7c5e7] hover:bg-[#eef5ff]"
@@ -190,10 +256,10 @@ export default function StateJobsExplorer({
           </label>
 
           <label className="relative">
-            <span className="sr-only">Categoría</span>
+            <span className="sr-only">Rubro de empleo</span>
             <BriefcaseBusiness size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0758ad]" />
-            <select value={category} onChange={(event) => { setCategory(event.target.value as (typeof categories)[number]); setQuery(""); }} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
-              {categories.map((item) => <option key={item} value={item}>{item === "Todas" ? "Todas las categorías" : item}</option>)}
+            <select value={category} onChange={(event) => { setCategory(event.target.value as FilterCategory); setQuery(""); }} className="min-h-14 w-full appearance-none rounded-[16px] border border-[#d7e2ef] bg-white pl-11 pr-4 text-base font-black text-[#17365d] outline-none focus:border-[#8bb6e8]">
+              {categories.map((item) => <option key={item} value={item}>{item === "Todas" ? "Todos los rubros" : item}</option>)}
             </select>
           </label>
 
@@ -205,12 +271,16 @@ export default function StateJobsExplorer({
             </select>
           </label>
         </div>
+
+        <div className="mt-4 rounded-[16px] border border-[#cfe3fb] bg-[#f2f8ff] px-4 py-3 text-sm font-semibold leading-6 text-[#526a83]">
+          RomilPlus no rellena categorías con avisos copiados o sin fuente. Si un rubro no muestra resultados, todavía no hay una vacante vigente que cumpla la verificación de la base.
+        </div>
       </div>
 
       <div className="mt-7 flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Resultados</p>
-          <h2 className="mt-1 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl">Últimas convocatorias de trabajo</h2>
+          <h2 className="mt-1 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl">Últimas oportunidades verificadas</h2>
         </div>
         <button
           type="button"
@@ -229,7 +299,7 @@ export default function StateJobsExplorer({
 
       {filtered.length === 0 ? (
         <div className="mt-5 rounded-[22px] border border-[#dbe5f1] bg-[#f8fafc] p-7 text-center text-base font-semibold leading-7 text-[#647487]">
-          No encontramos una convocatoria con esos filtros. Prueba con otra entidad, profesión o selecciona todos los estados.
+          Aún no encontramos una vacante vigente y verificada con esos filtros. Prueba otro rubro, región o palabra clave.
         </div>
       ) : (
         <div className="mt-5 grid gap-4">
