@@ -21,7 +21,9 @@ export const revalidate = 300;
 type HomeJob = PublicOpportunity | JobDetailView;
 
 function salaryFor(job: HomeJob) {
-  return "details" in job ? job.details.salary : undefined;
+  const raw = "details" in job ? job.details.salary : undefined;
+  if (!raw) return undefined;
+  return /(?:^|\s)(?:S\/|US\$|\$|€)\s*[\d.,]+/i.test(raw) ? raw : undefined;
 }
 
 function hasInternalDetail(job: HomeJob): job is JobDetailView {
@@ -140,8 +142,8 @@ export default async function Home() {
                 <article key={job.slug} className="grid gap-4 rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_26px_rgba(10,45,90,.06)] md:grid-cols-[1fr_auto] md:items-center">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="rounded-full bg-[#e9f9ee] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#14763e]">{job.status}</span>
-                      <span className="rounded-full bg-[#eef5ff] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#0b58b6]">{job.entity}</span>
+                      <span className="rounded-full bg-[#e9f9ee] px-3 py-1 text-sm font-black uppercase tracking-[.04em] text-[#14763e]">{job.status}</span>
+                      <span className="rounded-full bg-[#eef5ff] px-3 py-1 text-sm font-black uppercase tracking-[.04em] text-[#0b58b6]">{job.entity}</span>
                     </div>
                     <h3 className="mt-3 text-2xl font-black leading-tight text-[#102f57]">{job.title}</h3>
                     <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-base font-semibold text-[#5a6b7e]">
@@ -182,8 +184,8 @@ export default async function Home() {
             {featuredScholarships.map((scholarship) => (
               <article key={scholarship.slug} className="rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_26px_rgba(10,45,90,.05)]">
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <span className="rounded-full bg-[#fff2c8] px-3 py-1 text-xs font-black uppercase tracking-[.06em] text-[#8d6200]">{scholarship.category}</span>
-                  <span className={`rounded-full px-3 py-1 text-xs font-black uppercase tracking-[.06em] ${scholarship.status === "Abierta" ? "bg-[#ffe7e7] text-[#c22f2f]" : "bg-[#e8f3ff] text-[#1260b7]"}`}>{scholarship.status}</span>
+                  <span className="rounded-full bg-[#fff2c8] px-3 py-1 text-sm font-black uppercase tracking-[.04em] text-[#8d6200]">{scholarship.category}</span>
+                  <span className={`rounded-full px-3 py-1 text-sm font-black uppercase tracking-[.04em] ${scholarship.status === "Abierta" ? "bg-[#ffe7e7] text-[#c22f2f]" : "bg-[#e8f3ff] text-[#1260b7]"}`}>{scholarship.status}</span>
                 </div>
                 <p className="mt-4 text-sm font-black uppercase tracking-[.06em] text-[#66768a]">{scholarship.institution}</p>
                 <h3 className="mt-2 text-2xl font-black leading-tight text-[#102f57]">{scholarship.title}</h3>
