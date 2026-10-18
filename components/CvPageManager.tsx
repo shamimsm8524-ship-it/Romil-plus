@@ -19,6 +19,7 @@ function pageRange(total: number, pages: number, page: number) {
 function createVisualPage(source: HTMLElement, page: number, pages: number) {
   const clone = source.cloneNode(true) as HTMLElement;
   clone.removeAttribute("data-cv-source-preview");
+  clone.removeAttribute("data-cv-manual-mode");
   clone.classList.add("cv-manual-page");
   clone.dataset.cvManualPage = String(page);
   clone.dataset.cvTotalPages = String(pages);
@@ -79,10 +80,12 @@ export function CvPageManager() {
     host.replaceChildren();
 
     if (pageCount === 1) {
+      delete source.dataset.cvManualMode;
       source.style.display = "";
       return;
     }
 
+    source.dataset.cvManualMode = "true";
     source.style.display = "none";
 
     for (let page = 1; page <= pageCount; page += 1) {
