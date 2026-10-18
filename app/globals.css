@@ -214,9 +214,9 @@ article[data-product="gemini-pro"] { height: 650px !important; }
   text-align: left !important;
 }
 
-/* Modelos con encabezado superior: la foto queda más hacia adentro y no pegada al borde derecho. */
+/* Modelos con encabezado superior: la foto queda claramente más hacia adentro. */
 #cv-print-area > header.grid > div:last-child {
-  margin-right: 28px;
+  margin-right: 72px;
 }
 
 /* Al imprimir solo se muestra el currículum y conserva sus colores. */
