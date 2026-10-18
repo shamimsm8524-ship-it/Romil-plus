@@ -1,0 +1,7 @@
+/* Ajuste de foto para los cuatro modelos minimalistas: se aleja del borde derecho. */
+#cv-print-area[data-cv-template="grafito-premium"] > div:first-child > div:last-child,
+#cv-print-area[data-cv-template="indigo-sobrio"] > div:first-child > div:last-child,
+#cv-print-area[data-cv-template="arena-premium"] > div:first-child > div:last-child,
+#cv-print-area[data-cv-template="celeste-moderno"] > div:first-child > div:last-child {
+  margin-right: 44px !important;
+}
