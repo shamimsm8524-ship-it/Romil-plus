@@ -51,6 +51,64 @@ button, input, textarea, select { font: inherit; }
 .article-copy li { line-height: 1.7; }
 .article-copy strong { color: rgba(255,255,255,.9); }
 
+/* Portada nueva: en celular el buscador y los accesos deben ser compactos. */
+@media (max-width: 639px) {
+  main.min-h-screen > section:first-child form {
+    margin-top: 1.1rem !important;
+    gap: .25rem !important;
+    border-radius: 16px !important;
+    padding: 4px !important;
+  }
+
+  main.min-h-screen > section:first-child form > svg {
+    width: 20px !important;
+    height: 20px !important;
+    margin-left: 8px !important;
+  }
+
+  main.min-h-screen > section:first-child form input {
+    padding: .55rem .25rem !important;
+    font-size: .88rem !important;
+    line-height: 1.2rem !important;
+  }
+
+  main.min-h-screen > section:first-child form button {
+    min-height: 40px !important;
+    border-radius: 12px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    font-size: .9rem !important;
+  }
+
+  main.min-h-screen > section:first-child form + div {
+    margin-top: .7rem !important;
+    gap: .55rem !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  main.min-h-screen > section:first-child form + div > a {
+    min-height: 52px !important;
+    border-radius: 15px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  main.min-h-screen > section:first-child form + div > a > span {
+    gap: 6px !important;
+    font-size: .9rem !important;
+    white-space: nowrap;
+  }
+
+  main.min-h-screen > section:first-child form + div > a svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
+  main.min-h-screen > section:first-child form + div > a > svg:last-child {
+    display: none;
+  }
+}
+
 /* Mantiene las tarjetas históricas del catálogo sin alterar su funcionamiento. */
 @media (min-width: 1024px) {
   img[alt="HBO"] { object-fit: cover !important; object-position: center center !important; }
