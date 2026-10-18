@@ -1,11 +1,145 @@
 @media print {
-  /* El encabezado interno del CV (nombre, cargo y foto) debe imprimirse. */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  /*
+   * Impresión multipágina:
+   * - solo queda visible la hoja del CV;
+   * - la hoja vuelve al flujo normal para poder fragmentarse en 2 o más páginas;
+   * - el encabezado interno del CV (nombre, cargo y foto) se conserva únicamente al inicio.
+   */
+  html,
+  body {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  main:has(#cv-print-area) {
+    display: block !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  main:has(#cv-print-area) > section {
+    display: none !important;
+  }
+
+  main:has(#cv-print-area) > section:has(#cv-print-area) {
+    display: block !important;
+    width: 210mm !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  main:has(#cv-print-area) > section:has(#cv-print-area) > aside {
+    display: none !important;
+  }
+
+  main:has(#cv-print-area) > section:has(#cv-print-area) > div:has(#cv-print-area) {
+    display: block !important;
+    width: 210mm !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  main:has(#cv-print-area) > section:has(#cv-print-area) > div:has(#cv-print-area) > .cv-no-print {
+    display: none !important;
+  }
+
+  #cv-print-area {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
+    min-height: 297mm !important;
+    height: auto !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding-bottom: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    zoom: 1 !important;
+    transform: none !important;
+    page-break-before: auto !important;
+    page-break-after: auto !important;
+    page-break-inside: auto !important;
+    break-before: auto !important;
+    break-after: auto !important;
+    break-inside: auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  #cv-print-area,
+  #cv-print-area * {
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* El encabezado del propio CV sí se imprime; el encabezado de ROMIL PLUS sigue oculto. */
   #cv-print-area > header {
     display: grid !important;
     visibility: visible !important;
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
   }
 
   #cv-print-area > header * {
     visibility: visible !important;
+  }
+
+  /* Permite que los diseños con columnas continúen en páginas siguientes. */
+  #cv-print-area > .grid {
+    min-height: 297mm !important;
+    height: auto !important;
+    align-items: stretch !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  #cv-print-area > .grid,
+  #cv-print-area > .grid > aside,
+  #cv-print-area > .grid > div,
+  #cv-print-area > div.grid:last-child,
+  #cv-print-area > div.grid:last-child > div,
+  #cv-print-area > div.grid:last-child > aside {
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  /* Una sección corta pasa completa a la siguiente página en vez de cortarse. */
+  #cv-print-area section {
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+  }
+
+  /* También protegemos cada experiencia, estudio, curso, idioma o referencia individual. */
+  #cv-print-area section > div > div,
+  #cv-print-area section > div.space-y-4 > div,
+  #cv-print-area section > div.space-y-3 > div,
+  #cv-print-area section > div.space-y-2 > div {
+    page-break-inside: avoid !important;
+    break-inside: avoid-page !important;
+  }
+
+  #cv-print-area p,
+  #cv-print-area h2,
+  #cv-print-area h3 {
+    orphans: 3;
+    widows: 3;
   }
 }
