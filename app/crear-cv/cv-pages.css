@@ -100,6 +100,11 @@
   margin-right:auto!important;
 }
 
+/* Si una columna no tiene nada asignado en una página, no dejamos un bloque vacío. */
+#cv-print-area.cv-manual-page [data-cv-empty-section-group]{
+  display:none!important;
+}
+
 /* Las páginas de continuación conservan el estilo, pero no repiten nombre, foto ni datos personales. */
 #cv-print-area.cv-continuation-page>header.grid{
   display:block!important;
@@ -129,6 +134,16 @@
 #cv-print-area.cv-continuation-page>.flex.items-start.justify-between,
 #cv-print-area.cv-continuation-page>.flex.items-start.justify-between+div{
   display:none!important;
+}
+
+/* En topbar/split, si una de las dos zonas queda sin secciones, la otra aprovecha todo el ancho. */
+#cv-print-area.cv-continuation-page>div.grid:last-child:has(> [data-cv-empty-section-group]){
+  grid-template-columns:minmax(0,1fr)!important;
+}
+
+#cv-print-area.cv-continuation-page>div.grid:last-child:has(> [data-cv-empty-section-group])>aside:not([data-cv-empty-section-group]){
+  border-left:0!important;
+  padding-left:0!important;
 }
 
 @media (max-width:899px){
