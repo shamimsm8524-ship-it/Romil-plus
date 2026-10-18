@@ -14,6 +14,7 @@ import {
   Wrench,
 } from "lucide-react";
 import type { PublicJobStatus, PublicOpportunity } from "@/lib/state-opportunities";
+import { jobListingSpecs } from "@/lib/job-listing-specs";
 
 type FilterCategory =
   | "Todas"
@@ -298,12 +299,14 @@ export default function StateJobsExplorer({
         <div className="mt-5 grid gap-4">
           {filtered.map((job) => {
             const typedJob = job as ExplorerJob;
+            const specs = jobListingSpecs[job.slug];
             const isSunatLive = job.sourceLabel === "SUNAT · sincronización automática";
-            const salary = verifiedSalary(typedJob.details?.salary);
+            const salary = specs?.salary || verifiedSalary(typedJob.details?.salary);
+            const salaryHighlight = verifiedSalary(salary);
             const applicationUrl = typedJob.details?.applicationUrl || job.sourceUrl;
 
             return (
-              <article key={job.slug} className="grid gap-4 rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_24px_rgba(10,45,90,.055)] md:grid-cols-[1fr_auto] md:items-center">
+              <article key={job.slug} className="grid gap-4 rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_24px_rgba(10,45,90,.055)] md:grid-cols-[1fr_auto] md:items-start">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className={`rounded-full px-3 py-1 text-sm font-black uppercase tracking-[.04em] ${
@@ -323,6 +326,24 @@ export default function StateJobsExplorer({
                   <h3 className="mt-1.5 text-2xl font-black leading-tight text-[#102f57] sm:text-[1.7rem]">{job.title}</h3>
                   <p className="mt-3 max-w-3xl text-base font-medium leading-7 text-[#5d6f84]">{job.summary}</p>
 
+                  {specs ? (
+                    <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                      {[
+                        ["Jornada", specs.employmentType],
+                        ["Horas", specs.hours],
+                        ["Horario", specs.schedule],
+                        ["Sueldo", specs.salary],
+                        ["Experiencia", specs.experience],
+                        ["Estudios", specs.education],
+                      ].map(([label, value]) => (
+                        <div key={label} className="rounded-[14px] border border-[#dce6f1] bg-[#f8fafc] px-3 py-3">
+                          <p className="text-[11px] font-black uppercase tracking-[.06em] text-[#708096]">{label}</p>
+                          <p className="mt-1 text-sm font-bold leading-5 text-[#17365d]">{value}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
+
                   <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-base font-semibold text-[#5d6f84]">
                     <span className="inline-flex items-center gap-2"><MapPin size={18} className="text-[#0866d8]" /> {job.location}</span>
                     <span className="inline-flex items-center gap-2"><CalendarDays size={18} className="text-[#0866d8]" /> {job.closesAt}</span>
@@ -331,7 +352,7 @@ export default function StateJobsExplorer({
                 </div>
 
                 <div className="flex min-w-[220px] flex-col gap-3 md:items-end">
-                  {salary ? <span className="w-fit rounded-xl bg-[#e5f7e9] px-4 py-2 text-xl font-black text-[#12643a]">{salary}</span> : null}
+                  {salaryHighlight ? <span className="w-fit rounded-xl bg-[#e5f7e9] px-4 py-2 text-xl font-black text-[#12643a]">{salary}</span> : null}
                   <a
                     href={applicationUrl}
                     target={applicationUrl.startsWith("mailto:") ? undefined : "_blank"}
