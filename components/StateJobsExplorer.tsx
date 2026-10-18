@@ -1,9 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
-  ArrowRight,
   ArrowUpRight,
   BriefcaseBusiness,
   Building2,
@@ -137,6 +135,7 @@ function regionFromLocation(location: string) {
 type ExplorerJob = PublicOpportunity & {
   details?: {
     salary?: string;
+    applicationUrl?: string;
   };
 };
 
@@ -147,7 +146,6 @@ function verifiedSalary(raw?: string) {
 
 export default function StateJobsExplorer({
   jobs,
-  detailSlugs = [],
 }: {
   jobs: PublicOpportunity[];
   detailSlugs?: string[];
@@ -156,7 +154,6 @@ export default function StateJobsExplorer({
   const [category, setCategory] = useState<FilterCategory>("Todas");
   const [status, setStatus] = useState<(typeof statuses)[number]>("Vigente");
   const [region, setRegion] = useState("Todas");
-  const detailSlugSet = useMemo(() => new Set(detailSlugs), [detailSlugs]);
 
   useEffect(() => {
     const initial = new URLSearchParams(window.location.search).get("q");
@@ -271,10 +268,6 @@ export default function StateJobsExplorer({
             </select>
           </label>
         </div>
-
-        <div className="mt-4 rounded-[16px] border border-[#cfe3fb] bg-[#f2f8ff] px-4 py-3 text-sm font-semibold leading-6 text-[#526a83]">
-          RomilPlus no rellena categorías con avisos copiados o sin fuente. Si un rubro no muestra resultados, todavía no hay una vacante vigente que cumpla la verificación de la base.
-        </div>
       </div>
 
       <div className="mt-7 flex flex-wrap items-end justify-between gap-3">
@@ -304,9 +297,10 @@ export default function StateJobsExplorer({
       ) : (
         <div className="mt-5 grid gap-4">
           {filtered.map((job) => {
-            const hasDetail = detailSlugSet.has(job.slug);
+            const typedJob = job as ExplorerJob;
             const isSunatLive = job.sourceLabel === "SUNAT · sincronización automática";
-            const salary = verifiedSalary((job as ExplorerJob).details?.salary);
+            const salary = verifiedSalary(typedJob.details?.salary);
+            const applicationUrl = typedJob.details?.applicationUrl || job.sourceUrl;
 
             return (
               <article key={job.slug} className="grid gap-4 rounded-[24px] border border-[#dbe5f1] bg-white p-5 shadow-[0_8px_24px_rgba(10,45,90,.055)] md:grid-cols-[1fr_auto] md:items-center">
@@ -338,15 +332,14 @@ export default function StateJobsExplorer({
 
                 <div className="flex min-w-[220px] flex-col gap-3 md:items-end">
                   {salary ? <span className="w-fit rounded-xl bg-[#e5f7e9] px-4 py-2 text-xl font-black text-[#12643a]">{salary}</span> : null}
-                  {hasDetail ? (
-                    <Link href={`/convocatorias/${job.slug}`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#0866d8] px-5 text-base font-black text-white transition hover:bg-[#075abc]">
-                      Ver ficha completa <ArrowRight size={18} />
-                    </Link>
-                  ) : (
-                    <a href={job.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#0866d8] px-5 text-base font-black text-white transition hover:bg-[#075abc]">
-                      {isSunatLive ? "Ver proceso en SUNAT" : "Ver fuente oficial"} <ArrowUpRight size={18} />
-                    </a>
-                  )}
+                  <a
+                    href={applicationUrl}
+                    target={applicationUrl.startsWith("mailto:") ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-[#0866d8] px-5 text-base font-black text-white transition hover:bg-[#075abc]"
+                  >
+                    Postular ahora <ArrowUpRight size={18} />
+                  </a>
                   <span className="text-sm font-semibold text-[#7b8998]">Revisada {job.verifiedAt}</span>
                 </div>
               </article>
