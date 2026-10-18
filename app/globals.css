@@ -20,6 +20,8 @@ body {
 @layer base {
   a { color: inherit; text-decoration: none; }
 }
+/* El CTA blanco de verificación vive dentro de un bloque azul; fijamos su contraste. */
+a[href="/como-verificamos"][class*="bg-white"] { color: #0a2d5a !important; }
 button, input, textarea, select { font: inherit; }
 ::selection { background: rgba(229,185,79,.32); color: #fff; }
 
