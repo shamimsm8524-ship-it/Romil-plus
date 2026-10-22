@@ -2,7 +2,21 @@
 
 import { useEffect } from "react";
 
-const lightSidebarTemplates = new Set(["dorado-elegante", "lavanda-profesional"]);
+/*
+ * Solo estos modelos tienen una barra lateral realmente OSCURA.
+ * El resto de diseños —incluidos Azul Técnico, Dorado, Lavanda y todos los
+ * modelos minimal/split/topbar— deben conservar texto oscuro aunque una
+ * sección se coloque manualmente en la columna izquierda.
+ *
+ * Basarnos en el nombre del modelo, y no únicamente en data-cv-layout, evita
+ * que un cambio de plantilla o una reconstrucción del organizador deje texto
+ * blanco heredado sobre fondos claros.
+ */
+const darkSidebarTemplates = new Set([
+  "ejecutivo-azul",
+  "cobalto-directivo",
+  "malva-ejecutivo",
+]);
 
 const sectionLabels: Record<string, string> = {
   perfil: "Perfil profesional",
@@ -88,21 +102,21 @@ function styleManualHeading(heading: HTMLElement, color: string, darkSurface: bo
 }
 
 function syncSection(section: HTMLElement, root: HTMLElement) {
-  const layout = root.dataset.cvLayout;
   const column = section.dataset.cvColumn;
   const template = root.dataset.cvTemplate ?? "";
   const accent = templateAccents[template] ?? "#0a2d5a";
-  const darkSurface = layout === "sidebar" && column === "left" && !lightSidebarTemplates.has(template);
+  const darkSurface = column === "left" && darkSidebarTemplates.has(template);
 
   section.dataset.cvSurface = darkSurface ? "dark" : "light";
   setImportant(section, "display", "block");
   setImportant(section, "visibility", "visible");
   setImportant(section, "opacity", "1");
+  setImportant(section, "color", darkSurface ? "#ffffff" : "#4b5563");
 
   const heading = ensureManualHeading(section);
   if (heading) styleManualHeading(heading, accent, darkSurface);
 
-  section.querySelectorAll<HTMLElement>("p, span, strong, a").forEach((node) => {
+  section.querySelectorAll<HTMLElement>("p, span, strong, a, li, em, small").forEach((node) => {
     const isPill = node.tagName === "SPAN" && node.classList.contains("rounded-full");
     const isStrong = node.tagName === "STRONG" || node.classList.contains("font-black") || node.classList.contains("font-bold");
 
