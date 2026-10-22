@@ -8,6 +8,7 @@ import "./photo-alignment.css";
 import "./azul-tecnico-redesign.css";
 import "./cv-print-fix.css";
 import "./cv-pages.css";
+import "./cv-typography.css";
 
 export const metadata: Metadata = {
   title: "Crear CV profesional gratis",
