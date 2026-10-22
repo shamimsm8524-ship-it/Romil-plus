@@ -2,6 +2,7 @@ import { exactStateJobDetails } from "@/lib/exact-state-job-details";
 import { exactStateJobs } from "@/lib/exact-state-jobs";
 import { expandedPublicJobDetails } from "@/lib/expanded-public-job-details";
 import { freshJobDetails } from "@/lib/fresh-job-details";
+import { mtcJobDetails } from "@/lib/mtc-job-details";
 import { pardosJobDetails } from "@/lib/pardos-job-details";
 import { privateJobDetails } from "@/lib/private-job-details";
 import { priorityCareerJobs } from "@/lib/priority-career-jobs";
@@ -60,6 +61,7 @@ const supersededFreshSlugs = new Set([
   "migraciones-cas-130-132-2026-cuatro-plazas",
   "ipd-cas-070-072-2026-tres-plazas",
   "proinnovate-cas-005-2026-especialista-proyectos-reembolsables",
+  "mtc-cas-16-24-2026-nueve-plazas",
 ]);
 
 const exactCompleteJobs = exactStateJobs.filter(
@@ -82,6 +84,7 @@ export const detailedPublicJobs: JobDetailView[] = [
   ...privateJobDetails,
   ...freshViews,
   ...expandedPublicJobDetails,
+  ...mtcJobDetails,
   ...pardosJobDetails,
   ...priorityViews,
   ...exactViews,
