@@ -99,11 +99,6 @@
   line-height: 1.15 !important;
 }
 
-/* Mientras se toman las miniaturas reales evitamos parpadeos de la hoja central. */
-:global(html.cv-building-real-thumbnails) :global(#cv-print-area) {
-  transition: none !important;
-}
-
 /* Celular: 2 modelos por fila y hoja real suficientemente grande para reconocerla. */
 @media (max-width: 767px) {
   :global(body):has(.enhancer) :global(main:has(#cv-print-area) > section.mx-auto.grid > aside:last-child) {
