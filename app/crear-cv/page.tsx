@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CvBuilder } from "@/components/CvBuilder";
 import { CvDesignEnhancer } from "@/components/CvDesignEnhancer";
 import { CvPageManager } from "@/components/CvPageManager";
+import { CvSectionStyleSync } from "@/components/CvSectionStyleSync";
 import "./cv-designs.css";
 import "./photo-alignment.css";
 import "./azul-tecnico-redesign.css";
@@ -19,5 +20,6 @@ export default function CrearCvPage() {
     <CvBuilder />
     <CvDesignEnhancer />
     <CvPageManager />
+    <CvSectionStyleSync />
   </>;
 }
