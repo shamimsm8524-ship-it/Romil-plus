@@ -4,33 +4,28 @@ import { useEffect } from "react";
 
 const lightSidebarTemplates = new Set(["dorado-elegante", "lavanda-profesional"]);
 
-function inlineAccent(node: HTMLElement | null, property: "background" | "color") {
-  if (!node) return "";
-  return property === "background" ? node.style.background : node.style.color;
-}
-
-function findAccent(root: HTMLElement) {
-  const layout = root.dataset.cvLayout;
-
-  if (layout === "sidebar") {
-    const outer = Array.from(root.children).find((child) => child instanceof HTMLElement && child.classList.contains("grid")) as HTMLElement | undefined;
-    const aside = outer?.querySelector<HTMLElement>(":scope > aside:first-child") ?? null;
-    return inlineAccent(aside, "background") || "#0a2d5a";
-  }
-
-  if (layout === "topbar") {
-    const header = root.querySelector<HTMLElement>(":scope > header.grid");
-    return inlineAccent(header, "background") || "#0a2d5a";
-  }
-
-  if (layout === "split") {
-    const bar = root.querySelector<HTMLElement>(":scope > .h-3");
-    return inlineAccent(bar, "background") || "#0a2d5a";
-  }
-
-  const profession = Array.from(root.querySelectorAll<HTMLElement>("p")).find((item) => Boolean(item.style.color));
-  return inlineAccent(profession ?? null, "color") || "#0a2d5a";
-}
+const templateAccents: Record<string, string> = {
+  "ejecutivo-azul": "#0a2d5a",
+  "corporativo-oro": "#9b6a00",
+  "navy-moderno": "#17365d",
+  "grafito-premium": "#343a40",
+  "azul-tecnico": "#0866d8",
+  "verde-ejecutivo": "#23664d",
+  "acero-profesional": "#495867",
+  "indigo-sobrio": "#384a8a",
+  "cobalto-directivo": "#124e78",
+  "cafe-ejecutivo": "#6b4f3b",
+  "dorado-elegante": "#b78314",
+  "azul-sereno": "#315d8c",
+  "rosa-ejecutivo": "#a24f68",
+  "arena-premium": "#8b7355",
+  "lavanda-profesional": "#6a5b8f",
+  "verde-salvia": "#5f7658",
+  "borgona-elegante": "#7e3342",
+  "celeste-moderno": "#367c91",
+  "malva-ejecutivo": "#75596d",
+  "champagne-profesional": "#9d7b47",
+};
 
 function setImportant(node: HTMLElement, property: string, value: string) {
   if (node.style.getPropertyValue(property) === value && node.style.getPropertyPriority(property) === "important") return;
@@ -41,23 +36,31 @@ function syncSection(section: HTMLElement, root: HTMLElement) {
   const layout = root.dataset.cvLayout;
   const column = section.dataset.cvColumn;
   const template = root.dataset.cvTemplate ?? "";
-  const accent = findAccent(root);
-
+  const accent = templateAccents[template] ?? "#0a2d5a";
   const darkSurface = layout === "sidebar" && column === "left" && !lightSidebarTemplates.has(template);
+
   section.dataset.cvSurface = darkSurface ? "dark" : "light";
+  setImportant(section, "visibility", "visible");
+  setImportant(section, "opacity", "1");
 
   const heading = section.querySelector<HTMLElement>("h3");
   if (heading) {
+    setImportant(heading, "display", "block");
+    setImportant(heading, "visibility", "visible");
+    setImportant(heading, "opacity", "1");
     setImportant(heading, "color", darkSurface ? "#ffffff" : accent);
     setImportant(heading, "border-color", darkSurface ? "rgba(255,255,255,.28)" : "#dce4ed");
   }
 
-  section.querySelectorAll<HTMLElement>("p, span").forEach((node) => {
+  section.querySelectorAll<HTMLElement>("p, span, strong, a").forEach((node) => {
     const isPill = node.tagName === "SPAN" && node.classList.contains("rounded-full");
-    const isStrong = node.classList.contains("font-black") || node.classList.contains("font-bold");
+    const isStrong = node.tagName === "STRONG" || node.classList.contains("font-black") || node.classList.contains("font-bold");
+
+    setImportant(node, "visibility", "visible");
+    setImportant(node, "opacity", "1");
 
     if (darkSurface) {
-      setImportant(node, "color", isStrong || isPill ? "#ffffff" : "rgba(255,255,255,.82)");
+      setImportant(node, "color", isStrong || isPill ? "#ffffff" : "rgba(255,255,255,.86)");
       if (isPill) setImportant(node, "background-color", "rgba(255,255,255,.12)");
       return;
     }
@@ -87,7 +90,6 @@ export function CvSectionStyleSync() {
 
     schedule();
 
-    // Observamos únicamente cambios estructurales y de destino para evitar ciclos de repintado.
     const observer = new MutationObserver(schedule);
     observer.observe(document.body, {
       childList: true,
