@@ -43,7 +43,8 @@ button[data-cv-template-card="azul-tecnico"] > div:first-child > div {
   border-color: #b9d8f6 !important;
 }
 
-#cv-print-area[data-cv-template="azul-tecnico"] > .grid > aside:first-child section span {
+/* Solo las habilidades usan etiqueta blanca. Los textos normales (idiomas, periodos, etc.) no. */
+#cv-print-area[data-cv-template="azul-tecnico"] > .grid > aside:first-child section span.rounded-full {
   background: #ffffff !important;
   color: #17365d !important;
   border: 1px solid #c9e0f7 !important;
@@ -84,7 +85,7 @@ html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv
   border-color: #b9d8f6 !important;
 }
 
-html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv-layout="sidebar"] > .grid > aside:first-child section[data-cv-column="left"] span[class*="bg-"] {
+html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv-layout="sidebar"] > .grid > aside:first-child section[data-cv-column="left"] span.rounded-full {
   background: #ffffff !important;
   color: #17365d !important;
   border-color: #c9e0f7 !important;
