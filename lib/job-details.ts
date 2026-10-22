@@ -57,20 +57,32 @@ const temporarilyIncompleteSlugs = new Set([
   "programa-contigo-019-2026-especialista-administracion-general",
 ]);
 
-const supersededFreshSlugs = new Set([
+const hiddenFreshSlugs = new Set([
   "migraciones-cas-130-132-2026-cuatro-plazas",
   "ipd-cas-070-072-2026-tres-plazas",
   "proinnovate-cas-005-2026-especialista-proyectos-reembolsables",
   "mtc-cas-16-24-2026-nueve-plazas",
+  "ministerio-publico-cas-155-huancavelica-2026",
+  "sanipes-cas-39-43-2026-cinco-plazas",
 ]);
 
+const hasVerifiedDetail = (job: (typeof exactStateJobs)[number]) => {
+  const detail = exactStateJobDetails[job.slug];
+  return Boolean(
+    detail &&
+      detail.applicationUrl &&
+      (detail.education?.length || detail.requirements?.length) &&
+      detail.experience?.length,
+  );
+};
+
 const exactCompleteJobs = exactStateJobs.filter(
-  (job) => !temporarilyIncompleteSlugs.has(job.slug),
+  (job) => !temporarilyIncompleteSlugs.has(job.slug) && hasVerifiedDetail(job),
 );
 
 const exactViews: JobDetailView[] = exactCompleteJobs.map((job) => ({
   ...job,
-  details: exactStateJobDetails[job.slug] ?? {},
+  details: exactStateJobDetails[job.slug],
 }));
 
 const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
@@ -78,7 +90,7 @@ const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
   details: job.details,
 }));
 
-const freshViews = freshJobDetails.filter((job) => !supersededFreshSlugs.has(job.slug));
+const freshViews = freshJobDetails.filter((job) => !hiddenFreshSlugs.has(job.slug));
 
 export const detailedPublicJobs: JobDetailView[] = [
   ...privateJobDetails,
