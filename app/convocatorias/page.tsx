@@ -107,8 +107,14 @@ export default async function ConvocatoriasPage() {
             <p className="mt-2 text-base font-medium leading-6 text-[#657489]">Administración, salud, educación, ingeniería, TI, legal, finanzas y prácticas.</p>
           </div>
         </div>
+      </section>
 
-        <div className="mt-7 rounded-[26px] border border-[#dbe5f1] bg-[#f8fbff] p-5 sm:p-6">
+      <div id="listado" className="mx-auto w-full max-w-[1180px] px-4 pb-12 sm:px-6 lg:px-6">
+        <StateJobsExplorer jobs={jobsForExplorer} detailSlugs={detailSlugs} />
+      </div>
+
+      <section className="mx-auto w-full max-w-[1180px] px-4 pb-12 sm:px-6 lg:px-6">
+        <div className="rounded-[26px] border border-[#dbe5f1] bg-[#f8fbff] p-5 sm:p-6">
           <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6]">Rubros que cubre RomilPlus</p>
           <h2 className="mt-2 text-2xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-3xl">Desde trabajos sin experiencia hasta puestos profesionales</h2>
           <div className="mt-5 flex flex-wrap gap-2.5">
@@ -123,10 +129,6 @@ export default async function ConvocatoriasPage() {
           </p>
         </div>
       </section>
-
-      <div id="listado" className="mx-auto w-full max-w-[1180px] px-4 pb-12 sm:px-6 lg:px-6">
-        <StateJobsExplorer jobs={jobsForExplorer} detailSlugs={detailSlugs} />
-      </div>
     </main>
   );
 }
