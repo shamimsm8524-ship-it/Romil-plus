@@ -2,6 +2,7 @@
   display: none;
 }
 
+/* Mantiene Editar | CV | Diseños lado a lado en laptops normales. */
 @media (min-width: 1280px) and (max-width: 1399px) {
   :global(body):has(.enhancer) :global(main:has(#cv-print-area) > section.mx-auto.grid) {
     grid-template-columns: 290px minmax(0, 1fr) 250px !important;
@@ -40,57 +41,70 @@
   }
 }
 
-@media (min-width: 1280px) {
-  :global(body):has(.enhancer) :global(button[data-cv-template-card]) {
-    min-width: 0;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child) {
-    height: 82px !important;
-    padding: 7px !important;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div) {
-    height: 100% !important;
-    min-height: 0 !important;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child) {
-    padding: 6px 7px !important;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child p) {
-    font-size: 10px !important;
-    line-height: 1.15 !important;
-  }
-}
-
-:global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div) {
-  position: relative;
+/* Tarjetas de modelos: la imagen es una copia reducida de la hoja real. */
+:global(body):has(.enhancer) :global(button[data-cv-template-card]) {
+  min-width: 0;
   overflow: hidden;
 }
 
-:global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div::after) {
-  content: "";
+:global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child) {
+  position: relative !important;
+  height: 154px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+:global(body):has(.enhancer) :global(.cv-real-thumbnail) {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #fff;
+}
+
+:global(body):has(.enhancer) :global(.cv-real-thumbnail::before),
+:global(body):has(.enhancer) :global(.cv-real-thumbnail::after) {
+  content: none !important;
+  display: none !important;
+}
+
+:global(body):has(.enhancer) :global(.cv-real-thumbnail-stage) {
   position: absolute;
-  right: 9%;
-  top: 28%;
-  width: 48%;
-  height: 4px;
-  border-radius: 999px;
-  background: rgba(33, 52, 75, .72);
-  box-shadow:
-    0 9px 0 rgba(111, 128, 147, .34),
-    0 18px 0 rgba(111, 128, 147, .25),
-    0 27px 0 rgba(111, 128, 147, .2);
+  left: 50%;
+  top: 0;
+  width: 794px;
+  height: 1122px;
+  transform-origin: top center;
+  transform: translateX(-50%) scale(.135);
   pointer-events: none;
 }
 
-/*
-  En celular, cada tarjeta deja de usar el mismo dibujo genérico.
-  La miniatura conserva la familia visual real del modelo seleccionado:
-  sidebar, cabecera superior, dos columnas o minimalista.
-*/
+:global(body):has(.enhancer) :global(.cv-real-thumbnail-sheet) {
+  width: 794px !important;
+  min-width: 794px !important;
+  max-width: 794px !important;
+  height: 1122px !important;
+  min-height: 1122px !important;
+  margin: 0 !important;
+  zoom: 100% !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+:global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child) {
+  padding: 8px 8px !important;
+}
+
+:global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child p) {
+  line-height: 1.15 !important;
+}
+
+/* Mientras se toman las miniaturas reales evitamos parpadeos de la hoja central. */
+:global(html.cv-building-real-thumbnails) :global(#cv-print-area) {
+  transition: none !important;
+}
+
+/* Celular: 2 modelos por fila y hoja real suficientemente grande para reconocerla. */
 @media (max-width: 767px) {
   :global(body):has(.enhancer) :global(main:has(#cv-print-area) > section.mx-auto.grid > aside:last-child) {
     padding: 14px !important;
@@ -103,26 +117,16 @@
   }
 
   :global(body):has(.enhancer) :global(button[data-cv-template-card]) {
-    min-width: 0 !important;
-    overflow: hidden !important;
     border-radius: 16px !important;
     box-shadow: 0 2px 8px rgba(15, 42, 73, .04);
   }
 
   :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child) {
-    height: 118px !important;
-    padding: 8px !important;
+    height: 178px !important;
   }
 
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div) {
-    height: 100% !important;
-    min-height: 0 !important;
-    border-radius: 8px !important;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div > *) {
-    opacity: 0 !important;
-    pointer-events: none !important;
+  :global(body):has(.enhancer) :global(.cv-real-thumbnail-stage) {
+    transform: translateX(-50%) scale(.158);
   }
 
   :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child) {
@@ -134,198 +138,33 @@
 
   :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child p) {
     font-size: 13px !important;
-    line-height: 1.15 !important;
     font-weight: 900 !important;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div::before) {
-    content: "";
-    position: absolute;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child > div::after) {
-    z-index: 3;
-    height: 4px;
-    border-radius: 999px;
-    background: rgba(28, 48, 72, .82);
-    box-shadow:
-      0 10px 0 rgba(112, 128, 145, .48),
-      0 20px 0 rgba(143, 157, 171, .35),
-      0 30px 0 rgba(143, 157, 171, .28),
-      0 40px 0 rgba(143, 157, 171, .20);
-  }
-
-  /* Sidebar: Ejecutivo Azul, Azul Técnico, Cobalto, Dorado, Lavanda y Malva */
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="ejecutivo-azul"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="azul-tecnico"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="cobalto-directivo"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="dorado-elegante"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="lavanda-profesional"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="malva-ejecutivo"] > div:first-child > div::before) {
-    left: 10%;
-    top: 18%;
-    width: 25%;
-    height: 47%;
-    border: 4px solid rgba(255,255,255,.86);
-    background: rgba(255,255,255,.76);
-    box-shadow: 0 0 0 1px rgba(21,49,80,.09);
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="ejecutivo-azul"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="azul-tecnico"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="cobalto-directivo"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="dorado-elegante"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="lavanda-profesional"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="malva-ejecutivo"] > div:first-child > div::after) {
-    right: 8%;
-    top: 25%;
-    width: 48%;
-  }
-
-  /* Topbar: Corporativo, Verde, Café, Azul Sereno, Verde Salvia, Champagne */
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="corporativo-oro"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="verde-ejecutivo"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="cafe-ejecutivo"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="azul-sereno"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="verde-salvia"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="champagne-profesional"] > div:first-child > div::before) {
-    right: 9%;
-    top: 9%;
-    width: 24px;
-    height: 24px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.88);
-    border: 3px solid rgba(255,255,255,.62);
-    box-shadow: 0 2px 6px rgba(20,40,64,.12);
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="corporativo-oro"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="verde-ejecutivo"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="cafe-ejecutivo"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="azul-sereno"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="verde-salvia"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="champagne-profesional"] > div:first-child > div::after) {
-    left: 12%;
-    right: auto;
-    top: 47%;
-    width: 55%;
-  }
-
-  /* Split: Navy, Acero, Rosa y Borgoña */
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="navy-moderno"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="acero-profesional"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="rosa-ejecutivo"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="borgona-elegante"] > div:first-child > div::before) {
-    left: 9%;
-    top: 17%;
-    width: 27px;
-    height: 27px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.88);
-    border: 3px solid rgba(255,255,255,.68);
-    box-shadow: 0 2px 6px rgba(20,40,64,.12);
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="navy-moderno"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="acero-profesional"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="rosa-ejecutivo"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="borgona-elegante"] > div:first-child > div::after) {
-    right: 8%;
-    top: 23%;
-    width: 51%;
-    box-shadow:
-      0 10px 0 rgba(112, 128, 145, .42),
-      0 27px 0 rgba(143, 157, 171, .30),
-      0 37px 0 rgba(143, 157, 171, .23),
-      -64px 27px 0 rgba(112, 128, 145, .34),
-      -64px 37px 0 rgba(143, 157, 171, .22);
-  }
-
-  /* Minimal: Grafito, Índigo, Arena y Celeste */
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="grafito-premium"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="indigo-sobrio"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="arena-premium"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="celeste-moderno"] > div:first-child > div::before) {
-    right: 9%;
-    top: 13%;
-    width: 22px;
-    height: 22px;
-    border-radius: 999px;
-    background: rgba(255,255,255,.88);
-    border: 2px solid rgba(90,105,122,.18);
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="grafito-premium"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="indigo-sobrio"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="arena-premium"] > div:first-child > div::after),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="celeste-moderno"] > div:first-child > div::after) {
-    left: 12%;
-    right: auto;
-    top: 30%;
-    width: 55%;
-    box-shadow:
-      0 10px 0 rgba(112, 128, 145, .40),
-      0 24px 0 rgba(143, 157, 171, .27),
-      0 34px 0 rgba(143, 157, 171, .21),
-      67px 24px 0 rgba(112, 128, 145, .30),
-      67px 34px 0 rgba(143, 157, 171, .19);
-  }
-
-  /* Detalles particulares para que los 20 modelos no parezcan variaciones del mismo dibujo. */
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="azul-tecnico"] > div:first-child > div::before) {
-    border-radius: 4px;
-    box-shadow: 5px 0 0 rgba(219,234,254,.95);
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="cobalto-directivo"] > div:first-child > div::before) {
-    width: 29%;
-    border-radius: 3px;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="dorado-elegante"] > div:first-child > div::before),
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="lavanda-profesional"] > div:first-child > div::before) {
-    border-radius: 999px;
-    width: 30px;
-    height: 30px;
-    left: 12%;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="verde-ejecutivo"] > div:first-child > div::before) {
-    top: 12%;
-    right: 12%;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="cafe-ejecutivo"] > div:first-child > div::before) {
-    right: 7%;
-    background: rgba(255,255,255,.95);
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="verde-salvia"] > div:first-child > div::before) {
-    right: 11%;
-    top: 16%;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="borgona-elegante"] > div:first-child > div::before) {
-    left: 46%;
-    top: 9%;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="indigo-sobrio"] > div:first-child > div::before) {
-    left: 12%;
-    right: auto;
-  }
-
-  :global(body):has(.enhancer) :global(button[data-cv-template-card="celeste-moderno"] > div:first-child > div::before) {
-    left: 14%;
-    right: auto;
-    top: 15%;
   }
 }
 
+@media (min-width: 768px) and (max-width: 1279px) {
+  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child) {
+    height: 190px !important;
+  }
+
+  :global(body):has(.enhancer) :global(.cv-real-thumbnail-stage) {
+    transform: translateX(-50%) scale(.17);
+  }
+}
+
+@media (min-width: 1280px) {
+  :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child p) {
+    font-size: 10px !important;
+  }
+}
+
+/* La miniatura nunca modifica impresión ni PDF. */
 @media print {
   :global(body):has(.enhancer) :global(#cv-print-area.cv-page) {
     zoom: 100% !important;
+  }
+
+  :global(.cv-real-thumbnail) {
+    display: none !important;
   }
 }
