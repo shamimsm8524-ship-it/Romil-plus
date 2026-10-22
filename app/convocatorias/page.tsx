@@ -4,6 +4,7 @@ import StateJobsExplorer from "@/components/StateJobsExplorer";
 import { detailedPublicJobs } from "@/lib/job-details";
 import { privateVerifiedJobs } from "@/lib/private-verified-jobs";
 import { getSunatLiveJobs } from "@/lib/sunat-live";
+import "./convocatorias.css";
 
 export const revalidate = 300;
 
