@@ -43,9 +43,18 @@ const employmentSectors = [
   "Trabajo remoto",
 ];
 
+function publishedAtTimestamp(value: string) {
+  const match = value.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if (!match) return 0;
+  const [, day, month, year] = match;
+  return Date.UTC(Number(year), Number(month) - 1, Number(day));
+}
+
 export default async function ConvocatoriasPage() {
   const sunatJobs = await getSunatLiveJobs();
-  const jobsForExplorer = [...privateVerifiedJobs, ...sunatJobs, ...detailedPublicJobs];
+  const jobsForExplorer = [...privateVerifiedJobs, ...sunatJobs, ...detailedPublicJobs].sort(
+    (a, b) => publishedAtTimestamp(b.publishedAt) - publishedAtTimestamp(a.publishedAt),
+  );
   const detailSlugs = jobsForExplorer.map((job) => job.slug);
 
   return (
