@@ -42,39 +42,49 @@ function setImportant(node: HTMLElement, property: string, value: string) {
   node.style.setProperty(property, value, "important");
 }
 
-function ensureHeading(section: HTMLElement) {
+function ensureManualHeading(section: HTMLElement) {
   const key = section.dataset.cvSection ?? "";
   const label = sectionLabels[key];
-  let heading = section.querySelector<HTMLElement>(":scope > h3");
+  if (!label) return null;
 
-  if (!heading && label) {
-    heading = document.createElement("h3");
-    heading.textContent = label;
-    heading.dataset.cvGeneratedHeading = "true";
+  const originalHeading = section.querySelector<HTMLElement>("h3");
+  if (originalHeading) setImportant(originalHeading, "display", "none");
+
+  let heading = section.querySelector<HTMLElement>(":scope > [data-cv-manual-heading]");
+  if (!heading) {
+    heading = document.createElement("div");
+    heading.dataset.cvManualHeading = "true";
     section.prepend(heading);
-  } else if (heading && label && heading.textContent?.trim() !== label) {
-    heading.textContent = label;
   }
 
+  heading.textContent = label;
   return heading;
 }
 
-function styleHeading(heading: HTMLElement, color: string, darkSurface: boolean) {
+function styleManualHeading(heading: HTMLElement, color: string, darkSurface: boolean) {
   setImportant(heading, "display", "block");
   setImportant(heading, "visibility", "visible");
   setImportant(heading, "opacity", "1");
+  setImportant(heading, "position", "relative");
+  setImportant(heading, "z-index", "2");
   setImportant(heading, "width", "100%");
+  setImportant(heading, "height", "auto");
+  setImportant(heading, "min-height", "20px");
   setImportant(heading, "margin", "0 0 12px 0");
   setImportant(heading, "padding", "0 0 6px 0");
   setImportant(heading, "border-bottom-style", "solid");
   setImportant(heading, "border-bottom-width", "1px");
   setImportant(heading, "border-color", darkSurface ? "rgba(255,255,255,.28)" : "#dce4ed");
   setImportant(heading, "color", darkSurface ? "#ffffff" : color);
+  setImportant(heading, "background", "transparent");
   setImportant(heading, "font-size", "11px");
   setImportant(heading, "line-height", "1.35");
+  setImportant(heading, "font-family", "inherit");
   setImportant(heading, "font-weight", "900");
   setImportant(heading, "text-transform", "uppercase");
   setImportant(heading, "letter-spacing", ".13em");
+  setImportant(heading, "white-space", "normal");
+  setImportant(heading, "overflow", "visible");
 }
 
 function syncSection(section: HTMLElement, root: HTMLElement) {
@@ -89,8 +99,8 @@ function syncSection(section: HTMLElement, root: HTMLElement) {
   setImportant(section, "visibility", "visible");
   setImportant(section, "opacity", "1");
 
-  const heading = ensureHeading(section);
-  if (heading) styleHeading(heading, accent, darkSurface);
+  const heading = ensureManualHeading(section);
+  if (heading) styleManualHeading(heading, accent, darkSurface);
 
   section.querySelectorAll<HTMLElement>("p, span, strong, a").forEach((node) => {
     const isPill = node.tagName === "SPAN" && node.classList.contains("rounded-full");
