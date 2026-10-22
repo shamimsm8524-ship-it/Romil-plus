@@ -1,0 +1,129 @@
+.enhancer {
+  display: none;
+}
+
+/*
+  En laptops medianas RomilPlus colapsaba el creador a una sola columna.
+  Eso hacía que la galería de diseños ocupara todo el ancho y que las
+  miniaturas parecieran banners gigantes. Aquí conservamos la composición
+  del editor de escritorio: contenido | hoja A4 | diseños.
+*/
+@media (min-width: 1280px) and (max-width: 1399px) {
+  :global(main:has(#cv-print-area) > section.mx-auto.grid) {
+    grid-template-columns: 290px minmax(0, 1fr) 250px !important;
+    align-items: start !important;
+    gap: 14px !important;
+  }
+
+  :global(main:has(#cv-print-area) > section.mx-auto.grid > aside) {
+    position: sticky !important;
+    top: 88px !important;
+    height: calc(100vh - 110px) !important;
+    overflow-y: auto !important;
+  }
+
+  :global(#cv-print-area.cv-page) {
+    zoom: 78%;
+  }
+}
+
+@media (min-width: 1400px) and (max-width: 1535px) {
+  :global(main:has(#cv-print-area) > section.mx-auto.grid) {
+    grid-template-columns: 320px minmax(0, 1fr) 270px !important;
+    align-items: start !important;
+    gap: 16px !important;
+  }
+
+  :global(main:has(#cv-print-area) > section.mx-auto.grid > aside) {
+    position: sticky !important;
+    top: 88px !important;
+    height: calc(100vh - 110px) !important;
+    overflow-y: auto !important;
+  }
+
+  :global(#cv-print-area.cv-page) {
+    zoom: 88%;
+  }
+}
+
+/* La galería queda compacta como en la versión lateral que pidió el usuario. */
+@media (min-width: 1280px) {
+  :global(button[data-cv-template-card]) {
+    min-width: 0;
+  }
+
+  :global(button[data-cv-template-card] > div:first-child) {
+    height: 82px !important;
+    padding: 7px !important;
+  }
+
+  :global(button[data-cv-template-card] > div:first-child > div) {
+    height: 100% !important;
+    min-height: 0 !important;
+  }
+
+  :global(button[data-cv-template-card] > div:last-child) {
+    padding: 6px 7px !important;
+  }
+
+  :global(button[data-cv-template-card] > div:last-child p) {
+    font-size: 10px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+/*
+  Refuerza la lectura del modelo dentro de cada miniatura. Los fondos ya
+  provienen de cv-designs.css y corresponden a cada CV; estas líneas pequeñas
+  hacen que se lea como una hoja real y no como una barra decorativa.
+*/
+:global(button[data-cv-template-card] > div:first-child > div) {
+  position: relative;
+  overflow: hidden;
+}
+
+:global(button[data-cv-template-card] > div:first-child > div::after) {
+  content: "";
+  position: absolute;
+  right: 9%;
+  top: 28%;
+  width: 48%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(33, 52, 75, .72);
+  box-shadow:
+    0 9px 0 rgba(111, 128, 147, .34),
+    0 18px 0 rgba(111, 128, 147, .25),
+    0 27px 0 rgba(111, 128, 147, .2);
+  pointer-events: none;
+}
+
+:global(button[data-cv-template-card="corporativo-oro"] > div:first-child > div::after),
+:global(button[data-cv-template-card="verde-ejecutivo"] > div:first-child > div::after),
+:global(button[data-cv-template-card="cafe-ejecutivo"] > div:first-child > div::after),
+:global(button[data-cv-template-card="azul-sereno"] > div:first-child > div::after),
+:global(button[data-cv-template-card="verde-salvia"] > div:first-child > div::after),
+:global(button[data-cv-template-card="champagne-profesional"] > div:first-child > div::after) {
+  right: 14%;
+  top: 42%;
+  width: 52%;
+}
+
+:global(button[data-cv-template-card="grafito-premium"] > div:first-child > div::after),
+:global(button[data-cv-template-card="arena-premium"] > div:first-child > div::after) {
+  top: 48%;
+  width: 58%;
+}
+
+:global(button[data-cv-template-card="indigo-sobrio"] > div:first-child > div::after),
+:global(button[data-cv-template-card="celeste-moderno"] > div:first-child > div::after) {
+  right: 10%;
+  width: 60%;
+}
+
+/* No alteramos la impresión: el zoom anterior solo sirve para la vista del editor. */
+@media print {
+  :global(#cv-print-area.cv-page) {
+    zoom: 100% !important;
+  }
+}
