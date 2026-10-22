@@ -4,6 +4,16 @@ import { useEffect } from "react";
 
 const lightSidebarTemplates = new Set(["dorado-elegante", "lavanda-profesional"]);
 
+const sectionLabels: Record<string, string> = {
+  perfil: "Perfil profesional",
+  experiencia: "Experiencia",
+  educacion: "Educación",
+  certificaciones: "Cursos y certificaciones",
+  habilidades: "Habilidades",
+  idiomas: "Idiomas",
+  referencias: "Referencias",
+};
+
 const templateAccents: Record<string, string> = {
   "ejecutivo-azul": "#0a2d5a",
   "corporativo-oro": "#9b6a00",
@@ -32,6 +42,41 @@ function setImportant(node: HTMLElement, property: string, value: string) {
   node.style.setProperty(property, value, "important");
 }
 
+function ensureHeading(section: HTMLElement) {
+  const key = section.dataset.cvSection ?? "";
+  const label = sectionLabels[key];
+  let heading = section.querySelector<HTMLElement>(":scope > h3");
+
+  if (!heading && label) {
+    heading = document.createElement("h3");
+    heading.textContent = label;
+    heading.dataset.cvGeneratedHeading = "true";
+    section.prepend(heading);
+  } else if (heading && label && heading.textContent?.trim() !== label) {
+    heading.textContent = label;
+  }
+
+  return heading;
+}
+
+function styleHeading(heading: HTMLElement, color: string, darkSurface: boolean) {
+  setImportant(heading, "display", "block");
+  setImportant(heading, "visibility", "visible");
+  setImportant(heading, "opacity", "1");
+  setImportant(heading, "width", "100%");
+  setImportant(heading, "margin", "0 0 12px 0");
+  setImportant(heading, "padding", "0 0 6px 0");
+  setImportant(heading, "border-bottom-style", "solid");
+  setImportant(heading, "border-bottom-width", "1px");
+  setImportant(heading, "border-color", darkSurface ? "rgba(255,255,255,.28)" : "#dce4ed");
+  setImportant(heading, "color", darkSurface ? "#ffffff" : color);
+  setImportant(heading, "font-size", "11px");
+  setImportant(heading, "line-height", "1.35");
+  setImportant(heading, "font-weight", "900");
+  setImportant(heading, "text-transform", "uppercase");
+  setImportant(heading, "letter-spacing", ".13em");
+}
+
 function syncSection(section: HTMLElement, root: HTMLElement) {
   const layout = root.dataset.cvLayout;
   const column = section.dataset.cvColumn;
@@ -40,17 +85,12 @@ function syncSection(section: HTMLElement, root: HTMLElement) {
   const darkSurface = layout === "sidebar" && column === "left" && !lightSidebarTemplates.has(template);
 
   section.dataset.cvSurface = darkSurface ? "dark" : "light";
+  setImportant(section, "display", "block");
   setImportant(section, "visibility", "visible");
   setImportant(section, "opacity", "1");
 
-  const heading = section.querySelector<HTMLElement>("h3");
-  if (heading) {
-    setImportant(heading, "display", "block");
-    setImportant(heading, "visibility", "visible");
-    setImportant(heading, "opacity", "1");
-    setImportant(heading, "color", darkSurface ? "#ffffff" : accent);
-    setImportant(heading, "border-color", darkSurface ? "rgba(255,255,255,.28)" : "#dce4ed");
-  }
+  const heading = ensureHeading(section);
+  if (heading) styleHeading(heading, accent, darkSurface);
 
   section.querySelectorAll<HTMLElement>("p, span, strong, a").forEach((node) => {
     const isPill = node.tagName === "SPAN" && node.classList.contains("rounded-full");
@@ -95,7 +135,7 @@ export function CvSectionStyleSync() {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ["data-cv-column", "data-cv-layout", "data-cv-template"],
+      attributeFilter: ["data-cv-column", "data-cv-layout", "data-cv-template", "data-cv-section"],
     });
 
     window.addEventListener("beforeprint", syncAllSections);
