@@ -13,3 +13,20 @@
   min-width: 110px !important;
   min-height: 110px !important;
 }
+
+/*
+ * Organizador de los modelos minimalistas (Grafito, Índigo, Arena y Celeste):
+ * cuando varias secciones se mandan primero a una misma columna, CSS Grid
+ * dejaba huecos vacíos y las secciones de la otra columna aparecían mucho más
+ * abajo. El modo dense rellena esos huecos manteniendo la columna y el orden
+ * elegidos por el usuario.
+ */
+#cv-print-area.cv-manual-page[data-cv-layout="minimal"] > div.grid:last-child {
+  grid-auto-flow: row dense !important;
+  align-items: start !important;
+  align-content: start !important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="minimal"] > div.grid:last-child > section {
+  align-self: start !important;
+}
