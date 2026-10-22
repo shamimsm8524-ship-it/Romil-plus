@@ -21,6 +21,51 @@ export type ScholarshipDetailExtra = {
 };
 
 const detailMap: Record<string, ScholarshipDetailExtra> = {
+  "osiptel-peu-2027": {
+    quantity: "60 becas integrales",
+    eligibility: [
+      "Estudiantes del último año de pregrado, egresados o bachilleres del semestre 2026-I de una universidad licenciada del Perú.",
+      "Carreras admitidas: Derecho; Economía o Ingeniería Económica; e Ingeniería de Telecomunicaciones, Electrónica, Sistemas, Informática, Software, Redes y Comunicaciones, Información o Industrial.",
+    ],
+    requirements: [
+      "Ser estudiante del último año de pregrado a la fecha de postulación, egresado o bachiller del semestre 2026-I de una universidad licenciada del país.",
+      "Pertenecer a una de las especialidades admitidas: Derecho; Economía o Ingeniería Económica; Ingeniería de Telecomunicaciones, Electrónica, Sistemas, Informática, Software, Redes y Comunicaciones, Información o Industrial.",
+      "No estar titulado.",
+      "Firmar un compromiso de dedicación exclusiva durante las semanas de desarrollo del programa.",
+      "Completar la ficha oficial de inscripción del PEU OSIPTEL 2027.",
+    ],
+    documents: [
+      "Documento que acredite la situación académica registrada, como constancia de matrícula u otro documento equivalente solicitado en el formulario oficial.",
+      "Los documentos adicionales dependen de la modalidad de admisión y deben adjuntarse conforme a las bases vigentes del proceso.",
+    ],
+    benefits: [
+      "Cobertura del 100 % de los costos académicos y materiales del programa.",
+      "Alimentación y movilidad local durante el desarrollo presencial en Lima.",
+      "Seguro contra accidentes.",
+      "Para becarios provenientes de regiones: traslado y alojamiento en Lima.",
+      "Los tres primeros puestos de cada especialidad podrán tener la oportunidad de incorporarse al OSIPTEL mediante prácticas preprofesionales o profesionales, según las condiciones del programa.",
+    ],
+    stages: [
+      "Completar la inscripción en el formulario oficial.",
+      "Rendir el examen de admisión virtual nacional.",
+      "Presentar y validar la documentación exigida por la convocatoria.",
+      "Participar en la entrevista final cuando corresponda.",
+      "Selección de los 60 becarios por orden de mérito y especialidad.",
+    ],
+    importantDates: [
+      { label: "Cierre de inscripciones", date: "31/10/2026" },
+      { label: "Examen de admisión", date: "08/11/2026" },
+      { label: "Inicio de clases", date: "11/01/2027" },
+      { label: "Fin del programa", date: "19/03/2027" },
+    ],
+    applicationUrl: "https://sistemasweb.osiptel.gob.pe/CUREXTFront/",
+    applicationLabel: "Postular al PEU OSIPTEL 2027",
+    applicationInstructions: "Completa el formulario oficial del PEU OSIPTEL. Antes de enviarlo, verifica que tu situación académica, especialidad y documentos coincidan con las bases vigentes.",
+    basesUrl: "https://beca.osiptel.gob.pe/",
+    notes: [
+      "El ingreso es por mérito. La convocatoria contempla evaluación y selección conforme a las bases oficiales del PEU OSIPTEL 2027.",
+    ],
+  },
   "pronabec-beca-18-2027": {
     quantity: "1,000 becas integrales anunciadas para la convocatoria 2027",
     eligibility: [
