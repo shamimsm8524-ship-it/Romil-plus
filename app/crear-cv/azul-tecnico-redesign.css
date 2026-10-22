@@ -68,6 +68,28 @@ button[data-cv-template-card="azul-tecnico"] > div:first-child > div {
   padding-left: 2px !important;
 }
 
+/*
+ * Organizar: Azul Técnico usa una barra lateral CLARA.
+ * Las reglas genéricas del organizador tratan las barras laterales como oscuras
+ * y ponen el texto en blanco. Esta excepción de mayor especificidad conserva
+ * texto azul oscuro y títulos azules cuando una sección se mueve a la izquierda.
+ */
+html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv-layout="sidebar"] > .grid > aside:first-child section[data-cv-column="left"],
+html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv-layout="sidebar"] > .grid > aside:first-child section[data-cv-column="left"] * {
+  color: #17365d !important;
+}
+
+html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv-layout="sidebar"] > .grid > aside:first-child section[data-cv-column="left"] h3 {
+  color: #0758ad !important;
+  border-color: #b9d8f6 !important;
+}
+
+html body #cv-print-area.cv-manual-page[data-cv-template="azul-tecnico"][data-cv-layout="sidebar"] > .grid > aside:first-child section[data-cv-column="left"] span[class*="bg-"] {
+  background: #ffffff !important;
+  color: #17365d !important;
+  border-color: #c9e0f7 !important;
+}
+
 @media print {
   #cv-print-area[data-cv-template="azul-tecnico"] > .grid > aside:first-child > div:first-child {
     box-shadow: none !important;
