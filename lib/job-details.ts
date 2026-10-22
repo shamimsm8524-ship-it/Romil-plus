@@ -1,5 +1,6 @@
 import { exactStateJobDetails } from "@/lib/exact-state-job-details";
 import { exactStateJobs } from "@/lib/exact-state-jobs";
+import { expandedPublicJobDetails } from "@/lib/expanded-public-job-details";
 import { freshJobDetails } from "@/lib/fresh-job-details";
 import { pardosJobDetails } from "@/lib/pardos-job-details";
 import { privateJobDetails } from "@/lib/private-job-details";
@@ -55,6 +56,12 @@ const temporarilyIncompleteSlugs = new Set([
   "programa-contigo-019-2026-especialista-administracion-general",
 ]);
 
+const supersededFreshSlugs = new Set([
+  "migraciones-cas-130-132-2026-cuatro-plazas",
+  "ipd-cas-070-072-2026-tres-plazas",
+  "proinnovate-cas-005-2026-especialista-proyectos-reembolsables",
+]);
+
 const exactCompleteJobs = exactStateJobs.filter(
   (job) => !temporarilyIncompleteSlugs.has(job.slug),
 );
@@ -69,9 +76,12 @@ const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
   details: job.details,
 }));
 
+const freshViews = freshJobDetails.filter((job) => !supersededFreshSlugs.has(job.slug));
+
 export const detailedPublicJobs: JobDetailView[] = [
   ...privateJobDetails,
-  ...freshJobDetails,
+  ...freshViews,
+  ...expandedPublicJobDetails,
   ...pardosJobDetails,
   ...priorityViews,
   ...exactViews,
