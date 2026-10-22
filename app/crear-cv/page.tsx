@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CvBuilder } from "@/components/CvBuilder";
+import { CvContactSync } from "@/components/CvContactSync";
 import { CvDesignEnhancer } from "@/components/CvDesignEnhancer";
 import { CvPageManager } from "@/components/CvPageManager";
 import { CvSectionStyleSync } from "@/components/CvSectionStyleSync";
@@ -22,5 +23,6 @@ export default function CrearCvPage() {
     <CvDesignEnhancer />
     <CvPageManager />
     <CvSectionStyleSync />
+    <CvContactSync />
   </>;
 }
