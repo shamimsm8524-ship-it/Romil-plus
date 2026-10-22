@@ -26,6 +26,9 @@ const templateSlugs: Record<string, string> = {
   "Champagne Profesional": "champagne-profesional",
 };
 
+const A4_WIDTH = 794;
+const A4_HEIGHT = 1122;
+
 function normalize(value?: string | null) {
   return value?.replace(/\s+/g, " ").trim() ?? "";
 }
@@ -36,11 +39,29 @@ function waitForPaint() {
   });
 }
 
+function fitRealThumbnail(viewport: HTMLElement) {
+  const stage = viewport.querySelector<HTMLElement>(".cv-real-thumbnail-stage");
+  if (!stage) return;
+
+  const width = viewport.clientWidth;
+  const height = viewport.clientHeight;
+  if (!width || !height) return;
+
+  const scale = Math.min(width / A4_WIDTH, height / A4_HEIGHT);
+  stage.style.transform = `translateX(-50%) scale(${scale})`;
+}
+
 export function CvDesignEnhancer() {
   useEffect(() => {
     let frame = 0;
     let building = false;
     let disposed = false;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target instanceof HTMLElement) fitRealThumbnail(entry.target);
+      });
+    });
 
     const markPreview = () => {
       const preview = document.getElementById("cv-print-area");
@@ -82,6 +103,9 @@ export function CvDesignEnhancer() {
 
       visual.replaceChildren(viewport);
       card.dataset.cvRealThumbnail = "true";
+
+      resizeObserver.observe(viewport);
+      requestAnimationFrame(() => fitRealThumbnail(viewport));
     };
 
     const buildRealThumbnails = async () => {
@@ -92,7 +116,10 @@ export function CvDesignEnhancer() {
       const cards = Array.from(document.querySelectorAll<HTMLButtonElement>("button[data-cv-template-card]"))
         .filter((button) => button.offsetParent !== null);
       const pending = cards.filter((button) => button.dataset.cvRealThumbnail !== "true");
-      if (!pending.length) return;
+      if (!pending.length) {
+        document.querySelectorAll<HTMLElement>(".cv-real-thumbnail").forEach(fitRealThumbnail);
+        return;
+      }
 
       building = true;
       document.documentElement.classList.add("cv-building-real-thumbnails");
@@ -126,8 +153,6 @@ export function CvDesignEnhancer() {
           await waitForPaint();
           markPreview();
         } else if (cards[0]) {
-          // Al cambiar Hombre/Mujer, deja seleccionado el primer diseño del grupo
-          // en vez de conservar accidentalmente el último usado para generar miniaturas.
           cards[0].click();
           await waitForPaint();
           markPreview();
@@ -135,6 +160,7 @@ export function CvDesignEnhancer() {
       } finally {
         building = false;
         document.documentElement.classList.remove("cv-building-real-thumbnails");
+        document.querySelectorAll<HTMLElement>(".cv-real-thumbnail").forEach(fitRealThumbnail);
       }
     };
 
@@ -155,6 +181,7 @@ export function CvDesignEnhancer() {
     return () => {
       disposed = true;
       observer.disconnect();
+      resizeObserver.disconnect();
       cancelAnimationFrame(frame);
       document.documentElement.classList.remove("cv-building-real-thumbnails");
     };
