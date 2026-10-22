@@ -159,7 +159,7 @@
     zoom: 100% !important;
   }
 
-  :global(.cv-real-thumbnail) {
+  :global(body):has(.enhancer) :global(.cv-real-thumbnail) {
     display: none !important;
   }
 }
