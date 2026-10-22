@@ -52,8 +52,11 @@ function publishedAtTimestamp(value: string) {
 
 export default async function ConvocatoriasPage() {
   const sunatJobs = await getSunatLiveJobs();
+  const detailedSlugSet = new Set(detailedPublicJobs.map((job) => job.slug));
   const privateJobsForExplorer = privateVerifiedJobs.filter(
-    (job) => job.slug !== "pardos-chicken-puestos-operativos-2026",
+    (job) =>
+      job.slug !== "pardos-chicken-puestos-operativos-2026" &&
+      !detailedSlugSet.has(job.slug),
   );
   const jobsForExplorer = [...privateJobsForExplorer, ...sunatJobs, ...detailedPublicJobs].sort(
     (a, b) => publishedAtTimestamp(b.publishedAt) - publishedAtTimestamp(a.publishedAt),
