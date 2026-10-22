@@ -15,8 +15,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/convocatorias" },
 };
 
-const detailSlugs = detailedPublicJobs.map((job) => job.slug);
-
 const employmentSectors = [
   "Cajeros y ventas",
   "Atención al cliente",
@@ -48,6 +46,7 @@ const employmentSectors = [
 export default async function ConvocatoriasPage() {
   const sunatJobs = await getSunatLiveJobs();
   const jobsForExplorer = [...privateVerifiedJobs, ...sunatJobs, ...detailedPublicJobs];
+  const detailSlugs = jobsForExplorer.map((job) => job.slug);
 
   return (
     <main className="min-h-screen bg-white text-[#0a2d5a]">
