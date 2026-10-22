@@ -1,39 +1,24 @@
-/* Tipografía legible de CV: tamaños de lectura normales dentro de la hoja A4. */
-.cv-page [class~="text-[9px]"] {
-  font-size: 12.5px !important;
-  line-height: 1.45 !important;
-}
-
-.cv-page [class~="text-[9.5px]"] {
-  font-size: 13px !important;
-  line-height: 1.45 !important;
-}
-
-.cv-page [class~="text-[10px]"] {
-  font-size: 13.5px !important;
-  line-height: 1.48 !important;
-}
-
-.cv-page [class~="text-[10.5px]"] {
-  font-size: 14px !important;
-  line-height: 1.48 !important;
-}
-
+/* Tipografía final de los CV: títulos 14px y texto de relleno 13px. */
+.cv-page [class~="text-[9px]"],
+.cv-page [class~="text-[9.5px]"],
+.cv-page [class~="text-[10px]"],
+.cv-page [class~="text-[10.5px]"],
 .cv-page [class~="text-[11px]"] {
-  font-size: 14.5px !important;
-  line-height: 1.45 !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
 }
 
-/* Subtítulos de sección claramente visibles y proporcionados al cuerpo. */
+/* Títulos de cada sección. */
 .cv-page section h3 {
-  font-size: 14.5px !important;
+  font-size: 14px !important;
   line-height: 1.35 !important;
 }
 
-/* Contactos del encabezado y bloques laterales también deben leerse sin zoom. */
+/* Contactos y texto lateral mantienen el mismo tamaño de relleno. */
 .cv-page header [class~="text-[10px]"],
 .cv-page > div > aside [class~="text-[11px]"] {
-  font-size: 13.5px !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
 }
 
 .cv-page section span {
