@@ -7,10 +7,6 @@ import { useEffect } from "react";
  * El resto de diseños —incluidos Azul Técnico, Dorado, Lavanda y todos los
  * modelos minimal/split/topbar— deben conservar texto oscuro aunque una
  * sección se coloque manualmente en la columna izquierda.
- *
- * Basarnos en el nombre del modelo, y no únicamente en data-cv-layout, evita
- * que un cambio de plantilla o una reconstrucción del organizador deje texto
- * blanco heredado sobre fondos claros.
  */
 const darkSidebarTemplates = new Set([
   "ejecutivo-azul",
@@ -54,6 +50,50 @@ const templateAccents: Record<string, string> = {
 function setImportant(node: HTMLElement, property: string, value: string) {
   if (node.style.getPropertyValue(property) === value && node.style.getPropertyPriority(property) === "important") return;
   node.style.setProperty(property, value, "important");
+}
+
+function readPersonalField(label: string) {
+  const field = Array.from(document.querySelectorAll<HTMLLabelElement>("label")).find((item) => {
+    const caption = item.querySelector<HTMLElement>(":scope > span")?.textContent?.trim();
+    return caption === label;
+  });
+  return field?.querySelector<HTMLInputElement>("input")?.value?.trim() ?? "";
+}
+
+function syncSplitContact(root: HTMLElement) {
+  if (root.dataset.cvLayout !== "split" || root.classList.contains("cv-continuation-page")) return;
+
+  const headerRow = root.children.item(1) as HTMLElement | null;
+  const headerContent = headerRow?.children.item(1) as HTMLElement | null;
+  if (!headerRow?.classList.contains("grid") || !headerContent) return;
+
+  let contact = headerContent.querySelector<HTMLElement>(":scope > [data-cv-split-contact]");
+  if (!contact) {
+    contact = document.createElement("div");
+    contact.dataset.cvSplitContact = "true";
+    headerContent.appendChild(contact);
+  }
+
+  const parts = [
+    readPersonalField("Correo"),
+    readPersonalField("Teléfono"),
+    readPersonalField("Ciudad"),
+    readPersonalField("LinkedIn / portafolio"),
+  ].filter(Boolean);
+
+  contact.textContent = parts.join("  •  ");
+  setImportant(contact, "display", parts.length ? "block" : "none");
+  setImportant(contact, "visibility", "visible");
+  setImportant(contact, "opacity", "1");
+  setImportant(contact, "margin-top", "12px");
+  setImportant(contact, "color", "#64748b");
+  setImportant(contact, "font-size", "10px");
+  setImportant(contact, "font-weight", "700");
+  setImportant(contact, "line-height", "1.55");
+  setImportant(contact, "letter-spacing", "0");
+  setImportant(contact, "text-transform", "none");
+  setImportant(contact, "white-space", "normal");
+  setImportant(contact, "overflow-wrap", "anywhere");
 }
 
 function ensureManualHeading(section: HTMLElement) {
@@ -102,21 +142,21 @@ function styleManualHeading(heading: HTMLElement, color: string, darkSurface: bo
 }
 
 function syncSection(section: HTMLElement, root: HTMLElement) {
+  const layout = root.dataset.cvLayout;
   const column = section.dataset.cvColumn;
   const template = root.dataset.cvTemplate ?? "";
   const accent = templateAccents[template] ?? "#0a2d5a";
-  const darkSurface = column === "left" && darkSidebarTemplates.has(template);
+  const darkSurface = layout === "sidebar" && column === "left" && darkSidebarTemplates.has(template);
 
   section.dataset.cvSurface = darkSurface ? "dark" : "light";
   setImportant(section, "display", "block");
   setImportant(section, "visibility", "visible");
   setImportant(section, "opacity", "1");
-  setImportant(section, "color", darkSurface ? "#ffffff" : "#4b5563");
 
   const heading = ensureManualHeading(section);
   if (heading) styleManualHeading(heading, accent, darkSurface);
 
-  section.querySelectorAll<HTMLElement>("p, span, strong, a, li, em, small").forEach((node) => {
+  section.querySelectorAll<HTMLElement>("p, span, strong, a").forEach((node) => {
     const isPill = node.tagName === "SPAN" && node.classList.contains("rounded-full");
     const isStrong = node.tagName === "STRONG" || node.classList.contains("font-black") || node.classList.contains("font-bold");
 
@@ -139,6 +179,7 @@ function syncSection(section: HTMLElement, root: HTMLElement) {
 
 function syncAllSections() {
   document.querySelectorAll<HTMLElement>("#cv-manual-pages-host > .cv-manual-page").forEach((root) => {
+    syncSplitContact(root);
     root.querySelectorAll<HTMLElement>("section[data-cv-column]").forEach((section) => syncSection(section, root));
   });
 }
@@ -162,11 +203,15 @@ export function CvSectionStyleSync() {
       attributeFilter: ["data-cv-column", "data-cv-layout", "data-cv-template", "data-cv-section"],
     });
 
+    document.addEventListener("input", schedule, true);
+    document.addEventListener("change", schedule, true);
     window.addEventListener("beforeprint", syncAllSections);
 
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
+      document.removeEventListener("input", schedule, true);
+      document.removeEventListener("change", schedule, true);
       window.removeEventListener("beforeprint", syncAllSections);
     };
   }, []);
