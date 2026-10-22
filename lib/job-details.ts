@@ -76,14 +76,41 @@ const hasVerifiedDetail = (job: (typeof exactStateJobs)[number]) => {
   );
 };
 
+function normalizeVerifiedJob(job: JobDetailView): JobDetailView {
+  if (/^ipd-cas-06[2-9]-2026-/.test(job.slug)) {
+    return {
+      ...job,
+      closesAt: "Postulación: 26/10/2026 · 08:30 a 16:30 · único día",
+      verifiedAt: "22/10/2026",
+    };
+  }
+
+  if (/^ipd-cas-07[0-2]-2026-/.test(job.slug)) {
+    return {
+      ...job,
+      closesAt: "Postulación: 02/11/2026 · 08:30 a 16:30 · único día",
+      verifiedAt: "22/10/2026",
+      details: {
+        ...job.details,
+        contractDuration:
+          "Necesidad transitoria · la difusión pública consultada no detalla la fecha final del contrato.",
+      },
+    };
+  }
+
+  return job;
+}
+
 const exactCompleteJobs = exactStateJobs.filter(
   (job) => !temporarilyIncompleteSlugs.has(job.slug) && hasVerifiedDetail(job),
 );
 
-const exactViews: JobDetailView[] = exactCompleteJobs.map((job) => ({
-  ...job,
-  details: exactStateJobDetails[job.slug],
-}));
+const exactViews: JobDetailView[] = exactCompleteJobs.map((job) =>
+  normalizeVerifiedJob({
+    ...job,
+    details: exactStateJobDetails[job.slug],
+  }),
+);
 
 const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
   ...job,
@@ -91,11 +118,12 @@ const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
 }));
 
 const freshViews = freshJobDetails.filter((job) => !hiddenFreshSlugs.has(job.slug));
+const expandedViews = expandedPublicJobDetails.map(normalizeVerifiedJob);
 
 export const detailedPublicJobs: JobDetailView[] = [
   ...privateJobDetails,
   ...freshViews,
-  ...expandedPublicJobDetails,
+  ...expandedViews,
   ...mtcJobDetails,
   ...pardosJobDetails,
   ...priorityViews,
