@@ -56,10 +56,10 @@ export default async function ConvocatoriasPage() {
             <div className="inline-flex items-center gap-2 rounded-full bg-[#eef5ff] px-4 py-2 text-sm font-black text-[#0b58b6]">
               <ShieldCheck size={18} /> Empleos con fuente comprobable
             </div>
-            <h1 className="mt-5 max-w-3xl text-[2.55rem] font-black leading-[1.04] tracking-[-.035em] text-[#0a2d5a] sm:text-5xl lg:text-[4.1rem]">
+            <h1 className="mt-5 max-w-3xl text-[2.55rem] font-black leading-[1.04] tracking-[-.035em] text-[#0a2d5a] sm:text-5xl lg:text-[3.35rem]">
               Trabajos para todos los rubros <span className="text-[#e6aa16]">Verificados</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-lg font-medium leading-8 text-[#52647a] sm:text-xl">
+            <p className="mt-5 max-w-2xl text-lg font-medium leading-8 text-[#52647a] sm:text-lg lg:text-[1.05rem] lg:leading-7">
               Cajeros, ventas, restaurantes, pollerías, limpieza, almacén, seguridad, hoteles, fábricas, técnicos, profesionales, prácticas y empleo público en todo el Perú. Solo mostramos ofertas que puedan rastrearse a una fuente real.
             </p>
 
