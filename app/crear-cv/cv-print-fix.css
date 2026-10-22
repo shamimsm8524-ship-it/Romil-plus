@@ -83,6 +83,15 @@
     print-color-adjust: exact !important;
   }
 
+  /*
+   * Cuando el organizador está activo existe un CV fuente oculto y una copia
+   * visual dentro de #cv-manual-pages-host. El selector general de impresión
+   * no debe volver a mostrar el CV fuente porque produciría una hoja duplicada.
+   */
+  #cv-print-area[data-cv-manual-mode="true"] {
+    display: none !important;
+  }
+
   #cv-print-area,
   #cv-print-area * {
     visibility: visible !important;
