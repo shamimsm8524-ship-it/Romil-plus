@@ -87,6 +87,7 @@ export function CvSectionStyleSync() {
 
     schedule();
 
+    // Observamos únicamente cambios estructurales y de destino para evitar ciclos de repintado.
     const observer = new MutationObserver(schedule);
     observer.observe(document.body, {
       childList: true,
