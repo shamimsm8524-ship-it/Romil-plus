@@ -5,3 +5,11 @@
 #cv-print-area[data-cv-template="celeste-moderno"] > div:first-child > div:last-child {
   margin-right: 44px !important;
 }
+
+/* Foto del CV: un poco más grande, manteniendo proporción y centrado. */
+.cv-page .h-\[104px\].w-\[104px\] {
+  width: 116px !important;
+  height: 116px !important;
+  min-width: 116px !important;
+  min-height: 116px !important;
+}
