@@ -51,6 +51,25 @@ function fitRealThumbnail(viewport: HTMLElement) {
   stage.style.transform = `translateX(-50%) scale(${scale})`;
 }
 
+function sourcePreview() {
+  return document.querySelector<HTMLElement>("#cv-print-area:not(.cv-manual-page):not(.cv-real-thumbnail-sheet)");
+}
+
+function visibleManualPreview(slug?: string) {
+  const pages = Array.from(document.querySelectorAll<HTMLElement>("#cv-manual-pages-host > .cv-manual-page"));
+  return pages.find((page) => {
+    const visible = page.style.display !== "none" && getComputedStyle(page).display !== "none";
+    return visible && (!slug || page.dataset.cvTemplate === slug);
+  }) ?? null;
+}
+
+function previewForThumbnail(slug?: string) {
+  // El administrador de páginas oculta la hoja fuente. Para las miniaturas usamos
+  // primero la página REAL que el usuario está viendo y solo si todavía no existe
+  // usamos la fuente original como respaldo.
+  return visibleManualPreview(slug) ?? sourcePreview();
+}
+
 export function CvDesignEnhancer() {
   useEffect(() => {
     let frame = 0;
@@ -64,7 +83,7 @@ export function CvDesignEnhancer() {
     });
 
     const markPreview = () => {
-      const preview = document.getElementById("cv-print-area");
+      const preview = sourcePreview();
       if (!preview) return;
       const previewColumn = preview.parentElement;
       const badge = previewColumn?.querySelector<HTMLElement>(".cv-no-print span");
@@ -82,10 +101,25 @@ export function CvDesignEnhancer() {
 
     const clonePreview = (preview: HTMLElement) => {
       const clone = preview.cloneNode(true) as HTMLElement;
-      clone.removeAttribute("id");
-      clone.querySelectorAll<HTMLElement>("[id]").forEach((node) => node.removeAttribute("id"));
-      clone.classList.add("cv-real-thumbnail-sheet");
-      clone.setAttribute("aria-hidden", "true");
+
+      // Las reglas de diseño reales usan #cv-print-area. Conservamos ese id en la
+      // miniatura para que se apliquen exactamente los mismos estilos del modelo.
+      // Se marca como cv-manual-page para que el administrador nunca la tome como
+      // la hoja fuente editable.
+      clone.id = "cv-print-area";
+      clone.classList.add("cv-manual-page", "cv-real-thumbnail-sheet");
+      clone.removeAttribute("data-cv-source-preview");
+      clone.removeAttribute("data-cv-manual-mode");
+      clone.removeAttribute("data-cv-manual-page");
+      clone.removeAttribute("data-cv-total-pages");
+      clone.style.display = "block";
+      clone.style.visibility = "visible";
+      clone.style.opacity = "1";
+
+      clone.querySelectorAll<HTMLElement>("[id]").forEach((node) => {
+        if (node !== clone) node.removeAttribute("id");
+      });
+
       return clone;
     };
 
@@ -108,6 +142,19 @@ export function CvDesignEnhancer() {
       requestAnimationFrame(() => fitRealThumbnail(viewport));
     };
 
+    const waitForMatchingPreview = async (slug: string) => {
+      const deadline = performance.now() + 650;
+      while (!disposed && performance.now() < deadline) {
+        markPreview();
+        const manual = visibleManualPreview(slug);
+        if (manual) return manual;
+        const source = sourcePreview();
+        if (source?.dataset.cvTemplate === slug) return source;
+        await waitForPaint();
+      }
+      return previewForThumbnail(slug);
+    };
+
     const buildRealThumbnails = async () => {
       if (building || disposed) return;
       markPreview();
@@ -125,7 +172,7 @@ export function CvDesignEnhancer() {
       document.documentElement.classList.add("cv-building-real-thumbnails");
 
       try {
-        const startingPreview = document.getElementById("cv-print-area");
+        const startingPreview = sourcePreview();
         const originalSlug = startingPreview?.dataset.cvTemplate;
         const originalCard = originalSlug
           ? cards.find((button) => button.dataset.cvTemplateCard === originalSlug)
@@ -137,12 +184,11 @@ export function CvDesignEnhancer() {
           if (!slug) continue;
 
           markPreview();
-          let preview = document.getElementById("cv-print-area");
+          let preview = previewForThumbnail(slug);
           if (preview?.dataset.cvTemplate !== slug) {
             card.click();
             await waitForPaint();
-            markPreview();
-            preview = document.getElementById("cv-print-area");
+            preview = await waitForMatchingPreview(slug);
           }
 
           if (preview) placeRealThumbnail(card, preview);
