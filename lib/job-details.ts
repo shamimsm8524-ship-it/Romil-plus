@@ -75,7 +75,26 @@ export const detailedPublicJobs: JobDetailView[] = [
   ...exactViews,
 ];
 
-export const allJobDetails: JobDetailView[] = detailedPublicJobs;
+function withVisibleExtras(job: JobDetailView): JobDetailView {
+  const extraNotes = [
+    ...(job.details.benefits?.length
+      ? [`Beneficios: ${job.details.benefits.join(" · ")}`]
+      : []),
+    ...(job.details.contact ?? []),
+  ];
+
+  if (!extraNotes.length) return job;
+
+  return {
+    ...job,
+    details: {
+      ...job.details,
+      notes: [...(job.details.notes ?? []), ...extraNotes],
+    },
+  };
+}
+
+export const allJobDetails: JobDetailView[] = detailedPublicJobs.map(withVisibleExtras);
 
 export function getJobBySlug(slug: string) {
   return allJobDetails.find((job) => job.slug === slug);
