@@ -8,8 +8,8 @@
 
 /* Foto del CV: un poco más grande, manteniendo proporción y centrado. */
 .cv-page .h-\[104px\].w-\[104px\] {
-  width: 116px !important;
-  height: 116px !important;
-  min-width: 116px !important;
-  min-height: 116px !important;
+  width: 110px !important;
+  height: 110px !important;
+  min-width: 110px !important;
+  min-height: 110px !important;
 }
