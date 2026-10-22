@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import styles from "./CvDesignLayoutFix.module.css";
 
 const templateSlugs: Record<string, string> = {
   "Ejecutivo Azul": "ejecutivo-azul",
@@ -61,5 +62,5 @@ export function CvDesignEnhancer() {
     };
   }, []);
 
-  return <span aria-hidden className="cv-design-enhancer" />;
+  return <span aria-hidden className={`${styles.enhancer} cv-design-enhancer`} />;
 }
