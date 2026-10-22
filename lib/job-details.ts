@@ -22,6 +22,8 @@ export type JobDetailExtra = {
   requirements?: string[];
   functions?: string[];
   documents?: string[];
+  benefits?: string[];
+  contact?: string[];
   positions?: JobPosition[];
   applicationUrl?: string;
   applicationLabel?: string;
