@@ -99,7 +99,7 @@
   line-height: 1.15 !important;
 }
 
-/* Celular: 2 modelos por fila y hoja real suficientemente grande para reconocerla. */
+/* Celular: 2 modelos por fila y cada tarjeta muestra la hoja A4 real completa. */
 @media (max-width: 767px) {
   :global(body):has(.enhancer) :global(main:has(#cv-print-area) > section.mx-auto.grid > aside:last-child) {
     padding: 14px !important;
@@ -114,14 +114,21 @@
   :global(body):has(.enhancer) :global(button[data-cv-template-card]) {
     border-radius: 16px !important;
     box-shadow: 0 2px 8px rgba(15, 42, 73, .04);
+    background: #fff !important;
   }
 
   :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child) {
-    height: 178px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 210 / 297;
+    background: #fff !important;
   }
 
-  :global(body):has(.enhancer) :global(.cv-real-thumbnail-stage) {
-    transform: translateX(-50%) scale(.158);
+  :global(body):has(.enhancer) :global(.cv-real-thumbnail) {
+    width: 100% !important;
+    height: 100% !important;
+    background: #fff !important;
   }
 
   :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:last-child) {
@@ -140,10 +147,6 @@
 @media (min-width: 768px) and (max-width: 1279px) {
   :global(body):has(.enhancer) :global(button[data-cv-template-card] > div:first-child) {
     height: 190px !important;
-  }
-
-  :global(body):has(.enhancer) :global(.cv-real-thumbnail-stage) {
-    transform: translateX(-50%) scale(.17);
   }
 }
 
