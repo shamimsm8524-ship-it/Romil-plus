@@ -103,14 +103,13 @@
   color:#718096;
 }
 
-/* El control anterior conserva solo mostrar/ocultar. El orden ahora se maneja en Organizar. */
 .cv-legacy-order-button{
   display:none!important;
 }
 
 .cv-section-organizer{
   position:fixed;
-  right:166px;
+  left:12px;
   top:50%;
   z-index:72;
   width:350px;
@@ -287,9 +286,75 @@
   margin-right:auto!important;
 }
 
-/* Si una zona no tiene contenido en una página, no dejamos una caja vacía flotando. */
 #cv-print-area.cv-manual-page [data-cv-empty-section-group]{
   display:none!important;
+}
+
+/*
+ * Una sección conserva las clases de color de la columna en la que nació.
+ * Estas reglas hacen que al moverla manualmente adopte el contraste de su
+ * columna DESTINO. Así Idiomas/Referencias/Cursos/Habilidades no quedan
+ * blancos sobre fondo blanco y Perfil/Experiencia/Educación no quedan
+ * oscuros sobre una barra lateral oscura.
+ */
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="right"],
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="right"] *{
+  color:#4b5563!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="right"] h3{
+  color:#0a2d5a!important;
+  border-color:#dce4ed!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="right"] p.font-black,
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="right"] span.font-bold{
+  color:#202a3a!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="right"] span[class*="bg-white/"]{
+  background:#eef3f8!important;
+  color:#334155!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="left"],
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="left"] *{
+  color:#fff!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="left"] h3{
+  border-color:rgba(255,255,255,.28)!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-layout="sidebar"] section[data-cv-column="left"] span[class*="bg-"]{
+  background:rgba(255,255,255,.12)!important;
+  color:#fff!important;
+}
+
+/* Dorado Elegante y Lavanda Profesional tienen barra lateral clara. */
+#cv-print-area.cv-manual-page[data-cv-template="dorado-elegante"] section[data-cv-column="left"],
+#cv-print-area.cv-manual-page[data-cv-template="dorado-elegante"] section[data-cv-column="left"] *{
+  color:#3d3425!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-template="dorado-elegante"] section[data-cv-column="left"] h3{
+  color:#7b5912!important;
+  border-color:rgba(111,78,13,.25)!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-template="lavanda-profesional"] section[data-cv-column="left"],
+#cv-print-area.cv-manual-page[data-cv-template="lavanda-profesional"] section[data-cv-column="left"] *{
+  color:#44395e!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-template="lavanda-profesional"] section[data-cv-column="left"] h3{
+  color:#5c4c7c!important;
+  border-color:rgba(106,91,143,.24)!important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-template="dorado-elegante"] section[data-cv-column="left"] span[class*="bg-"],
+#cv-print-area.cv-manual-page[data-cv-template="lavanda-profesional"] section[data-cv-column="left"] span[class*="bg-"]{
+  background:rgba(107,87,62,.10)!important;
 }
 
 /* Página 2+ mantiene la identidad del modelo, sin repetir nombre, foto ni contacto. */
@@ -304,7 +369,6 @@
   display:none!important;
 }
 
-/* Familia con barra lateral. */
 #cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>aside:first-child>div:first-child,
 #cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>aside:first-child>div:nth-child(2),
 #cv-print-area.cv-continuation-page[data-cv-layout="sidebar"]>.grid>div:last-child>div:first-child{
@@ -321,7 +385,6 @@
   padding-top:34px!important;
 }
 
-/* Familia con encabezado superior. */
 #cv-print-area.cv-continuation-page[data-cv-layout="topbar"]>div.grid:last-child{
   align-items:start!important;
   padding-top:34px!important;
@@ -336,7 +399,6 @@
   padding-left:0!important;
 }
 
-/* Familia dividida en dos columnas. */
 #cv-print-area.cv-continuation-page[data-cv-layout="split"]>.h-3+div.grid,
 #cv-print-area.cv-continuation-page[data-cv-layout="split"]>.h-3+div.grid+div{
   display:none!important;
@@ -351,7 +413,6 @@
   grid-template-columns:minmax(0,1fr)!important;
 }
 
-/* Familia minimalista. */
 #cv-print-area.cv-continuation-page[data-cv-layout="minimal"]>.flex.items-start.justify-between,
 #cv-print-area.cv-continuation-page[data-cv-layout="minimal"]>.flex.items-start.justify-between+div{
   display:none!important;
@@ -414,6 +475,13 @@
 
   .cv-section-organizer-controls{
     grid-template-columns:72px minmax(0,1fr);
+  }
+}
+
+@media (min-width:900px) and (max-width:1250px){
+  .cv-section-organizer{
+    left:8px;
+    width:310px;
   }
 }
 
