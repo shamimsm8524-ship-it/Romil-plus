@@ -4,17 +4,36 @@ import { useEffect } from "react";
 
 const lightSidebarTemplates = new Set(["dorado-elegante", "lavanda-profesional"]);
 
+function inlineAccent(node: HTMLElement | null, property: "background" | "color") {
+  if (!node) return "";
+  return property === "background" ? node.style.background : node.style.color;
+}
+
 function findAccent(root: HTMLElement) {
-  const styledHeading = Array.from(root.querySelectorAll<HTMLElement>("h3")).find((heading) => heading.style.color);
-  if (styledHeading?.style.color) return styledHeading.style.color;
+  const layout = root.dataset.cvLayout;
 
-  const styledProfession = Array.from(root.querySelectorAll<HTMLElement>("p")).find((item) => item.style.color);
-  if (styledProfession?.style.color) return styledProfession.style.color;
+  if (layout === "sidebar") {
+    const outer = Array.from(root.children).find((child) => child instanceof HTMLElement && child.classList.contains("grid")) as HTMLElement | undefined;
+    const aside = outer?.querySelector<HTMLElement>(":scope > aside:first-child") ?? null;
+    return inlineAccent(aside, "background") || "#0a2d5a";
+  }
 
-  return "#0a2d5a";
+  if (layout === "topbar") {
+    const header = root.querySelector<HTMLElement>(":scope > header.grid");
+    return inlineAccent(header, "background") || "#0a2d5a";
+  }
+
+  if (layout === "split") {
+    const bar = root.querySelector<HTMLElement>(":scope > .h-3");
+    return inlineAccent(bar, "background") || "#0a2d5a";
+  }
+
+  const profession = Array.from(root.querySelectorAll<HTMLElement>("p")).find((item) => Boolean(item.style.color));
+  return inlineAccent(profession ?? null, "color") || "#0a2d5a";
 }
 
 function setImportant(node: HTMLElement, property: string, value: string) {
+  if (node.style.getPropertyValue(property) === value && node.style.getPropertyPriority(property) === "important") return;
   node.style.setProperty(property, value, "important");
 }
 
@@ -73,7 +92,7 @@ export function CvSectionStyleSync() {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ["data-cv-column", "data-cv-layout", "data-cv-template", "style"],
+      attributeFilter: ["data-cv-column", "data-cv-layout", "data-cv-template"],
     });
 
     window.addEventListener("beforeprint", syncAllSections);
