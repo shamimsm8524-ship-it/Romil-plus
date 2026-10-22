@@ -30,3 +30,31 @@
 #cv-print-area.cv-manual-page[data-cv-layout="minimal"] > div.grid:last-child > section {
   align-self: start !important;
 }
+
+/*
+ * Café Ejecutivo: la franja clara de la columna derecha debe crecer junto con
+ * el contenido. El fondo se aplica a toda la fila de contenido para que, al
+ * mover o agregar más secciones a la derecha desde Organizar, la franja se
+ * alargue automáticamente hasta el final de la columna.
+ */
+#cv-print-area[data-cv-template="cafe-ejecutivo"] > div.grid:last-child {
+  background: linear-gradient(90deg, #ffffff 0 66%, #e9ddd3 66% 100%) !important;
+  align-items: stretch !important;
+}
+
+#cv-print-area[data-cv-template="cafe-ejecutivo"] > div.grid:last-child > aside {
+  align-self: stretch !important;
+  min-height: 100% !important;
+  background: transparent !important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-template="cafe-ejecutivo"] > div.grid:last-child {
+  background: linear-gradient(90deg, #ffffff 0 66%, #e9ddd3 66% 100%) !important;
+  align-items: stretch !important;
+}
+
+#cv-print-area.cv-manual-page[data-cv-template="cafe-ejecutivo"] > div.grid:last-child > aside {
+  align-self: stretch !important;
+  min-height: 100% !important;
+  background: transparent !important;
+}
