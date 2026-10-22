@@ -2,6 +2,7 @@ import { exactStateJobDetails } from "@/lib/exact-state-job-details";
 import { exactStateJobs } from "@/lib/exact-state-jobs";
 import { expandedPublicJobDetails } from "@/lib/expanded-public-job-details";
 import { freshJobDetails } from "@/lib/fresh-job-details";
+import { marketJobDetails } from "@/lib/market-job-details";
 import { mtcJobDetails } from "@/lib/mtc-job-details";
 import { pardosJobDetails } from "@/lib/pardos-job-details";
 import { privateJobDetails } from "@/lib/private-job-details";
@@ -122,6 +123,7 @@ const expandedViews = expandedPublicJobDetails.map(normalizeVerifiedJob);
 
 export const detailedPublicJobs: JobDetailView[] = [
   ...privateJobDetails,
+  ...marketJobDetails,
   ...freshViews,
   ...expandedViews,
   ...mtcJobDetails,
