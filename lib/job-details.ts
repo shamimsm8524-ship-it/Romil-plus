@@ -1,5 +1,6 @@
 import { exactStateJobDetails } from "@/lib/exact-state-job-details";
 import { exactStateJobs } from "@/lib/exact-state-jobs";
+import { freshJobDetails } from "@/lib/fresh-job-details";
 import { priorityCareerJobs } from "@/lib/priority-career-jobs";
 import type { PublicJobCategory, PublicJobStatus } from "@/lib/state-opportunities";
 
@@ -65,6 +66,7 @@ const priorityViews: JobDetailView[] = priorityCareerJobs.map((job) => ({
 }));
 
 export const detailedPublicJobs: JobDetailView[] = [
+  ...freshJobDetails,
   ...priorityViews,
   ...exactViews,
 ];
