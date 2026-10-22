@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, BadgeCheck, BriefcaseBusiness, Building2, CalendarDays, CircleDollarSign, Clock3, FileText, GraduationCap, ListChecks, MapPin, ShieldCheck, UsersRound } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, BadgeCheck, BriefcaseBusiness, Building2, CalendarDays, CircleDollarSign, Clock3, FileText, Gift, GraduationCap, ListChecks, Mail, MapPin, ShieldCheck, UsersRound } from "lucide-react";
 import { notFound } from "next/navigation";
 import { allJobDetails, getJobBySlug, type JobDetailExtra, type JobDetailView } from "@/lib/job-details";
 import { privateVerifiedJobs } from "@/lib/private-verified-jobs";
@@ -90,6 +90,8 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
   const hasExperience = Boolean(details.experience?.length);
   const hasFunctions = Boolean(details.functions?.length);
   const hasDocuments = Boolean(details.documents?.length);
+  const hasBenefits = Boolean(details.benefits?.length);
+  const hasContact = Boolean(details.contact?.length);
   const hasConditions = Boolean(details.salary || details.workSchedule || details.contractDuration);
 
   return (
@@ -112,7 +114,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
 
           <div className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl border border-[#dbe5f1] bg-white p-3"><MapPin size={16} className="text-[#d89b09]"/><p className="mt-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#8190a1]">Lugar</p><p className="mt-1 text-xs font-bold leading-5 text-[#17365d]">{job.location}</p></div>
-            <div className="rounded-xl border border-[#dbe5f1] bg-white p-3"><UsersRound size={16} className="text-[#d89b09]"/><p className="mt-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#8190a1]">Vacantes</p><p className="mt-1 text-xs font-bold leading-5 text-[#17365d]">{job.vacancies ?? "Revisar fuente"}</p></div>
+            <div className="rounded-xl border border-[#dbe5f1] bg-white p-3"><UsersRound size={16} className="text-[#d89b09]"/><p className="mt-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#8190a1]">Vacantes</p><p className="mt-1 text-xs font-bold leading-5 text-[#17365d]">{job.vacancies ?? "No publicado"}</p></div>
             <div className="rounded-xl border border-[#dbe5f1] bg-white p-3"><Building2 size={16} className="text-[#d89b09]"/><p className="mt-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#8190a1]">Régimen</p><p className="mt-1 text-xs font-bold leading-5 text-[#17365d]">{job.regime}</p></div>
             <div className="rounded-xl border border-[#dbe5f1] bg-white p-3"><CalendarDays size={16} className="text-[#d89b09]"/><p className="mt-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#8190a1]">Postulación / cierre</p><p className="mt-1 text-xs font-bold leading-5 text-[#17365d]">{job.closesAt}</p></div>
           </div>
@@ -127,7 +129,7 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
                   {details.positions.map((position) => (
                     <div key={`${position.title}-${position.location ?? ""}`} className="rounded-xl border border-[#dbe5f1] bg-white p-3">
                       <p className="text-sm font-black text-[#17365d]">{position.title}</p>
-                      {position.vacancies !== undefined ? <p className="mt-1 text-xs text-[#66768a]">Vacantes: {position.vacancies ?? "Revisar bases"}</p> : null}
+                      {position.vacancies !== undefined ? <p className="mt-1 text-xs text-[#66768a]">Vacantes: {position.vacancies ?? "No publicado"}</p> : null}
                       {position.location ? <p className="mt-1 text-xs leading-5 text-[#66768a]">Lugar: {position.location}</p> : null}
                       {position.salary ? <p className="mt-1 text-xs font-bold text-[#9a6a00]">Remuneración: {position.salary}</p> : null}
                     </div>
@@ -162,6 +164,20 @@ export default async function JobDetailPage({ params }: { params: Promise<{ slug
               <section className="rounded-[20px] border border-[#dbe5f1] bg-white p-4 sm:p-5">
                 <div className="flex items-center gap-2"><FileText size={18} className="text-[#d89b09]"/><h2 className="text-lg font-black text-[#0a2d5a]">Documentos y envío de postulación</h2></div>
                 <DetailList items={details.documents} />
+              </section>
+            ) : null}
+
+            {hasBenefits ? (
+              <section className="rounded-[20px] border border-[#dbe5f1] bg-[#fffdf7] p-4 sm:p-5">
+                <div className="flex items-center gap-2"><Gift size={18} className="text-[#d89b09]"/><h2 className="text-lg font-black text-[#0a2d5a]">Beneficios</h2></div>
+                <DetailList items={details.benefits} />
+              </section>
+            ) : null}
+
+            {hasContact ? (
+              <section className="rounded-[20px] border border-[#dbe5f1] bg-white p-4 sm:p-5">
+                <div className="flex items-center gap-2"><Mail size={18} className="text-[#d89b09]"/><h2 className="text-lg font-black text-[#0a2d5a]">Contacto y canal publicado</h2></div>
+                <DetailList items={details.contact} />
               </section>
             ) : null}
 
