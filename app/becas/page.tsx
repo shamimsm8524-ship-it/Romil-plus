@@ -85,7 +85,7 @@ export default function ScholarshipsPage() {
         </section>
 
         <div className="mt-8 rounded-2xl border border-[#b9e8c8] bg-[#eefaf2] p-4 text-sm leading-6 text-[#35664b]">
-          <strong className="text-[#14763e]">Fuentes revisadas el 17/10/2026.</strong> Que un programa exista no significa que esté recibiendo postulaciones hoy. Por eso mostramos por separado el estado de cada convocatoria.
+          <strong className="text-[#14763e]">Consulta la fecha de revisión de cada ficha.</strong> Que un programa exista no significa que esté recibiendo postulaciones hoy. Por eso mostramos por separado el estado de cada convocatoria.
         </div>
 
         <div className="mt-10">
