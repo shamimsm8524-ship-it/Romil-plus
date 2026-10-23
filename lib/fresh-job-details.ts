@@ -1,6 +1,242 @@
 import type { JobDetailView } from "@/lib/job-details";
 
+// Revisión editorial: 23/10/2026. Solo las nuevas fichas revisadas reciben esta fecha.
 export const freshJobDetails: JobDetailView[] = [
+{
+  "publishedAt": "23/10/2026",
+  "verifiedAt": "23/10/2026",
+  "status": "Vigente",
+  "vacancies": null,
+  "closesAt": "Postulación abierta · sin fecha de cierre publicada",
+  "slug": "hrs-operadores-multifuncionales-iquitos-navidad-2026",
+  "entity": "Human Resources Solutions S.A.C. · Supermercados OK",
+  "title": "Operadores Multifuncionales · Campaña Navideña",
+  "category": "Varias",
+  "regime": "Full time / part time · presencial",
+  "location": "Iquitos, Loreto",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/operadores-multifuncionales-full-time-part-time-campana-navidena-6adb68daafb2c",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · publicación de HR Solutions",
+  "summary": "Campaña navideña de Supermercados OK difundida por HR Solutions. Acepta primer empleo y solicita disponibilidad para turnos rotativos.",
+  "details": {
+    "education": [
+      "Secundaria completa."
+    ],
+    "experience": [
+      "Acepta primer empleo."
+    ],
+    "requirements": [
+      "Mayor de 18 años.",
+      "Disponibilidad para turnos rotativos."
+    ],
+    "workSchedule": "Turnos rotativos; el título ofrece full time / part time y la ficha clasifica full time. Confirmar modalidad.",
+    "benefits": [
+      "Oportunidades de crecimiento."
+    ],
+    "notes": [
+      "La bolsa UTP dirige sus ofertas a estudiantes y egresados; confirmar elegibilidad en la fuente."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/operadores-multifuncionales-full-time-part-time-campana-navidena-6adb68daafb2c/apply",
+    "applicationLabel": "Postular en la bolsa laboral UTP",
+    "applicationInstructions": "Completar el formulario de la fuente y adjuntar CV. Confirmar condiciones y elegibilidad antes de enviar la postulación."
+  }
+},
+{
+  "publishedAt": "23/10/2026",
+  "verifiedAt": "23/10/2026",
+  "status": "Vigente",
+  "vacancies": null,
+  "closesAt": "Postulación abierta · sin fecha de cierre publicada",
+  "slug": "unifrutti-auxiliar-tesoreria-chiclayo-octubre-2026",
+  "entity": "Unifrutti Perú",
+  "title": "Auxiliar de Tesorería · campaña",
+  "category": "Administración",
+  "regime": "Full time · presencial · campaña",
+  "location": "Chiclayo, Lambayeque",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/auxiliar-de-tesoreria-6adb624775e4d",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · Unifrutti Perú",
+  "summary": "Soporte de tesorería por campaña en Chiclayo: registro de operaciones en ERP, control documental y apoyo para auditorías.",
+  "details": {
+    "education": [
+      "Formación técnica, egreso o bachillerato en Contabilidad, Economía o afines."
+    ],
+    "experience": [
+      "Seis meses en el puesto."
+    ],
+    "requirements": [
+      "Manejo de ERP y documentación bancaria."
+    ],
+    "functions": [
+      "Registrar operaciones y revisar sus sustentos.",
+      "Organizar controles y documentación para auditorías."
+    ],
+    "benefits": [
+      "Planilla desde el primer día y beneficios del régimen general.",
+      "Capacitaciones."
+    ],
+    "workSchedule": "Tiempo completo presencial; horario no publicado.",
+    "notes": [
+      "El título indica Auxiliar; la descripción lo denomina Asistente de Tesorería por campaña.",
+      "Bolsa dirigida a estudiantes y egresados de UTP; confirmar elegibilidad."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/auxiliar-de-tesoreria-6adb624775e4d/apply",
+    "applicationLabel": "Postular en la bolsa laboral UTP",
+    "applicationInstructions": "Completar el formulario de la fuente y adjuntar CV. Confirmar condiciones y elegibilidad antes de enviar la postulación."
+  }
+},
+{
+  "publishedAt": "23/10/2026",
+  "verifiedAt": "23/10/2026",
+  "status": "Vigente",
+  "vacancies": null,
+  "closesAt": "Postulación abierta · sin fecha de cierre publicada",
+  "slug": "unifrutti-asistente-contabilidad-chiclayo-octubre-2026",
+  "entity": "Unifrutti Perú",
+  "title": "Asistente de Contabilidad",
+  "category": "Administración",
+  "regime": "Full time · presencial",
+  "location": "Chiclayo, Lambayeque",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/asistente-a-de-contabilidad-6adb6159c5b5e",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · Unifrutti Perú",
+  "summary": "Apoyo contable para validar comprobantes, revisar gastos y conciliar cuentas entre empresas del grupo agroindustrial.",
+  "details": {
+    "education": [
+      "Técnico, egresado o bachiller en Contabilidad; requisito excluyente."
+    ],
+    "experience": [
+      "Un año en el puesto.",
+      "Experiencia agroindustrial obligatoria y en registros contables."
+    ],
+    "requirements": [
+      "Office intermedio.",
+      "Experiencia validando facturas y documentos."
+    ],
+    "functions": [
+      "Revisar comprobantes y liquidaciones de gastos.",
+      "Conciliar cuentas y actualizar documentación de proveedores."
+    ],
+    "benefits": [
+      "Planilla desde el inicio, beneficios del régimen general y capacitación."
+    ],
+    "workSchedule": "Tiempo completo presencial; horario no publicado.",
+    "notes": [
+      "Bolsa dirigida a estudiantes y egresados de UTP; confirmar elegibilidad."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/asistente-a-de-contabilidad-6adb6159c5b5e/apply",
+    "applicationLabel": "Postular en la bolsa laboral UTP",
+    "applicationInstructions": "Completar el formulario de la fuente y adjuntar CV. Confirmar condiciones y elegibilidad antes de enviar la postulación."
+  }
+},
+{
+  "publishedAt": "23/10/2026",
+  "verifiedAt": "23/10/2026",
+  "status": "Vigente",
+  "vacancies": null,
+  "closesAt": "Postulación abierta · sin fecha de cierre publicada",
+  "slug": "kfc-produccion-part-time-pucallpa-octubre-2026",
+  "entity": "KFC",
+  "title": "Producción · Part Time",
+  "category": "Varias",
+  "regime": "Part time · presencial · sin experiencia",
+  "location": "Pucallpa, Ucayali",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/pucallpa-produccion-part-time-6adad41c00e08",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · KFC",
+  "summary": "Primer empleo en cocina: preparación de productos, operación de equipos y limpieza del área de trabajo.",
+  "details": {
+    "education": [
+      "Secundaria completa."
+    ],
+    "experience": [
+      "No exige experiencia previa."
+    ],
+    "requirements": [
+      "Mayor de 18 años."
+    ],
+    "workSchedule": "19.5 horas semanales; presencial.",
+    "functions": [
+      "Preparar productos y operar equipos según procedimientos.",
+      "Conservar limpia y ordenada el área."
+    ],
+    "benefits": [
+      "Planilla desde el primer día.",
+      "Vale de alimentos, movilidad de acercamiento y desarrollo profesional."
+    ],
+    "notes": [
+      "La fuente ofrece sueldo de mercado sin publicar un monto.",
+      "Bolsa dirigida a estudiantes y egresados de UTP; confirmar elegibilidad."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/pucallpa-produccion-part-time-6adad41c00e08/apply",
+    "applicationLabel": "Postular en la bolsa laboral UTP",
+    "applicationInstructions": "Completar el formulario de la fuente y adjuntar CV. Confirmar condiciones y elegibilidad antes de enviar la postulación."
+  }
+},
+{
+  "publishedAt": "23/10/2026",
+  "verifiedAt": "23/10/2026",
+  "status": "Vigente",
+  "vacancies": null,
+  "closesAt": "Postulación abierta · sin fecha de cierre publicada",
+  "slug": "kfc-atencion-cliente-part-time-pucallpa-octubre-2026",
+  "entity": "KFC",
+  "title": "Atención al Cliente · Part Time",
+  "category": "Varias",
+  "regime": "Part time · presencial · sin experiencia",
+  "location": "Pucallpa, Ucayali",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/pucallpa-atencion-al-cliente-part-time-6adad2be9f6cd",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · KFC",
+  "summary": "Atención de pedidos y apoyo en servicios o cocina. Solicita disponibilidad para horarios rotativos y cierres nocturnos.",
+  "details": {
+    "education": [
+      "La descripción solicita estudiantes de primeros ciclos; el campo de formación dice universitario graduado. Confirmar con selección."
+    ],
+    "experience": [
+      "Sin experiencia."
+    ],
+    "requirements": [
+      "Mayor de edad y orientación al servicio."
+    ],
+    "workSchedule": "Turnos rotativos; cierres hasta la 01:00 a. m., máximo tres por semana. La fuente escribe «19:50 horas a la semana»; confirmar duración con selección.",
+    "functions": [
+      "Recibir, preparar y entregar pedidos.",
+      "Atender consultas y limpiar el salón."
+    ],
+    "benefits": [
+      "Planilla desde el inicio y beneficios de ley.",
+      "Convenios educativos y línea de carrera."
+    ],
+    "notes": [
+      "Bolsa dirigida a estudiantes y egresados de UTP; confirmar elegibilidad."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/pucallpa-atencion-al-cliente-part-time-6adad2be9f6cd/apply",
+    "applicationLabel": "Postular en la bolsa laboral UTP",
+    "applicationInstructions": "Completar el formulario de la fuente y adjuntar CV. Confirmar condiciones y elegibilidad antes de enviar la postulación."
+  }
+},
+{
+  "publishedAt": "23/10/2026",
+  "verifiedAt": "23/10/2026",
+  "status": "Vigente",
+  "vacancies": 2,
+  "closesAt": "Postulación virtual: 06/11/2026 · 00:00 a 17:30",
+  "slug": "pnsr-especialistas-supervision-ii-octubre-2026",
+  "entity": "Programa Nacional de Saneamiento Rural (PNSR)",
+  "title": "Especialistas en Supervisión II · 2 plazas",
+  "category": "Ingeniería y TI",
+  "regime": "Contrato determinado por necesidad transitoria · confirmar régimen en bases",
+  "location": "Perú · sede por confirmar en bases",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-2329d9f7",
+  "sourceLabel": "CONADIS · difusión oficial del PNSR",
+  "summary": "Dos plazas de supervisión para la Sub Unidad de Ejecución de Proyectos. CONADIS difunde el proceso desde el 23 de octubre.",
+  "details": {
+    "applicationUrl": "https://pnsr.vivienda.gob.pe/portales/convocatorias-2/",
+    "applicationLabel": "Consultar bases y postulación del PNSR",
+    "applicationInstructions": "Buscar Especialistas en Supervisión II. CONADIS indica postulación virtual el 6 de noviembre de 00:00 a 17:30; confirmar el cronograma en las bases antes de postular.",
+    "basesUrl": "https://pnsr.vivienda.gob.pe/portales/convocatorias-2/",
+    "notes": [
+      "La ficha de CONADIS cierra difusión el 05/11/2026 y señala postulación el 06/11/2026.",
+      "El portal PNSR no fue accesible durante la revisión. Sueldo, sede, formación y experiencia no pudieron contrastarse; consultar las bases."
+    ]
+  }
+},
   {
     slug: "promigas-practicante-profesional-recaudo-octubre-2026",
     entity: "Promigas Perú S.A.",
