@@ -83,7 +83,7 @@ export default function AdminSupportPage(){
      <div><p className="text-sm font-black uppercase tracking-wider text-[#e3b64f]">Administración</p><h1 className="mt-1 text-4xl font-black">Atención al cliente</h1><p className="mt-2 text-sm text-white/50">Responde aquí sin mostrar tu número de WhatsApp.</p></div>
      <div className="flex flex-wrap gap-2">
        <button type="button" onClick={()=>setDateMenuOpen(true)} className="flex items-center gap-2 rounded-xl border border-[#d6b25e]/35 bg-[linear-gradient(90deg,rgba(214,178,94,.13),rgba(126,87,194,.10))] px-4 py-2.5 text-sm font-black text-[#ecd28f] shadow-[0_0_22px_rgba(214,178,94,.08)]"><span className="text-xl leading-none">☰</span> Por fecha</button>
-       <Link href="/admin" className="rounded-xl border border-white/15 px-4 py-2.5 text-sm font-black">← Pedidos</Link>
+       <Link href="/convocatorias" className="rounded-xl border border-white/15 px-4 py-2.5 text-sm font-black">← Volver a Romilplus</Link>
      </div>
    </div>
 
