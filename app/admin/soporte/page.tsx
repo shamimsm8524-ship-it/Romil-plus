@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, MessageCircle, Send } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { withRequestTimeout, supportErrorMessage } from "@/lib/auth-feedback";
 
 const ADMIN_EMAIL="milagroslove.1693@gmail.com";
 type Conversation={id:string;user_id:string;customer_email:string;status:"open"|"resolved";created_at:string;last_message_at:string};
@@ -36,11 +37,11 @@ export default function AdminSupportPage(){
  const[dateMenuOpen,setDateMenuOpen]=useState(false);
 
  const hydrate=async(rows:Message[])=>{const sb=supabase;if(!sb)return rows;return Promise.all(rows.map(async m=>{if(!m.attachment_path)return{...m,attachmentUrl:null};const{data}=await sb.storage.from("support-attachments").createSignedUrl(m.attachment_path,3600);return{...m,attachmentUrl:data?.signedUrl||null};}));};
- const loadConversations=async()=>{const sb=supabase;if(!sb)return;const{data,error:e}=await sb.from("support_conversations").select("id,user_id,customer_email,status,created_at,last_message_at").order("last_message_at",{ascending:false});if(e){setError(e.message);return;}const rows=(data||[]) as Conversation[];setConversations(rows);const{data:unreadRows}=await sb.from("support_messages").select("conversation_id").eq("sender_role","customer").is("read_at",null);const counts:Record<string,number>={};(unreadRows||[]).forEach((m:any)=>counts[m.conversation_id]=(counts[m.conversation_id]||0)+1);setUnread(counts);if(selected){const current=rows.find(c=>c.id===selected.id)||null;setSelected(current);}};
+ const loadConversations=async()=>{const sb=supabase;if(!sb)return;const{data,error:e}=await sb.from("support_conversations").select("id,user_id,customer_email,status,created_at,last_message_at").order("last_message_at",{ascending:false});if(e)throw e;const rows=(data||[]) as Conversation[];setConversations(rows);const{data:unreadRows}=await sb.from("support_messages").select("conversation_id").eq("sender_role","customer").is("read_at",null);const counts:Record<string,number>={};(unreadRows||[]).forEach((m:any)=>counts[m.conversation_id]=(counts[m.conversation_id]||0)+1);setUnread(counts);if(selected){const current=rows.find(c=>c.id===selected.id)||null;setSelected(current);}};
  const openConversation=async(c:Conversation)=>{const sb=supabase;if(!sb)return;setSelected(c);setError("");const{data,error:e}=await sb.from("support_messages").select("id,conversation_id,sender_id,sender_role,body,attachment_path,attachment_type,attachment_name,attachment_deleted,read_at,created_at").eq("conversation_id",c.id).order("created_at",{ascending:true});if(e){setError(e.message);return;}setMessages(await hydrate((data||[]) as Message[]));const ids=(data||[]).filter((m:any)=>m.sender_role==="customer"&&!m.read_at).map((m:any)=>m.id);if(ids.length)await sb.from("support_messages").update({read_at:new Date().toISOString()}).in("id",ids);await loadConversations();};
- const start=async()=>{const sb=supabase;if(!sb){setError("Supabase no está configurado.");setLoading(false);return;}const{data:s}=await sb.auth.getSession();const user=s.session?.user;if(!user){window.location.replace("/login?next=%2Fadmin%2Fsoporte");return;}if((user.email||"").toLowerCase()!==ADMIN_EMAIL){window.location.replace("/catalogo");return;}setAdminId(user.id);await loadConversations();setLoading(false);};
+ const start=async()=>{setError("");setLoading(true);try{await withRequestTimeout((async()=>{const sb=supabase;if(!sb){setError("Supabase no está configurado.");setLoading(false);return;}const{data:s,error:sessionError}=await sb.auth.getSession();if(sessionError)throw sessionError;const user=s.session?.user;if(!user){window.location.replace("/login?next=%2Fadmin%2Fsoporte");return;}if((user.email||"").toLowerCase()!==ADMIN_EMAIL){window.location.replace("/catalogo");return;}setAdminId(user.id);await loadConversations();setLoading(false);})());}catch(err){setError(supportErrorMessage(err));}finally{setLoading(false);}};
  useEffect(()=>{start();},[]);
- useEffect(()=>{const t=setInterval(async()=>{await loadConversations();if(selected)await openConversation(selected);},5000);return()=>clearInterval(t);},[selected?.id]);
+ useEffect(()=>{if(!adminId||loading||error)return;let stopped=false;let timer:ReturnType<typeof setTimeout>;const refresh=async()=>{try{await withRequestTimeout((async()=>{await loadConversations();if(selected)await openConversation(selected);})());}catch(err){if(!stopped)setError(supportErrorMessage(err));}finally{if(!stopped)timer=setTimeout(refresh,5000);}};timer=setTimeout(refresh,5000);return()=>{stopped=true;clearTimeout(timer);};},[adminId,selected?.id,loading,error]);
  const send=async(e:FormEvent)=>{e.preventDefault();const sb=supabase;if(!sb||!selected||!text.trim()||sending||selected.status==="resolved")return;setSending(true);const{error:e2}=await sb.from("support_messages").insert({conversation_id:selected.id,sender_id:adminId,sender_role:"admin",body:text.trim()});if(e2)setError(e2.message);else{setText("");await openConversation(selected);}setSending(false);};
  const resolve=async()=>{const sb=supabase;if(!sb||!selected||selected.status==="resolved")return;const ok=window.confirm("¿Marcar este caso como resuelto? Las fotos y videos adjuntos se eliminarán de Supabase para ahorrar espacio. Los mensajes de texto se conservarán.");if(!ok)return;setError("");const paths=messages.map(m=>m.attachment_path).filter(Boolean) as string[];if(paths.length){const{error:removeError}=await sb.storage.from("support-attachments").remove(paths);if(removeError){setError(`No se pudieron eliminar los archivos: ${removeError.message}`);return;}const ids=messages.filter(m=>m.attachment_path).map(m=>m.id);if(ids.length){const{error:msgError}=await sb.from("support_messages").update({attachment_path:null,attachment_type:null,attachment_name:null,attachment_deleted:true}).in("id",ids);if(msgError){setError(msgError.message);return;}}}const{error:closeError}=await sb.from("support_conversations").update({status:"resolved"}).eq("id",selected.id);if(closeError){setError(closeError.message);return;}await loadConversations();await openConversation({...selected,status:"resolved"});};
 
@@ -59,7 +60,7 @@ export default function AdminSupportPage(){
    setTimeout(()=>document.getElementById(`conversaciones-fecha-${key}`)?.scrollIntoView({behavior:"smooth",block:"nearest"}),60);
  };
 
- if(loading)return <main className="mx-auto max-w-6xl px-4 py-14 text-white/60">Cargando mensajes...</main>;
+ if(loading)return <main className="mx-auto max-w-6xl px-4 py-14 text-white/60" role="status">Cargando mensajes...</main>;
 
  return <main className="relative mx-auto min-h-[75vh] max-w-6xl px-4 py-10">
    {dateMenuOpen&&<>
@@ -87,7 +88,7 @@ export default function AdminSupportPage(){
    </div>
 
    <div className="mt-6 grid gap-3 sm:grid-cols-2"><div className="rounded-2xl border border-[#e3b64f]/20 bg-[#e3b64f]/5 p-4"><p className="text-xs font-black uppercase text-[#e3b64f]">Casos abiertos</p><p className="mt-1 text-3xl font-black">{openCount}</p></div><div className="rounded-2xl border border-red-400/20 bg-red-400/[0.05] p-4"><p className="text-xs font-black uppercase text-red-300">Mensajes sin leer</p><p className="mt-1 text-3xl font-black">{unreadCount}</p></div></div>
-   {error&&<p className="mt-4 rounded-xl bg-red-400/10 p-3 text-sm text-red-200">{error}</p>}
+   {error&&<div role="alert" className="mt-4 rounded-xl bg-red-400/10 p-4 text-sm text-red-200"><p>{error}</p><button type="button" onClick={()=>void start()} className="mt-3 rounded-lg border border-white/20 px-4 py-2 font-bold">Reintentar conexión</button><Link href="/login?next=%2Fadmin%2Fsoporte" className="ml-4 underline">Volver al acceso</Link></div>}
 
    <section className="mt-6 grid overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] lg:grid-cols-[320px_1fr]">
      <aside className="max-h-[72vh] overflow-y-auto border-b border-white/10 lg:border-b-0 lg:border-r">
