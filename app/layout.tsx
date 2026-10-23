@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
@@ -9,7 +8,8 @@ import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 const siteUrl = "https://www.romilplus.me";
 const siteDescription = "ROMIL PLUS reúne convocatorias de trabajo y becas verificadas para peruanos, enlaza a fuentes oficiales y publica guías prácticas para postular con más seguridad.";
 const socialImage = `${siteUrl}/logo-romil-plus.png?v=20261017`;
-const adsenseClient = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
+const configuredPublisher = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || process.env.ADSENSE_PUBLISHER_ID || "";
+const adsenseClient = /^(?:ca-)?pub-\d{16}$/.test(configuredPublisher) ? configuredPublisher.replace(/^(?:ca-)?pub-/, "ca-pub-") : undefined;
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
@@ -42,6 +42,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "ROMIL PLUS | Trabajo y becas verificadas", description: siteDescription, images: [socialImage] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
+  other: adsenseClient ? { "google-adsense-account": adsenseClient } : undefined,
   category: "jobs and education",
 };
 
@@ -63,7 +64,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="es-PE">
       <body>
-        {adsenseClient ? <Script id="adsense-loader" async strategy="beforeInteractive" crossOrigin="anonymous" src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`} /> : null}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <CartProvider>
           <Header />
