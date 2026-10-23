@@ -21,6 +21,103 @@ export type ScholarshipDetailExtra = {
 };
 
 const detailMap: Record<string, ScholarshipDetailExtra> = {
+"france-excellence-eiffel-2027": {
+  "eligibility": [
+    "Postulantes extranjeros a maestría o doctorado en Francia, con respaldo de una institución francesa."
+  ],
+  "requirements": [
+    "Edad máxima anunciada: 29 años para maestría y 35 para doctorado; comprobar las fechas de nacimiento de las bases.",
+    "Cumplir los requisitos del programa elegido y obtener la nominación institucional."
+  ],
+  "documents": [
+    "Expediente y documentos solicitados por la universidad que presenta la candidatura."
+  ],
+  "importantDates": [
+    {
+      "label": "Apertura",
+      "date": "Octubre de 2026"
+    },
+    {
+      "label": "Cierre interno para estudiantes",
+      "date": "Lo determina cada universidad; puede ser anterior al 06/01/2027"
+    },
+    {
+      "label": "Envío de expedientes por instituciones",
+      "date": "06/01/2027"
+    }
+  ],
+  "applicationUrl": "https://www.campusfrance.org/en/the-france-excellence-eiffel-scholarship-program",
+  "applicationLabel": "Consultar cómo solicitar la nominación Eiffel",
+  "applicationInstructions": "Contactar al área internacional de la universidad francesa elegida. La institución presenta la candidatura a Campus France; el estudiante no envía una solicitud directa.",
+  "basesUrl": "https://www.campusfrance.org/en/france-excellence-eiffel-scholarship-program",
+  "notes": [
+    "Verificación mediante información oficial indexada de Campus France; la apertura directa del portal devolvió un error de acceso.",
+    "No se indica un monto de doctorado porque las páginas oficiales consultadas muestran cifras diferentes."
+  ]
+},
+"oxford-clarendon-2027-2028": {
+  "eligibility": [
+    "Cualquier nacionalidad y área de estudios; nuevos postulantes a maestría o DPhil."
+  ],
+  "requirements": [
+    "Mérito y potencial académico sobresalientes.",
+    "Completar la admisión antes del cierre de financiación del curso."
+  ],
+  "documents": [
+    "Documentos de admisión requeridos por el curso."
+  ],
+  "importantDates": [
+    {
+      "label": "Cierre para consideración de financiación",
+      "date": "Diciembre de 2026 o enero de 2027, según el curso"
+    }
+  ],
+  "applicationUrl": "https://www.ox.ac.uk/admissions/graduate/courses",
+  "applicationLabel": "Elegir curso y solicitar admisión en Oxford",
+  "applicationInstructions": "Seleccionar el curso y presentar la admisión completa dentro de su plazo de diciembre o enero. Clarendon no exige solicitud independiente.",
+  "basesUrl": "https://www.ox.ac.uk/admissions/graduate/fees-and-funding/funding/clarendon",
+  "notes": [
+    "La admisión no garantiza la beca; la selección es competitiva."
+  ]
+},
+"cambridge-woolf-masters-2027-2028": {
+  "eligibility": [
+    "Postulantes al MPhil en Asian and Middle Eastern Studies, itinerario Muslim-Jewish Relations."
+  ],
+  "requirements": [
+    "Cumplir las condiciones académicas y lingüísticas del MPhil.",
+    "Presentar una propuesta de investigación pertinente al Woolf Institute y responder las preguntas de financiación de la admisión."
+  ],
+  "documents": [
+    "Documentación académica y de idioma exigida por el directorio del MPhil."
+  ],
+  "importantDates": [
+    {
+      "label": "Apertura de admisión",
+      "date": "09/09/2026"
+    },
+    {
+      "label": "Plazo de financiación del curso",
+      "date": "08/12/2026"
+    },
+    {
+      "label": "Cierre general de admisión; no sustituye el plazo de beca",
+      "date": "13/05/2027"
+    },
+    {
+      "label": "Inicio de estudios",
+      "date": "01/10/2027"
+    }
+  ],
+  "applicationUrl": "https://www.postgraduate.study.cam.ac.uk/courses/directory/amammpmjr",
+  "applicationLabel": "Consultar el MPhil y solicitar admisión",
+  "applicationInstructions": "Enviar la admisión antes del 08/12/2026 para optar a financiación y responder las preguntas de la beca. Woolf no requiere una solicitud independiente.",
+  "basesUrl": "https://www.cambridgetrust.org/scholarship/woolf-institute-cambridge-scholarship/",
+  "notes": [
+    "El cronograma de financiación se contrastó con el directorio oficial de Cambridge para ingreso 2027.",
+    "La beca no garantiza la admisión ni se concede automáticamente."
+  ]
+},
   "osiptel-peu-2027": {
     quantity: "60 becas integrales",
     eligibility: [
@@ -345,7 +442,7 @@ const detailMap: Record<string, ScholarshipDetailExtra> = {
       "Documentación adicional prevista en las bases para condiciones priorizables, si corresponde.",
     ],
     benefits: ["Alimentación.", "Movilidad local.", "Útiles de escritorio.", "Acompañamiento socioemocional y de bienestar."],
-    basesUrl: "https://www.pronabec.gob.pe/beca%20-permanencia/",
+    basesUrl: "https://www.pronabec.gob.pe/beca-permanencia/",
     notes: ["La última convocatoria publicada corresponde a 2025 y está concluida."],
   },
 
