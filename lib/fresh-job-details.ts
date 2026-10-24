@@ -1,7 +1,681 @@
 import type { JobDetailView } from "@/lib/job-details";
 
-// Revisión editorial: 23/10/2026. Solo las nuevas fichas revisadas reciben esta fecha.
+// Revisión editorial: cada ficha conserva su fecha de comprobación. Nuevas fichas: 24/10/2026.
 export const freshJobDetails: JobDetailView[] = [
+{
+  "slug": "vision-urbana-asistente-contable-tacna-octubre-2026",
+  "entity": "Visión Urbana Inmobiliaria",
+  "title": "Asistente Contable",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Full time · presencial",
+  "location": "Tacna, Tacna",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/asistente-contable-tacna-6adbd9d9c1947",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Apoyo en registros, conciliaciones y archivo contable.",
+  "details": {
+    "education": [
+      "Estudiante o egresado técnico o universitario de Contabilidad."
+    ],
+    "requirements": [
+      "Excel básico o intermedio."
+    ],
+    "workSchedule": "Presencial · 09:00 a 18:00",
+    "functions": [
+      "Registro de comprobantes, conciliaciones y archivo."
+    ],
+    "benefits": [
+      "Capacitación y oportunidades de desarrollo."
+    ],
+    "notes": [
+      "No se detallan años de experiencia ni remuneración.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/asistente-contable-tacna-6adbd9d9c1947",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "ngr-popeyes-servicios-huancayo-octubre-2026",
+  "entity": "NGR · Popeyes",
+  "title": "Equipo de Servicios · Mall Plaza Huancayo",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Restaurante · part time · presencial · sin experiencia",
+  "location": "Huancayo, Junín",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/equipo-de-servicios-popeyes-mall-plaza-huancayo-6adbd9524f10f",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Atención de pedidos en tienda. La fuente admite primer empleo.",
+  "details": {
+    "experience": [
+      "Primer empleo; la ficha no exige experiencia previa."
+    ],
+    "requirements": [
+      "Edad mínima de 18 años.",
+      "Disponibilidad presencial por 19 horas semanales."
+    ],
+    "workSchedule": "Part time · 19 horas semanales",
+    "functions": [
+      "Atender los pedidos de clientes en tienda."
+    ],
+    "benefits": [
+      "Planilla desde el primer día.",
+      "Línea de carrera en NGR."
+    ],
+    "notes": [
+      "Remuneración y turnos exactos no publicados.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/equipo-de-servicios-popeyes-mall-plaza-huancayo-6adbd9524f10f",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "ngr-popeyes-produccion-huancayo-octubre-2026",
+  "entity": "NGR · Popeyes",
+  "title": "Equipo de Producción · Mall Plaza Huancayo",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Restaurante · cocina · part time · sin experiencia",
+  "location": "Huancayo, Junín",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/equipo-de-produccion-popeyes-mall-plaza-huancayo-6adbd9071cb7d",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Preparación de alimentos en restaurante, con opción de primer empleo.",
+  "details": {
+    "experience": [
+      "Primer empleo; no se publica un mínimo de experiencia."
+    ],
+    "requirements": [
+      "Mayor de 18 años.",
+      "Disponibilidad para 19 horas semanales presenciales."
+    ],
+    "workSchedule": "Part time · 19 horas semanales",
+    "functions": [
+      "Participar en la preparación de alimentos."
+    ],
+    "benefits": [
+      "Planilla desde el primer día.",
+      "Oportunidades de crecimiento en NGR."
+    ],
+    "notes": [
+      "Confirmar turnos y remuneración en el proceso.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/equipo-de-produccion-popeyes-mall-plaza-huancayo-6adbd9071cb7d",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "vanguard-inspectores-calidad-ica-octubre-2026",
+  "entity": "Vanguard Perú",
+  "title": "Inspectores de Calidad",
+  "category": "Técnicos",
+  "status": "Vigente",
+  "regime": "Agroindustria · full time · presencial",
+  "location": "Ica, Ica",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/feria-laboral-ica-inspectores-de-calidad-6adbd5ac519c2",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Control de calidad en agroindustria. La descripción exige experiencia aunque el encabezado etiqueta primer empleo.",
+  "details": {
+    "education": [
+      "Deseable formación técnica o egreso en Industrias Alimentarias, Agropecuaria o afines."
+    ],
+    "experience": [
+      "Un año en funciones similares, según requisitos del aviso."
+    ],
+    "requirements": [
+      "Conocimientos de BPM y HACCP."
+    ],
+    "benefits": [
+      "Alimentación y transporte.",
+      "Planilla desde el primer día.",
+      "Horas extras remuneradas y utilidades, según el aviso."
+    ],
+    "notes": [
+      "No clasificar como sin experiencia: existe contradicción con la etiqueta del encabezado.",
+      "Sueldo no publicado.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/feria-laboral-ica-inspectores-de-calidad-6adbd5ac519c2",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "angostura-atencion-cliente-ica-octubre-2026",
+  "entity": "Hotel Boutique La Angostura SCRL",
+  "title": "Ejecutivo de Atención al Cliente",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Hotelería · full time · presencial",
+  "location": "Ica, Ica",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/feria-laboral-ica-ejecutivo-atencion-al-cliente-6adbc92465cbb",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Oportunidad en hotelería: recepción, atención y reservas.",
+  "details": {
+    "education": [
+      "Estudiante o egresado de Administración, Hotelería y Turismo o afines."
+    ],
+    "requirements": [
+      "Inglés intermedio.",
+      "Conocimientos de recepción, atención al cliente y reservas."
+    ],
+    "salary": "Desde S/ 1,400 mensuales, según la empresa.",
+    "benefits": [
+      "Planilla y beneficios sociales.",
+      "Alimentación cubierta."
+    ],
+    "notes": [
+      "La ficha no especifica años de experiencia ni horario exacto.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/feria-laboral-ica-ejecutivo-atencion-al-cliente-6adbc92465cbb",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "vision-urbana-asesor-ventas-tacna-octubre-2026",
+  "entity": "Visión Urbana Inmobiliaria",
+  "title": "Asesor de Ventas",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Ventas · inmobiliaria · full time · presencial",
+  "location": "Tacna, Tacna",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/asesor-de-ventas-tacna-6adbc419af759",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Ventas inmobiliarias con comisiones y capacitación.",
+  "details": {
+    "experience": [
+      "Experiencia deseable en ventas o atención al cliente; no se indican años mínimos."
+    ],
+    "requirements": [
+      "Comunicación, trato con clientes y orientación a resultados."
+    ],
+    "workSchedule": "Presencial · 09:00 a 18:00",
+    "benefits": [
+      "Comisiones por ventas.",
+      "Capacitación."
+    ],
+    "notes": [
+      "No se publica el sueldo base.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/asesor-de-ventas-tacna-6adbc419af759",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "infarmainnova-tecnicas-farmacia-tacna-octubre-2026",
+  "entity": "Botica Infarmainnova",
+  "title": "Técnicas de Farmacia",
+  "category": "Salud",
+  "status": "Vigente",
+  "regime": "Salud · farmacia · full time · presencial",
+  "location": "Tacna, Tacna",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/tecnicas-de-farmacia-tacna-6adbbb4ee21b9",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Atención en botica para sedes en Alto de la Alianza y Cercado de Tacna.",
+  "details": {
+    "education": [
+      "Tituladas o egresadas, según el aviso de técnicas de farmacia."
+    ],
+    "experience": [
+      "Seis meses en farmacias o boticas."
+    ],
+    "requirements": [
+      "Conocimientos de dispensación y atención al cliente.",
+      "Habilidad para ventas."
+    ],
+    "workSchedule": "Presencial · turnos de mañana y tarde",
+    "benefits": [
+      "Capacitación."
+    ],
+    "notes": [
+      "No se publica sueldo ni distribución de puestos entre sedes.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/tecnicas-de-farmacia-tacna-6adbbb4ee21b9",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "sr-coordinacion-activos-ti-arequipa-octubre-2026",
+  "entity": "S&R Soluciones y Servicios TI",
+  "title": "Coordinadora de Activos TI",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Logística y TI · full time · presencial",
+  "location": "José Luis Bustamante y Rivero, Arequipa",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/coordinadora-de-activos-6adba712e8836",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Control de equipos tecnológicos, inventarios y reportes.",
+  "details": {
+    "education": [
+      "Estudios técnicos o universitarios en Computación, Sistemas, Administración, Logística o afines."
+    ],
+    "experience": [
+      "Deseable experiencia en inventarios, almacenes o equipos tecnológicos."
+    ],
+    "requirements": [
+      "Excel intermedio.",
+      "Control de inventarios y gestión de activos."
+    ],
+    "functions": [
+      "Controlar equipos y mantener actualizada la información de activos."
+    ],
+    "notes": [
+      "El encabezado muestra 1300 sin moneda; el texto dice sueldo negociable. Confirmar remuneración con la empresa.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/coordinadora-de-activos-6adba712e8836",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "cidasa-asistente-ssoma-arequipa-octubre-2026",
+  "entity": "Consorcio Industrial de Arequipa S.A. (CIDASA)",
+  "title": "Asistente SSOMA · Prácticas profesionales",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Prácticas profesionales · presencial",
+  "location": "Arequipa, Arequipa",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/asistente-ssoma-6adb8fe464464",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Prácticas en Seguridad, Salud Ocupacional y Medio Ambiente en planta industrial.",
+  "details": {
+    "education": [
+      "Egreso de Ingeniería de Seguridad y Salud en el Trabajo, Industrial, Ambiental, Química o afines, con hasta 12 meses de egreso."
+    ],
+    "requirements": [
+      "Pertenecer al cuadro de mérito universitario.",
+      "Excel intermedio."
+    ],
+    "benefits": [
+      "Subvención económica y seguro para prácticas."
+    ],
+    "notes": [
+      "El título dice Asistente; la descripción solicita practicante profesional. Confirmar convenio y condiciones.",
+      "Monto de subvención y experiencia mínima no publicados.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/asistente-ssoma-6adb8fe464464",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "arrowhead-asesor-ventas-arequipa-octubre-2026",
+  "entity": "Arrowhead",
+  "title": "Asesor de Ventas · Full time / Part time",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Ventas · presencial · full time / part time · sin experiencia",
+  "location": "Arequipa, Arequipa",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/asesor-de-ventasfull-part-time-sueldo-fijo-comisiones-bonos-6adb866b2f3a7",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus · aviso de la empresa",
+  "summary": "Venta y asesoría de servicios de telecomunicaciones, con formación para quienes no tienen experiencia.",
+  "details": {
+    "education": [
+      "Secundaria completa o estudios técnicos o universitarios."
+    ],
+    "experience": [
+      "No requiere experiencia previa en call center."
+    ],
+    "requirements": [
+      "Mayor de 18 años.",
+      "Manejo básico de PC y Excel."
+    ],
+    "salary": "Full time: S/ 1,230 · part time: S/ 615, según el aviso.",
+    "functions": [
+      "Informar sobre planes y equipos.",
+      "Realizar seguimiento y registrar gestiones de venta."
+    ],
+    "benefits": [
+      "Comisiones y bonos sujetos a productividad.",
+      "Capacitación comercial."
+    ],
+    "notes": [
+      "Confirmar jornada y condiciones de cada modalidad antes de aceptar.",
+      "La fuente consultada mantiene la postulación visible y no publica fecha límite; confirmar antes de enviar datos."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/asesor-de-ventasfull-part-time-sueldo-fijo-comisiones-bonos-6adb866b2f3a7",
+    "applicationLabel": "Ver aviso y postular en UTP",
+    "applicationInstructions": "Abrir el aviso, revisar condiciones y usar Postularse ahora. La bolsa UTP puede requerir cuenta y elegibilidad."
+  }
+},
+{
+  "slug": "pj-cas-120-2026-asistente-servicios",
+  "entity": "Poder Judicial · Gerencia General",
+  "title": "Asistente de Servicios",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Sede por confirmar en las bases del Poder Judicial",
+  "vacancies": 1,
+  "publishedAt": "16/10/2026",
+  "closesAt": "Registro PSEP: 30/10/2026 · documentos: 04/11/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-bfcdd2cf",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Proceso CAS 120-2026, difundido oficialmente con 1 plaza(s). La difusión separa el registro del envío documental.",
+  "details": {
+    "processCode": "CAS 120-2026",
+    "salary": "S/ 4,500",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Consultar y registrar en PSEP",
+    "applicationInstructions": "Buscar el proceso y puesto exactos en PSEP. Confirmar las bases y el canal de documentos antes de enviar datos.",
+    "notes": [
+      "La difusión no detalla formación ni años de experiencia; deben comprobarse en las bases.",
+      "La ficha agrupa tres procesos; confirmar que cada fecha y correo corresponden al puesto elegido."
+    ]
+  }
+},
+{
+  "slug": "pj-cas-121-2026-apoyo-implementacion-sistemas",
+  "entity": "Poder Judicial · Gerencia General",
+  "title": "Apoyo de Implementación de Sistemas de Información",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Sede por confirmar en las bases del Poder Judicial",
+  "vacancies": 1,
+  "publishedAt": "16/10/2026",
+  "closesAt": "Registro PSEP: 30/10/2026 · documentos: 04/11/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-bfcdd2cf",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Proceso CAS 121-2026, difundido oficialmente con 1 plaza(s). La difusión separa el registro del envío documental.",
+  "details": {
+    "processCode": "CAS 121-2026",
+    "salary": "S/ 3,000",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Consultar y registrar en PSEP",
+    "applicationInstructions": "Buscar el proceso y puesto exactos en PSEP. Confirmar las bases y el canal de documentos antes de enviar datos.",
+    "notes": [
+      "La difusión no detalla formación ni años de experiencia; deben comprobarse en las bases.",
+      "La ficha agrupa tres procesos; confirmar que cada fecha y correo corresponden al puesto elegido."
+    ]
+  }
+},
+{
+  "slug": "pj-cas-121-2026-analista-implantacion-sistemas",
+  "entity": "Poder Judicial · Gerencia General",
+  "title": "Analista de Implantación de Sistema de Información",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Sede por confirmar en las bases del Poder Judicial",
+  "vacancies": 1,
+  "publishedAt": "16/10/2026",
+  "closesAt": "Registro PSEP: 30/10/2026 · documentos: 04/11/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-bfcdd2cf",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Proceso CAS 121-2026, difundido oficialmente con 1 plaza(s). La difusión separa el registro del envío documental.",
+  "details": {
+    "processCode": "CAS 121-2026",
+    "salary": "S/ 6,000",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Consultar y registrar en PSEP",
+    "applicationInstructions": "Buscar el proceso y puesto exactos en PSEP. Confirmar las bases y el canal de documentos antes de enviar datos.",
+    "notes": [
+      "La difusión no detalla formación ni años de experiencia; deben comprobarse en las bases.",
+      "La ficha agrupa tres procesos; confirmar que cada fecha y correo corresponden al puesto elegido."
+    ]
+  }
+},
+{
+  "slug": "pj-cas-127-2026-auxiliar-digitacion",
+  "entity": "Poder Judicial · Gerencia General",
+  "title": "Auxiliar en Digitación",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Sede por confirmar en las bases del Poder Judicial",
+  "vacancies": 15,
+  "publishedAt": "16/10/2026",
+  "closesAt": "Registro PSEP: 30/10/2026 · documentos: 04/11/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-bfcdd2cf",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Proceso CAS 127-2026, difundido oficialmente con 15 plaza(s). La difusión separa el registro del envío documental.",
+  "details": {
+    "processCode": "CAS 127-2026",
+    "salary": "S/ 2,500",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Consultar y registrar en PSEP",
+    "applicationInstructions": "Buscar el proceso y puesto exactos en PSEP. Confirmar las bases y el canal de documentos antes de enviar datos.",
+    "notes": [
+      "La difusión no detalla formación ni años de experiencia; deben comprobarse en las bases.",
+      "La ficha agrupa tres procesos; confirmar que cada fecha y correo corresponden al puesto elegido."
+    ]
+  }
+},
+{
+  "slug": "ipd-cas-073-2026-personal-limpieza",
+  "entity": "Instituto Peruano del Deporte (IPD)",
+  "title": "Personal de Limpieza · Recintos Deportivos",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Lima Metropolitana",
+  "vacancies": 1,
+  "publishedAt": "22/10/2026",
+  "closesAt": "Postulación: 05/11/2026 · 08:30 a 16:30 · único día",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-97457e30",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Una plaza para limpieza de recintos deportivos. La difusión termina el 4 de noviembre; la ficha se presenta el día 5.",
+  "details": {
+    "processCode": "CAS 073-2026-IPD",
+    "contractDuration": "Plazo determinado; duración no detallada en la difusión.",
+    "applicationUrl": "https://convocatorias.ipd.gob.pe/convocatorias/convocatorias/index.php",
+    "applicationLabel": "Ver CAS 073 y ficha oficial",
+    "applicationInstructions": "Abrir CAS 073-2026, revisar bases y registrar la ficha durante el único día indicado.",
+    "notes": [
+      "Formación, experiencia y remuneración deben consultarse en las bases; no se estiman."
+    ]
+  }
+},
+{
+  "slug": "pj-ayacucho-cas-033-2026-especialista-judicial-audiencia",
+  "entity": "Corte Superior de Justicia de Ayacucho",
+  "title": "Especialista Judicial de Audiencia · Huancapi",
+  "category": "Legal",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Huancapi, Ayacucho",
+  "vacancies": 1,
+  "publishedAt": "14/10/2026",
+  "closesAt": "Registro PSEP: del 26 al 28/10/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-da36fd29",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Una plaza para el Juzgado de Investigación Preparatoria en Huancapi.",
+  "details": {
+    "processCode": "CAS transitorio 033-2026-UE-Ayacucho",
+    "salary": "S/ 2,972",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Abrir PSEP del Poder Judicial",
+    "applicationInstructions": "Localizar Ayacucho, proceso 033-2026 y revisar bases antes de registrar la postulación.",
+    "notes": [
+      "La ficha de difusión muestra fin el 27/10, pero indica registro del 26 al 28/10. Confirmar el cronograma específico en PSEP.",
+      "Formación y experiencia no detalladas en la difusión consultada."
+    ]
+  }
+},
+{
+  "slug": "pj-ayacucho-cas-032-2026-psicologo",
+  "entity": "Corte Superior de Justicia de Ayacucho",
+  "title": "Psicólogo · Módulo Corporativo de Familia",
+  "category": "Salud",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Sede Central, Ayacucho",
+  "vacancies": 1,
+  "publishedAt": "13/10/2026",
+  "closesAt": "Registro: del 23 al 26/10/2026 · documentos: 29/10/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-4bfd9853",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Una plaza de psicología para el equipo multidisciplinario de apoyo a los juzgados de familia.",
+  "details": {
+    "processCode": "CAS transitorio 032-2026-UE-Ayacucho",
+    "salary": "S/ 2,500",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Consultar CAS 032 en PSEP",
+    "applicationInstructions": "Registrar en PSEP y revisar el cronograma de documentos del proceso. La difusión distingue ambas etapas.",
+    "notes": [
+      "Verificar formación, habilitación, experiencia y anexos en las bases oficiales."
+    ]
+  }
+},
+{
+  "slug": "sineace-cas-042-046-2026-cinco-especialistas",
+  "entity": "SINEACE / COSUSINEACE",
+  "title": "Especialistas y Coordinador · CAS 042 al 046",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "CAS",
+  "location": "Sedes por confirmar en cada base",
+  "vacancies": 5,
+  "publishedAt": "13/10/2026",
+  "closesAt": "Difusión hasta 27/10/2026 · confirmar recepción por proceso",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-bec4eca7",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Cinco plazas difundidas oficialmente en evaluación, acreditación, competencias, gestión documental y presupuesto.",
+  "details": {
+    "processCode": "CAS 042 al 046-2026",
+    "positions": [
+      {
+        "title": "042 · Especialista de Normalización de Competencias",
+        "vacancies": 1
+      },
+      {
+        "title": "043 · Especialista en Evaluación y Certificación",
+        "vacancies": 1
+      },
+      {
+        "title": "044 · Coordinador de Acceso a la Información Pública y Gestión Documental",
+        "vacancies": 1
+      },
+      {
+        "title": "045 · Especialista en Evaluación y Acreditación",
+        "vacancies": 1
+      },
+      {
+        "title": "046 · Especialista en Presupuesto",
+        "vacancies": 1
+      }
+    ],
+    "applicationUrl": "https://convocatorias.sineace.gob.pe/postulacion",
+    "applicationLabel": "Consultar bases en SINEACE",
+    "applicationInstructions": "Seleccionar el código correspondiente y comprobar cronograma y requisitos. El resumen no publica la fecha exacta de registro.",
+    "notes": [
+      "Remuneración, formación y experiencia no detalladas en la difusión. El proceso 042 es por suplencia."
+    ]
+  }
+},
+{
+  "slug": "oece-cas-120-124-2026-temporal",
+  "entity": "Organismo Especializado para las Contrataciones Públicas Eficientes (OECE)",
+  "title": "Procesos CAS 120 al 124-2026 · 45 plazas",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "CAS · temporal",
+  "location": "Distribución por sede en las bases oficiales",
+  "vacancies": 45,
+  "publishedAt": "14/10/2026",
+  "closesAt": "Registro vía sistema: 28/10/2026",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-139d3a6d",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "La difusión oficial anuncia 45 plazas agrupadas en cinco procesos temporales. Revisar el perfil y la distribución antes de elegir.",
+  "details": {
+    "processCode": "CAS 120 al 124-2026-OECE/TEMPORAL",
+    "applicationUrl": "https://caspublico.osce.gob.pe/",
+    "applicationLabel": "Abrir convocatorias CAS OECE",
+    "applicationInstructions": "Consultar los códigos 120 al 124, elegir puesto y completar el registro del 28 de octubre según sus bases.",
+    "notes": [
+      "La difusión no desglosa los 45 puestos ni sus requisitos o remuneración. No se presentan como un solo cargo."
+    ]
+  }
+},
+{
+  "slug": "pj-lambayeque-039-2026-auxiliar-judicial-cutervo",
+  "entity": "Corte Superior de Justicia de Lambayeque",
+  "title": "Auxiliar Judicial · Juzgado Civil de Cutervo",
+  "category": "Legal",
+  "status": "Vigente",
+  "regime": "D. Leg. 728 · suplencia",
+  "location": "Cutervo, Cajamarca",
+  "vacancies": 1,
+  "publishedAt": "13/10/2026",
+  "closesAt": "Registro PSEP: 26/10/2026 · 07:00 a 19:00",
+  "verifiedAt": "24/10/2026",
+  "sourceUrl": "https://soycapaz.conadisperu.gob.pe/jobs/vacante-56dcb558",
+  "sourceLabel": "Difusión oficial de la entidad en CONADIS",
+  "summary": "Una suplencia de auxiliar judicial en Cutervo, convocada por la Corte de Lambayeque.",
+  "details": {
+    "processCode": "PSP Suplencia 039-2026-UE-Lambayeque",
+    "salary": "S/ 4,100",
+    "applicationUrl": "https://aplicativo.pj.gob.pe/psep/",
+    "applicationLabel": "Consultar suplencia 039 en PSEP",
+    "applicationInstructions": "Registrar el 26 de octubre. La presentación de CV para aptos está prevista para el 28/10, de 08:00 a 17:00, por el enlace del comité.",
+    "basesUrl": "https://drive.google.com/drive/folders/1GgcWUXiUrKQnRyCc2Nzx0Y8gRs1Eg47v",
+    "notes": [
+      "Formación y experiencia: consultar las bases enlazadas por la entidad."
+    ]
+  }
+},
 {
   "publishedAt": "23/10/2026",
   "verifiedAt": "23/10/2026",
