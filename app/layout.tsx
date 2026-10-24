@@ -8,7 +8,7 @@ import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 const siteUrl = "https://www.romilplus.me";
 const siteDescription = "ROMIL PLUS reúne convocatorias de trabajo y becas verificadas para peruanos, enlaza a fuentes oficiales y publica guías prácticas para postular con más seguridad.";
 const socialImage = `${siteUrl}/logo-romil-plus.png?v=20261017`;
-const configuredPublisher = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || process.env.ADSENSE_PUBLISHER_ID || "";
+const configuredPublisher = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || process.env.ADSENSE_PUBLISHER_ID || "ca-pub-2650122036214146";
 const adsenseClient = /^(?:ca-)?pub-\d{16}$/.test(configuredPublisher) ? configuredPublisher.replace(/^(?:ca-)?pub-/, "ca-pub-") : undefined;
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
