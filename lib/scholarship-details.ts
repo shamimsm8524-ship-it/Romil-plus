@@ -21,6 +21,43 @@ export type ScholarshipDetailExtra = {
 };
 
 const detailMap: Record<string, ScholarshipDetailExtra> = {
+"osinergmin-peu-2027": {
+  "quantity": "270 vacantes: 50 % para Lima y Callao y 50 % para otras regiones, según criterios por especialidad.",
+  "eligibility": [
+    "Egresados universitarios de 2026, bachilleres no titulados que egresaron en 2026 o estudiantes del último ciclo académico de ese año.",
+    "Carreras elegibles según especialidad: ingenierías, Derecho, Economía, Administración y otras listadas en la fuente."
+  ],
+  "requirements": [
+    "No haber participado en ediciones anteriores.",
+    "Contar con medios técnicos para el programa virtual y cumplir las condiciones de la declaración jurada."
+  ],
+  "documents": [
+    "DNI y declaración jurada firmada.",
+    "Constancia de egreso o carta universitaria según situación académica; revisar contenido requerido en la fuente."
+  ],
+  "importantDates": [
+    {
+      "label": "Cierre de inscripciones",
+      "date": "30/11/2026 · 23:59"
+    },
+    {
+      "label": "Programa virtual",
+      "date": "14/01/2027 al 15/03/2027"
+    }
+  ],
+  "benefits": [
+    "Beca académica completa y doble certificación.",
+    "Posibilidad de prácticas profesionales sujeta al proceso y necesidades institucionales."
+  ],
+  "applicationUrl": "https://becas.osinergmin.gob.pe/requisitos-e-inscripcion/",
+  "applicationLabel": "Revisar requisitos e inscripción oficial",
+  "applicationInstructions": "Revisar la especialidad, preparar los documentos y seguir el botón Inscríbete del portal oficial. Confirmar que el registro finalice correctamente.",
+  "notes": [
+    "La portada conserva texto de años anteriores; se usaron las páginas específicas de requisitos y cronograma 2027.",
+    "No equivale a una beca de pregrado ni a una contratación laboral garantizada.",
+    "Consultar las condiciones de correo electrónico y los documentos completos en la fuente."
+  ]
+},
 "france-excellence-eiffel-2027": {
   "eligibility": [
     "Postulantes extranjeros a maestría o doctorado en Francia, con respaldo de una institución francesa."
