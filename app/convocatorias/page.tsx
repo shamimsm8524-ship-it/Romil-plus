@@ -59,7 +59,9 @@ export default async function ConvocatoriasPage() {
       !detailedSlugSet.has(job.slug),
   );
   const jobsForExplorer = [...privateJobsForExplorer, ...sunatJobs, ...detailedPublicJobs].sort(
-    (a, b) => publishedAtTimestamp(b.publishedAt) - publishedAtTimestamp(a.publishedAt),
+    (a, b) =>
+      publishedAtTimestamp(b.verifiedAt) - publishedAtTimestamp(a.verifiedAt) ||
+      publishedAtTimestamp(b.publishedAt) - publishedAtTimestamp(a.publishedAt),
   );
   const detailSlugs = jobsForExplorer.map((job) => job.slug);
 
