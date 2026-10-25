@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SupportFloatingButton } from "@/components/SupportFloatingButton";
 
 const siteUrl = "https://www.romilplus.me";
-const siteDescription = "ROMIL PLUS reúne convocatorias de trabajo y becas verificadas para peruanos, enlaza a fuentes oficiales y publica guías prácticas para postular con más seguridad.";
+const siteDescription = "Ofertas laborales en Perú y Lima, trabajos en minería, convocatorias CAS y becas. Consulta requisitos, fechas de revisión y enlaces para postular en ROMIL PLUS.";
 const socialImage = `${siteUrl}/logo-romil-plus.png?v=20261017`;
 const configuredPublisher = process.env.NEXT_PUBLIC_ADSENSE_CLIENT || process.env.ADSENSE_PUBLISHER_ID || "ca-pub-2650122036214146";
 const adsenseClient = /^(?:ca-)?pub-\d{16}$/.test(configuredPublisher) ? configuredPublisher.replace(/^(?:ca-)?pub-/, "ca-pub-") : undefined;
@@ -15,7 +15,7 @@ const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "ROMIL PLUS | Trabajo y becas verificadas en Perú",
+    default: "Ofertas laborales en Perú, Lima y becas | ROMIL PLUS",
     template: "%s | ROMIL PLUS",
   },
   description: siteDescription,
@@ -35,11 +35,11 @@ export const metadata: Metadata = {
     locale: "es_PE",
     url: `${siteUrl}/`,
     siteName: "ROMIL PLUS",
-    title: "ROMIL PLUS | Trabajo y becas verificadas en Perú",
+    title: "Ofertas laborales en Perú, Lima y becas | ROMIL PLUS",
     description: siteDescription,
     images: [{ url: socialImage, width: 1254, height: 1254, type: "image/png", alt: "ROMIL PLUS - Trabajo y becas verificadas" }],
   },
-  twitter: { card: "summary_large_image", title: "ROMIL PLUS | Trabajo y becas verificadas", description: siteDescription, images: [socialImage] },
+  twitter: { card: "summary_large_image", title: "Ofertas laborales en Perú y becas | ROMIL PLUS", description: siteDescription, images: [socialImage] },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
   other: adsenseClient ? { "google-adsense-account": adsenseClient } : undefined,

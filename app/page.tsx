@@ -58,7 +58,7 @@ export default async function Home() {
               <ShieldCheck size={18} /> Información verificada
             </div>
             <h1 className="mt-5 max-w-3xl text-[2.5rem] font-black leading-[1.04] tracking-[-.035em] text-[#0a2d5a] sm:text-5xl lg:mt-4 lg:text-[3.1rem] lg:leading-[1.02]">
-              Convocatorias, Becas y <span className="text-[#e6aa16]">Oportunidades Verificadas</span>
+              Ofertas laborales en Perú, <span className="text-[#e6aa16]">trabajos y becas</span>
             </h1>
             <p className="mt-5 max-w-2xl text-lg font-medium leading-8 text-[#52647a] sm:text-xl lg:mt-4 lg:text-base lg:leading-7">
               Tu futuro en un solo lugar. Trabajos y becas con información clara, legible y enlazada a su fuente oficial.
@@ -104,6 +104,11 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      <nav aria-label="Buscar trabajo por ubicación y sector" className="mx-auto flex w-full max-w-[1180px] flex-wrap gap-3 px-4 py-5 text-sm font-bold text-[#0866d8] sm:px-6">
+        <a className="rounded-xl border border-[#dbe5f1] bg-[#f5f9ff] px-4 py-3 hover:underline" href="/trabajos/lima">Ofertas laborales en Lima</a>
+        <a className="rounded-xl border border-[#dbe5f1] bg-[#f5f9ff] px-4 py-3 hover:underline" href="/trabajos/mineria">Trabajos en minería en Perú</a>
+      </nav>
 
       <section className="mx-auto w-full max-w-[1180px] px-4 py-10 sm:px-6 lg:px-6 lg:py-7">
         <div className="flex flex-wrap items-end justify-between gap-4 lg:gap-3">
