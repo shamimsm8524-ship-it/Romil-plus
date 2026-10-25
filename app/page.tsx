@@ -30,10 +30,20 @@ function hasInternalDetail(job: HomeJob): job is JobDetailView {
   return "details" in job;
 }
 
+function reviewTimestamp(value: string) {
+  const match = value.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if (!match) return 0;
+  return Date.UTC(Number(match[3]), Number(match[2]) - 1, Number(match[1]));
+}
+
 export default async function Home() {
   const sunatJobs = await getSunatLiveJobs();
   const featuredJobs = [...sunatJobs, ...detailedPublicJobs]
     .filter((job) => job.status === "Vigente")
+    .sort((a, b) =>
+      reviewTimestamp(b.verifiedAt) - reviewTimestamp(a.verifiedAt) ||
+      reviewTimestamp(b.publishedAt) - reviewTimestamp(a.publishedAt),
+    )
     .slice(0, 3);
   const featuredScholarships = scholarships
     .filter((item) => item.status === "Abierta" || item.status === "Próxima")
@@ -125,7 +135,7 @@ export default async function Home() {
         <div className="flex flex-wrap items-end justify-between gap-4 lg:gap-3">
           <div>
             <p className="text-sm font-black uppercase tracking-[.08em] text-[#0b58b6] lg:text-xs">Trabajo</p>
-            <h2 className="mt-1 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl lg:text-[1.75rem]">Últimas convocatorias de trabajo</h2>
+            <h2 className="mt-1 text-3xl font-black tracking-[-.02em] text-[#0a2d5a] sm:text-4xl lg:text-[1.75rem]">Últimas ofertas revisadas</h2>
           </div>
           <Link href="/convocatorias" className="inline-flex items-center gap-2 text-base font-black text-[#0866d8] lg:text-sm">Ver más <ArrowRight size={18} /></Link>
         </div>
