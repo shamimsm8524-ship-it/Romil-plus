@@ -1,7 +1,742 @@
 import type { JobDetailView } from "@/lib/job-details";
 
-// Revisión editorial: cada ficha conserva su fecha de comprobación. Nuevas fichas: 24/10/2026.
+// Revisión editorial: cada ficha conserva su fecha de comprobación. Nuevas fichas: 25/10/2026.
 export const freshJobDetails: JobDetailView[] = [
+{
+  "slug": "adecco-encargado-operaciones-lima-octubre-2026",
+  "entity": "Adecco Consulting",
+  "title": "Encargado Administrativo y Comercial de Operaciones",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Full time · presencial",
+  "location": "Cercado de Lima, Lima",
+  "vacancies": null,
+  "publishedAt": "20/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-adecco-consulting1/trabajos/planificador-de-ruta-experiencia-en-transporte-secundario-adecco-lima/971709",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Seguimiento comercial, cobranzas y facturación para una empresa de construcción.",
+  "details": {
+    "education": [
+      "Bachiller en Administración, Contabilidad, Ingeniería Industrial o afines."
+    ],
+    "experience": [
+      "Mínimo dos años en administración, comercio u operaciones."
+    ],
+    "requirements": [
+      "Facturación en SUNAT y Excel.",
+      "Experiencia en ventas, cobranzas y cartera de clientes."
+    ],
+    "workSchedule": "Lunes a viernes 08:00 a 18:00; sábado 09:00 a 13:00.",
+    "benefits": [
+      "Planilla REMYPE, bono variable y transporte de campo, según el aviso."
+    ],
+    "notes": [
+      "El título actual difiere del texto de la URL; se conserva el enlace exacto revisado.",
+      "Monto salarial no publicado.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-adecco-consulting1/trabajos/planificador-de-ruta-experiencia-en-transporte-secundario-adecco-lima/971709",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "adecco-asistente-operaciones-trade-lima-octubre-2026",
+  "entity": "Adecco Consulting",
+  "title": "Asistente de Operaciones · Trade Marketing",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Full time · híbrido",
+  "location": "Lima, Lima",
+  "vacancies": null,
+  "publishedAt": "20/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-adecco-consulting1/trabajos/asistente-administrativo-adecco-lima-san-borja/971702",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Apoyo a la operación de personal, uniformes, asistencia y coordinación con tiendas.",
+  "details": {
+    "education": [
+      "Estudios técnicos o universitarios, truncos o en curso."
+    ],
+    "experience": [
+      "Seis meses como asistente administrativo u operativo, exigidos en el texto."
+    ],
+    "requirements": [
+      "Excel intermedio y nociones de BI y Trade Marketing."
+    ],
+    "salary": "S/ 1,500",
+    "workSchedule": "Lunes a viernes 09:00 a 18:00 en oficina; sábado 09:00 a 13:00 remoto.",
+    "benefits": [
+      "Planilla desde el primer día."
+    ],
+    "notes": [
+      "El encabezado clasifica 2 a 5 años; la descripción exige seis meses. Confirmar al postular.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-adecco-consulting1/trabajos/asistente-administrativo-adecco-lima-san-borja/971702",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "overall-asistente-reclutamiento-lima-octubre-2026",
+  "entity": "Overall Strategy",
+  "title": "Asistentes de Reclutamiento y Selección",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Full time · modalidad por confirmar",
+  "location": "Santiago de Surco, Lima",
+  "vacancies": null,
+  "publishedAt": "19/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-overall-strategy-c/trabajos/asistentes-de-reclutamiento-y-seleccion-overall-strategy-lima/971185",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Selección de perfiles operativos y comerciales, con trabajo de campo.",
+  "details": {
+    "education": [
+      "Profesionales de Psicología, Administración, Recursos Humanos o afines."
+    ],
+    "experience": [
+      "Entre seis meses y un año de reclutamiento masivo."
+    ],
+    "requirements": [
+      "Sourcing, redes sociales y Excel básico a intermedio.",
+      "Disponibilidad para trabajo de campo."
+    ],
+    "benefits": [
+      "Planilla y beneficios corporativos."
+    ],
+    "notes": [
+      "El texto ofrece modalidad híbrida, mientras la ficha indica presencial; confirmar.",
+      "La etiqueta sin experiencia contradice los requisitos del texto.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-overall-strategy-c/trabajos/asistentes-de-reclutamiento-y-seleccion-overall-strategy-lima/971185",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "manpower-analista-soluciones-ti-lima-octubre-2026",
+  "entity": "Manpower",
+  "title": "Analista de Soluciones TI · San Isidro",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Full time · presencial",
+  "location": "San Isidro, Lima",
+  "vacancies": null,
+  "publishedAt": "21/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-manpower-professional-services1/trabajos/110782-analista-de-soluciones-ti-san-isidro-manpower-lima/972677",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Análisis funcional, requerimientos de usuarios y modernización de aplicaciones.",
+  "details": {
+    "processCode": "110782",
+    "education": [
+      "Bachiller en Sistemas, Informática, Electrónica, Industrial o afines."
+    ],
+    "experience": [
+      "Cuatro años de experiencia general desde el egreso, según el texto."
+    ],
+    "requirements": [
+      "Deseables conocimientos de gestión de servicios TI, proyectos y metodologías ágiles."
+    ],
+    "functions": [
+      "Levantar requerimientos y validar casos de prueba.",
+      "Apoyar implementación y documentación de sistemas."
+    ],
+    "notes": [
+      "Ver en la fuente los requisitos específicos y condiciones no resumidos.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-manpower-professional-services1/trabajos/110782-analista-de-soluciones-ti-san-isidro-manpower-lima/972677",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "redondos-asistente-facturacion-lima-octubre-2026",
+  "entity": "Redondos",
+  "title": "Asistente de Facturación · Temporal",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Full time · presencial · temporal",
+  "location": "Miraflores, Lima",
+  "vacancies": 2,
+  "publishedAt": "14/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-redondos11/trabajos/asistente-de-facturacion-temporal-redondos-lima/967802",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Dos plazas para emisión y control de comprobantes electrónicos.",
+  "details": {
+    "education": [
+      "Bachiller en Contabilidad, Administración o afines."
+    ],
+    "experience": [
+      "Un año en posiciones similares y un año de uso de SAP."
+    ],
+    "requirements": [
+      "Office intermedio y conocimientos de comprobantes de pago."
+    ],
+    "functions": [
+      "Emitir comprobantes y gestionar su comunicación a SUNAT.",
+      "Preparar reportes de facturación."
+    ],
+    "notes": [
+      "La etiqueta sin experiencia no coincide con el texto, que exige un año.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-redondos11/trabajos/asistente-de-facturacion-temporal-redondos-lima/967802",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "bcp-ejecutivo-pyme-lima-octubre-2026",
+  "entity": "Banco de Crédito del Perú (BCP)",
+  "title": "Ejecutivo de Banca Pyme Telefónico",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Banca y finanzas · full time · presencial",
+  "location": "Magdalena del Mar, Lima",
+  "vacancies": null,
+  "publishedAt": "19/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-banco-de-credito-del-peru-bcp/trabajos/ejecutivo-a-banca-pyme-telefonico-en-hub-bcp-lima/971058",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Gestión comercial de cartera de pequeñas empresas por teléfono.",
+  "details": {
+    "education": [
+      "Universitario desde octavo ciclo hasta egresado."
+    ],
+    "experience": [
+      "Seis meses en el rubro financiero y comercial."
+    ],
+    "workSchedule": "Lunes a viernes 08:30 a 18:00; sábado 08:30 a 13:00.",
+    "benefits": [
+      "Planilla indeterminada desde el primer día e incentivos de desempeño."
+    ],
+    "notes": [
+      "No es trabajo remoto; la sede indicada es Magdalena.",
+      "La etiqueta general sin experiencia no elimina los seis meses exigidos.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-banco-de-credito-del-peru-bcp/trabajos/ejecutivo-a-banca-pyme-telefonico-en-hub-bcp-lima/971058",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "adecco-practicante-it-lima-octubre-2026",
+  "entity": "Adecco Consulting",
+  "title": "Practicante Profesional de IT / Sistemas",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Prácticas profesionales · híbrido",
+  "location": "Lima, Lima",
+  "vacancies": null,
+  "publishedAt": "20/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-adecco-consulting1/trabajos/practicante-profesional-inteligencia-comercial-adecco-lima/971730",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Soporte de aplicaciones, usuarios, incidentes e implementación de software.",
+  "details": {
+    "education": [
+      "Egresado técnico o universitario de Sistemas, Software, Informática, Computación o afines."
+    ],
+    "requirements": [
+      "SQL, bases de datos, Excel intermedio y Power Platform."
+    ],
+    "workSchedule": "Lunes a viernes 08:30 a 17:30.",
+    "notes": [
+      "La URL conserva otra denominación; el título actual consultado es IT / Sistemas.",
+      "La descripción consultada no fija años de experiencia.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-adecco-consulting1/trabajos/practicante-profesional-inteligencia-comercial-adecco-lima/971730",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "cepersa-practicante-produccion-lima-octubre-2026",
+  "entity": "Cerámicos Peruanos S.A.",
+  "title": "Practicante Profesional de Producción",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Prácticas profesionales · presencial",
+  "location": "Carabayllo, Lima",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-ceramicos-peruanos-cepersa/trabajos/practicante-profesional-de-produccion/974162",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Análisis de procesos de planta, tiempos, movimientos y oportunidades de mejora.",
+  "details": {
+    "education": [
+      "Egresado, bachiller o estudiante de últimos ciclos de Ingeniería Industrial o Química, según el aviso."
+    ],
+    "requirements": [
+      "Excel intermedio o avanzado, métodos y procesos productivos.",
+      "Disponibilidad de trabajo en planta; Minitab deseable."
+    ],
+    "salary": "S/ 1,500, indicado en la ficha.",
+    "workSchedule": "Lunes a sábado 07:00 a 15:00.",
+    "benefits": [
+      "Alimentación cubierta y movilidad de acercamiento."
+    ],
+    "notes": [
+      "Confirmar tipo de convenio y elegibilidad si aún estudias: el título dice práctica profesional.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-ceramicos-peruanos-cepersa/trabajos/practicante-profesional-de-produccion/974162",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "hlc-administrativo-planta-lima-octubre-2026",
+  "entity": "HLC Ingeniería y Construcción",
+  "title": "Administrativo de Planta",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Industria y construcción · full time · presencial",
+  "location": "Lurigancho (Chosica), Lima",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-hlc-ingenieria-y-construccion-c/trabajos/analista-de-seleccion-sector-construccion-hlc-ingenieria-y-construccion-lima/974918",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Gestión documental y de personal de planta en una empresa que atiende proyectos industriales y mineros.",
+  "details": {
+    "education": [
+      "Técnico o bachiller en Ingeniería Industrial o Administración."
+    ],
+    "experience": [
+      "Dos años en el puesto y en metalmecánica, industria o afines."
+    ],
+    "workSchedule": "Lunes a sábado; horas exactas no publicadas.",
+    "functions": [
+      "Gestionar documentación y controlar tareos y contratos.",
+      "Seguir valorizaciones, pedidos y suministros."
+    ],
+    "benefits": [
+      "Planilla y capacitación."
+    ],
+    "notes": [
+      "La ubicación es una planta en Lima; no se anuncia como trabajo dentro de una mina.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-hlc-ingenieria-y-construccion-c/trabajos/analista-de-seleccion-sector-construccion-hlc-ingenieria-y-construccion-lima/974918",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "cala-asistente-logistica-lima-octubre-2026",
+  "entity": "Cala Servicios Integrales · aviso de MiFibra",
+  "title": "Asistente de Logística",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Almacén y logística · full time · presencial",
+  "location": "Lima, Lima",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-cala-servicios-integrales-sac/trabajos/asistente-de-compras-cala-servicios-integrales-lima/974919",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Control de inventarios, recepción, despacho y coordinación de suministros.",
+  "details": {
+    "education": [
+      "Estudios superiores truncos o concluidos en Industrial, Administración, Logística o afines."
+    ],
+    "experience": [
+      "Un año en Logística o Almacén; telecomunicaciones deseable."
+    ],
+    "requirements": [
+      "Excel básico o intermedio."
+    ],
+    "salary": "S/ 1,500 fijos; horas extras cuando correspondan.",
+    "workSchedule": "Lunes a viernes 08:00 a 17:30; sábado 08:00 a 13:30.",
+    "benefits": [
+      "Contrato directo y planilla completa, según el aviso."
+    ],
+    "notes": [
+      "La descripción identifica a MiFibra y el publicador a Cala; confirmar empleador al postular.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationUrl": "https://empleate.upn.edu.pe/trabajar-en-cala-servicios-integrales-sac/trabajos/asistente-de-compras-cala-servicios-integrales-lima/974919",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "volvo-asesor-posventa-lima-octubre-2026",
+  "entity": "Volvo Group Perú",
+  "title": "Asesor Comercial Posventa · Servicio y Repuestos",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Ventas · automotriz · full time · presencial",
+  "location": "Santa Anita, Los Olivos, San Luis y Lurín, Lima",
+  "vacancies": null,
+  "publishedAt": "23/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://empleate.upn.edu.pe/trabajar-en-volvo/trabajos/asesor-a-comercial-posventa-servicio/973988",
+  "sourceLabel": "Empléate UPN · publicación de la empresa",
+  "summary": "Cartera de clientes, propuestas de mantenimiento y venta de servicios y repuestos.",
+  "details": {
+    "education": [
+      "Egreso técnico o universitario de Administración, Marketing, Ingeniería Comercial, Industrial, Mecánica Automotriz o afines."
+    ],
+    "experience": [
+      "Tres años en puestos similares del sector automotriz."
+    ],
+    "requirements": [
+      "Excel a nivel usuario y disponibilidad para rotar entre sedes.",
+      "Licencia A1 y conocimientos de mecánica: deseables."
+    ],
+    "applicationUrl": "https://volvoperu.evaluar.com/trabajo/asesor-comercial-de-posventa-servicio-y-repuestos/",
+    "applicationInstructions": "La empresa exige postular y completar evaluaciones en la plataforma Evaluar enlazada desde su aviso.",
+    "notes": [
+      "Transporte de personal ofrecido solo para Lurín.",
+      "Remuneración no detallada.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La postulación en Empléate UPN requiere cuenta; confirmar acceso y elegibilidad."
+    ],
+    "applicationLabel": "Ver aviso y postular en la fuente"
+  }
+},
+{
+  "slug": "coco-crepe-atencion-cliente-lima-octubre-2026",
+  "entity": "Coco Crêpe",
+  "title": "Crepero / Atención al Cliente · Varias sedes",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Restaurantes · full time / part time · presencial",
+  "location": "Salaverry, Independencia, San Juan de Lurigancho y Surco, Lima",
+  "vacancies": 7,
+  "publishedAt": "09/10/2026",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/convocatoria-todo-lima-creperoa-atencion-al-cliente-6ac95b902567c",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus",
+  "summary": "Preparación de productos, caja, atención y limpieza del módulo.",
+  "details": {
+    "experience": [
+      "Experiencia en restaurantes o atención al cliente deseable."
+    ],
+    "requirements": [
+      "Disponibilidad para turnos rotativos y tareas multifuncionales."
+    ],
+    "positions": [
+      {
+        "title": "Real Plaza Salaverry · Full time",
+        "vacancies": 1
+      },
+      {
+        "title": "Megaplaza Independencia · Full time",
+        "vacancies": 1
+      },
+      {
+        "title": "Mall Aventura SJL · Part time",
+        "vacancies": 1
+      },
+      {
+        "title": "Jockey Plaza · Full time",
+        "vacancies": 2
+      },
+      {
+        "title": "Jockey Plaza · Part time",
+        "vacancies": 2
+      }
+    ],
+    "benefits": [
+      "Capacitación y descuentos corporativos."
+    ],
+    "notes": [
+      "El sueldo no está cuantificado en esta convocatoria; confirmar sede y modalidad.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La bolsa está dirigida a estudiantes y egresados UTP; confirmar elegibilidad y registro."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/convocatoria-todo-lima-creperoa-atencion-al-cliente-6ac95b902567c",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "aecom-mining-infrastructure-lead-lima-octubre-2026",
+  "entity": "AECOM",
+  "title": "Mining Infrastructure Lead · Infraestructura Minera",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Minería · jornada completa · híbrido",
+  "location": "San Isidro, Lima",
+  "vacancies": null,
+  "publishedAt": "Fecha no publicada",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://jobs.smartrecruiters.com/AECOM2/744000152217219-mining-infrastructure-lead",
+  "sourceLabel": "Portal de selección de AECOM",
+  "summary": "Liderazgo de servicios de infraestructura minera para Perú y Latinoamérica, con base en Lima.",
+  "details": {
+    "education": [
+      "Grado en Ingeniería, Geología, Ciencias Ambientales o área relacionada."
+    ],
+    "experience": [
+      "Ocho o más años en minería y trayectoria de liderazgo, o equivalencia demostrada de experiencia y educación."
+    ],
+    "requirements": [
+      "Experiencia con equipos multidisciplinarios.",
+      "Dominio de inglés y español.",
+      "Conocimiento del sector minero peruano."
+    ],
+    "notes": [
+      "Se trata de una función directiva con base híbrida en Lima, no de una plaza operativa de campamento.",
+      "No ofrece asistencia de reubicación ni patrocinio migratorio.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes."
+    ],
+    "applicationUrl": "https://jobs.smartrecruiters.com/AECOM2/744000152217219-mining-infrastructure-lead",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "sgs-tecnicos-paradas-planta-mineria-octubre-2026",
+  "entity": "SGS",
+  "title": "Técnicos y Operadores para Paradas de Planta Minera",
+  "category": "Técnicos",
+  "status": "Vigente",
+  "regime": "Minería · paradas de planta · jornada completa",
+  "location": "Norte del Perú · sedes por confirmar",
+  "vacancies": null,
+  "publishedAt": "Fecha no publicada",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://jobs.smartrecruiters.com/sgs/744000144784999",
+  "sourceLabel": "Portal de selección de SGS",
+  "summary": "Convocatoria para ocho especialidades en mineras del norte; no se publica cantidad de plazas.",
+  "details": {
+    "education": [
+      "Técnicos egresados o titulados de Mantenimiento, Mecánica, Electricidad o afines."
+    ],
+    "experience": [
+      "Dos años en plantas mineras, chancadoras o concentradoras."
+    ],
+    "requirements": [
+      "Residencia en Trujillo, Huamachuco, Otuzco, Cajamarca, Áncash, Chiclayo o zonas aledañas.",
+      "Disponibilidad para paradas de planta."
+    ],
+    "positions": [
+      {
+        "title": "Mecánicos"
+      },
+      {
+        "title": "Electricistas"
+      },
+      {
+        "title": "Técnicos predictivos"
+      },
+      {
+        "title": "Soldadores 6G"
+      },
+      {
+        "title": "Técnicos de lubricación"
+      },
+      {
+        "title": "Andamieros"
+      },
+      {
+        "title": "Rigger"
+      },
+      {
+        "title": "Operadores de grúa móvil"
+      }
+    ],
+    "benefits": [
+      "Planilla y Seguro de Vida Ley desde el primer día."
+    ],
+    "notes": [
+      "No se anuncia régimen 14x7 u otro: consultar rotación y unidad minera en el proceso.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes."
+    ],
+    "applicationUrl": "https://jobs.smartrecruiters.com/sgs/744000144784999",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "sgs-inspector-minerales-octubre-2026",
+  "entity": "SGS",
+  "title": "Inspector de Minerales",
+  "category": "Técnicos",
+  "status": "Vigente",
+  "regime": "Minería · inspección · contrato intermitente",
+  "location": "Sede no detallada en el aviso consultado",
+  "vacancies": null,
+  "publishedAt": "Fecha no publicada",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://jobs.smartrecruiters.com/SGS/744000149727410-inspector-de-minerales",
+  "sourceLabel": "Portal de selección de SGS",
+  "summary": "Preparación, identificación, cuarteo y control de muestras minerales.",
+  "details": {
+    "experience": [
+      "Deseable un año de labores operativas en plantas de producción."
+    ],
+    "functions": [
+      "Preparar y homogeneizar muestras.",
+      "Controlar etiquetado, almacenamiento y seguridad del área."
+    ],
+    "benefits": [
+      "Planilla intermitente, Seguro de Vida Ley y capacitación.",
+      "Viáticos, pasajes y alimentación, según el aviso."
+    ],
+    "notes": [
+      "El campo salarial muestra PEN 1,200–1,300 semanalmente; confirmar importe y periodicidad con SGS antes de aceptar.",
+      "La página consultada no permite confirmar la ciudad ni la unidad. No se clasifica como oferta de Lima.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes."
+    ],
+    "applicationUrl": "https://jobs.smartrecruiters.com/SGS/744000149727410-inspector-de-minerales",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "sgs-coordinador-servicio-mineroducto-octubre-2026",
+  "entity": "SGS",
+  "title": "Coordinador del Servicio · Experiencia en Minería",
+  "category": "Ingeniería y TI",
+  "status": "Vigente",
+  "regime": "Minería · mantenimiento · trabajo bajo régimen",
+  "location": "Unidad minera y sede por confirmar",
+  "vacancies": null,
+  "publishedAt": "Fecha no publicada",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://jobs.smartrecruiters.com/SGS/743999765695208-coordinador-a-del-servicio-experiencia-en-mineria",
+  "sourceLabel": "Portal de selección de SGS",
+  "summary": "Supervisión de mantenimiento y seguridad del servicio de mineroducto.",
+  "details": {
+    "education": [
+      "Colegiatura en Ingeniería Mecánica, Mecatrónica, Electricidad, Electrónica o afines."
+    ],
+    "experience": [
+      "Cinco años en servicios del sector minero relacionados con mineroducto."
+    ],
+    "requirements": [
+      "Licencia de conducir.",
+      "Disponibilidad de trabajo bajo régimen.",
+      "Deseable gestión de mantenimiento e indicadores."
+    ],
+    "benefits": [
+      "Planilla con beneficios de ley.",
+      "EPS al 80% en las condiciones publicadas."
+    ],
+    "notes": [
+      "La fuente no precisa sede, sueldo ni rotación exacta. No se presenta como trabajo en Lima.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes."
+    ],
+    "applicationUrl": "https://jobs.smartrecruiters.com/SGS/743999765695208-coordinador-a-del-servicio-experiencia-en-mineria",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "poderosa-practicante-preprofesional-pataz-octubre-2026",
+  "entity": "Compañía Minera Poderosa",
+  "title": "Practicante Preprofesional · Unidad Minera",
+  "category": "Varias",
+  "status": "Vigente",
+  "regime": "Minería · prácticas preprofesionales · presencial",
+  "location": "Pataz, La Libertad",
+  "vacancies": null,
+  "publishedAt": "Fecha no publicada",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://minerapoderosa.hiringroom.com/jobs/get_vacancy/6ab193efa37f6bf897c909eb",
+  "sourceLabel": "Portal de selección de Compañía Minera Poderosa",
+  "summary": "Prácticas de tres meses en unidad minera, para estudiantes de diversas carreras.",
+  "details": {
+    "education": [
+      "Estudiantes universitarios del séptimo al undécimo ciclo en las carreras admitidas por la empresa."
+    ],
+    "requirements": [
+      "No tener cursos desaprobados.",
+      "Disponibilidad de tres meses en unidad minera."
+    ],
+    "contractDuration": "Tres meses de prácticas en unidad minera.",
+    "benefits": [
+      "Beneficios de ley y desarrollo de carrera."
+    ],
+    "notes": [
+      "La fuente del empleador incluye Administración, Contabilidad, Derecho, Comunicación, Psicología, Trabajo Social y distintas ingenierías; revisar el listado completo.",
+      "La ubicación del empleador es Pataz; no confundirla con las oficinas de Lima o Trujillo.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes."
+    ],
+    "applicationUrl": "https://minerapoderosa.hiringroom.com/jobs/get_vacancy/6ab193efa37f6bf897c909eb",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+{
+  "slug": "boroo-manpower-practicante-nominas-trujillo-octubre-2026",
+  "entity": "Manpower Perú · Minera Boroo Misquichilca",
+  "title": "Practicante Preprofesional de Nóminas",
+  "category": "Administración",
+  "status": "Vigente",
+  "regime": "Minería · prácticas preprofesionales · part time",
+  "location": "Trujillo, La Libertad",
+  "vacancies": null,
+  "publishedAt": "Fecha no publicada",
+  "closesAt": "Sin fecha de cierre publicada · confirmar disponibilidad en la fuente",
+  "verifiedAt": "25/10/2026",
+  "sourceUrl": "https://utp.hiringroomcampus.com/jobs/trujillo-practicante-pre-profesional-nominas-minera-boroo-misquichilca-6ab83f1892e83",
+  "sourceLabel": "Bolsa laboral UTP / HiringRoom Campus",
+  "summary": "Apoyo en T-Registro, reportes y consultas de nómina, con visitas ocasionales a unidad minera.",
+  "details": {
+    "education": [
+      "Estudiantes de octavo ciclo de Administración, Ingeniería Industrial o afines."
+    ],
+    "requirements": [
+      "Inglés intermedio y Excel avanzado.",
+      "Oracle básico deseable.",
+      "Conocimientos de recursos humanos o atención al cliente."
+    ],
+    "workSchedule": "Oficinas de Trujillo de lunes a viernes; visitas ocasionales a unidad minera en régimen 4x3, según la descripción.",
+    "notes": [
+      "El título ubica la práctica en Trujillo: no se anuncia como una plaza permanente en campamento.",
+      "El enlace adicional de Manpower no pudo comprobarse con la herramienta; se mantiene el aviso UTP revisado.",
+      "El aviso consultado mantiene acceso a postulación, sin publicar una fecha límite. No se estima el número de vacantes.",
+      "La bolsa está dirigida a estudiantes y egresados UTP; confirmar elegibilidad y registro."
+    ],
+    "applicationUrl": "https://utp.hiringroomcampus.com/jobs/trujillo-practicante-pre-profesional-nominas-minera-boroo-misquichilca-6ab83f1892e83",
+    "applicationLabel": "Ver aviso y postular en la fuente",
+    "applicationInstructions": "Abrir la oferta y usar el botón de postulación. Confirmar requisitos y disponibilidad antes de enviar datos."
+  }
+},
+
 {
   "slug": "vision-urbana-asistente-contable-tacna-octubre-2026",
   "entity": "Visión Urbana Inmobiliaria",
