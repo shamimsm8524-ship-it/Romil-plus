@@ -147,6 +147,26 @@ function verifiedSalary(raw?: string) {
   return /(?:^|\s)(?:S\/|US\$|\$|€)\s*[\d.,]+/i.test(raw) ? raw : undefined;
 }
 
+function dateTimestamp(value: string) {
+  const match = value.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+  if (!match) return 0;
+  const [, day, month, year] = match;
+  return Date.UTC(Number(year), Number(month) - 1, Number(day));
+}
+
+function newestJobTimestamp(job: PublicOpportunity) {
+  return Math.max(dateTimestamp(job.verifiedAt), dateTimestamp(job.publishedAt));
+}
+
+function sortNewestFirst(a: PublicOpportunity, b: PublicOpportunity) {
+  return (
+    newestJobTimestamp(b) - newestJobTimestamp(a) ||
+    dateTimestamp(b.verifiedAt) - dateTimestamp(a.verifiedAt) ||
+    dateTimestamp(b.publishedAt) - dateTimestamp(a.publishedAt) ||
+    a.title.localeCompare(b.title, "es")
+  );
+}
+
 export default function StateJobsExplorer({
   jobs,
   detailSlugs = [],
@@ -174,15 +194,17 @@ export default function StateJobsExplorer({
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("es");
 
-    return jobs.filter((job) => {
-      const searchable = `${job.entity} ${job.title} ${job.category} ${job.location} ${job.summary} ${job.regime}`.toLocaleLowerCase("es");
-      const keywords = category === "Todas" ? [] : categoryKeywords[category];
-      const matchesCategory = category === "Todas" || job.category === category || keywords.some((keyword) => searchable.includes(keyword));
-      const matchesStatus = status === "Todas" || job.status === status;
-      const matchesRegion = region === "Todas" || job.location.toLocaleLowerCase("es").includes(region.toLocaleLowerCase("es"));
-      const matchesQuery = !normalized || searchable.includes(normalized);
-      return matchesCategory && matchesStatus && matchesRegion && matchesQuery;
-    });
+    return jobs
+      .filter((job) => {
+        const searchable = `${job.entity} ${job.title} ${job.category} ${job.location} ${job.summary} ${job.regime}`.toLocaleLowerCase("es");
+        const keywords = category === "Todas" ? [] : categoryKeywords[category];
+        const matchesCategory = category === "Todas" || job.category === category || keywords.some((keyword) => searchable.includes(keyword));
+        const matchesStatus = status === "Todas" || job.status === status;
+        const matchesRegion = region === "Todas" || job.location.toLocaleLowerCase("es").includes(region.toLocaleLowerCase("es"));
+        const matchesQuery = !normalized || searchable.includes(normalized);
+        return matchesCategory && matchesStatus && matchesRegion && matchesQuery;
+      })
+      .sort(sortNewestFirst);
   }, [jobs, query, category, status, region]);
 
   const activeVacancies = jobs
