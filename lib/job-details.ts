@@ -3,6 +3,7 @@ import { exactStateJobs } from "@/lib/exact-state-jobs";
 import { expandedPublicJobDetails } from "@/lib/expanded-public-job-details";
 import { fastFoodLimaJobDetails } from "@/lib/fast-food-lima-job-details";
 import { freshJobDetails } from "@/lib/fresh-job-details";
+import { latestJobDetails20261028 } from "@/lib/latest-job-details-2026-10-28";
 import { limaJobDetails } from "@/lib/lima-job-details";
 import { marketJobDetails } from "@/lib/market-job-details";
 import { mtcJobDetails } from "@/lib/mtc-job-details";
@@ -124,6 +125,7 @@ const freshViews = freshJobDetails.filter((job) => !hiddenFreshSlugs.has(job.slu
 const expandedViews = expandedPublicJobDetails.map(normalizeVerifiedJob);
 
 export const detailedPublicJobs: JobDetailView[] = [
+  ...latestJobDetails20261028,
   ...fastFoodLimaJobDetails,
   ...limaJobDetails,
   ...privateJobDetails,
