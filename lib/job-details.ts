@@ -11,6 +11,7 @@ import { mtcJobDetails } from "@/lib/mtc-job-details";
 import { pardosJobDetails } from "@/lib/pardos-job-details";
 import { privateJobDetails } from "@/lib/private-job-details";
 import { priorityCareerJobs } from "@/lib/priority-career-jobs";
+import { tradesJobDetails20261028 } from "@/lib/trades-job-details-2026-10-28";
 import type { PublicJobCategory, PublicJobStatus } from "@/lib/state-opportunities";
 
 export type JobPosition = {
@@ -126,6 +127,7 @@ const freshViews = freshJobDetails.filter((job) => !hiddenFreshSlugs.has(job.slu
 const expandedViews = expandedPublicJobDetails.map(normalizeVerifiedJob);
 
 export const detailedPublicJobs: JobDetailView[] = [
+  ...tradesJobDetails20261028,
   ...latestJobDetails20261028,
   ...latestPublicJobs20261028B,
   ...fastFoodLimaJobDetails,
