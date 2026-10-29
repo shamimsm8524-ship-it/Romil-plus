@@ -13,7 +13,7 @@ const TERMINAL_STATES = new Set([
   "DESIERTO",
   "DESIERTA",
 ]);
-const ACTIVE_STATES = new Set(["EN PROCESO", "VIGENTE", "ABIERTA", "ABIERTO"]);
+const ACTIVE_STATES = new Set(["NUEVO", "EN PROCESO", "VIGENTE", "ABIERTA", "ABIERTO"]);
 
 function decodeHtml(value: string) {
   const namedEntities: Record<string, string> = {
@@ -144,18 +144,34 @@ function inferCategory(title: string, career: string): PublicJobCategory {
   return "Varias";
 }
 
+function isProfessionalPractice(processType: string, rawTitle: string) {
+  if (processType !== "PRA") return false;
+  return /^PR[ÁA]CTICAS\s+PROFESIONALES\b/i.test(rawTitle.trim());
+}
+
 function parseSunatPage(html: string): PublicOpportunity[] {
   const text = htmlToText(html);
   const today = limaTodayUtc();
   const verifiedAt = limaDateLabel();
   const jobs: PublicOpportunity[] = [];
   const processPattern =
-    /CAS\s+N[º°]\s*(\d+)\s*-\s*(\d{4})\s+(.+?)\s+Fecha de Inicio:\s*(\d{2}-\d{2}-\d{4})\s+a Fecha Fin:\s*(\d{2}-\d{2}-\d{4})\s+Ciudad:\s*(.+?)\.\s+(?:Carrera:\s*(.+?)\.\s+)?Estado:\s*(EN PROCESO|CONCLUIDAS|CONCLUIDA|CONCLUIDO|CANCELADAS|CANCELADA|CANCELADO|DESIERTO|DESIERTA|VIGENTE|ABIERTA|ABIERTO)/gi;
+    /(CAS|PRA)\s+N[º°]\s*(\d+)\s*-\s*(\d{4})\s+(.+?)\s+Fecha de Inicio:\s*(\d{2}-\d{2}-\d{4})\s+a Fecha Fin:\s*(\d{2}-\d{2}-\d{4})\s+Ciudad:\s*(.+?)\.\s+(?:Carrera:\s*(.+?)\.\s+)?Estado:\s*(NUEVO|EN PROCESO|CONCLUIDAS|CONCLUIDA|CONCLUIDO|CANCELADAS|CANCELADA|CANCELADO|DESIERTO|DESIERTA|VIGENTE|ABIERTA|ABIERTO)/gi;
 
   let match: RegExpExecArray | null;
   while ((match = processPattern.exec(text)) !== null) {
-    const [, processNumber, year, rawTitle, startDate, endDate, rawCity, rawCareer = ""] = match;
-    const rawState = match[8]?.toLocaleUpperCase("es").trim() ?? "";
+    const [
+      ,
+      processType,
+      processNumber,
+      year,
+      rawTitle,
+      startDate,
+      endDate,
+      rawCity,
+      rawCareer = "",
+      rawStateValue,
+    ] = match;
+    const rawState = rawStateValue.toLocaleUpperCase("es").trim();
     const end = parseDate(endDate);
     const start = parseDate(startDate);
 
@@ -163,21 +179,29 @@ function parseSunatPage(html: string): PublicOpportunity[] {
     if (TERMINAL_STATES.has(rawState) || !ACTIVE_STATES.has(rawState)) continue;
     if (end < today) continue;
 
+    // RomilPlus publica los procesos CAS y, dentro de PRA, únicamente las
+    // prácticas profesionales. Las prácticas preprofesionales quedan fuera
+    // para no mezclar modalidades distintas en esta sincronización.
+    if (processType === "PRA" && !isProfessionalPractice(processType, rawTitle)) continue;
+
     const readableTitle = titleCase(rawTitle.trim());
     const career = rawCareer.trim().replace(/\s+/g, " ");
     const city = rawCity.trim().replace(/\s+/g, " ");
-    const processCode = `CAS Nº ${processNumber} - ${year}`;
+    const processCode = `${processType} Nº ${processNumber} - ${year}`;
     const specificSearch = `${SUNAT_SEARCH_URL}?busqueda=${encodeURIComponent(
       processCode,
     )}&form_id=mysearch_form&op=Buscar`;
+    const isPractice = processType === "PRA";
 
     jobs.push({
-      slug: `sunat-cas-${processNumber}-${year}-${slugify(readableTitle)}`,
+      slug: `sunat-${processType.toLocaleLowerCase("es")}-${processNumber}-${year}-${slugify(readableTitle)}`,
       entity: "SUNAT",
       title: `${processCode} · ${readableTitle}`,
       category: inferCategory(readableTitle, career),
       status: start > today ? "Próxima" : "Vigente",
-      regime: "CAS · SUNAT · sincronización automática",
+      regime: isPractice
+        ? "Prácticas profesionales · SUNAT · sincronización automática"
+        : "CAS · SUNAT · sincronización automática",
       location: /^ver convocatoria$/i.test(city) ? "Según convocatoria SUNAT" : titleCase(city),
       vacancies: null,
       publishedAt: displayDate(startDate),
@@ -186,8 +210,12 @@ function parseSunatPage(html: string): PublicOpportunity[] {
       sourceUrl: specificSearch,
       sourceLabel: "SUNAT · sincronización automática",
       summary: career
-        ? `Carreras admitidas según el portal oficial de SUNAT: ${career}.`
-        : "Convocatoria detectada directamente en el portal oficial Únete a la SUNAT. Revisa las bases antes de postular.",
+        ? isPractice
+          ? `Prácticas profesionales SUNAT. Carreras admitidas según el portal oficial: ${career}.`
+          : `Carreras admitidas según el portal oficial de SUNAT: ${career}.`
+        : isPractice
+          ? "Convocatoria de prácticas profesionales detectada directamente en el portal oficial Únete a la SUNAT. Revisa las bases antes de postular."
+          : "Convocatoria detectada directamente en el portal oficial Únete a la SUNAT. Revisa las bases antes de postular.",
     });
   }
 
