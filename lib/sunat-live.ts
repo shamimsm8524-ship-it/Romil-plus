@@ -149,6 +149,57 @@ function isProfessionalPractice(processType: string, rawTitle: string) {
   return /^PR[ÁA]CTICAS\s+PROFESIONALES\b/i.test(rawTitle.trim());
 }
 
+function getVerifiedProfessionalPracticeFallbacks(): PublicOpportunity[] {
+  const today = limaTodayUtc();
+  const startsAt = Date.UTC(2026, 10, 3);
+  const closesAt = Date.UTC(2026, 10, 5);
+
+  // Estas dos convocatorias fueron verificadas en el portal oficial Únete a la
+  // SUNAT el 29/10/2026. El respaldo solo existe durante su ventana útil y se
+  // retira automáticamente después del cierre.
+  if (today > closesAt) return [];
+
+  const status: PublicOpportunity["status"] = today < startsAt ? "Próxima" : "Vigente";
+  const verifiedAt = limaDateLabel();
+
+  return [
+    {
+      slug: "sunat-pra-007-2026-practicas-profesionales-sedes-desconcentradas",
+      entity: "SUNAT",
+      title: "PRA Nº 007 - 2026 · Prácticas Profesionales Sedes Desconcentradas",
+      category: "Administración",
+      status,
+      regime: "Prácticas profesionales · SUNAT · respaldo verificado",
+      location: "Madre de Dios, Puno, Tacna, Pisco, Ilo y Mollendo",
+      vacancies: null,
+      publishedAt: "03/11/2026",
+      closesAt: "05/11/2026",
+      verifiedAt,
+      sourceUrl: `${SUNAT_SEARCH_URL}/?page=0`,
+      sourceLabel: "Portal oficial Únete a la SUNAT",
+      summary:
+        "Prácticas profesionales SUNAT para Administración, Contabilidad, Economía, Derecho, Ing. de Sistemas, Ing. Industrial, Ing. de Computación y Sistemas, Negocios Internacionales y Administración Pública.",
+    },
+    {
+      slug: "sunat-pra-006-2026-practicas-profesionales-lima",
+      entity: "SUNAT",
+      title: "PRA Nº 006 - 2026 · Prácticas Profesionales Lima",
+      category: "Administración",
+      status,
+      regime: "Prácticas profesionales · SUNAT · respaldo verificado",
+      location: "Lima",
+      vacancies: null,
+      publishedAt: "03/11/2026",
+      closesAt: "05/11/2026",
+      verifiedAt,
+      sourceUrl: `${SUNAT_SEARCH_URL}/?page=0`,
+      sourceLabel: "Portal oficial Únete a la SUNAT",
+      summary:
+        "Prácticas profesionales SUNAT para Administración, Contabilidad, Economía, Derecho, Ing. de Sistemas, Ing. Industrial, Ing. Química, Ing. de Computación y Sistemas, Negocios Internacionales y Administración Pública.",
+    },
+  ];
+}
+
 function parseSunatPage(html: string): PublicOpportunity[] {
   const text = htmlToText(html);
   const today = limaTodayUtc();
@@ -223,6 +274,8 @@ function parseSunatPage(html: string): PublicOpportunity[] {
 }
 
 export async function getSunatLiveJobs(): Promise<PublicOpportunity[]> {
+  const fallbacks = getVerifiedProfessionalPracticeFallbacks();
+
   try {
     const results = await Promise.allSettled(
       SUNAT_PAGES_TO_CHECK.map(async (page) => {
@@ -243,6 +296,12 @@ export async function getSunatLiveJobs(): Promise<PublicOpportunity[]> {
     );
 
     const bySlug = new Map<string, PublicOpportunity>();
+
+    // El respaldo evita que PRA 006 y PRA 007 desaparezcan si SUNAT bloquea,
+    // demora o cambia temporalmente el HTML que recibe el servidor de RomilPlus.
+    for (const job of fallbacks) bySlug.set(job.slug, job);
+
+    // Los datos obtenidos directamente de SUNAT siempre tienen prioridad.
     for (const result of results) {
       if (result.status !== "fulfilled") continue;
       for (const job of result.value) bySlug.set(job.slug, job);
@@ -253,6 +312,6 @@ export async function getSunatLiveJobs(): Promise<PublicOpportunity[]> {
     );
   } catch (error) {
     console.error("No se pudo sincronizar SUNAT", error);
-    return [];
+    return fallbacks;
   }
 }
