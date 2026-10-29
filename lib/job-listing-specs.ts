@@ -178,6 +178,25 @@ const verifiedPrivateListingSpecs: Record<string, JobListingSpecs> = {
   },
 };
 
+const verifiedSunatPracticeListingSpecs: Record<string, JobListingSpecs> = {
+  "sunat-pra-007-2026-practicas-profesionales-sedes-desconcentradas": {
+    employmentType: "Prácticas profesionales",
+    hours: "40 horas semanales",
+    schedule: "Lunes a viernes · 08:30 a. m. a 04:30 p. m. · incluye 1 hora de refrigerio",
+    salary: "S/ 1,600 mensuales",
+    experience: "No se indica experiencia laboral previa como requisito",
+    education: "Egresado universitario de una de las carreras admitidas · Word, PowerPoint y Excel nivel intermedio",
+  },
+  "sunat-pra-006-2026-practicas-profesionales-lima": {
+    employmentType: "Prácticas profesionales",
+    hours: "40 horas semanales",
+    schedule: "Lunes a viernes · 08:30 a. m. a 04:30 p. m. · incluye 1 hora de refrigerio",
+    salary: "S/ 1,600 mensuales",
+    experience: "No se indica experiencia laboral previa como requisito",
+    education: "Egresado universitario de una de las carreras admitidas · Word, PowerPoint y Excel nivel intermedio",
+  },
+};
+
 const detailedPublicListingSpecs = Object.fromEntries(
   detailedPublicJobs.map((job) => {
     const details = job.details;
@@ -200,6 +219,7 @@ const detailedPublicListingSpecs = Object.fromEntries(
 const knownSpecs: Record<string, JobListingSpecs> = {
   ...detailedPublicListingSpecs,
   ...verifiedPrivateListingSpecs,
+  ...verifiedSunatPracticeListingSpecs,
 };
 
 const genericSpecs: JobListingSpecs = {

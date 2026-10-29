@@ -171,14 +171,14 @@ function getVerifiedProfessionalPracticeFallbacks(): PublicOpportunity[] {
       status,
       regime: "Prácticas profesionales · SUNAT · respaldo verificado",
       location: "Madre de Dios, Puno, Tacna, Pisco, Ilo y Mollendo",
-      vacancies: null,
-      publishedAt: "03/11/2026",
+      vacancies: 11,
+      publishedAt: "23/10/2026",
       closesAt: "05/11/2026",
       verifiedAt,
       sourceUrl: `${SUNAT_SEARCH_URL}/?page=0`,
       sourceLabel: "Portal oficial Únete a la SUNAT",
       summary:
-        "Prácticas profesionales SUNAT para Administración, Contabilidad, Economía, Derecho, Ing. de Sistemas, Ing. Industrial, Ing. de Computación y Sistemas, Negocios Internacionales y Administración Pública.",
+        "Prácticas profesionales SUNAT para Administración, Contabilidad, Economía, Derecho, Ing. de Sistemas, Ing. Industrial, Ing. de Computación y Sistemas, Negocios Internacionales y Administración Pública. Postulación virtual del 03/11/2026 al 05/11/2026.",
     },
     {
       slug: "sunat-pra-006-2026-practicas-profesionales-lima",
@@ -188,14 +188,14 @@ function getVerifiedProfessionalPracticeFallbacks(): PublicOpportunity[] {
       status,
       regime: "Prácticas profesionales · SUNAT · respaldo verificado",
       location: "Lima",
-      vacancies: null,
-      publishedAt: "03/11/2026",
+      vacancies: 28,
+      publishedAt: "23/10/2026",
       closesAt: "05/11/2026",
       verifiedAt,
       sourceUrl: `${SUNAT_SEARCH_URL}/?page=0`,
       sourceLabel: "Portal oficial Únete a la SUNAT",
       summary:
-        "Prácticas profesionales SUNAT para Administración, Contabilidad, Economía, Derecho, Ing. de Sistemas, Ing. Industrial, Ing. Química, Ing. de Computación y Sistemas, Negocios Internacionales y Administración Pública.",
+        "Prácticas profesionales SUNAT para Administración, Contabilidad, Economía, Derecho, Ing. de Sistemas, Ing. Industrial, Ing. Química, Ing. de Computación y Sistemas, Negocios Internacionales y Administración Pública. Postulación virtual del 03/11/2026 al 05/11/2026.",
     },
   ];
 }
@@ -301,10 +301,25 @@ export async function getSunatLiveJobs(): Promise<PublicOpportunity[]> {
     // demora o cambia temporalmente el HTML que recibe el servidor de RomilPlus.
     for (const job of fallbacks) bySlug.set(job.slug, job);
 
-    // Los datos obtenidos directamente de SUNAT siempre tienen prioridad.
+    // Los datos obtenidos directamente de SUNAT tienen prioridad, pero para
+    // PRA 006 y PRA 007 conservamos los datos verificados que no aparecen en
+    // la tabla resumida del portal (vacantes y fecha original de publicación).
     for (const result of results) {
       if (result.status !== "fulfilled") continue;
-      for (const job of result.value) bySlug.set(job.slug, job);
+      for (const job of result.value) {
+        const verifiedFallback = bySlug.get(job.slug);
+        if (verifiedFallback && job.slug.startsWith("sunat-pra-")) {
+          bySlug.set(job.slug, {
+            ...verifiedFallback,
+            ...job,
+            vacancies: job.vacancies ?? verifiedFallback.vacancies,
+            publishedAt: verifiedFallback.publishedAt,
+            summary: verifiedFallback.summary,
+          });
+          continue;
+        }
+        bySlug.set(job.slug, job);
+      }
     }
 
     return Array.from(bySlug.values()).sort((a, b) =>
