@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ArrowRight, Cpu, GraduationCap, Landmark, ShieldCheck, Wrench } from "lucide-react";
 import StateJobsExplorer from "@/components/StateJobsExplorer";
+import SunatSections from "@/components/SunatSections";
 import { detailedPublicJobs } from "@/lib/job-details";
 import { privateVerifiedJobs } from "@/lib/private-verified-jobs";
 import { getSunatLiveJobs } from "@/lib/sunat-live";
@@ -58,7 +59,7 @@ export default async function ConvocatoriasPage() {
       job.slug !== "pardos-chicken-puestos-operativos-2026" &&
       !detailedSlugSet.has(job.slug),
   );
-  const jobsForExplorer = [...privateJobsForExplorer, ...sunatJobs, ...detailedPublicJobs].sort(
+  const jobsForExplorer = [...privateJobsForExplorer, ...detailedPublicJobs].sort(
     (a, b) =>
       publishedAtTimestamp(b.verifiedAt) - publishedAtTimestamp(a.verifiedAt) ||
       publishedAtTimestamp(b.publishedAt) - publishedAtTimestamp(a.publishedAt),
@@ -130,6 +131,8 @@ export default async function ConvocatoriasPage() {
         <a className="rounded-xl border border-[#dbe5f1] bg-[#f5f9ff] px-4 py-3 hover:underline" href="/trabajos/lima">Ofertas laborales en Lima</a>
         <a className="rounded-xl border border-[#dbe5f1] bg-[#f5f9ff] px-4 py-3 hover:underline" href="/trabajos/mineria">Trabajos en minería en Perú</a>
       </nav>
+
+      <SunatSections jobs={sunatJobs} />
 
       <div id="listado" className="mx-auto w-full max-w-[1180px] px-4 pb-12 sm:px-6 lg:px-6">
         <StateJobsExplorer jobs={jobsForExplorer} detailSlugs={detailSlugs} />
